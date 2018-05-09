@@ -890,7 +890,6 @@ class WechatApiController extends Controller
     public function order_submit(Request $request)
     {
 
-        echo(rand(100000,999999));exit;
         // 用户id
         $user_id = $request->user_id;
         // 零壹id
@@ -972,7 +971,8 @@ class WechatApiController extends Controller
                 $sort = 100001 + $num;
                 // 订单号
                 $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
-
+                // 提取码
+                $rand = rand(100000,999999);
                 // 数据处理
                 $orderData = [
                     'ordersn' => $ordersn,
@@ -982,6 +982,7 @@ class WechatApiController extends Controller
                     'simple_id' => $store_id,
                     'user_id' => $user_id,
                     'selftake_mobile' => $self_take_info['mobile'],
+                    'selftake_code' => $rand,
                     'status' => '0',
                 ];
                 // 添加入订单表
