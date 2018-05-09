@@ -110,7 +110,6 @@ class WxController extends Controller
         // 退款通知地址
 //        $data["notify_url"] = $param["notify_url"];
 
-        dd($data);
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
     }
