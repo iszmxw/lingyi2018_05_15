@@ -949,7 +949,6 @@ class WechatApiController extends Controller
                     'total' => $value['num'],
                     'price' => $value['goods_price'],
                 ];
-                print_r($goodsdata);exit;
                 SimpleOnlineGoods::addSimpleOnlineGoods($goodsdata);//添加商品快照
             }
             // 说明下单减库存
