@@ -39,7 +39,7 @@ $(function(){
                     //appendTestData(listDom, 10, true);
                     //miniRefresh.endDownLoading(true);
                     console.log("asdas");
-                        selectgoods(0,"");
+
                         miniRefresh.endDownLoading(true);
                 }, 1000);
             }
@@ -49,6 +49,7 @@ $(function(){
             callback: function() {
                 setTimeout(function() {
                     console.log("000");
+                    selectgoods(0,"");
                     //appendTestData(listDom, 10);
                     miniRefresh.endUpLoading(true);
                 }, 1000);
