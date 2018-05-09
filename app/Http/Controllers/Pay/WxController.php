@@ -27,7 +27,8 @@ class WxController extends Controller
     private $certPemPath = "./uploads/pem/1503376371/apiclient_cert.pem";
     // 支付证书私钥
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
-
+    // 通知地址
+    private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     public $wechat;
 
     public function __construct()
@@ -47,9 +48,10 @@ class WxController extends Controller
     {
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01 * 100;
+        $data["order_money"] = 0.01;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $res = $this->unifiedOrder($data);
         echo $res;
     }
@@ -94,17 +96,20 @@ class WxController extends Controller
     {
         $data["body"] = $param["desc"];
         $data["out_trade_no"] = $param["order_num"];
-        $data["total_fee"] = $param["order_money"];
+        $data["total_fee"] = $param["order_money"] * 100;
         $data["spbill_create_ip"] = $param["ip_address"];
         // 交易类型
         $data["trade_type"] = $param["trade_type"];
+        // 通知地址
+        $data["notify_url"] = $this->notify_url;
 
-        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
+        $data["openid"] = $param["openid"];
 
 //        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
-        dump($res);exit;
+        dump($res);
+        exit;
         return $this->resDispose($res);
     }
 
@@ -144,8 +149,8 @@ class WxController extends Controller
         $data["refund_fee"] = $param["refund_money"] * 100;
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
-        // 退款通知地址
-//        $data["notify_url"] = $param["notify_url"];
+        // 通知地址
+        $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
