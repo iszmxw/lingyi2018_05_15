@@ -903,7 +903,7 @@ class WechatApiController extends Controller
         // 备注
         $remarks = $request->remarks;
         // 收货信息
-        $address_info = $request->address_info;
+        $address_info = json_decode($request->address_info, TRUE);
         // 取货信息
         $self_take_info = $request->self_take_info;
 
