@@ -82,7 +82,7 @@ $(function(){
         //     //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
         //
         //     //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-        //     mescroll.endSuccess(curPageData.length);
+            mescroll.endSuccess(20);
         //
         //     //设置列表数据
         //     setListData(curPageData, true);
