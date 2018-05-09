@@ -1158,11 +1158,12 @@ class WechatApiController extends Controller
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
         $config = SimpleConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
-        echo 1;exit;
 
         DB::beginTransaction();
         try {
             if ($status == '1') {
+                echo 1;exit;
+
                 // 订单快照中的商品
                 $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
