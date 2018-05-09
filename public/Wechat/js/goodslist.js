@@ -138,7 +138,7 @@ $(function(){
                     $.post(
                     	goodslist_url,
                         {'fansmanage_id': fansmanage_id,'_token':_token,'store_id':store_id,
-                        'category_id':category_id,'keyword':keyword,'limit':1},
+                        'category_id':category_id,'keyword':keyword_val,'limit':1},
                     	function(json){
                             var str = "";
 
@@ -153,7 +153,7 @@ $(function(){
                                     json.data.goodslist[i].number,json.data.goodslist[i].id);
                                 }
                                 var $goodslist = $("#goodslist");
-                                $goodslist.empty();
+                                //$goodslist.empty();
                                 $goodslist.append(str);
                                 $.hidePreloader();
                                 $("#limit").val(++limit);
