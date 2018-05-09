@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Retail;
 use App\Http\Controllers\Controller;
 use App\Models\OperationLog;
 use App\Models\Organization;
-use App\Models\RetailCheckOrder;
+use App\Models\RetailOrder;
 use App\Models\RetailGoods;
 use App\Models\RetailLossOrder;
 use App\Models\RetailPurchaseOrder;
@@ -72,7 +72,7 @@ class BillingController extends Controller
             'retail_id' => $admin_data['organization_id'],
             'fansmanage_id' => $fansmanage_id,
         ];
-        $list = RetailCheckOrder::getPaginage($where, $search_data, '10', 'created_at', 'DESC'); //订单信息
+        $list = RetailOrder::getPaginage($where, $search_data, '10', 'created_at', 'DESC'); //订单信息
         return view('Retail/Billing/check_goods', ['ordersn' => $ordersn, 'list' => $list, 'admin_data' => $admin_data, 'menu_data' => $menu_data, 'son_menu_data' => $son_menu_data, 'route_name' => $route_name]);
     }
 
@@ -99,7 +99,7 @@ class BillingController extends Controller
     {
         $order_id = $request->get('id');        //会员标签id
         $status = $request->status;                 //冻结或者解锁
-        $order = RetailCheckOrder::getOne(['id' => $order_id])->first();    //获取订单信息
+        $order = RetailOrder::getOne(['id' => $order_id])->first();    //获取订单信息
         return view('Retail/Billing/check_list_confirm', ['order' => $order, 'status' => $status]);
     }
 
@@ -113,7 +113,7 @@ class BillingController extends Controller
         } elseif ($type == 3) {
             $order = RetailLossOrder::getOne(['id' => $order_id])->first();       //获取订单信息
         } elseif ($type == 4) {
-            $order = RetailCheckOrder::getOne(['id' => $order_id])->first();       //获取订单信息
+            $order = RetailOrder::getOne(['id' => $order_id])->first();       //获取订单信息
         }
         return view('Retail/Billing/order_list_details', ['order' => $order]);
     }
@@ -249,8 +249,8 @@ class BillingController extends Controller
         $route_name = $request->path();                         //获取当前的页面路由
         $order_id = $request->get('order_id');        //会员标签id
         $status = $request->get('status');            //接收订单当前状态
-        $order = RetailCheckOrder::getOne(['id' => $order_id])->first();    //获取订单信息
-        $order_goods = $order->RetailCheckOrderGoods;    //订单对应的商品
+        $order = RetailOrder::getOne(['id' => $order_id])->first();    //获取订单信息
+        $order_goods = $order->RetailOrderGoods;    //订单对应的商品
         $type = $order->type;                               //订单类型
         if ($status == 0) {
             DB::beginTransaction();
@@ -271,7 +271,7 @@ class BillingController extends Controller
                     ];
                     RetailStockLog::addStockLog($stock_data);
                 }
-                RetailCheckOrder::editOrder(['id' => $order_id], ['status' => '1']);
+                RetailOrder::editOrder(['id' => $order_id], ['status' => '1']);
                 //添加操作日志
                 if ($admin_data['is_super'] == 1) {//超级管理员审核订单操作记录
                     OperationLog::addOperationLog('1', '1', '1', $route_name, '在零售管理系统审核了盘点订单！');//保存操作记录

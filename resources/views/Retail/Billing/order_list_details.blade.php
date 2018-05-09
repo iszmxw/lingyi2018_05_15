@@ -65,7 +65,7 @@
                                 </tr>
                             @endforeach
                         @elseif($order->type == 4)
-                            @foreach($order->RetailCheckOrderGoods as $key=>$val)
+                            @foreach($order->RetailOrderGoods as $key=>$val)
                                 <tr>
                                     <td>{{$val->id}}</td>
                                     <td><a href="{{url('retail/goods/goods_edit?goods_id='.$val->goods_id)}}">{{$val->title}}</a></td>

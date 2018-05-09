@@ -14,14 +14,14 @@ class RetailOrderGoods extends Model{
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
 
 
-    //和RetailCheckOrder表多对一的关系
+    //和RetailOrder表多对一的关系
     public function RetailOrder(){
         return $this->belongsTo('App\Models\RetailOrder', 'order_id','id');
     }
 
     public static function getOne($where)
     {
-        $model = self::with('RetailCheckOrder');
+        $model = self::with('RetailOrder');
         return $model->where($where)->get();
     }
 
