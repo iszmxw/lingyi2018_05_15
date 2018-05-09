@@ -209,7 +209,6 @@ function selectgoods(category,keyword_val){
                         $goodslist.empty();
                         $goodslist.append(str);
                             $.hidePreloader();
-                            dropload.resetload();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
