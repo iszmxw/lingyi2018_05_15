@@ -53,12 +53,12 @@ $(function(){
         //联网加载数据
         //getListDataFromNet(0, 1, function(data){
             //联网成功的回调,隐藏下拉刷新的状态
-            mescroll.endSuccess();
+            //mescroll.endSuccess();
             //设置列表数据
             //setListData(data, false);
         //}, function(){
             //联网失败的回调,隐藏下拉刷新的状态
-            mescroll.endErr();
+            //mescroll.endErr();
         //});
     }
 
@@ -87,7 +87,7 @@ $(function(){
             //setListData(curPageData, true);
         //}, function(){
             //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-            mescroll.endErr();
+            //mescroll.endErr();
         //});
     }
 });
