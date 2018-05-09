@@ -966,7 +966,7 @@ class WechatApiController extends Controller
                 'city_name' => $address_info['city_name'],
                 'district_name' => $address_info['district_name'],
                 'address' => $address_info['address'],
-                'relaname' => $address_info['relaname'],
+                'realname' => $address_info['realname'],
                 'mobile' => $address_info['relaname'],
             ];
             SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
