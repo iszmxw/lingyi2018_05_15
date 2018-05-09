@@ -143,7 +143,9 @@ class WxController extends Controller
         $data["bill_date"] = $param["bill_date"];
         $data["bill_type"] = $param["bill_type"];
         $res = $this->wechat->downloadBill($data);
-        return $this->resDispose($res);
+//        return $this->resDispose($res);
+//        return $res;
+        echo $res;
     }
 
 
