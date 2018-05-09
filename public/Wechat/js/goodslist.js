@@ -33,7 +33,7 @@ $(function(){
 
     $('.goodslist').dropload({
         scrollArea : window,
-        autoLoad   : true,
+        //autoLoad   : true,
         domDown    :{
                 domClass : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
