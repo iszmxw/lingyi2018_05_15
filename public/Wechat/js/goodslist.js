@@ -30,7 +30,7 @@ $(function(){
 		}
 	);
     //查询商品列表和购物车列表
-    selectgoods("0","");
+    //selectgoods("0","");
     //创建MeScroll对象
     var mescroll = new MeScroll("goodslist", {
         down: {
@@ -64,7 +64,8 @@ $(function(){
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
-        console.log("111");
+        //查询商品列表和购物车列表
+        selectgoods("0","");
         //联网加载数据
         // getListDataFromNet(page.num, page.size, function(curPageData){
         //     //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
