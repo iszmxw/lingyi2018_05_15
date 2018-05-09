@@ -32,16 +32,18 @@ $(function(){
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     selectgoods(0,"");
-    
+
     $('.goodslist').dropload({
         scrollArea : window,
         domDown    :{
                 domClass : 'dropload-down',
-                domRefresh : '<div class="dropload-refresh">↑上拉加载00更多</div>',
-                domLoad : '<div class="dropload-load">○加载0中...</div>',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad : '<div class="dropload-load">加载中...</div>',
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
         loadDownFn : function(me){
+            // 无数据
+                    me.noData();
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
