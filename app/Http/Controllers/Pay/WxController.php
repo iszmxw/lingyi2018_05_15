@@ -27,7 +27,8 @@ class WxController extends Controller
     private $certPemPath = "./uploads/pem/1503376371/apiclient_cert.pem";
     // 支付证书私钥
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
-
+    // 通知地址
+    private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     public $wechat;
 
     public function __construct()
@@ -98,8 +99,8 @@ class WxController extends Controller
         $data["spbill_create_ip"] = $param["ip_address"];
         // 交易类型
         $data["trade_type"] = $param["trade_type"];
-
-        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
+        // 通知地址
+        $data["notify_url"] = $this->notify_url;
 
 //        dd($data);
 
@@ -145,7 +146,7 @@ class WxController extends Controller
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
         // 退款通知地址
-//        $data["notify_url"] = $param["notify_url"];
+        $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
