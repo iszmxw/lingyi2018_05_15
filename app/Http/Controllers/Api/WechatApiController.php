@@ -1165,6 +1165,7 @@ class WechatApiController extends Controller
                 $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
             } else {
                 $goodsdata = SimpleSelftakeGoods::where([['order_id', $order_id]])->get();
+                dd($goodsdata);
             }
             if ($status == '1') {
                 foreach ($goodsdata as $key => $value) {
