@@ -30,7 +30,6 @@ $(function(){
             }
 		}
 	);
-    selectgoods(0,"");
     var miniRefresh = new MiniRefresh({
         container: '#minirefresh',
         down: {
@@ -40,6 +39,8 @@ $(function(){
                     //appendTestData(listDom, 10, true);
                     //miniRefresh.endDownLoading(true);
                     console.log("asdas");
+                        selectgoods(0,"");
+                        miniRefresh.endDownLoading(true);
                 }, 1000);
             }
         },
