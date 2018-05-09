@@ -64,7 +64,8 @@ class WxController extends Controller
 
         $res = $this->nativeOrder($data);
         header('Content-Type: image/jpeg');
-        echo $res;
+
+        echo "<img src='{$res}'>";
     }
 
     public function test14()
