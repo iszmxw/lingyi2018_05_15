@@ -20,6 +20,7 @@ use App\Models\SimpleGoods;
 use App\Models\SimpleGoodsThumb;
 use App\Models\SimpleSelftakeGoods;
 use App\Models\SimpleSelftakeOrder;
+use App\Models\SimpleSelftakeUser;
 use App\Models\SimpleStock;
 use App\Models\SimpleStockLog;
 use App\Services\ZeroneRedis\ZeroneRedis;
@@ -922,7 +923,7 @@ class WechatApiController extends Controller
 
         DB::beginTransaction();
         try {
-            if($shipping_type == 1){
+            if ($shipping_type == 1) {
                 // 查询订单今天的数量
                 $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
                 $sort = 100001 + $num;
@@ -942,7 +943,7 @@ class WechatApiController extends Controller
                 $order_id = SimpleOnlineOrder::addSimpleOnlineOrder($orderData);
 
                 foreach ($goods_list as $key => $value) {
-                    $details = SimpleGoods::getPluck([['id',$value['goods_id']]],'details');
+                    $details = SimpleGoods::getPluck([['id', $value['goods_id']]], 'details');
                     $goodsdata = [
                         'order_id' => $order_id,
                         'goods_id' => $value['goods_id'],
@@ -966,14 +967,14 @@ class WechatApiController extends Controller
                 ];
                 SimpleOnlineAddress::addSimpleOnlineAddress($address_data);
                 /******运费模板（待完成）**********/
-            }else{
+            } else {
                 // 查询订单今天的数量
                 $num = SimpleSelftakeOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
                 $sort = 100001 + $num;
                 // 订单号
                 $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
                 // 提取码
-                $rand = rand(100000,999999);
+                $rand = rand(100000, 999999);
                 // 数据处理
                 $orderData = [
                     'ordersn' => $ordersn,
@@ -990,7 +991,7 @@ class WechatApiController extends Controller
                 $order_id = SimpleSelftakeOrder::addSimpleSelftakeOrder($orderData);
 
                 foreach ($goods_list as $key => $value) {
-                    $details = SimpleGoods::getPluck([['id',$value['goods_id']]],'details');
+                    $details = SimpleGoods::getPluck([['id', $value['goods_id']]], 'details');
                     $goodsdata = [
                         'order_id' => $order_id,
                         'goods_id' => $value['goods_id'],
@@ -1002,9 +1003,17 @@ class WechatApiController extends Controller
                     ];
                     SimpleSelftakeGoods::addSimpleSelftakeGoods($goodsdata);//添加商品快照
                 }
+
+
+                $selftake_data = [
+                    'order_id' => $order_id,
+                    'sex' => $self_take_info['sex'],
+                    'realname' => $self_take_info['realname'],
+                    'mobile' => $self_take_info['mobile'],
+                    'code' => $rand,
+                ];
+                SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
             }
-
-
             // 说明下单减库存
             if ($stock_type == '1') {
                 // 减库存
@@ -1132,6 +1141,7 @@ class WechatApiController extends Controller
      */
     private function reduce_stock($order_id, $status)
     {
+        echo 111;exit;
         // 订单详情
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
@@ -1206,6 +1216,7 @@ class WechatApiController extends Controller
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
+            dd($e);
             // 事件回滚
             DB::rollBack();
             return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
