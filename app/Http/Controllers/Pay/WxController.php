@@ -61,18 +61,28 @@ class WxController extends Controller
         $res = json_decode($res, true);
         dump($res);
 
+
+        $res = $this->wechat->microPay($res);
+        var_dump($res);
     }
 
     public function test14()
     {
         $data["bill_date"] = 20180508;
         $data["bill_type"] = "ALL";
-        $res = $this->downloadBill($data);
-        echo $res;
+        $this->downloadBill($data);
+
     }
 
     public function demo()
     {
+
+
+        // 下载对账单
+//        $data["bill_date"] = 20180508;
+//        $data["bill_type"] = "ALL";
+//        $this->downloadBill($data);
+
         // 关闭订单
 //        $data["order_num"] = 1503376371;
 //        $res = $this->closeOrder($data);
@@ -146,10 +156,11 @@ class WxController extends Controller
         // 获取数据
         $res = $this->wechat->downloadBill($data);
 
-        var_dump($res);exit;
-//        if($res[]){
-//
-//        }
+        // 判断数据返回结果
+        if($res["return_code"] != "SUCCESS"){
+            return json_encode($res,JSON_UNESCAPED_UNICODE);
+        }
+
         $res = $res["data"];
         // 得到文件名
         $fileName = "./uploads/download.csv";
