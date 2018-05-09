@@ -46,7 +46,7 @@ class WxController extends Controller
     {
         $data["order_num_type"] = 'out_trade_no';
 
-        $data["order_num"] = '150337637120180509095027';
+        $data["order_num"] = '150337637120180509095053';
         // 商户退款单号
         $data["refund_num"] = md5(time());
         // 订单金额
@@ -138,9 +138,14 @@ class WxController extends Controller
     public function resDispose($param)
     {
         if ($param["return_code"] == "SUCCESS") {
-            $res["data"] = $param;
-            $res["return_code"] = 1;
-            $res["return_msg"] = "SUCCESS";
+            if($param["result_code"] == "FAIL") {
+                $res["data"] = $param;
+                $res["return_code"] = 1;
+                $res["return_msg"] = "SUCCESS";
+            }else{
+                $res["return_code"] = 0;
+                $res["return_msg"] = $param["err_code_des"];
+            }
         } else {
             $res["return_code"] = 0;
             $res["return_msg"] = $param["return_msg"];
