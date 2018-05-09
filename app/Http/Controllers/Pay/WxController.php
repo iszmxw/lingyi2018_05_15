@@ -140,12 +140,12 @@ class WxController extends Controller
     {
         if ($param["return_code"] == "SUCCESS") {
             if($param["result_code"] == "FAIL") {
+                $res["return_code"] = 0;
+                $res["return_msg"] = $param["err_code_des"];
+            }else{
                 $res["data"] = $param;
                 $res["return_code"] = 1;
                 $res["return_msg"] = "SUCCESS";
-            }else{
-                $res["return_code"] = 0;
-                $res["return_msg"] = $param["err_code_des"];
             }
         } else {
             $res["return_code"] = 0;
