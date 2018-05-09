@@ -97,7 +97,7 @@ class WxController extends Controller
         $data["spbill_create_ip"] = $param["ip_address"];
         $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 
-        dd($data);
+//        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
         return $this->resDispose($res);
