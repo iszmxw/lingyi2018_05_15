@@ -153,7 +153,7 @@ $(function(){
                                     json.data.goodslist[i].number,json.data.goodslist[i].id);
                                 }
                                 var $goodslist = $("#goodslist");
-                                $goodslist.empty();
+                                //$goodslist.empty();
                                 $goodslist.append(str);
                                 $.hidePreloader();
                                 $("#limit").val(++limit);
