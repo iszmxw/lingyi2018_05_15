@@ -32,7 +32,7 @@ $(function(){
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     //selectgoods(0,"");
-
+            var i = 0;
     $('.goodslist').dropload({
         scrollArea : window,
         domDown    :{
@@ -42,7 +42,7 @@ $(function(){
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
         loadDownFn : function(me){
-            var i = 0;
+
             console.log(i,"++++");
             ++i;
             // $.ajax({
