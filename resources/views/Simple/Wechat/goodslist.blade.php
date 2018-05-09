@@ -39,7 +39,7 @@
 			    </div>
 			</div>
 			<div class="goodslist">
-                <div class="lists" id="goodslist"></div>
+                <ul class="lists" id="goodslist"></ul>
 			</div>
 	    </div>
 	    <div class="cart_bottom">
