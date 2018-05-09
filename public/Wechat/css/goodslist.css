@@ -148,8 +148,8 @@ body{
     color: #999;
 }
 .goodslist{
-	/* width: 100%;
-    height: 100%; */
+	width: 100%;
+    height: auto;
     overflow-y: scroll;
     border-top: 0.05rem solid rgb(241,245,248);
     padding-bottom: 8.0rem;
