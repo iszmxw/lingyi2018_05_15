@@ -149,8 +149,8 @@ body{
 }
 .goodslist{
 	width: 100%;
-    height: auto;
-    overflow-y: auto;
+    height: 100%;
+    overflow: auto;
     border-top: 0.05rem solid rgb(241,245,248);
     padding-bottom: 8.0rem;
 }
