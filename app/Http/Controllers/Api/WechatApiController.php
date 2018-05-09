@@ -907,21 +907,17 @@ class WechatApiController extends Controller
         // 取货信息
         $self_take_info = $request->self_take_info;
 
-
         // 商品信息
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
         foreach ($goods_list as $key => $value) {
-            foreach ($value as $k => $v) {
-                // 查询商品是否下架
-                $goods_status = SimpleGoods::getPluck(['id' => $v['id']], 'status');
-                if ($goods_status == '0') {
-                    return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
-                }
-                $order_price += $v['price'] * $v['num'];
+            // 查询商品是否下架
+            $goods_status = SimpleGoods::getPluck(['id' => $value['goods_id']], 'status');
+            if ($goods_status == '0') {
+                return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
             }
+            $order_price += $value['goods_price'] * $value['num'];
         }
-
         // 查询订单今天的数量
         $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
         $num += 1;
