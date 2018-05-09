@@ -170,7 +170,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         //$goodslist.empty();
                         $goodslist.append(str);
-                        mescroll.endSuccess(20);
+                        //mescroll.endSuccess(20);
             		}else if (json.status == 0) {
                         alert(msg);
                     }
