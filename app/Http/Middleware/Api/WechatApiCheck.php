@@ -83,7 +83,10 @@ class WechatApiCheck
                 $re = $this->checkselftakeStatus($request);
                 return self::format_response($re, $next);
                 break;
-
+            case "api/wechatApi/order_submit"://删除编辑取货信息提交数据
+                $re = $this->checkOrderSubmit($request);
+                return self::format_response($re, $next);
+                break;
 
         }
         return $next($request);
@@ -382,6 +385,36 @@ class WechatApiCheck
         }
         return self::res(1, $request);
     }
+
+    /**
+     * 检测删除用户收货地址提交数据
+     */
+    public function checkOrderSubmit($request)
+    {
+        if (empty($request->input('user_id'))) {
+            return self::res(0, response()->json(['msg' => '用户ID不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('zerone_user_id'))) {
+            return self::res(0, response()->json(['msg' => '用户零壹id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('fansmanage_id'))) {
+            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('store_id'))) {
+            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty(json_decode($request->input('goods_list'), TRUE))) {
+            return self::res(0, response()->json(['msg' => '商品数据不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('shipping_type'))) {
+            return self::res(0, response()->json(['msg' => '配送方式不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('stock_type'))) {
+            return self::res(0, response()->json(['msg' => '库存扣减方式不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
+
 
 
     /**
