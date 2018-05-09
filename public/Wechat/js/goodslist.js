@@ -57,7 +57,9 @@ $(function(){
             //setListData(data, false);
         //}, function(){
             //联网失败的回调,隐藏下拉刷新的状态
-            mescroll.endErr();
+            setTimeout(function(){
+                mescroll.endErr();
+            },1000);
         //});
     }
 
