@@ -72,7 +72,7 @@
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/selectshop.js" charset='utf-8'></script>
     <script type="text/javascript">
      wx.config({
-	      debug: false,
+	      debug: true,
           appId:'{{$appId}}',
           timestamp: '{{$timestamp}}',
           nonceStr: '{{$nonceStr}}',
