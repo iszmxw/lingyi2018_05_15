@@ -52,9 +52,9 @@ class WxController extends Controller
     {
 
         // jsapi 下单
-        $wechat = new WechatController();
-        $wechat->getSignPackage();
-        $signPackage = request()->get("zerone_jssdk_info");
+//        $wechat = new WechatController();
+//        $wechat->getSignPackage();
+//        $signPackage = request()->get("zerone_jssdk_info");
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
         $data["order_money"] = 0.01;
