@@ -50,67 +50,32 @@ class WxController extends Controller
 
     public function test13()
     {
-        // jsapi 下单
-//        $wechat = new WechatController();
-//        $wechat->getSignPackage();
-//        $signPackage = request()->get("zerone_jssdk_info");
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01;
+        $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "NATIVE";
+        $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
+        $res = $this->unifiedOrder($data);
+        $res = json_decode($res, true);
+        dump($res);
 
-        $res = $this->nativeOrder($data);
-//        header('Content-Type: image/jpeg');
-        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
-    }
-
-    public function test14()
-    {
-        echo "<img src='http://project01.laravel.xin/pay/sft/test15'>";
-    }
-
-    public function test15()
-    {
-        // 实例化图片
-        $qrCode = new QrCode("//www.baidu.com");
-        $qrCode->setSize(300);
-
-        // 设置图片格式
-        $qrCode->setWriterByName('png');
-        // 设置图片边距
-        $qrCode->setMargin(10);
-        // 设置编码方式
-        $qrCode->setEncoding('UTF-8');
-        //
-        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
-
-        // 设置二维码背部形状颜色
-        $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
-        // 设置背景颜色
-        $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
-
-        // 设置字体还有标注文字
-//        $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
-        // 设置logo 图片
-//        $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
-        // 设置logo 大小
-//        $qrCode->setLogoWidth(150);
-
-        $qrCode->setRoundBlockSize(true);
-        $qrCode->setValidateResult(false);
-
-//        // 直接输出
-//        header("Content-Type: {$qrCode->getContentType()};charset=UTF-8");
-//        return $qrCode->writeString();
-        // 保存文件
-        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 
     public function demo()
     {
+
+//        // native 下单
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.01;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $this->nativeOrder($data);
+//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 
 //        // jsapi 下单
 //        $wechat = new WechatController();
@@ -156,6 +121,11 @@ class WxController extends Controller
     }
 
 
+    /**
+     * 扫码下单接口
+     * @param $param
+     * @return string|void
+     */
     public function nativeOrder($param)
     {
         // 统一下单地址
@@ -169,6 +139,11 @@ class WxController extends Controller
         return $this->qrCode($res["data"]["code_url"]);
     }
 
+    /**
+     * jsApi 接口
+     * @param $param
+     * @return string
+     */
     public function jsApiOrder($param)
     {
         // 统一下单地址
@@ -189,7 +164,24 @@ class WxController extends Controller
         return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * 关闭订单接口
+     * @param $param
+     * @return string
+     */
+    public function closeOrder($param)
+    {
+        // 查询订单类型，和相对应的订单号
+        $data["out_trade_no"] = $param["order_num"];
+        $res = $this->wechat->closeOrder($data);
+        return $this->resDispose($res);
+    }
 
+    /**
+     * 统一下单接口
+     * @param array $param
+     * @return string
+     */
     public function unifiedOrder($param = [])
     {
         // 商品信息
