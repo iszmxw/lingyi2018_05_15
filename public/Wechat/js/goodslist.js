@@ -30,74 +30,27 @@ $(function(){
             }
 		}
 	);
-
-    //创建MeScroll对象
-    mescroll = new MeScroll("goodslist", {
+    var miniRefresh = new MiniRefresh({
+        container: '#minirefresh',
         down: {
-            callback: downCallback //下拉刷新的回调
+            callback: function() {
+                setTimeout(function() {
+                    // 每次下拉刷新后，上拉的状态会被自动重置
+                    //appendTestData(listDom, 10, true);
+                    miniRefresh.endDownLoading(true);
+                }, 1000);
+            }
         },
         up: {
-            callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            isAuto: true,
+            callback: function() {
+                setTimeout(function() {
+                    //appendTestData(listDom, 10);
+                    miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
+                }, 1000);
+            }
         }
     });
-    /*下拉刷新的回调 */
-    function downCallback(){
-        console.log("000");
-        //联网加载数据
-        //getListDataFromNet(0, 1, function(data){
-            //联网成功的回调,隐藏下拉刷新的状态
-            //setTimeout(function(){
-                //mescroll.endSuccess();
-            //},1000);
-
-            //设置列表数据
-            //setListData(data, false);
-        //}, function(){
-            //联网失败的回调,隐藏下拉刷新的状态
-            // setTimeout(function(){
-            //     mescroll.endErr();
-            // },1000);
-        //});
-    }
-
-    /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
-    function upCallback(page){
-                //查询商品列表和购物车列表
-        selectgoods("0","");
-        mescroll.endBySize(5, 5);
-        console.log("111");
-        //查询商品列表和购物车列表
-        //selectgoods("0","");
-        //联网加载数据
-        //getListDataFromNet(page.num, page.size, function(curPageData){
-            //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
-            //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-            //console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
-
-            //方法一(推荐): 后台接口有返回列表的总页数 totalPage
-            //mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
-
-            //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-            //mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
-
-            //方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-            //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
-
-            //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-            //mescroll.endSuccess(curPageData.length);
-            // setTimeout(function(){
-            //             mescroll.endSuccess(20);
-            // },1000);
-
-            //设置列表数据
-            //setListData(curPageData, true);
-        //}, function(){
-            //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-            //setTimeout(function(){
-                //mescroll.endErr();
-            //},1000);
-        //});
-    }
 });
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
