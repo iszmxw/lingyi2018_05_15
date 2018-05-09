@@ -42,6 +42,7 @@ $(function(){
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
         loadDownFn : function(me){
+            console.log("asda");
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
