@@ -32,7 +32,7 @@ $(function(){
     //查询商品列表和购物车列表
     selectgoods("0","");
     //创建MeScroll对象
-    var mescroll = new MeScroll("mescroll", {
+    var mescroll = new MeScroll("goodslist", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
