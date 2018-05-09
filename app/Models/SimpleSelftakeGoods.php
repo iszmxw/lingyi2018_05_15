@@ -9,10 +9,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SimpleSleftakeGoods extends Model
+class SimpleSelftakeGoods extends Model
 {
     use SoftDeletes;
-    protected $table = 'simple_sleftake_goods';
+    protected $table = 'simple_selftake_goods';
     protected $primaryKey = 'id';
     public $timestamps = true;
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
@@ -20,7 +20,7 @@ class SimpleSleftakeGoods extends Model
     //获取列表
     public static function getList($where, $limit = 0, $orderby, $sort = 'DESC')
     {
-        $model = new SimpleSleftakeGoods();
+        $model = new SimpleSelftakeGoods();
         if (!empty($limit)) {
             $model = $model->limit($limit);
         }
@@ -28,9 +28,9 @@ class SimpleSleftakeGoods extends Model
     }
 
     //添加数据
-    public static function addSimpleSleftakeGoods($param)
+    public static function addSimpleSelftakeGoods($param)
     {
-        $model = new SimpleSleftakeGoods();//实例化程序模型
+        $model = new SimpleSelftakeGoods();//实例化程序模型
         $model->order_id = $param['order_id'];//订单id
         $model->goods_id = $param['goods_id'];//商品id
         $model->title = $param['title'];//商品标题快照
