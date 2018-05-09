@@ -50,9 +50,23 @@ class WxController extends Controller
         echo $res;
     }
 
+    public function test14()
+    {
+        $data["order_num_type"] = 'out_trade_no';
+        $data["order_num"] = '150337637120180509095053';
+        $res = $this->orderQuery($data);
+        echo $res;
+    }
 
     public function demo()
     {
+
+        // 订单查询
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        $res = $this->orderQuery($data);
+//        echo $res;
+
 //        // 退款查询接口
 //        $reqData["order_num_type"] = "out_refund_no";
 //        $reqData["order_num"] = "1003022622018050853721122351525761650";
@@ -74,9 +88,17 @@ class WxController extends Controller
 //        echo $res;
     }
 
-    public function unifiedOrder()
-    {
 
+    public function unifiedOrder($param = [])
+    {
+        $data["body"] = $param["desc"];
+        $data["out_trade_no"] = $param["order_num"];
+        $data["total_fee"] = $param["order_money"];
+        $data["spbill_create_ip"] = $param["ip_address"];
+        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
+
+        $res = $this->wechat->unifiedOrder($data);
+        return $this->resDispose($res);
     }
 
 
@@ -174,8 +196,8 @@ class WxController extends Controller
     public function dataDispose($param)
     {
         // 金额处理
-        $total_type = ["total_fee","cash_fee"];
-        foreach($total_type as $val) {
+        $total_type = ["total_fee", "cash_fee"];
+        foreach ($total_type as $val) {
             if (array_key_exists($val, $param)) {
                 $param[$val] = $param[$val] / 100;
             }
