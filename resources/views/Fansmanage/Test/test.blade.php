@@ -59,7 +59,7 @@
     // })
 
     function callpay() {
-
+console.log(123);
 
         wx.chooseWXPay({
             appId: '{{$wxpay["appid"]}}',
