@@ -39,7 +39,6 @@ $(function(){
 
           // 设置flag
           loading = true;
-
           // 模拟1s的加载过程
           setTimeout(function() {
               // 重置加载flag
