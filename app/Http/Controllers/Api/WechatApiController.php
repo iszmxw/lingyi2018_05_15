@@ -1161,11 +1161,12 @@ class WechatApiController extends Controller
 
         DB::beginTransaction();
         try {
-            if ($status == '1') {
-                echo 1;exit;
-
-                // 订单快照中的商品
+            if ($type == 'online') {
                 $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
+            } else {
+                $goodsdata = SimpleSelftakeGoods::where([['order_id', $order_id]])->get();
+            }
+            if ($status == '1') {
                 foreach ($goodsdata as $key => $value) {
                     // 商品详情
                     $goods = SimpleGoods::getOne([['id', $value['goods_id']]]);
@@ -1204,8 +1205,6 @@ class WechatApiController extends Controller
 
                 }
             } else {
-                // 订单快照中的商品
-                $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
                     // 商品剩下的库存
                     $stock = SimpleGoods::getPluck([['id', $value['goods_id']]], 'stock');
