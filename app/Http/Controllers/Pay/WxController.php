@@ -63,9 +63,8 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
 
         $res = $this->nativeOrder($data);
-
 //        header('Content-Type: image/jpeg');
-//        echo "<img src='{$res}'>";
+//        echo "<img src='http://'>";
     }
 
     public function test14()
