@@ -134,8 +134,6 @@ return array(
     'App\\Models\\ProgramModuleNode' => $baseDir . '/app/Models/ProgramModuleNode.php',
     'App\\Models\\Province' => $baseDir . '/app/Models/Province.php',
     'App\\Models\\RetailCategory' => $baseDir . '/app/Models/RetailCategory.php',
-    'App\\Models\\RetailCheckOrder' => $baseDir . '/app/Models/RetailCheckOrder.php',
-    'App\\Models\\RetailCheckOrderGoods' => $baseDir . '/app/Models/RetailCheckOrderGoods.php',
     'App\\Models\\RetailConfig' => $baseDir . '/app/Models/RetailConfig.php',
     'App\\Models\\RetailGoods' => $baseDir . '/app/Models/RetailGoods.php',
     'App\\Models\\RetailGoodsThumb' => $baseDir . '/app/Models/RetailGoodsThumb.php',
