@@ -888,19 +888,6 @@ class WechatApiController extends Controller
      */
     public function order_submit(Request $request)
     {
-
-
-        $address_info = [
-            "province_name" => "广东省",
-            "city_name" => "深圳市",
-            "district_name" => "龙岗区",
-            "address" => "万汇大厦1606",
-            "realname" => "kbzz",
-            "mobile" => "15277049514",
-            "status" => "1",
-        ];
-
-
         // 用户id
         $user_id = $request->user_id;
         // 零壹id
