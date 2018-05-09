@@ -62,6 +62,9 @@ $(function(){
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
+                //查询商品列表和购物车列表
+        selectgoods("0","");
+        mescroll.endBySize(5, 5);
         console.log("111");
         //查询商品列表和购物车列表
         //selectgoods("0","");
@@ -95,8 +98,6 @@ $(function(){
             //},1000);
         //});
     }
-        //查询商品列表和购物车列表
-        selectgoods("0","");
 });
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
