@@ -13,7 +13,7 @@
 
 <h1>订单支付</h1>
 
-<button onclick="callpay()">
+<button onclick="jsApiCall()">
     <h4>
         确定支付
     </h4>
