@@ -1014,7 +1014,6 @@ class WechatApiController extends Controller
                     SimpleSelftakeGoods::addSimpleSelftakeGoods($goodsdata);//添加商品快照
                 }
 
-
                 $selftake_data = [
                     'order_id' => $order_id,
                     'sex' => $self_take_info['sex'],
@@ -1032,13 +1031,10 @@ class WechatApiController extends Controller
                         return $re;
                     }
                 }
-
             }
-
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
             // 事件回滚
             DB::rollBack();
             return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
@@ -1244,7 +1240,6 @@ class WechatApiController extends Controller
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
             // 事件回滚
             DB::rollBack();
             return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
