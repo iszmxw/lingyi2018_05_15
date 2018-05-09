@@ -823,6 +823,7 @@ body{
 	min-height: 7.25rem;
 	max-height: 16rem;
 	overflow: auto;
+	padding-bottom: 2.45rem;
 }
 .cart .cart_box_h .cart_list>li{
 	display: -webkit-box;
