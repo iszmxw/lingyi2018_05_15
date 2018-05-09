@@ -341,7 +341,7 @@ class InvoicingController extends Controller
         ];
         DB::beginTransaction();
         try {
-            $id = RetailCheckOrder::addOrder($order_data);
+            $id = RetailOrder::addOrder($order_data);
             //盘点开单对应商品信息处理
             foreach ($orders['goods'] as $key => $val) {
                 $goods = RetailGoods::getOne(['id' => $val['id']]);
@@ -354,10 +354,10 @@ class InvoicingController extends Controller
                     'thumb' => '',
                     'details' => $goods->details,
                 ];
-                RetailCheckOrderGoods::addOrderGoods($order_goods_data);
+                RetailOrderGoods::addOrderGoods($order_goods_data);
             }
-            $order = RetailCheckOrder::getOne(['id' => $id])->first();    //获取订单信息
-            $order_goods = $order->RetailCheckOrderGoods;    //订单对应的商品
+            $order = RetailOrder::getOne(['id' => $id])->first();    //获取订单信息
+            $order_goods = $order->RetailOrderGoods;    //订单对应的商品
             //添加库存操作记录日志
             foreach ($order_goods as $key => $val) {
                 $stock_data = [
