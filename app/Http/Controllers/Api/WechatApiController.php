@@ -1146,21 +1146,7 @@ class WechatApiController extends Controller
         ];
         return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     /**
      * WGS84转GCj02(北斗转高德)
