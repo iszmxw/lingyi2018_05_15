@@ -943,21 +943,16 @@ class WechatApiController extends Controller
             // 添加入订单表
             $order_id = SimpleOnlineOrder::addSimpleOnlineOrder($orderData);
             foreach ($goods_list as $key => $value) {
-                foreach ($value as $k => $v) {
-                    // 查询商品库存数量
-                    $onedata = SimpleGoods::getOne([['id', $v['id']]]);
-                    $thumb = SimpleGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();//商品图片一张
-                    $data = [
-                        'order_id' => $order_id,
-                        'goods_id' => $v['id'],
-                        'title' => $onedata['name'],
-                        'thumb' => $thumb,
-                        'details' => $onedata['details'],
-                        'total' => $v['num'],
-                        'price' => $v['price'],
-                    ];
-                    SimpleOnlineGoods::addSimpleOnlineGoods($data);//添加商品快照
-                }
+                $data = [
+                    'order_id' => $order_id,
+                    'goods_id' => $value['goods_id'],
+                    'title' => $value['goods_name'],
+                    'thumb' => $value['goods_thumb'],
+                    'details' => $value['goods_details'],
+                    'total' => $value['num'],
+                    'price' => $value['goods_price'],
+                ];
+                SimpleOnlineGoods::addSimpleOnlineGoods($data);//添加商品快照
             }
             // 说明下单减库存
             if ($stock_type == '1') {
