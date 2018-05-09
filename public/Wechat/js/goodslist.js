@@ -64,6 +64,7 @@ $(function(){
     function upCallback(page){
                 //查询商品列表和购物车列表
         selectgoods("0","");
+        mescroll.endBySize(5, 5);
         console.log("111");
         //查询商品列表和购物车列表
         //selectgoods("0","");
