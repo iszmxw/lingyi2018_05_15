@@ -49,7 +49,7 @@ $(function(){
                   // 删除加载提示符
                   $('.infinite-scroll-preloader').remove();
                   return;
-
+                  console.log("0");
               // 添加新条目
               // 更新最后加载的序号
               //容器发生改变,如果是js滚动，需要刷新滚动
