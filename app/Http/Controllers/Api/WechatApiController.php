@@ -1196,6 +1196,7 @@ class WechatApiController extends Controller
                     if ($type == 'online') {
                         SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
                     } else {
+                        echo 1;exit;
                         SimpleSelftakeOrder::editSimpleSelftakeOrder(['id' => $order_id], ['stock_status' => '1']);
                     }
 
