@@ -121,11 +121,11 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
+                        myScroll.refresh();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
         		}
-                myScroll.refresh();
         	);
 		}
 	);
