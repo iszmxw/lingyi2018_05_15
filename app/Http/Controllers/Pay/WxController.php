@@ -45,6 +45,7 @@ class WxController extends Controller
     public function test13()
     {
         $data["order_num_type"] = 'out_trade_no';
+
         $data["order_num"] = '150337637120180509095053';
         // 商户退款单号
         $data["refund_num"] = md5(time());
@@ -109,6 +110,7 @@ class WxController extends Controller
         // 退款通知地址
 //        $data["notify_url"] = $param["notify_url"];
 
+        dd($data);
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
     }
