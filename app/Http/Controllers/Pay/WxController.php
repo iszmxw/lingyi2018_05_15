@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Pay;
 
 
+use App\Http\Controllers\Api\WechatController;
 use App\Http\Controllers\Controller;
 use App\Models\XhoLog;
 use WXPay\WXPay;
@@ -64,28 +65,10 @@ class WxController extends Controller
 
     public function test15()
     {
+        $wechat = new WechatController();
+        $wechat->getSignPackage();
 
-        $a_k = "9_aeWuKiTlzBxR21jNsPhB3JnaxLZ4IzxaLwIGZgF3xElEjiFRRhioVoYKxYd2okiD4ywJymzuNBLyP9KO-HB80QaTgm1WAU5_ICINbqNL1mbMrSOtvxGZkcJAQOmPIspTW2QcXXOovnhJy059IEUeAHAPLB";
-
-        $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$a_k}&type=jsapi";
-        $res = file_get_contents($url);
-        $res = json_decode($res, true);
-        $ticket = $res["ticket"];
-
-
-        var_dump($ticket);
-
-// 设置得到签名的参数
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-        var_dump($url);
-
-        $timestamp = time();
-        $nonceStr = substr(md5(time()), 0, 16);
-// 这里参数的顺序要按照 key 值 ASCII 码升序排序
-        $string = "jsapi_ticket={$ticket}&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
-        $signature = sha1($string);
-        $signPackage = array("appId" => "wx3fb8f4754008e524", "nonceStr" => $nonceStr, "timestamp" => $timestamp, "url" => $url, "rawString" => $string, "signature" => $signature);
-
+        $signPackage = request()->get("zerone_jssdk_info");
 
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
@@ -95,9 +78,9 @@ class WxController extends Controller
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
-        $res = json_decode($res,true);
+        $res = json_decode($res, true);
 
-        return view("Fansmanange/Test/test", ["signPackage" => $signPackage,"wxpay"=>$res]);
+        return view("Fansmanange/Test/test", ["signPackage" => $signPackage, "wxpay" => $res]);
     }
 
     public function demo()
