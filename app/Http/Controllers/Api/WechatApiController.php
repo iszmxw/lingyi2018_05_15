@@ -10,12 +10,15 @@ use App\Models\DispatchProvince;
 use App\Models\SimpleAddress;
 use App\Models\Dispatch;
 use App\Models\Organization;
+use App\Models\SimpleOnlineGoods;
 use App\Models\SimpleOnlineOrder;
 use App\Models\SimpleSelftake;
 use App\Models\SimpleCategory;
 use App\Models\SimpleConfig;
 use App\Models\SimpleGoods;
 use App\Models\SimpleGoodsThumb;
+use App\Models\SimpleStock;
+use App\Models\SimpleStockLog;
 use App\Services\ZeroneRedis\ZeroneRedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -956,10 +959,8 @@ class WechatApiController extends Controller
                     SimpleOnlineGoods::addSimpleOnlineGoods($data);//添加商品快照
                 }
             }
-            // 查询是下单减库存/付款减库存
-            $power = SimpleConfig::getPluck([['simple_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
             // 说明下单减库存
-            if ($power != '1') {
+            if ($stock_type == '1') {
                 // 减库存
                 $re = $this->reduce_stock($order_id, '1');
                 if ($re != 'ok') {
@@ -1075,5 +1076,106 @@ class WechatApiController extends Controller
         }
         return $arr;
     }
+
+
+
+    /**
+     * 减库存
+     * @order_id 订单id
+     * @status 1表示减库存，-1表示加库存
+     */
+    private function reduce_stock($order_id, $status)
+    {
+        // 订单详情
+        $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
+        // 查询是否可零库存开单
+        $config = SimpleConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
+        DB::beginTransaction();
+        try {
+            if ($status == '1') {
+                // 订单快照中的商品
+                $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
+                foreach ($goodsdata as $key => $value) {
+                    // 商品详情
+                    $goods = SimpleGoods::getOne([['id', $value['goods_id']]]);
+                    // 如果不允许零库存开单
+                    if ($config != '1') {
+                        // 库存小于0 打回
+                        if ($goods['stock'] - $value['total'] < 0) {
+                            return response()->json(['msg' => '商品' . $goods['name'] . '库存不足', 'status' => '0', 'data' => '']);
+                        }
+                    }
+                    $stock = $goods['stock'] - $value['total'];
+                    SimpleGoods::editSimpleGoods([['id', $value['goods_id']]], ['stock' => $stock]);//修改商品库存
+                    $stock_data = [
+                        'fansmanage_id' => $data['fansmanage_id'],
+                        'simple_id' => $data['simple_id'],
+                        'goods_id' => $value['goods_id'],
+                        'amount' => $value['total'],
+                        'ordersn' => $data['ordersn'],
+                        'operator_id' => $data['operator_id'],
+                        'remark' => $data['remarks'],
+                        // 销售出库类型
+                        'type' => '6',
+                        'status' => '1',
+                    ];
+                    // 商品操作记录
+                    SimpleStockLog::addStockLog($stock_data);
+                    $re = SimpleStock::getOneSimpleStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $simple_stock = $re['stock'] - $value['total'];
+                    SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为1表示该订单的库存状态已经减去
+                    SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
+                }
+            } else {
+                // 订单快照中的商品
+                $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
+                foreach ($goodsdata as $key => $value) {
+                    // 商品剩下的库存
+                    $stock = SimpleGoods::getPluck([['id', $value['goods_id']]], 'stock');
+                    $stock = $stock + $value['total'];
+                    // 修改商品库存
+                    SimpleGoods::editSimpleGoods([['id', $value['goods_id']]], ['stock' => $stock]);
+                    $stock_data = [
+                        'fansmanage_id' => $data['fansmanage_id'],
+                        'simple_id' => $data['simple_id'],
+                        'goods_id' => $value['goods_id'],
+                        'amount' => $value['total'],
+                        'ordersn' => $data['ordersn'],
+                        'operator_id' => $data['operator_id'],
+                        'remark' => $data['remarks'],
+                        // 退货入库类型
+                        'type' => '7',
+                        'status' => '1',
+                    ];
+                    // 商品操作记录
+                    SimpleStockLog::addStockLog($stock_data);
+                    $re = SimpleStock::getOneSimpleStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $simple_stock = $re['stock'] + $value['total'];
+                    SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为-1表示该订单的库存状态已经退回
+                    SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '-1']);
+                }
+            }
+            // 提交事务
+            DB::commit();
+        } catch (\Exception $e) {
+            // 事件回滚
+            DB::rollBack();
+            return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
+        }
+        return 'ok';
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 }
