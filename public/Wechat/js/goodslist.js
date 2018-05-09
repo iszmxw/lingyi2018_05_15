@@ -158,11 +158,12 @@ $(function(){
                                 $goodslist.append(str);
                                 $.hidePreloader();
                                 $("#limit").val(++limit);
-                                me.resetload();
+
                     		}else if (json.status == 0) {
                                 alert(msg);
                                 me.resetload();
                             }
+                            me.resetload();
                 		}
                 	);
         		}
