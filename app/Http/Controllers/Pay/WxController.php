@@ -54,11 +54,11 @@ class WxController extends Controller
         $data["out_trade_no"] = md5(time());
         $data["total_fee"] = 0.1*100;
         $data["spbill_create_ip"] = "120.78.140.10";
-        $data["trade_type"] = "MICROPAY";
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        $data["product_id"] = md5(time());
-        $data["auth_code"] = 135417053696994941;
-        $data["notify_url"] = $this->notify_url;
+//        $data["trade_type"] = "MICROPAY";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+        $data["auth_code"] = 135432415240961290;
+//        $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->microPay($data);
 //        $res = json_decode($res, true);
