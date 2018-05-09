@@ -966,6 +966,16 @@ class WechatApiController extends Controller
                     'mobile' => $address_info['mobile'],
                 ];
                 SimpleOnlineAddress::addSimpleOnlineAddress($address_data);
+
+                // 说明下单减库存
+                if ($stock_type == '1') {
+                    // 减库存
+                    $re = $this->reduce_stock($order_id, '1', 'online');
+                    if ($re != 'ok') {
+                        return $re;
+                    }
+                }
+
                 /******运费模板（待完成）**********/
             } else {
                 // 查询订单今天的数量
@@ -1014,14 +1024,7 @@ class WechatApiController extends Controller
                 ];
                 SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
             }
-            // 说明下单减库存
-            if ($stock_type == '1') {
-                // 减库存
-                $re = $this->reduce_stock($order_id, '1');
-                if ($re != 'ok') {
-                    return $re;
-                }
-            }
+
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
@@ -1139,7 +1142,7 @@ class WechatApiController extends Controller
      * @order_id 订单id
      * @status 1表示减库存，-1表示加库存
      */
-    private function reduce_stock($order_id, $status)
+    private function reduce_stock($order_id, $status, $type)
     {
         // 订单详情
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
@@ -1180,7 +1183,12 @@ class WechatApiController extends Controller
                     $simple_stock = $re['stock'] - $value['total'];
                     SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
                     // 修改stock_status为1表示该订单的库存状态已经减去
-                    SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
+                    if ($type == 'online') {
+                        SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
+                    } else {
+                        SimpleSelftakeOrder::editSimpleSelftakeOrder(['id' => $order_id], ['stock_status' => '1']);
+                    }
+
                 }
             } else {
                 // 订单快照中的商品
@@ -1209,7 +1217,11 @@ class WechatApiController extends Controller
                     $simple_stock = $re['stock'] + $value['total'];
                     SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
                     // 修改stock_status为-1表示该订单的库存状态已经退回
-                    SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '-1']);
+                    if ($type == 'online') {
+                        SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '-1']);
+                    } else {
+                        SimpleSelftakeOrder::editSimpleSelftakeOrder(['id' => $order_id], ['stock_status' => '-1']);
+                    }
                 }
             }
             // 提交事务
