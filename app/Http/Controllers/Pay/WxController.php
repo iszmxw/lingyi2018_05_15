@@ -351,7 +351,7 @@ class WxController extends Controller
 
         // 直接输出
 //        header('Content-Type: ' . $qrCode->getContentType());
-        echo $qrCode->writeString();
+        return $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
     }
