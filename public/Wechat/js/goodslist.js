@@ -31,11 +31,11 @@ $(function(){
 		}
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    selectgoods(0,"");
+    // selectgoods(0,"");
     $('.goodslist').dropload({
         scrollArea : window,
-        autoLoad:false,
-        distance : 5,
+        autoLoad   : false,
+        distance   : 50,
         domDown    :{
                 domClass : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
