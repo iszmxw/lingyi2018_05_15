@@ -17,7 +17,7 @@ var refresher = {
 
 	var scroller=document.getElementById("scroller");
 	var list=document.querySelector("#"+parameter.id)
-		scroller.insertBefore(list,scroller.childNodes[0]);
+		//scroller.insertBefore(list,scroller.childNodes[0]);
 
 	var pullDown=document.createElement("div");
 		pullDown.id="pullDown";
