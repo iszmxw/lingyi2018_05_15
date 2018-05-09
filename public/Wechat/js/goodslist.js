@@ -1,5 +1,5 @@
 $(function(){
-    $.showPreloader("加载中...");
+    //$.showPreloader("加载中...");
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
     var store_id=$("#store_id").val();//店铺ID
@@ -30,8 +30,6 @@ $(function(){
             }
 		}
 	);
-    //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    selectgoods(0,"");
 
     $('.goodslist').dropload({
         scrollArea : window,
@@ -42,8 +40,6 @@ $(function(){
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
         loadDownFn : function(me){
-            // 无数据
-                    me.noData();
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
@@ -69,12 +65,12 @@ $(function(){
                     //     }
                     // }
                     // 为了测试，延迟1秒加载
-                    setTimeout(function(){
                         //$('.lists').append(result);
                         // 每次数据加载完，必须重置
-                        console.log("as");
+                            //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
+                        //selectgoods(0,"");
+                        //console.log("as");
                         me.resetload();
-                    },1000);
             //     },
             //     error: function(xhr, type){
             //         alert('Ajax error!');
@@ -158,7 +154,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
-                            $.hidePreloader();
+                            //$.hidePreloader();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
