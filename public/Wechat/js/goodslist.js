@@ -34,12 +34,9 @@ $(function(){
     //创建MeScroll对象
     mescroll = new MeScroll("goodslist", {
         down: {
-            auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
         },
         up: {
-            auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
-            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
             callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
         }
     });
@@ -49,9 +46,9 @@ $(function(){
         //联网加载数据
         //getListDataFromNet(0, 1, function(data){
             //联网成功的回调,隐藏下拉刷新的状态
-            setTimeout(function(){
-                mescroll.endSuccess();
-            },1000);
+            //setTimeout(function(){
+                //mescroll.endSuccess();
+            //},1000);
 
             //设置列表数据
             //setListData(data, false);
@@ -65,8 +62,11 @@ $(function(){
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
-        //查询商品列表和购物车列表
+                //查询商品列表和购物车列表
         selectgoods("0","");
+        console.log("111");
+        //查询商品列表和购物车列表
+        //selectgoods("0","");
         //联网加载数据
         //getListDataFromNet(page.num, page.size, function(curPageData){
             //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
@@ -92,12 +92,11 @@ $(function(){
             //setListData(curPageData, true);
         //}, function(){
             //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-            // setTimeout(function(){
-            //     mescroll.endErr();
-            // },1000);
+            //setTimeout(function(){
+                //mescroll.endErr();
+            //},1000);
         //});
     }
-
 });
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
@@ -168,9 +167,8 @@ function selectgoods(category,keyword_val){
                             json.data.goodslist[i].number,json.data.goodslist[i].id);
                         }
                         var $goodslist = $("#goodslist");
-                        //$goodslist.empty();
+                        $goodslist.empty();
                         $goodslist.append(str);
-                        mescroll.endSuccess(20);
             		}else if (json.status == 0) {
                         alert(msg);
                     }
