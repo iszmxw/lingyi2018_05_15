@@ -1,5 +1,5 @@
 $(function(){
-    $.showPreloader("加载中...");
+    //$.showPreloader("加载中...");
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
     var store_id=$("#store_id").val();//店铺ID
@@ -154,7 +154,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
-                            $.hidePreloader();
+                            //$.hidePreloader();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
