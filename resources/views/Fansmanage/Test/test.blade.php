@@ -30,7 +30,6 @@
         nonceStr: '{{$signPackage["nonceStr"]}}', // 必填，生成签名的随机串
         signature: '{{$signPackage["signature"]}}',// 必填，签名
         jsApiList: [
-            'checkJsApi',
             'chooseWXPay',
         ] // 必填，需要使用的JS接口列表
     });
