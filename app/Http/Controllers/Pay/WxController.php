@@ -154,6 +154,7 @@ class WxController extends Controller
                 $res["return_code"] = 0;
                 $res["return_msg"] = $param["err_code_des"];
             } else {
+                $param["total_fee"] = 1000;
                 $res["data"] = $this->dataDispose($param);
                 $res["return_code"] = 1;
                 $res["return_msg"] = "SUCCESS";
