@@ -636,11 +636,12 @@ Route::group(['prefix' => 'retail'], function () {
     });
 
     //运费模板管理
-    Route::group(['prefix' => 'dispatch'], function () {
-        Route::get('dispatch_add', 'Retail\DispatchController@dispatch_add')->middleware('RetailCheck');   //添加运费模板                    //订单管理-现场订单
-        Route::get('dispatch_list', 'Retail\DispatchController@dispatch_list')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
-        Route::get('dispatch_edit', 'Retail\DispatchController@dispatch_edit')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
-    });
+    //零售新版——暂时屏蔽
+//    Route::group(['prefix' => 'dispatch'], function () {
+//        Route::get('dispatch_add', 'Retail\DispatchController@dispatch_add')->middleware('RetailCheck');   //添加运费模板                    //订单管理-现场订单
+//        Route::get('dispatch_list', 'Retail\DispatchController@dispatch_list')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
+//        Route::get('dispatch_edit', 'Retail\DispatchController@dispatch_edit')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
+//    });
 
 
     //进销存开单处理
@@ -1043,7 +1044,8 @@ Route::group(['prefix' => 'pay'], function () {
 
 
         Route::any('test13', 'Pay\WxController@test13');//测试函数
-        Route::any('test14', 'Pay\SftController@test14')->middleware("UserCheck");//测试函数
+        Route::any('test14', 'Pay\WxController@test14');//测试函数
+        Route::any('test15', 'Pay\WxController@test15');//测试函数
     });
 });
 /***************************对接支付接口路由*********************************/
