@@ -97,16 +97,17 @@
                     }
                 },
                 fail: function (res) {
-                    console.log(res);
+                    console.log("fail:"+res);
                 },
                 complete: function (res) {
-                    console.log(res);
+                    console.log("complete:"+res);
                 },
                 cancel: function (res) {
                     //支付取消
                     console.log('支付取消');
-                }, trigger: function (res) {
-                    console.log(res);
+                },
+                trigger: function (res) {
+                    // console.log(res);
                 }
             });
         });
