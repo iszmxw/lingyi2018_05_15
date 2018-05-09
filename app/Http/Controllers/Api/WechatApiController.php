@@ -1141,6 +1141,7 @@ class WechatApiController extends Controller
      */
     private function reduce_stock($order_id, $status)
     {
+        echo 111;exit;
         // 订单详情
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
