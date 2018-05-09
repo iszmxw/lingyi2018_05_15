@@ -145,7 +145,8 @@ class WxController extends Controller
         $res = $this->wechat->downloadBill($data);
 //        return $this->resDispose($res);
 //        return $res;
-//        var_dump($res);
+        var_dump($res);
+        exit;
         $res = str_replace("`","",$res["data"]);
         file_put_contents("./uploads/1.csv",$res);
         $fileName = "./uploads/1.csv"; //得到文件名
