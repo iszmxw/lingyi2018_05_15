@@ -504,8 +504,6 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'App\\Models\\ProgramModuleNode' => __DIR__ . '/../..' . '/app/Models/ProgramModuleNode.php',
         'App\\Models\\Province' => __DIR__ . '/../..' . '/app/Models/Province.php',
         'App\\Models\\RetailCategory' => __DIR__ . '/../..' . '/app/Models/RetailCategory.php',
-        'App\\Models\\RetailCheckOrder' => __DIR__ . '/../..' . '/app/Models/RetailCheckOrder.php',
-        'App\\Models\\RetailCheckOrderGoods' => __DIR__ . '/../..' . '/app/Models/RetailCheckOrderGoods.php',
         'App\\Models\\RetailConfig' => __DIR__ . '/../..' . '/app/Models/RetailConfig.php',
         'App\\Models\\RetailGoods' => __DIR__ . '/../..' . '/app/Models/RetailGoods.php',
         'App\\Models\\RetailGoodsThumb' => __DIR__ . '/../..' . '/app/Models/RetailGoodsThumb.php',
