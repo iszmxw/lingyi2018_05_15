@@ -34,7 +34,6 @@ $(function(){
     //selectgoods(0,"");
     $('.goodslist').dropload({
         scrollArea : window,
-        distance   : 5000,
         domDown    :{
                 domClass : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
@@ -158,7 +157,7 @@ $(function(){
                                 //$goodslist.empty();
                                 $goodslist.append(str);
                                 $.hidePreloader();
-                                $("#limit").val(++limit);
+                                //$("#limit").val(++limit);
                                 me.resetload();
                     		}else if (json.status == 0) {
                                 alert(msg);
