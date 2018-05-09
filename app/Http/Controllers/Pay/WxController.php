@@ -50,7 +50,6 @@ class WxController extends Controller
 
     public function test13()
     {
-
         // jsapi 下单
 //        $wechat = new WechatController();
 //        $wechat->getSignPackage();
