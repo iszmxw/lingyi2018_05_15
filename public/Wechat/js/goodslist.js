@@ -34,8 +34,8 @@ $(function(){
     selectgoods(0,"");
     $('.goodslist').dropload({
         scrollArea : window,
-        autoLoad:false,
-        distance : 5,
+        autoLoad   : false,
+        distance   : 50,
         domDown    :{
                 domClass : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
