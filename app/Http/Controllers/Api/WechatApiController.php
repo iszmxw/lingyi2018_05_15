@@ -906,7 +906,7 @@ class WechatApiController extends Controller
         $address_info = $request->address_info;
         // 取货信息
         $self_take_info = $request->self_take_info;
-        
+
         // 商品信息
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
@@ -916,7 +916,7 @@ class WechatApiController extends Controller
             if ($goods_status == '0') {
                 return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
             }
-            $order_price += $value['price'] * $value['num'];
+            $order_price += $value['goods_price'] * $value['num'];
         }
         // 查询订单今天的数量
         $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
