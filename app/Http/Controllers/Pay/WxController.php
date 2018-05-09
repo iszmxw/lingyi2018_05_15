@@ -81,12 +81,15 @@ class WxController extends Controller
         $res = json_decode($res, true);
 
         $res["data"]["timestamp"] = time();
-        $res["data"]["paySign"] = $res["data"]["sign"];
 
+//        $sign = $this->MakeSign($res["data"]);
+
+//        $res["data"]["paySign"] = $res["data"]["sign"];
+//        $res["data"]["paySign"] = $sign;
         $res["data"]["nonce_str"] = $this->getNonceStr();
 
-        $sign = $this->MakeSign($res["data"]);
-        dd($sign);
+        $paySign= "appId={$res["data"]["appid"]}&nonceStr={$res["data"]["nonce_str"]}&package=prepay_id={$res["data"]["prepay_id"]}&signType=MD5&timeStamp={$res["data"]["timestamp"]}&key={$this->key}";
+        $res["data"]["paySign"] = strtoupper(md5($paySign));
 
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
@@ -98,7 +101,7 @@ class WxController extends Controller
         ksort($param);
         $string = $this->ToUrlParams($param);
         //签名步骤二：在string后加入KEY
-        $string = $string . "&key=".$this->key;
+        $string = $string . "&key=" . $this->key;
         //签名步骤三：MD5加密
         $string = md5($string);
         //签名步骤四：所有字符转为大写
@@ -109,9 +112,8 @@ class WxController extends Controller
     public function ToUrlParams($param)
     {
         $buff = "";
-        foreach ($param as $k => $v)
-        {
-            if($k != "sign" && $v != "" && !is_array($v)){
+        foreach ($param as $k => $v) {
+            if ($k != "sign" && $v != "" && !is_array($v)) {
                 $buff .= $k . "=" . $v . "&";
             }
         }
@@ -123,9 +125,9 @@ class WxController extends Controller
     public function getNonceStr($length = 32)
     {
         $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $str ="";
-        for ( $i = 0; $i < $length; $i++ )  {
-            $str .= substr($chars, mt_rand(0, strlen($chars)-1), 1);
+        $str = "";
+        for ($i = 0; $i < $length; $i++) {
+            $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
         }
         return $str;
     }
