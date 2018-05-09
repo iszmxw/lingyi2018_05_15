@@ -64,7 +64,7 @@ class WxController extends Controller
 
         $res = $this->nativeOrder($data);
 //        header('Content-Type: image/jpeg');
-//        echo "<img src='http://'>";
+        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
     }
 
     public function test14()
