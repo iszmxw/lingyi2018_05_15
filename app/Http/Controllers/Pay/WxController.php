@@ -132,11 +132,7 @@ class WxController extends Controller
         $data["openid"] = $param["openid"];
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
-
-
         $res = $this->wechat->unifiedOrder($data);
-        dump($res);
-        exit;
         return $this->resDispose($res);
     }
 
