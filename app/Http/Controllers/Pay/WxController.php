@@ -145,7 +145,8 @@ class WxController extends Controller
         $res = $this->wechat->downloadBill($data);
 //        return $this->resDispose($res);
 //        return $res;
-        var_dump($res);
+//        var_dump($res);
+        echo $res["data"];
     }
 
 
