@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Pay;
 
 
+use App\Http\Controllers\Api\WechatController;
 use App\Http\Controllers\Controller;
 use App\Models\XhoLog;
 use WXPay\WXPay;
@@ -64,8 +65,12 @@ class WxController extends Controller
 
     public function test15()
     {
+        $wechat = new WechatController();
+        $res = $wechat->getSignPackage();
 
-        $a_k = "9_aeWuKiTlzBxR21jNsPhB3JnaxLZ4IzxaLwIGZgF3xElEjiFRRhioVoYKxYd2okiD4ywJymzuNBLyP9KO-HB80QaTgm1WAU5_ICINbqNL1mbMrSOtvxGZkcJAQOmPIspTW2QcXXOovnhJy059IEUeAHAPLB";
+        $res = request()->get("zerone_jssdk_info");
+        var_dump($res);exit;
+        $a_k = "9_ka-c5NS_a0XMaeRCcyD5sPPG5ydczvqs5p-8HWh3ei09RwuxW5qEx4eT0wkdwl_KOSKztRj6l2zGNEAcZWhKu1rN0jaeiw2IYD-PTw9kcXrZuuHHEJUyA9UXcJ8WG5IDNpD2gfdpGnDNikADHYIhADAULV";
 
         $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$a_k}&type=jsapi";
         $res = file_get_contents($url);
