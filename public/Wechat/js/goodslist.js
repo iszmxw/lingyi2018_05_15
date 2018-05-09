@@ -1,4 +1,5 @@
 $(function(){
+    $.showPreloader("加载中...");
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
     var store_id=$("#store_id").val();//店铺ID
@@ -30,26 +31,10 @@ $(function(){
 		}
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    // selectgoods(0,"");
+    selectgoods(0,"");
+    $.init();
 });
-refresher.init({
-	id:"goodslist",
-	pullDownAction:Refresh,
-	pullUpAction:Load
-});
-function Refresh() {
-	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-		selectgoods(0,"");
-		myScroll.refresh();/****remember to refresh when you action was completed！！！****/
-	}, 1000);
-}
 
-function Load() {
-	setTimeout(function () {// <-- Simulate network congestion, remove setTimeout from production!
-		selectgoods(0,"");
-		myScroll.refresh();/****remember to refresh when you action was completed！！！****/
-	}, 1000);
-}
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
     //获取购物车商品
@@ -121,7 +106,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
-                        myScroll.refresh();
+                            $.hidePreloader();
             		}else if (json.status == 0) {
                         alert(msg);
                     }

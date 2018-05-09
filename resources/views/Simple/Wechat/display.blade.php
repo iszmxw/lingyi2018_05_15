@@ -28,7 +28,7 @@
 				<div class="head_bottom">
 					<div class="bottom_left">
 						<span id="month">
-							
+
 						</span>
 						<p class="bottomaddress" onclick="searchshop()"><i></i>获取位置信息...</p>
 					</div>
@@ -78,39 +78,8 @@
           signature: '{{$signature}}',
           jsApiList: [
                 'checkJsApi',
-		        'onMenuShareTimeline',
-		        'onMenuShareAppMessage',
-		        'onMenuShareQQ',
-		        'onMenuShareWeibo',
-		        'hideMenuItems',
-		        'showMenuItems',
-		        'hideAllNonBaseMenuItem',
-		        'showAllNonBaseMenuItem',
-		        'translateVoice',
-		        'startRecord',
-		        'stopRecord',
-		        'onRecordEnd',
-		        'playVoice',
-		        'pauseVoice',
-		        'stopVoice',
-		        'uploadVoice',
-		        'downloadVoice',
-		        'chooseImage',
-		        'previewImage',
-		        'uploadImage',
-		        'downloadImage',
-		        'getNetworkType',
 		        'openLocation',
-		        'getLocation',
-		        'hideOptionMenu',
-		        'showOptionMenu',
-		        'closeWindow',
-		        'scanQRCode',
-		        'chooseWXPay',
-		        'openProductSpecificView',
-		        'addCard',
-		        'chooseCard',
-		        'openCard'
+		        'getLocation'
           ]
       });
      wx.ready(function(){
@@ -119,7 +88,7 @@
      });
      wx.error(function(res){
          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-         alert(res);
+         alert(JSON.stringify(res));
 
      });
       </script>

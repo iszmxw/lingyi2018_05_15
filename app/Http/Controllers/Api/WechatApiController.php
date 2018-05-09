@@ -903,7 +903,7 @@ class WechatApiController extends Controller
         // 备注
         $remarks = $request->remarks;
         // 收货信息
-        $address_info = $request->address_info;
+        $address_info = json_decode($request->address_info, TRUE);
         // 取货信息
         $self_take_info = $request->self_take_info;
 
@@ -949,7 +949,6 @@ class WechatApiController extends Controller
                     'total' => $value['num'],
                     'price' => $value['goods_price'],
                 ];
-                print_r($goodsdata);exit;
                 SimpleOnlineGoods::addSimpleOnlineGoods($goodsdata);//添加商品快照
             }
             // 说明下单减库存
@@ -967,8 +966,8 @@ class WechatApiController extends Controller
                 'city_name' => $address_info['city_name'],
                 'district_name' => $address_info['district_name'],
                 'address' => $address_info['address'],
-                'relaname' => $address_info['relaname'],
-                'mobile' => $address_info['relaname'],
+                'realname' => $address_info['realname'],
+                'mobile' => $address_info['mobile'],
             ];
             SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
             // 提交事务
