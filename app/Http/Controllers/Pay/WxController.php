@@ -50,7 +50,6 @@ class WxController extends Controller
 
     public function test13()
     {
-
         // jsapi 下单
 //        $wechat = new WechatController();
 //        $wechat->getSignPackage();
@@ -64,8 +63,8 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
 
         $res = $this->nativeOrder($data);
-        header('Content-Type: image/png');
-        echo $res;
+//        header('Content-Type: image/jpeg');
+//        echo "<img src='http://'>";
     }
 
     public function test14()
@@ -103,12 +102,11 @@ class WxController extends Controller
         $qrCode->setRoundBlockSize(true);
         $qrCode->setValidateResult(false);
 
-        // 直接输出
-        header('Content-Type: ' . $qrCode->getContentType());
-        echo $qrCode->writeString();
+//        // 直接输出
+//        header("Content-Type: {$qrCode->getContentType()};charset=UTF-8");
+//        return $qrCode->writeString();
         // 保存文件
-//        $qrCode->writeFile(__DIR__.'/qrcode.png');
-
+        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 
     public function demo()
@@ -351,9 +349,11 @@ class WxController extends Controller
         $qrCode->setValidateResult(false);
 
         // 直接输出
-        header('Content-Type: ' . $qrCode->getContentType());
-        echo $qrCode->writeString();
+//        header('Content-Type: ' . $qrCode->getContentType());
+//        return $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
+
+        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 }
