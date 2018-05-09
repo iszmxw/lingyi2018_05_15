@@ -1024,6 +1024,7 @@ class WechatApiController extends Controller
                 ];
                 SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
 
+                echo 1;exit;
                 // 说明下单减库存
                 if ($stock_type == '1') {
                     // 减库存
