@@ -32,7 +32,7 @@ $(function(){
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     selectgoods(0,"");
-    $('.content').dropload({
+    $('#goodslist').dropload({
         scrollArea : window,
         loadDownFn : function(me){
             // $.ajax({
@@ -63,7 +63,7 @@ $(function(){
                     setTimeout(function(){
                         //$('.lists').append(result);
                         // 每次数据加载完，必须重置
-                        alert();
+                        console.log("as");
                         me.resetload();
                     },1000);
             //     },

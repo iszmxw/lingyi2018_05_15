@@ -36,7 +36,7 @@
 					<label class="icon_scavenging"></label>
 			    </div>
 			</div>
-			<div class="goodslist content" id="goodslist">
+			<div class="goodslist" id="goodslist">
 
 			</div>
 	    </div>
