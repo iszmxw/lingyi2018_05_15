@@ -140,6 +140,7 @@ class WxController extends Controller
      */
     public function downloadBill($param = [])
     {
+        echo 1242;
         $data["bill_date"] = $param["bill_date"];
         $data["bill_type"] = $param["bill_type"];
         $res = $this->wechat->downloadBill($data);
