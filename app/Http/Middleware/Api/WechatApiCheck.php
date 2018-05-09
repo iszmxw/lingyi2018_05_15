@@ -411,17 +411,14 @@ class WechatApiCheck
 //
 //            ]
 //        ];
-
-        $address_info = [
-            "province_name" => "广东省",
-            "city_name" => "深圳市",
-            "district_name" => "龙岗区",
-            "address" => "万汇大厦1606",
-            "realname" => "kbzz",
-            "mobile" => "15277049514",
-            "status" => "1",
-        ];
-        echo json_encode($address_info);exit;
+//        $address_info = [
+//            "province_name" => "广东省",
+//            "city_name" => "深圳市",
+//            "district_name" => "龙岗区",
+//            "address" => "万汇大厦1606",
+//            "realname" => "kbzz",
+//            "mobile" => "15277049514",
+//        ];
 
 
         if (empty($request->input('user_id'))) {
