@@ -49,22 +49,27 @@ class SimpleOnlineOrder extends Model
     //添加数据
     public static function addSimpleOnlineOrder($param)
     {
-        $simpleorder = new SimpleOnlineOrder();//实例化程序模型
-        $simpleorder->ordersn = $param['ordersn'];//订单编号
-        $simpleorder->order_price = $param['order_price'];//订单价格
-        $simpleorder->user_id = $param['user_id'];//订单人id
-        $simpleorder->status = $param['status'];//订单状态
-        $simpleorder->operator_id = $param['operator_id'];//操作人员id
-        $simpleorder->fansmanage_id = $param['fansmanage_id'];//管理平台id
-        $simpleorder->simple_id = $param['simple_id'];//店铺所属组织ID
-        if (!empty($param['paytype'])) {
-            $simpleorder->paytype = $param['paytype'];//付款方式
-        }
+        $model = new SimpleOnlineOrder();//实例化程序模型
+        $model->fansmanage_id = $param['fansmanage_id'];//联盟id
+        $model->simple_id = $param['simple_id'];//店铺id
+        $model->ordersn = $param['ordersn'];//订单编号
+        $model->order_price = $param['order_price'];//订单价格
         if (!empty($param['remarks'])) {
-            $simpleorder->remarks = $param['remarks'];//备注信息
+            $model->remarks = $param['remarks'];//备注信息
         }
-        $simpleorder->save();
-        return $simpleorder->id;
+        if (!empty($param['payment_company'])) {
+            $model->payment_company = $param['payment_company'];//支付公司
+        }
+        $model->user_id = $param['user_id'];//订单人id
+        $model->status = $param['status'];//订单状态
+        if (!empty($param['operator_id'])) {
+            $model->operator_id = $param['operator_id'];//操作人员id
+        }
+        if (!empty($param['paytype'])) {
+            $model->paytype = $param['paytype'];//付款方式
+        }
+        $model->save();
+        return $model->id;
     }
 
     //获取分页列表

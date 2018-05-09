@@ -10,6 +10,7 @@ use App\Models\DispatchProvince;
 use App\Models\SimpleAddress;
 use App\Models\Dispatch;
 use App\Models\Organization;
+use App\Models\SimpleOnlineAddress;
 use App\Models\SimpleOnlineGoods;
 use App\Models\SimpleOnlineOrder;
 use App\Models\SimpleSelftake;
@@ -935,7 +936,6 @@ class WechatApiController extends Controller
             'fansmanage_id' => $fansmanage_id,
             'simple_id' => $store_id,
             'user_id' => $user_id,
-            'slfetake_mobile' => $address_info['mobile'],
             'status' => '0',
         ];
         DB::beginTransaction();
@@ -943,7 +943,7 @@ class WechatApiController extends Controller
             // 添加入订单表
             $order_id = SimpleOnlineOrder::addSimpleOnlineOrder($orderData);
             foreach ($goods_list as $key => $value) {
-                $data = [
+                $goodsdata = [
                     'order_id' => $order_id,
                     'goods_id' => $value['goods_id'],
                     'title' => $value['goods_name'],
@@ -952,7 +952,7 @@ class WechatApiController extends Controller
                     'total' => $value['num'],
                     'price' => $value['goods_price'],
                 ];
-                SimpleOnlineGoods::addSimpleOnlineGoods($data);//添加商品快照
+                SimpleOnlineGoods::addSimpleOnlineGoods($goodsdata);//添加商品快照
             }
             // 说明下单减库存
             if ($stock_type == '1') {
@@ -972,9 +972,7 @@ class WechatApiController extends Controller
                 'relaname' =>$address_info['relaname'],
                 'mobile' =>$address_info['relaname'],
             ];
-
             SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
-
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {

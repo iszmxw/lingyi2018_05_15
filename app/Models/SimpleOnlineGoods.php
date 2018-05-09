@@ -44,22 +44,17 @@ class SimpleOnlineGoods extends Model
     //添加数据
     public static function addSimpleOnlineGoods($param)
     {
-        $simpleorder = new SimpleOnlineGoods();//实例化程序模型
-        $simpleorder->ordersn = $param['ordersn'];//订单编号
-        $simpleorder->order_price = $param['order_price'];//订单价格
-        $simpleorder->user_id = $param['user_id'];//订单人id
-        $simpleorder->status = $param['status'];//订单状态
-        $simpleorder->operator_id = $param['operator_id'];//操作人员id
-        $simpleorder->fansmanage_id = $param['fansmanage_id'];//管理平台id
-        $simpleorder->simple_id = $param['simple_id'];//店铺所属组织ID
-        if (!empty($param['paytype'])) {
-            $simpleorder->paytype = $param['paytype'];//付款方式
+        $model = new SimpleOnlineGoods();//实例化程序模型
+        $model->order_id = $param['order_id'];//订单id
+        $model->goods_id = $param['goods_id'];//商品id
+        $model->title = $param['title'];//商品标题快照
+        $model->thumb = $param['thumb'];//商品图片快照
+        if (!empty($param['details'])) {
+            $model->details = $param['details'];//商品详情
         }
-        if (!empty($param['remarks'])) {
-            $simpleorder->remarks = $param['remarks'];//备注信息
-        }
-        $simpleorder->save();
-        return $simpleorder->id;
+        $model->price = $param['price'];//商品价格
+        $model->save();
+        return $model->id;
     }
 
     //获取分页列表
