@@ -81,13 +81,7 @@ class WxController extends Controller
         $res = json_decode($res, true);
 
         $res["data"]["timestamp"] = time();
-
-//        $sign = $this->MakeSign($res["data"]);
-
-//        $res["data"]["paySign"] = $res["data"]["sign"];
-//        $res["data"]["paySign"] = $sign;
-        $res["data"]["nonce_str"] = $this->getNonceStr();
-
+//        $res["data"]["nonce_str"] = $this->getNonceStr();
         $paySign= "appId={$res["data"]["appid"]}&nonceStr={$res["data"]["nonce_str"]}&package=prepay_id={$res["data"]["prepay_id"]}&signType=MD5&timeStamp={$res["data"]["timestamp"]}&key={$this->key}";
         $res["data"]["paySign"] = strtoupper(md5($paySign));
 
@@ -107,19 +101,6 @@ class WxController extends Controller
         //签名步骤四：所有字符转为大写
         $result = strtoupper($string);
         return $result;
-    }
-
-    public function ToUrlParams($param)
-    {
-        $buff = "";
-        foreach ($param as $k => $v) {
-            if ($k != "sign" && $v != "" && !is_array($v)) {
-                $buff .= $k . "=" . $v . "&";
-            }
-        }
-
-        $buff = trim($buff, "&");
-        return $buff;
     }
 
     public function getNonceStr($length = 32)
