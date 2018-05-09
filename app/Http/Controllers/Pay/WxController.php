@@ -46,7 +46,7 @@ class WxController extends Controller
     {
         $data["order_num_type"] = 'out_trade_no';
 
-        $data["order_num"] = '150337637120180509095053';
+        $data["order_num"] = '150337637120180509095027';
         // 商户退款单号
         $data["refund_num"] = md5(time());
         // 订单金额
