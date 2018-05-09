@@ -49,6 +49,7 @@ class SimpleOnlineGoods extends Model
         $model->goods_id = $param['goods_id'];//商品id
         $model->title = $param['title'];//商品标题快照
         $model->thumb = $param['thumb'];//商品图片快照
+        $model->total = $param['total'];//商品数量
         if (!empty($param['details'])) {
             $model->details = $param['details'];//商品详情
         }
