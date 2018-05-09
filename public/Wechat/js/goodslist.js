@@ -68,7 +68,7 @@ $(function(){
                         //$('.lists').append(result);
                         // 每次数据加载完，必须重置
                         //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-                        selectgoods(0,"");
+                        //selectgoods(0,"");
                         me.resetload();
             //     },
             //     error: function(xhr, type){
