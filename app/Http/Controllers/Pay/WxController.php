@@ -45,14 +45,17 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '150337637120180509095053';
-        $res = $this->orderQuery($data);
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01 * 100;
+        $data["ip_address"] = "120.78.140.10";
+        $res = $this->unifiedOrder($data);
         echo $res;
     }
 
     public function test14()
     {
+
     }
 
     public function demo()
