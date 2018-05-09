@@ -11,8 +11,11 @@ namespace App\Http\Controllers\Pay;
 
 use App\Http\Controllers\Api\WechatController;
 use App\Http\Controllers\Controller;
-use App\Models\XhoLog;
 use WXPay\WXPay;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Response\QrCodeResponse;
 
 class WxController extends Controller
 {
@@ -47,24 +50,65 @@ class WxController extends Controller
 
     public function test13()
     {
+
+        // jsapi 下单
+        $wechat = new WechatController();
+        $wechat->getSignPackage();
+        $signPackage = request()->get("zerone_jssdk_info");
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
         $data["order_money"] = 0.01;
         $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "NATIVE";
+        $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
-        $res = $this->unifiedOrder($data);
-        echo $res;
+        $res = $this->jsApiOrder($data);
+        $res = json_decode($res,true);
+        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+
     }
 
     public function test14()
     {
-
+        echo "<img src='http://project01.laravel.xin/pay/sft/test15'>";
     }
 
     public function test15()
     {
+        // 实例化图片
+        $qrCode = new QrCode("//www.baidu.com");
+        $qrCode->setSize(300);
+
+        // 设置图片格式
+        $qrCode->setWriterByName('png');
+        // 设置图片边距
+        $qrCode->setMargin(10);
+        // 设置编码方式
+        $qrCode->setEncoding('UTF-8');
+        //
+        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
+
+        // 设置二维码背部形状颜色
+        $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+        // 设置背景颜色
+        $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+
+        // 设置字体还有标注文字
+//        $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
+        // 设置logo 图片
+//        $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
+        // 设置logo 大小
+//        $qrCode->setLogoWidth(150);
+
+        $qrCode->setRoundBlockSize(true);
+        $qrCode->setValidateResult(false);
+
+        // 直接输出
+        header('Content-Type: ' . $qrCode->getContentType());
+        imagepng($qrCode->writeString());
+//        echo $qrCode->writeString();
+        // 保存文件
+//        $qrCode->writeFile(__DIR__.'/qrcode.png');
 
     }
 
@@ -115,11 +159,29 @@ class WxController extends Controller
     }
 
 
+    public function nativeOrder($param)
+    {
+        // 统一下单地址
+        $res_json = $this->unifiedOrder($param);
+        $res = json_decode($res_json, true);
+
+        // 判断接口是否存在问题
+        if ($res["return_code"] == 0) {
+            return $res_json;
+        }
+        return $this->qrCode($res["data"]["code_url"]);
+    }
+
     public function jsApiOrder($param)
     {
         // 统一下单地址
-        $res = $this->unifiedOrder($param);
-        $res = json_decode($res, true);
+        $res_json = $this->unifiedOrder($param);
+        $res = json_decode($res_json, true);
+        // 判断接口是否存在问题
+        if ($res["return_code"] == 0) {
+            return $res_json;
+        }
+
         // 时间戳
         $res["data"]["timestamp"] = time();
         // 支付签名
@@ -256,5 +318,43 @@ class WxController extends Controller
             }
         }
         return $param;
+    }
+
+    public function qrCode($url)
+    {
+        // 生成二维码图片
+        $qrCode = new QrCode($url);
+
+        // 设置图片大小
+        $qrCode->setSize(300);
+        // 设置图片格式
+        $qrCode->setWriterByName('png');
+        // 设置图片边距
+        $qrCode->setMargin(10);
+        // 设置编码方式
+        $qrCode->setEncoding('UTF-8');
+        //
+        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
+
+        // 设置二维码背部形状颜色
+        $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+        // 设置背景颜色
+        $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+
+        // 设置字体还有标注文字
+//        $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
+        // 设置logo 图片
+//        $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
+        // 设置logo 大小
+//        $qrCode->setLogoWidth(150);
+
+        $qrCode->setRoundBlockSize(true);
+        $qrCode->setValidateResult(false);
+
+        // 直接输出
+        header('Content-Type: ' . $qrCode->getContentType());
+        echo $qrCode->writeString();
+        // 保存文件
+//        $qrCode->writeFile(__DIR__.'/qrcode.png');
     }
 }
