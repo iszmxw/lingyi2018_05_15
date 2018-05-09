@@ -44,18 +44,25 @@ class WxController extends Controller
 
     public function test13()
     {
-        $reqData["type"] = "out_refund_no";
-        $reqData["number"] = "1003022622018050853721122351525761650";
-
-        $res = $this->refund($reqData);
+        $data["order_num_type"] = 'out_trade_no';
+        $data["order_num"] = '150337637120180509095053';
+        // 商户退款单号
+        $data["refund_num"] = md5(time());
+        // 订单金额
+        $data["order_money"] = 0.1;
+        // 退款金额
+        $data["refund_money"] = 0.01;
+        // 退款原因
+        $data["refund_reason"] = "不想买了";
+        $res = $this->refund($data);
         echo $res;
     }
 
     public function demo()
     {
         // 退款查询接口
-        $reqData["type"] = "out_refund_no";
-        $reqData["number"] = "1003022622018050853721122351525761650";
+        $reqData["order_num_type"] = "out_refund_no";
+        $reqData["order_num"] = "1003022622018050853721122351525761650";
         $res = $this->refundQuery($reqData);
         echo $res;
     }
@@ -80,21 +87,28 @@ class WxController extends Controller
     }
 
 
-
+    /**
+     * 退款接口
+     * order_num_type 有两个值：
+     *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
+     * @param array $param
+     * @return string
+     */
     public function refund($param = [])
     {
-//        $data["transaction_id"] = '4200000129201805095842866557';
-        $data["out_trade_no"] = '150337637120180509095053';
+        // 查询订单类型，和相对应的订单号
+        $data[$param["order_num_type"]] = $param["order_num"];
+        // 商户退款单号
+        $data["out_refund_no"] = $param["refund_num"];
+        // 订单金额
+        $data["total_fee"] = $param["order_money"] * 100;
+        // 退款金额
+        $data["refund_fee"] = $param["refund_money"] * 100;
+        // 退款原因
+        $data["refund_desc"] = $param["refund_reason"];
+        // 退款通知地址
+//        $data["notify_url"] = $param["notify_url"];
 
-        $data["out_refund_no"] = md5(time());
-//        $data["out_refund_no"] = "1111111";
-        $data["total_fee"] = 10;
-        $data["refund_fee"] = 2;
-        $data["refund_desc"] = "12312321";
-//        $data["notify_url"] = "12312321";
-
-
-//        dd($data);
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
     }
@@ -102,12 +116,13 @@ class WxController extends Controller
 
     /**
      * 退款订单查询
+     *
      * @param array $param
      * @return string
      */
     public function refundQuery($param = [])
     {
-        $data[$param["type"]] = $param["number"];
+        $data[$param["order_num_type"]] = $param["order_num"];
         // 查询接口
         $res = $this->wechat->refundQuery($data);
         return $this->resDispose($res);
