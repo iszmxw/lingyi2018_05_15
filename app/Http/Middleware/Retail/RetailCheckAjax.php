@@ -34,9 +34,7 @@ class RetailCheckAjax
             case "retail/ajax/order_status":            //订单状态修改确认弹窗
             case "retail/ajax/order_status_paytype":    //订单状态修改以及邓丹支付方式确认弹窗
             case "retail/ajax/upload_thumb_check":      //上传图片
-            case "retail/ajax/user_list_edit":          //会员列表编辑显示页面
-            case "retail/ajax/user_list_lock":          //会员列表冻结显示页面
-            case "retail/ajax/user_list_wallet":        //会员列表粉丝钱包显示页面
+
             case "retail/ajax/select_company":          //选择供应商处理
             case "retail/ajax/goods_list":              //检测登录，权限，及添搜索商品的数据
             case "retail/ajax/purchase_list_confirm":   //进货退货审核弹窗
@@ -47,19 +45,6 @@ class RetailCheckAjax
             case "retail/ajax/order_list_details":      //订单详细信息列表
             case "retail/ajax/goods_thumb_delete":      //删除图片弹窗确认
             case "retail/ajax/thumb_edit_displayorder": //修改图片排序
-
-            case "retail/ajax/dispatch_province_add_check"://运费模板省份添加
-            case "retail/ajax/dispatch_province_edit_check"://运费模板信息编辑
-            case "retail/ajax/dispatch_province_delete_check"://运费模板信息删除
-            case "retail/ajax/dispatch_list_lock":            //运费模板启用弹窗
-            case "retail/ajax/dispatch_list_delete":          //运费模板删除确认弹窗
-
-            case "retail/ajax/shengpay_edit":           //编辑终端机器号
-            case "retail/ajax/shengpay_apply":          //终端机器号重新申请
-            case "retail/ajax/shengpay_delete":         //终端机器号解除绑定
-            case "retail/ajax/payconfig_edit":          //付款信息编辑
-            case "retail/ajax/payconfig_apply":         //付款信息重新申请
-            case "retail/ajax/payconfig_delete":        //付款信息删除
                 $re = $this->checkLoginAndRule($request);
                 return self::format_response($re, $next);
                 break;
@@ -76,7 +61,6 @@ class RetailCheckAjax
                 return self::format_response($re, $next);
                 break;
 
-
             /****检测是否登录 权限 安全密码****/
             case "retail/ajax/store_edit_check":        //店铺信息编辑弹窗页面
             case "retail/ajax/category_delete_check":   //检测是否登录 权限 安全密码
@@ -85,18 +69,11 @@ class RetailCheckAjax
             case "retail/ajax/order_status_check":      //检测是否登录 权限 安全密码
             case "retail/ajax/order_status_paytype_check"://检测是否登录 权限 安全密码
             case "retail/ajax/subordinate_lock_check":  //检测是否登录 权限 安全密码
-            case "retail/ajax/user_list_lock_check":    //检测是否登录 权限 安全密码--冻结粉丝标签
             case "retail/ajax/purchase_list_confirm_check":   //审核订单安全密码确认
             case "retail/ajax/loss_list_confirm_check":       //审核订单安全密码确认
             case "retail/ajax/check_list_confirm_check":      //审核订单安全密码确认
             case "retail/ajax/supplier_delete_check":         //进销存管理--删除供应商确认
             case "retail/ajax/goods_thumb_delete_check":     //商品图片删除--检测登录安全密码和权限
-            case "retail/ajax/dispatch_list_lock_check":     //启用、弃用运费模板确认
-            case "retail/ajax/dispatch_list_delete_check":   //运费模板删除确认操作
-            case "retail/ajax/shengpay_apply_check":            // 终端机器号重新申请功能提交
-            case "retail/ajax/shengpay_delete_check":            // 终端机器号解除绑定功能提交
-            case "retail/ajax/payconfig_delete_check":           // 付款信息解除绑定功能提交
-            case "retail/ajax/payconfig_apply_check":            // 付款信息重新申请功能提交
                 $re = $this->checkLoginAndRuleAndSafe($request);
                 return self::format_response($re, $next);
                 break;
@@ -163,29 +140,6 @@ class RetailCheckAjax
                 return self::format_response($re, $next);
                 break;
             /*********进销存--报损开单处理*********/
-
-            /****粉丝信息编辑****/
-            case "retail/ajax/user_list_edit_check"://检测 登录 和 权限 和 安全密码 和 用户编辑数据提交
-                $re = $this->checkLoginAndRuleAndSafeAndUserEdit($request);
-                return self::format_response($re, $next);
-            /****粉丝信息编辑****/
-
-
-            /****支付设置****/
-            case "retail/ajax/payconfig_check":    // 收款信息设置数据监测
-            case "retail/ajax/payconfig_edit_check":    // 收款信息设置数据监测
-                $re = $this->checkLoginAndRuleAndPayconfig($request);
-                return self::format_response($re, $next);
-                break;
-            case "retail/ajax/shengpay_add_check":            // 添加终端机器号信息功能提交
-            case "retail/ajax/shengpay_edit_check":
-                $re = $this->checkLoginAndRuleAndShengpayAdd($request);
-                return self::format_response($re, $next);
-                break;
-
-            /****粉丝信息编辑****/
-
-
         }
     }
 
@@ -806,96 +760,8 @@ class RetailCheckAjax
         return self::res(1, $request);
     }
 
-    //检测供应商进货退货开单的数据
-
-    public function checkLoginAndRuleAndSafeAndUserEdit($request)
-    {
-        $re = $this->checkLoginAndRuleAndSafe($request);//检测登录、权限和安全密码
-        if ($re['status'] == '0') {//检测是否登录
-            return $re;
-        } else {
-            $re2 = $this->checkUserEdit($re['response']);//检测用户数据
-            if ($re2['status'] == '0') {
-                return $re2;
-            } else {
-                return self::res(1, $re2['response']);
-            }
-        }
-    }
-
-    //检测报损、盘点开单的数据
-
-
-    public function checkUserEdit($request)
-    {
-        if (empty($request->input('qq'))) {
-            return self::res(0, response()->json(['data' => '请输qq号', 'status' => '0']));
-        }
-        if (empty($request->input('mobile'))) {
-            return self::res(0, response()->json(['data' => '请输入手机号', 'status' => '0']));
-        }
-        return self::res(1, $request);
-    }
-
-    //检测登录提交数据
-
-    public function checkLoginAndRuleAndPayconfig($request)
-    {
-        $re = $this->checkLoginAndRuleAndSafe($request);//判断是否登录是否有权限以及安全密码
-        if ($re['status'] == '0') {
-            return $re;
-        } else {
-            $re2 = $this->checkPayconfig($re['response']);//检测修改的数据
-            if ($re2['status'] == '0') {
-                return $re2;
-            } else {
-                return self::res(1, $re2['response']);
-            }
-        }
-    }
-
-
-    // 添加终端机器号信息功能提交
-
-    public function checkPayconfig($request)
-    {
-        if (empty($request->input('sft_pos_num'))) {
-            return self::res(0, response()->json(['data' => '请输入pos商户号!', 'status' => '0']));
-        }
-        if (empty($request->input('sft_num'))) {
-            return self::res(0, response()->json(['data' => '请输入盛付通商户号!', 'status' => '0']));
-        }
-        return self::res(1, $request);
-    }
-
-    // 收款信息设置数据监测
-
-    public function checkLoginAndRuleAndShengpayAdd($request)
-    {
-        $re = $this->checkLoginAndRuleAndSafe($request);//判断是否登录是否有权限以及安全密码
-        if ($re['status'] == '0') {
-            return $re;
-        } else {
-            $re2 = $this->checkShengpayAdd($re['response']);//检测修改的数据
-            if ($re2['status'] == '0') {
-                return $re2;
-            } else {
-                return self::res(1, $re2['response']);
-            }
-        }
-    }
 
     /*****************************数据检测结束****************************/
-
-
-    //工厂方法返回结果
-    public function checkShengpayAdd($request)
-    {
-        if (empty($request->input('terminal_num'))) {
-            return self::res(0, response()->json(['data' => '请输入终端号!', 'status' => '0']));
-        }
-        return self::res(1, $request);
-    }
 
     //格式化返回值
 
