@@ -11,8 +11,8 @@ use App\Models\Account;
 use App\Models\OperationLog;
 use App\Models\Organization;
 use App\Models\RetailCategory;
-use App\Models\RetailCheckOrder;
-use App\Models\RetailCheckOrderGoods;
+use App\Models\RetailOrder;
+use App\Models\RetailOrderGoods;
 use App\Models\RetailGoods;
 use App\Models\RetailLossOrder;
 use App\Models\RetailLossOrderGoods;
@@ -316,7 +316,7 @@ class InvoicingController extends Controller
         $fansmanage_id = Organization::getPluck(['id' => $admin_data['organization_id']], 'parent_id');
 
         $organization_id = $admin_data['organization_id'];
-        $num = RetailCheckOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();//查询订单今天的数量
+        $num = RetailOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();//查询订单今天的数量
         $num += 1;
         $sort = 100000 + $num;
         $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;//订单号
@@ -341,7 +341,7 @@ class InvoicingController extends Controller
         ];
         DB::beginTransaction();
         try {
-            $id = RetailCheckOrder::addOrder($order_data);
+            $id = RetailOrder::addOrder($order_data);
             //盘点开单对应商品信息处理
             foreach ($orders['goods'] as $key => $val) {
                 $goods = RetailGoods::getOne(['id' => $val['id']]);
@@ -354,10 +354,10 @@ class InvoicingController extends Controller
                     'thumb' => '',
                     'details' => $goods->details,
                 ];
-                RetailCheckOrderGoods::addOrderGoods($order_goods_data);
+                RetailOrderGoods::addOrderGoods($order_goods_data);
             }
-            $order = RetailCheckOrder::getOne(['id' => $id])->first();    //获取订单信息
-            $order_goods = $order->RetailCheckOrderGoods;    //订单对应的商品
+            $order = RetailOrder::getOne(['id' => $id])->first();    //获取订单信息
+            $order_goods = $order->RetailOrderGoods;    //订单对应的商品
             //添加库存操作记录日志
             foreach ($order_goods as $key => $val) {
                 $stock_data = [
