@@ -48,7 +48,7 @@ class WxController extends Controller
     {
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01 * 100;
+        $data["order_money"] = 0.01;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
@@ -96,19 +96,20 @@ class WxController extends Controller
     {
         $data["body"] = $param["desc"];
         $data["out_trade_no"] = $param["order_num"];
-        $data["total_fee"] = $param["order_money"];
+        $data["total_fee"] = $param["order_money"] * 100;
         $data["spbill_create_ip"] = $param["ip_address"];
         // 交易类型
         $data["trade_type"] = $param["trade_type"];
         // 通知地址
         $data["notify_url"] = $this->notify_url;
 
-        $data["openid"] =  $param["openid"];
+        $data["openid"] = $param["openid"];
 
 //        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
-        dump($res);exit;
+        dump($res);
+        exit;
         return $this->resDispose($res);
     }
 
