@@ -45,7 +45,6 @@ $(function(){
             }
         },
         up: {
-            isAuto: true,
             callback: function() {
                 setTimeout(function() {
                     console.log("000");
