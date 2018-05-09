@@ -49,9 +49,9 @@ $(function(){
         //联网加载数据
         //getListDataFromNet(0, 1, function(data){
             //联网成功的回调,隐藏下拉刷新的状态
-            setTimeout(function(){
-                mescroll.endSuccess();
-            },1000);
+            //setTimeout(function(){
+                //mescroll.endSuccess();
+            //},1000);
 
             //设置列表数据
             //setListData(data, false);
@@ -170,7 +170,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         //$goodslist.empty();
                         $goodslist.append(str);
-                        mescroll.endSuccess(20);
+                        //mescroll.endSuccess(20);
             		}else if (json.status == 0) {
                         alert(msg);
                     }
