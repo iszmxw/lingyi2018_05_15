@@ -145,7 +145,7 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有商品', 'data' => '']);
         }
         foreach ($goodslist as $key => $value) {
-            $goodslist[$key]['price'] = round($value['price'],2);
+            $goodslist[$key]['price'] = round($value['price'], 2);
             $goodslist[$key]['category_name'] = SimpleCategory::getPluck([['id', $value['category_id']]], 'name');
             $goodslist[$key]['thumb'] = SimpleGoodsThumb::where([['goods_id', $value['id']]])->select('thumb')->get();
             if (count($goodslist[$key]['thumb']) == 0) {
@@ -923,7 +923,7 @@ class WechatApiController extends Controller
         }
 
         // 查询订单今天的数量
-        $num = SimpleOnlineOrder::where([['fansmanage_id',$fansmanage_id],['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
+        $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
         $num += 1;
         $sort = 100000 + $num;
         // 订单号
@@ -964,13 +964,13 @@ class WechatApiController extends Controller
             }
 
             $address_data = [
-                'order_id' =>$order_id,
-                'province_name' =>$address_info['province_name'],
-                'city_name' =>$address_info['city_name'],
-                'district_name' =>$address_info['district_name'],
-                'address' =>$address_info['address'],
-                'relaname' =>$address_info['relaname'],
-                'mobile' =>$address_info['relaname'],
+                'order_id' => $order_id,
+                'province_name' => $address_info['province_name'],
+                'city_name' => $address_info['city_name'],
+                'district_name' => $address_info['district_name'],
+                'address' => $address_info['address'],
+                'relaname' => $address_info['relaname'],
+                'mobile' => $address_info['relaname'],
             ];
             SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
             // 提交事务
@@ -1084,7 +1084,6 @@ class WechatApiController extends Controller
     }
 
 
-
     /**
      * 减库存
      * @order_id 订单id
@@ -1172,16 +1171,6 @@ class WechatApiController extends Controller
         }
         return 'ok';
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }
