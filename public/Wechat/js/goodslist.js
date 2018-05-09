@@ -30,6 +30,7 @@ $(function(){
             }
 		}
 	);
+    selectgoods(0,"");
     var miniRefresh = new MiniRefresh({
         container: '#minirefresh',
         down: {
