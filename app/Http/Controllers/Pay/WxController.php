@@ -80,7 +80,7 @@ class WxController extends Controller
         $res = $this->unifiedOrder($data);
         $res = json_decode($res, true);
 
-        dd($res["data"]);
+        dd($res);
         exit;
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res]);
     }
