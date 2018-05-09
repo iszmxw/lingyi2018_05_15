@@ -32,7 +32,6 @@ $(function(){
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     //selectgoods(0,"");
-            var i = 0;
     $('.goodslist').dropload({
         scrollArea : window,
         domDown    :{
@@ -42,9 +41,6 @@ $(function(){
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
         loadDownFn : function(me){
-
-            console.log(i,"++++");
-            ++i;
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
@@ -125,6 +121,7 @@ $(function(){
                         var $cart_list = $("#cart_list");
                         $cart_list.empty();
                         $cart_list.append(str);
+                        me.resetload();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
@@ -161,12 +158,11 @@ $(function(){
                                 $goodslist.append(str);
                                 $.hidePreloader();
                                 $("#limit").val(++limit);
-
+                                me.resetload();
                     		}else if (json.status == 0) {
                                 alert(msg);
                                 me.resetload();
                             }
-                            me.resetload();
                 		}
                 	);
         		}
