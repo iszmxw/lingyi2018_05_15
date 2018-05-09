@@ -60,6 +60,8 @@ class WxController extends Controller
         $data["auth_code"] = 135417053696994941;
         $data["notify_url"] = $this->notify_url;
 
+        echo 23434;
+        exit;
         $res = $this->wechat->microPay($data);
 //        $res = json_decode($res, true);
 //        $res = $this->wechat->microPay($res);
