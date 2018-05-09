@@ -59,11 +59,10 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
         $res = json_decode($res, true);
-        dump($res);
 
 
         $res = $this->wechat->microPay($res);
-        var_dump($res);
+//        var_dump($res);
     }
 
     public function test14()
