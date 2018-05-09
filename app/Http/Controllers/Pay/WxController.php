@@ -81,6 +81,9 @@ class WxController extends Controller
 
 
     /**
+     * 订单查询接口
+     * order_num_type 有两个值：
+     *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
      * @param array $param
      * @return string
      */
@@ -161,5 +164,25 @@ class WxController extends Controller
         }
         // 返回 json 数据
         return json_encode($res, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * 数据格式处理
+     * @param $param
+     * @return mixed
+     */
+    public function dataDispose($param)
+    {
+        // 金额处理
+        $total_type = ["total_fee","cash_fee"];
+        foreach($total_type as $val) {
+            if (array_key_exists($val, $param)) {
+                $param[$val] = $param[$val] / 100;
+            }
+        }
+//        !empty($param["total_fee"]) ? $param["total_fee"] = $param["total_fee"] / 100 : false;
+//        !empty($param["cash_fee"]) ? $param["cash_fee"] = $param["cash_fee"] / 100 : false;
+
+        return $param;
     }
 }
