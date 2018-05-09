@@ -66,31 +66,9 @@ class WxController extends Controller
     public function test15()
     {
         $wechat = new WechatController();
-        $res = $wechat->getSignPackage();
+        $wechat->getSignPackage();
 
-        $res = request()->get("zerone_jssdk_info");
-        var_dump($res);exit;
-        $a_k = "9_ka-c5NS_a0XMaeRCcyD5sPPG5ydczvqs5p-8HWh3ei09RwuxW5qEx4eT0wkdwl_KOSKztRj6l2zGNEAcZWhKu1rN0jaeiw2IYD-PTw9kcXrZuuHHEJUyA9UXcJ8WG5IDNpD2gfdpGnDNikADHYIhADAULV";
-
-        $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$a_k}&type=jsapi";
-        $res = file_get_contents($url);
-        $res = json_decode($res, true);
-        $ticket = $res["ticket"];
-
-
-        var_dump($ticket);
-
-// 设置得到签名的参数
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-        var_dump($url);
-
-        $timestamp = time();
-        $nonceStr = substr(md5(time()), 0, 16);
-// 这里参数的顺序要按照 key 值 ASCII 码升序排序
-        $string = "jsapi_ticket={$ticket}&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
-        $signature = sha1($string);
-        $signPackage = array("appId" => "wx3fb8f4754008e524", "nonceStr" => $nonceStr, "timestamp" => $timestamp, "url" => $url, "rawString" => $string, "signature" => $signature);
-
+        $signPackage = request()->get("zerone_jssdk_info");
 
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
@@ -100,9 +78,11 @@ class WxController extends Controller
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
-        $res = json_decode($res,true);
+        $res = json_decode($res, true);
 
-        return view("Fansmanange/Test/test", ["signPackage" => $signPackage,"wxpay"=>$res]);
+        dd($res);
+        exit;
+        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res]);
     }
 
     public function demo()
@@ -154,11 +134,7 @@ class WxController extends Controller
         $data["openid"] = $param["openid"];
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
-
-
         $res = $this->wechat->unifiedOrder($data);
-        dump($res);
-        exit;
         return $this->resDispose($res);
     }
 
