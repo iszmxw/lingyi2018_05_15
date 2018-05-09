@@ -134,6 +134,7 @@ class WxController extends Controller
 
 
     /**
+     * 下载对账单
      * @param array $param
      * @return string
      * @throws \Exception
@@ -142,16 +143,23 @@ class WxController extends Controller
     {
         $data["bill_date"] = $param["bill_date"];
         $data["bill_type"] = $param["bill_type"];
+        // 获取数据
         $res = $this->wechat->downloadBill($data);
-//        return $this->resDispose($res);
-//        return $res;
-//        var_dump($res);
-        $res = str_replace("`","",$res["data"]);
-        file_put_contents("./uploads/1.csv",$res);
-        $fileName = "./uploads/1.csv"; //得到文件名
-        header( "Content-Disposition:  attachment;  filename=".$fileName); //告诉浏览器通过附件形式来处理文件
-        header('Content-Length: ' . filesize($fileName)); //下载文件大小
-        readfile($fileName);  //读取文件内容
+
+        var_dump($res);exit;
+//        if($res[]){
+//
+//        }
+        $res = $res["data"];
+        // 得到文件名
+        $fileName = "./uploads/download.csv";
+        file_put_contents($fileName,$res);
+        // 告诉浏览器通过附件形式来处理文件
+        header( "Content-Disposition:  attachment;  filename=".$fileName);
+        // 下载文件大小
+        header('Content-Length: ' . filesize($fileName));
+        // 读取文件内容
+        readfile($fileName);
     }
 
 

@@ -18,6 +18,7 @@ use App\Models\SimpleCategory;
 use App\Models\SimpleConfig;
 use App\Models\SimpleGoods;
 use App\Models\SimpleGoodsThumb;
+use App\Models\SimpleSelftakeOrder;
 use App\Models\SimpleStock;
 use App\Models\SimpleStockLog;
 use App\Services\ZeroneRedis\ZeroneRedis;
@@ -888,6 +889,7 @@ class WechatApiController extends Controller
      */
     public function order_submit(Request $request)
     {
+
         // 用户id
         $user_id = $request->user_id;
         // 零壹id
@@ -905,8 +907,7 @@ class WechatApiController extends Controller
         // 收货信息
         $address_info = json_decode($request->address_info, TRUE);
         // 取货信息
-        $self_take_info = $request->self_take_info;
-
+        $self_take_info = json_decode($request->self_take_info, TRUE);
         // 商品信息
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
@@ -939,12 +940,39 @@ class WechatApiController extends Controller
                 ];
                 // 添加入订单表
                 $order_id = SimpleOnlineOrder::addSimpleOnlineOrder($orderData);
+
+                foreach ($goods_list as $key => $value) {
+                    $details = SimpleGoods::getPluck([['id',$value['goods_id']]],'details');
+                    $goodsdata = [
+                        'order_id' => $order_id,
+                        'goods_id' => $value['goods_id'],
+                        'title' => $value['goods_name'],
+                        'thumb' => $value['goods_thumb'],
+                        'details' => $details,
+                        'total' => $value['num'],
+                        'price' => $value['goods_price'],
+                    ];
+                    SimpleOnlineGoods::addSimpleOnlineGoods($goodsdata);//添加商品快照
+                }
+
+                $address_data = [
+                    'order_id' => $order_id,
+                    'province_name' => $address_info['province_name'],
+                    'city_name' => $address_info['city_name'],
+                    'district_name' => $address_info['district_name'],
+                    'address' => $address_info['address'],
+                    'realname' => $address_info['realname'],
+                    'mobile' => $address_info['mobile'],
+                ];
+                SimpleOnlineAddress::addSimpleOnlineAddress($address_data);
             }else{
                 // 查询订单今天的数量
                 $num = SimpleSelftakeOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
                 $sort = 100001 + $num;
                 // 订单号
                 $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
+                // 提取码
+                $rand = rand(100000,999999);
                 // 数据处理
                 $orderData = [
                     'ordersn' => $ordersn,
@@ -953,25 +981,29 @@ class WechatApiController extends Controller
                     'fansmanage_id' => $fansmanage_id,
                     'simple_id' => $store_id,
                     'user_id' => $user_id,
+                    'selftake_mobile' => $self_take_info['mobile'],
+                    'selftake_code' => $rand,
                     'status' => '0',
                 ];
                 // 添加入订单表
                 $order_id = SimpleSelftakeOrder::addSimpleSelftakeOrder($orderData);
+
+                foreach ($goods_list as $key => $value) {
+                    $details = SimpleGoods::getPluck([['id',$value['goods_id']]],'details');
+                    $goodsdata = [
+                        'order_id' => $order_id,
+                        'goods_id' => $value['goods_id'],
+                        'title' => $value['goods_name'],
+                        'thumb' => $value['goods_thumb'],
+                        'details' => $details,
+                        'total' => $value['num'],
+                        'price' => $value['goods_price'],
+                    ];
+                    SimpleSelftakeGoods::addSimpleSelftakeGoods($goodsdata);//添加商品快照
+                }
             }
 
-            foreach ($goods_list as $key => $value) {
-                $details = SimpleGoods::getPluck([['id',$value['goods_id']]],'details');
-                $goodsdata = [
-                    'order_id' => $order_id,
-                    'goods_id' => $value['goods_id'],
-                    'title' => $value['goods_name'],
-                    'thumb' => $value['goods_thumb'],
-                    'details' => $details,
-                    'total' => $value['num'],
-                    'price' => $value['goods_price'],
-                ];
-                SimpleOnlineGoods::addSimpleOnlineGoods($goodsdata);//添加商品快照
-            }
+
             // 说明下单减库存
             if ($stock_type == '1') {
                 // 减库存
@@ -980,17 +1012,6 @@ class WechatApiController extends Controller
                     return $re;
                 }
             }
-
-            $address_data = [
-                'order_id' => $order_id,
-                'province_name' => $address_info['province_name'],
-                'city_name' => $address_info['city_name'],
-                'district_name' => $address_info['district_name'],
-                'address' => $address_info['address'],
-                'realname' => $address_info['realname'],
-                'mobile' => $address_info['mobile'],
-            ];
-            SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
