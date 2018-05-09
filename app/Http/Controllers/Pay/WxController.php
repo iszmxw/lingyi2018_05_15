@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Pay;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\XhoLog;
 use WXPay\WXPay;
 
 class WxController extends Controller
@@ -52,10 +53,6 @@ class WxController extends Controller
 
     public function test14()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '150337637120180509095053';
-        $res = $this->orderQuery($data);
-        echo $res;
     }
 
     public function demo()
