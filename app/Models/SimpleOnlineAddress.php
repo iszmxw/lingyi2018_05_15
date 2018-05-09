@@ -9,10 +9,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SimpleOnlineGoods extends Model
+class SimpleOnlineAddress extends Model
 {
     use SoftDeletes;
-    protected $table = 'simple_online_goods';
+    protected $table = 'simple_online_address';
     protected $primaryKey = 'id';
     public $timestamps = true;
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
@@ -31,7 +31,7 @@ class SimpleOnlineGoods extends Model
 
 
     //修改订单信息
-    public static function editSimpleOnlineGoods($where, $param)
+    public static function editSimpleOnlineAddress($where, $param)
     {
         $model = self::where($where)->first();
         foreach ($param as $key => $val) {
@@ -42,17 +42,16 @@ class SimpleOnlineGoods extends Model
 
 
     //添加数据
-    public static function addSimpleOnlineGoods($param)
+    public static function addSimpleOnlineAddress($param)
     {
-        $model = new SimpleOnlineGoods();//实例化程序模型
+        $model = new SimpleOnlineAddress();//实例化程序模型
         $model->order_id = $param['order_id'];//订单id
-        $model->goods_id = $param['goods_id'];//商品id
-        $model->title = $param['title'];//商品标题快照
-        $model->thumb = $param['thumb'];//商品图片快照
-        if (!empty($param['details'])) {
-            $model->details = $param['details'];//商品详情
-        }
-        $model->price = $param['price'];//商品价格
+        $model->province_name = $param['province_name'];//省份名称
+        $model->city_name = $param['city_name'];//城市名称
+        $model->district_name = $param['district_name'];//地区名称
+        $model->address = $param['address'];//详细地址
+        $model->realname = $param['realname'];//收货人真实姓名
+        $model->mobile = $param['mobile'];//手机号码
         $model->save();
         return $model->id;
     }
