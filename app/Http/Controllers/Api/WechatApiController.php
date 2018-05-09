@@ -982,7 +982,7 @@ class WechatApiController extends Controller
                     'fansmanage_id' => $fansmanage_id,
                     'simple_id' => $store_id,
                     'user_id' => $user_id,
-                    'selftake_mobile' => $self_take_info['selftake_mobile'],
+                    'selftake_mobile' => $self_take_info['mobile'],
                     'selftake_code' => $rand,
                     'status' => '0',
                 ];
