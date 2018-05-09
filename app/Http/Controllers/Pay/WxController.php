@@ -101,7 +101,7 @@ class WxController extends Controller
 
         $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 
-        dd($data);
+//        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
         dump($res);exit;
