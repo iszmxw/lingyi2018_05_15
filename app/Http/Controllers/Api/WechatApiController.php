@@ -18,6 +18,7 @@ use App\Models\SimpleCategory;
 use App\Models\SimpleConfig;
 use App\Models\SimpleGoods;
 use App\Models\SimpleGoodsThumb;
+use App\Models\SimpleSelftakeOrder;
 use App\Models\SimpleStock;
 use App\Models\SimpleStockLog;
 use App\Services\ZeroneRedis\ZeroneRedis;
