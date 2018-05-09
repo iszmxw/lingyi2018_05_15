@@ -29,8 +29,7 @@ $(function(){
             }
 		}
 	);
-    //查询商品列表和购物车列表
-    selectgoods("0","");
+
     //创建MeScroll对象
     var mescroll = new MeScroll("goodslist", {
         down: {
@@ -140,6 +139,8 @@ $(function(){
             }
         },1000)
     }
+    //查询商品列表和购物车列表
+    selectgoods("0","");
 });
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
