@@ -1040,7 +1040,7 @@ Route::group(['prefix' => 'pay'], function () {
 
 
         Route::any('test13', 'Pay\WxController@test13');//测试函数
-        Route::any('test14', 'Pay\SftController@test14')->middleware("UserCheck");//测试函数
+        Route::any('test14', 'Pay\WxController@test14');//测试函数
     });
 });
 /***************************对接支付接口路由*********************************/

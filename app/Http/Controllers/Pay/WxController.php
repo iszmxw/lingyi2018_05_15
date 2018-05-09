@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Pay;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\XhoLog;
 use WXPay\WXPay;
 
 class WxController extends Controller
@@ -26,7 +27,8 @@ class WxController extends Controller
     private $certPemPath = "./uploads/pem/1503376371/apiclient_cert.pem";
     // 支付证书私钥
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
-
+    // 通知地址
+    private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     public $wechat;
 
     public function __construct()
@@ -44,15 +46,69 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '150337637120180509095053';
-        $res = $this->orderQuery($data);
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "JSAPI";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
+        $res = $this->unifiedOrder($data);
         echo $res;
     }
 
+    public function test14()
+    {
+
+    }
+
+    public function test15()
+    {
+
+        $a_k = "9_aeWuKiTlzBxR21jNsPhB3JnaxLZ4IzxaLwIGZgF3xElEjiFRRhioVoYKxYd2okiD4ywJymzuNBLyP9KO-HB80QaTgm1WAU5_ICINbqNL1mbMrSOtvxGZkcJAQOmPIspTW2QcXXOovnhJy059IEUeAHAPLB";
+
+        $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$a_k}&type=jsapi";
+        $res = file_get_contents($url);
+        $res = json_decode($res, true);
+        $ticket = $res["ticket"];
+
+
+        var_dump($ticket);
+
+// 设置得到签名的参数
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+        var_dump($url);
+
+        $timestamp = time();
+        $nonceStr = substr(md5(time()), 0, 16);
+// 这里参数的顺序要按照 key 值 ASCII 码升序排序
+        $string = "jsapi_ticket={$ticket}&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
+        $signature = sha1($string);
+        $signPackage = array("appId" => "wx3fb8f4754008e524", "nonceStr" => $nonceStr, "timestamp" => $timestamp, "url" => $url, "rawString" => $string, "signature" => $signature);
+
+
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "JSAPI";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
+        $res = $this->unifiedOrder($data);
+        $res = json_decode($res,true);
+
+        return view("Fansmanange/Test/test", ["signPackage" => $signPackage,"wxpay"=>$res]);
+    }
 
     public function demo()
     {
+
+        // 订单查询
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        $res = $this->orderQuery($data);
+//        echo $res;
+
 //        // 退款查询接口
 //        $reqData["order_num_type"] = "out_refund_no";
 //        $reqData["order_num"] = "1003022622018050853721122351525761650";
@@ -74,9 +130,31 @@ class WxController extends Controller
 //        echo $res;
     }
 
-    public function unifiedOrder()
-    {
 
+    public function unifiedOrder($param = [])
+    {
+        // 商品信息
+        $data["body"] = $param["desc"];
+        // 订单号
+        $data["out_trade_no"] = $param["order_num"];
+        // 金额
+        $data["total_fee"] = $param["order_money"] * 100;
+        // ip 地址
+        $data["spbill_create_ip"] = $param["ip_address"];
+        // 交易类型
+        $data["trade_type"] = $param["trade_type"];
+        // 通知地址
+        $data["notify_url"] = $this->notify_url;
+        // openid (JSAPI : 公众号支付必填)
+        $data["openid"] = $param["openid"];
+        // 商品ID (NATIVE : 扫码模式必填)
+        $data["product_id"] = $param["product_id"];
+
+
+        $res = $this->wechat->unifiedOrder($data);
+        dump($res);
+        exit;
+        return $this->resDispose($res);
     }
 
 
@@ -115,8 +193,8 @@ class WxController extends Controller
         $data["refund_fee"] = $param["refund_money"] * 100;
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
-        // 退款通知地址
-//        $data["notify_url"] = $param["notify_url"];
+        // 通知地址
+        $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->refund($data);
         return $this->resDispose($res);
@@ -174,8 +252,8 @@ class WxController extends Controller
     public function dataDispose($param)
     {
         // 金额处理
-        $total_type = ["total_fee","cash_fee"];
-        foreach($total_type as $val) {
+        $total_type = ["total_fee", "cash_fee"];
+        foreach ($total_type as $val) {
             if (array_key_exists($val, $param)) {
                 $param[$val] = $param[$val] / 100;
             }
