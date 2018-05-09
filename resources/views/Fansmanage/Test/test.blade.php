@@ -34,44 +34,6 @@
         ] // 必填，需要使用的JS接口列表
     });
 
-    // wx.ready(function () {
-    // wx.checkJsApi({
-    //     jsApiList: ['checkJsApi',
-    //         'onMenuShareTimeline',
-    //         'onMenuShareAppMessage',
-    //         'openAddress',
-    //         'chooseWXPay'
-    //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-    //     success: function (res) {
-    //         // 以键值对的形式返回，可用的api值true，不可用为false
-    //         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-    //     }
-    // });
-    // wx.openAddress({
-    //     success: function (res) {
-    //         console.log(JSON.stringify(res));
-    //     }
-    // });
-    // })
-
-    {{--function jsApiCall() {--}}
-    {{--WeixinJSBridge.invoke(--}}
-    {{--'getBrandWCPayRequest',--}}
-    {{--{--}}
-    {{--appId: '{{$wxpay["appid"]}}',--}}
-    {{--timestamp: '{{$wxpay["appid"]}}', // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符--}}
-    {{--nonceStr: '{{$wxpay["nonce_str"]}}', // 支付签名随机串，不长于 32 位--}}
-    {{--package: 'prepay_id={{$wxpay["prepay_id"]}}', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）--}}
-    {{--signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'--}}
-    {{--paySign: '{{$wxpay["sign"]}}', // 支付签名--}}
-    {{--},--}}
-    {{--function (res) {--}}
-    {{--WeixinJSBridge.log(res.err_msg);--}}
-    {{--// alert(res.err_code+res.err_desc+res.err_msg);--}}
-    {{--}--}}
-    {{--);--}}
-    {{--}--}}
-
     function callpay() {
         wx.ready(function () {
             wx.chooseWXPay({
