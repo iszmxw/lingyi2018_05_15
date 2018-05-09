@@ -66,12 +66,9 @@ class WxController extends Controller
     public function test15()
     {
         $wechat = new WechatController();
-        $res = $wechat->getSignPackage();
+        $wechat->getSignPackage();
 
         $signPackage = request()->get("zerone_jssdk_info");
-//        $res = request()->all();
-        var_dump($signPackage);exit;
-
 
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
@@ -81,9 +78,9 @@ class WxController extends Controller
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
-        $res = json_decode($res,true);
+        $res = json_decode($res, true);
 
-        return view("Fansmanange/Test/test", ["signPackage" => $signPackage,"wxpay"=>$res]);
+        return view("Fansmanange/Test/test", ["signPackage" => $signPackage, "wxpay" => $res]);
     }
 
     public function demo()
