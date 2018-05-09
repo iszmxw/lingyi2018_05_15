@@ -135,6 +135,7 @@ $(function(){
                     });
                     var keyword_val = $("#search").val();
                     var limit = $("#limit").val();
+                    console.log(limit);
                     $.post(
                     	goodslist_url,
                         {'fansmanage_id': fansmanage_id,'_token':_token,'store_id':store_id,
