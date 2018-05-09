@@ -67,7 +67,7 @@ class WxController extends Controller
     {
         $data["order_num"] = 1503376371;
         $res = $this->closeOrder($data);
-        var_dump($res);
+        echo $res;
     }
 
     public function demo()
