@@ -65,6 +65,8 @@ class WxController extends Controller
 
     public function test15()
     {
+        echo realpath('.'),'<br>';
+        exit;
         $wechat = new WechatController();
         $wechat->getSignPackage();
 
