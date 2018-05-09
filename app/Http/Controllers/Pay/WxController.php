@@ -51,7 +51,7 @@ class WxController extends Controller
         $data["order_num"] = md5(time());
         $data["order_money"] = 0.01;
         $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "JSAPI";
+        $data["trade_type"] = "NATIVE";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
@@ -65,48 +65,27 @@ class WxController extends Controller
 
     public function test15()
     {
-        $wechat = new WechatController();
-        $wechat->getSignPackage();
-        $signPackage = request()->get("zerone_jssdk_info");
-        $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
-        $data["order_money"] = 0.1;
-        $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "JSAPI";
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        $data["product_id"] = md5(time());
-        $res = $this->jsApiOrder($data);
-        $res = json_decode($res,true);
-        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
-    }
 
-
-    public function MakeSign($param)
-    {
-        //签名步骤一：按字典序排序参数
-        ksort($param);
-        $string = $this->ToUrlParams($param);
-        //签名步骤二：在string后加入KEY
-        $string = $string . "&key=" . $this->key;
-        //签名步骤三：MD5加密
-        $string = md5($string);
-        //签名步骤四：所有字符转为大写
-        $result = strtoupper($string);
-        return $result;
-    }
-
-    public function getNonceStr($length = 32)
-    {
-        $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $str = "";
-        for ($i = 0; $i < $length; $i++) {
-            $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
-        }
-        return $str;
     }
 
     public function demo()
     {
+
+//        // jsapi 下单
+//        $wechat = new WechatController();
+//        $wechat->getSignPackage();
+//        $signPackage = request()->get("zerone_jssdk_info");
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "JSAPI";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $res = $this->jsApiOrder($data);
+//        $res = json_decode($res,true);
+//        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+
 
         // 订单查询
 //        $data["order_num_type"] = 'out_trade_no';
