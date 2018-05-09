@@ -67,8 +67,9 @@ $(function(){
                     // 为了测试，延迟1秒加载
                         //$('.lists').append(result);
                         // 每次数据加载完，必须重置
-                        //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
+                            //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
                         //selectgoods(0,"");
+                        //console.log("as");
                         me.resetload();
             //     },
             //     error: function(xhr, type){
@@ -151,7 +152,7 @@ function selectgoods(category,keyword_val){
                             json.data.goodslist[i].number,json.data.goodslist[i].id);
                         }
                         var $goodslist = $("#goodslist");
-                        //$goodslist.empty();
+                        $goodslist.empty();
                         $goodslist.append(str);
                             $.hidePreloader();
             		}else if (json.status == 0) {
