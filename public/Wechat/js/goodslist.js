@@ -64,7 +64,8 @@ $(function(){
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
-        console.log("a0d0as");
+        //查询商品列表和购物车列表
+        selectgoods("0","");
         //联网加载数据
         //getListDataFromNet(page.num, page.size, function(curPageData){
             //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
@@ -82,9 +83,9 @@ $(function(){
 
             //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
             //mescroll.endSuccess(curPageData.length);
-            setTimeout(function(){
-                        mescroll.endSuccess(20);
-            },1000);
+            // setTimeout(function(){
+            //             mescroll.endSuccess(20);
+            // },1000);
 
             //设置列表数据
             //setListData(curPageData, true);
@@ -96,59 +97,6 @@ $(function(){
         //});
     }
 
-    /*设置列表数据*/
-    function setListData(curPageData, isAppend) {
-        var listDom=document.getElementById("newsList");
-        for (var i = 0; i < curPageData.length; i++) {
-            var newObj=curPageData[i];
-
-            var str='<p>'+newObj.title+'</p>';
-            str+='<p class="new-content">'+newObj.content+'</p>';
-            var liDom=document.createElement("li");
-            liDom.innerHTML=str;
-
-            if (isAppend) {
-                listDom.appendChild(liDom);//加在列表的后面,上拉加载
-            } else{
-                listDom.insertBefore(liDom, listDom.firstChild);//加在列表的前面,下拉刷新
-            }
-        }
-    }
-
-    /*联网加载列表数据
-     在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
-     请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
-     实际项目以您服务器接口返回的数据为准,无需本地处理分页.
-     * */
-    var downIndex=0;
-    function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
-        //延时一秒,模拟联网
-        setTimeout(function () {
-            try{
-                var newArr=[];
-                if(pageNum==0){
-                    //此处模拟下拉刷新返回的数据
-                    downIndex++;
-                    var newObj={title:"【新增新闻"+downIndex+"】 新增新闻的标题", content:"新增新闻的内容"};
-                    newArr.push(newObj);
-                }else{
-                    //此处模拟上拉加载返回的数据
-                    for (var i = 0; i < pageSize; i++) {
-                        var upIndex=(pageNum-1)*pageSize+i+1;
-                        var newObj={title:"【新闻"+upIndex+"】 标题标题标题标题标题标题", content:"内容内容内容内容内容内容内容内容内容内容"};
-                        newArr.push(newObj);
-                    }
-                }
-                //联网成功的回调
-                successCallback&&successCallback(newArr);
-            }catch(e){
-                //联网失败的回调
-                errorCallback&&errorCallback();
-            }
-        },1000)
-    }
-    //查询商品列表和购物车列表
-    selectgoods("0","");
 });
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
@@ -221,6 +169,7 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
+                        mescroll.endSuccess(20);
             		}else if (json.status == 0) {
                         alert(msg);
                     }
