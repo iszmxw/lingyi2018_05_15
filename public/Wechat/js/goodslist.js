@@ -29,6 +29,11 @@ $(function(){
             }
 		}
 	);
+
+    //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
+    selectgoods(0,"");
+
+});
     // 加载flag
       var loading = false;
      // 注册'infinite'事件处理函数
@@ -56,10 +61,6 @@ $(function(){
               $.refreshScroller();
           }, 1000);
       });
-    //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    selectgoods(0,"");
-
-});
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
     //获取购物车商品
