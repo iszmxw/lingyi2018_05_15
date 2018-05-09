@@ -43,7 +43,7 @@ $(function(){
         },
         loadDownFn : function(me){
             var i = 0;
-            console.log(i,"++++"+ ++i)
+            console.log(i,"++++",++i);
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
