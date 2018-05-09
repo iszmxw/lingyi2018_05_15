@@ -1,5 +1,13 @@
 <html>
 <head>
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
 
 </head>
 
@@ -32,7 +40,7 @@
         ] // 必填，需要使用的JS接口列表
     });
 
-    wx.ready(function () {
+    // wx.ready(function () {
         // wx.checkJsApi({
         //     jsApiList: ['checkJsApi',
         //         'onMenuShareTimeline',
@@ -50,7 +58,7 @@
         //         console.log(JSON.stringify(res));
         //     }
         // });
-    })
+    // })
 
     function callpay() {
 
