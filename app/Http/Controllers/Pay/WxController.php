@@ -146,8 +146,8 @@ class WxController extends Controller
 //        return $this->resDispose($res);
 //        return $res;
 //        var_dump($res);
-        echo $res["data"];
-        file_put_contents("./uploads/1.csv",$res["data"]);
+        $res = str_replace("`","",$res["data"]);
+        file_put_contents("./uploads/1.csv",$res);
         $fileName = "./uploads/1.csv"; //得到文件名
         header( "Content-Disposition:  attachment;  filename=".$fileName); //告诉浏览器通过附件形式来处理文件
         header('Content-Length: ' . filesize($fileName)); //下载文件大小
