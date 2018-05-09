@@ -57,7 +57,7 @@ class WxController extends Controller
 //        $data["trade_type"] = "MICROPAY";
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        $data["product_id"] = md5(time());
-        $data["auth_code"] = 135417053696994941;
+        $data["auth_code"] = 135432415240961290;
 //        $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->microPay($data);
