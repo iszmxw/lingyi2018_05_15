@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
-    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/mescroll.min.css">
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/minirefresh.min.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css">
   </head>
   <body>
@@ -36,8 +36,10 @@
 					<label class="icon_scavenging"></label>
 			    </div>
 			</div>
-			<div class="goodslist mescroll" id="goodslist">
+			<div class="goodslist minirefresh-wrap" id="minirefresh">
+                <div class="minirefresh-scroll" id="goodslist">
 
+                </div>
 			</div>
 	    </div>
 	    <div class="cart_bottom">
@@ -102,7 +104,7 @@
     </div>
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/jquery.min.js" charset='utf-8'></script>
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/light7.min.js" charset='utf-8'></script>
-    <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/mescroll.min.js" charset='utf-8'></script>
+    <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/minirefresh.min.js" charset='utf-8'></script>
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/goodslist.js" charset='utf-8'></script>
   </body>
 </html>

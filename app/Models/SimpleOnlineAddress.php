@@ -44,22 +44,16 @@ class SimpleOnlineAddress extends Model
     //添加数据
     public static function addSimpleOnlineAddress($param)
     {
-        $simpleorder = new SimpleOnlineAddress();//实例化程序模型
-        $simpleorder->ordersn = $param['ordersn'];//订单编号
-        $simpleorder->order_price = $param['order_price'];//订单价格
-        $simpleorder->user_id = $param['user_id'];//订单人id
-        $simpleorder->status = $param['status'];//订单状态
-        $simpleorder->operator_id = $param['operator_id'];//操作人员id
-        $simpleorder->fansmanage_id = $param['fansmanage_id'];//管理平台id
-        $simpleorder->simple_id = $param['simple_id'];//店铺所属组织ID
-        if (!empty($param['paytype'])) {
-            $simpleorder->paytype = $param['paytype'];//付款方式
-        }
-        if (!empty($param['remarks'])) {
-            $simpleorder->remarks = $param['remarks'];//备注信息
-        }
-        $simpleorder->save();
-        return $simpleorder->id;
+        $model = new SimpleOnlineAddress();//实例化程序模型
+        $model->order_id = $param['order_id'];//订单id
+        $model->province_name = $param['province_name'];//省份名称
+        $model->city_name = $param['city_name'];//城市名称
+        $model->district_name = $param['district_name'];//地区名称
+        $model->address = $param['address'];//详细地址
+        $model->realname = $param['realname'];//收货人真实姓名
+        $model->mobile = $param['mobile'];//手机号码
+        $model->save();
+        return $model->id;
     }
 
     //获取分页列表
