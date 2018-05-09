@@ -304,7 +304,7 @@ class WxController extends Controller
         // 判断接口返回结果
         if ($param["return_code"] == "SUCCESS") {
             // 判断提交是否成功
-            if ($param["result_code"] == "FAIL") {
+            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
                 $res["return_code"] = 0;
                 $res["return_msg"] = $param["err_code_des"];
             } else {
