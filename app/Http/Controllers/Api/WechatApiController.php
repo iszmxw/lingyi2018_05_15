@@ -912,6 +912,7 @@ class WechatApiController extends Controller
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
         foreach ($goods_list as $key => $value) {
+            print_r($value);exit;
             foreach ($value as $k => $v) {
                 // 查询商品是否下架
                 $goods_status = SimpleGoods::getPluck(['id' => $v['id']], 'status');
