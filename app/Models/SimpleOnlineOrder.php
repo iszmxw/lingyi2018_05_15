@@ -29,6 +29,11 @@ class SimpleOnlineOrder extends Model
         return $model->where($where)->orderBy($orderby, $sort)->paginate($paginate);
     }
 
+    //获取单条数据
+    public static function getOne($where)
+    {
+        return  self::where($where)->first();
+    }
 
     //修改订单信息
     public static function editSimpleOnlineOrder($where, $param)
