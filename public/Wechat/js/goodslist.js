@@ -34,6 +34,12 @@ $(function(){
     selectgoods(0,"");
     $('#goodslist').dropload({
         scrollArea : window,
+        domDown    :{
+                domClass : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载00更多</div>',
+                domLoad : '<div class="dropload-load">○加载0中...</div>',
+                domNoData : '<div class="dropload-noData">暂无数据</div>'
+        },
         loadDownFn : function(me){
             // $.ajax({
             //     type: 'GET',
