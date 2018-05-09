@@ -48,7 +48,7 @@ $(function(){
     });
     /*下拉刷新的回调 */
     function downCallback(){
-        alert()
+        console.log("000");
         //联网加载数据
         //getListDataFromNet(0, 1, function(data){
             //联网成功的回调,隐藏下拉刷新的状态
@@ -63,7 +63,7 @@ $(function(){
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
-        alert()
+        console.log("adas");
         //联网加载数据
         //getListDataFromNet(page.num, page.size, function(curPageData){
             //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
