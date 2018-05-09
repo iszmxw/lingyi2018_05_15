@@ -49,7 +49,7 @@ class WxController extends Controller
         $data["order_num"] = md5(time());
         $data["order_money"] = 0.01 * 100;
         $data["ip_address"] = "120.78.140.10";
-        $data["ip_address"] = "JSAPI";
+        $data["trade_type"] = "JSAPI";
         $res = $this->unifiedOrder($data);
         echo $res;
     }
