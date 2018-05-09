@@ -52,7 +52,7 @@ class WxController extends Controller
         $data["order_money"] = 0.01;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "NATIVE";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
         $res = $this->unifiedOrder($data);
         echo $res;
