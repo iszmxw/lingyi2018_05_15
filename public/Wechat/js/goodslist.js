@@ -31,7 +31,7 @@ $(function(){
 		}
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    selectgoods(0,"");
+    //selectgoods(0,"");
 
     $('.goodslist').dropload({
         scrollArea : window,
@@ -135,13 +135,14 @@ $(function(){
                     });
                     var keyword_val = $("#search").val();
                     var limit = $("#limit").val();
+                    console.log(limit);
                     $.post(
                     	goodslist_url,
                         {'fansmanage_id': fansmanage_id,'_token':_token,'store_id':store_id,
-                        'category_id':category_id,'keyword':keyword_val,'limit':1},
+                        'category_id':category_id,'keyword':keyword_val,'limit':limit},
                     	function(json){
                             var str = "";
-
+                            console.log(json);
                     		if (json.status == 1) {
                                 for (var i = 0; i < json.data.goodslist.length; i++) {
                                     //判断列表与购物车的id存在就读取购物车的数量
