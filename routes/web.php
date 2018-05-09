@@ -635,15 +635,6 @@ Route::group(['prefix' => 'retail'], function () {
         Route::get('order_appointment', 'Retail\OrderController@order_appointment')->middleware('RetailCheck');         //预约管理
     });
 
-    //运费模板管理
-    //零售新版——暂时屏蔽
-//    Route::group(['prefix' => 'dispatch'], function () {
-//        Route::get('dispatch_add', 'Retail\DispatchController@dispatch_add')->middleware('RetailCheck');   //添加运费模板                    //订单管理-现场订单
-//        Route::get('dispatch_list', 'Retail\DispatchController@dispatch_list')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
-//        Route::get('dispatch_edit', 'Retail\DispatchController@dispatch_edit')->middleware('RetailCheck'); //运费模板列表                              //订单管理-现场订单
-//    });
-
-
     //进销存开单处理
     Route::group(['prefix' => 'supplier'], function () {
         Route::get('supplier_add', 'Retail\SupplierController@supplier_add')->middleware('RetailCheck');        //添加供应商
@@ -667,24 +658,29 @@ Route::group(['prefix' => 'retail'], function () {
         Route::get('stock_list', 'Retail\BillingController@stock_list')->middleware('RetailCheck');         //库存查询
     });
 
-    //用户管理
-    Route::group(['prefix' => 'user'], function () {
-        Route::get('user_list', 'Retail\UserController@user_list')->middleware('RetailCheck');          //用户管理-粉丝用户管理
-    });
-
-    //支付设置
-    Route::group(['prefix' => 'paysetting'], function () {
-        Route::get('payconfig', 'Retail\PaysettingController@payconfig')->middleware('RetailCheck');           //收款信息设置
-        Route::get('shengpay_add', 'Retail\PaysettingController@shengpay_add')->middleware('RetailCheck');     //添加终端机器号信息
-        Route::get('shengpay_list', 'Retail\PaysettingController@shengpay_list')->middleware('RetailCheck');   //终端机器号列表
-    });
-
-
     //下属管理--添加组
     Route::group(['prefix' => 'subordinate'], function () {
         Route::get('subordinate_add', 'Retail\SubordinateController@subordinate_add')->middleware('RetailCheck');    //添加下级人员
         Route::get('subordinate_list', 'Retail\SubordinateController@subordinate_list')->middleware('RetailCheck');  //下级人员列表
     });
+
+    //运费模板管理
+    //零售新版——暂时屏蔽的功能
+//    Route::group(['prefix' => 'dispatch'], function () {
+//        Route::get('dispatch_add', 'Retail\DispatchController@dispatch_add')->middleware('RetailCheck');   //添加运费模板
+//        Route::get('dispatch_list', 'Retail\DispatchController@dispatch_list')->middleware('RetailCheck'); //运费模板列表
+//        Route::get('dispatch_edit', 'Retail\DispatchController@dispatch_edit')->middleware('RetailCheck'); //运费模板列表
+//    });
+    //用户管理
+//    Route::group(['prefix' => 'user'], function () {
+//        Route::get('user_list', 'Retail\UserController@user_list')->middleware('RetailCheck');          //用户管理-粉丝用户管理
+//    });
+    //支付设置
+//    Route::group(['prefix' => 'paysetting'], function () {
+//        Route::get('payconfig', 'Retail\PaysettingController@payconfig')->middleware('RetailCheck');           //收款信息设置
+//        Route::get('shengpay_add', 'Retail\PaysettingController@shengpay_add')->middleware('RetailCheck');     //添加终端机器号信息
+//        Route::get('shengpay_list', 'Retail\PaysettingController@shengpay_list')->middleware('RetailCheck');   //终端机器号列表
+//    });
 
     //异步提交数据组
     Route::group(['prefix' => 'ajax'], function () {
