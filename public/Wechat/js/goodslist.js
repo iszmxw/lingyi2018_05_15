@@ -29,37 +29,10 @@ $(function(){
             }
 		}
 	);
-
+$.showPreloader();
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     selectgoods(0,"");
-    // 加载flag
-      var loading = false;
-     // 注册'infinite'事件处理函数
-      $(document).on('infinite', '.infinite-scroll-bottom',function() {
-                  console.log("0");
-          // 如果正在加载，则退出
-          if (loading) return;
-
-          // 设置flag
-          loading = true;
-          // 模拟1s的加载过程
-          setTimeout(function() {
-              // 重置加载flag
-              loading = false;
-
-                  // 加载完毕，则注销无限加载事件，以防不必要的加载
-                  $.detachInfiniteScroll($('.infinite-scroll'));
-                  // 删除加载提示符
-                  $('.infinite-scroll-preloader').remove();
-                  return;
-
-              // 添加新条目
-              // 更新最后加载的序号
-              //容器发生改变,如果是js滚动，需要刷新滚动
-              $.refreshScroller();
-          }, 1000);
-      });
-$.init();
+    $.init();
 });
 
 //查询商品列表和购物车列表
