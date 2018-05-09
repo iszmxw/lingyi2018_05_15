@@ -35,7 +35,7 @@ $(function(){
 
 });
     // 加载flag
-      var loading = false;
+      var loading = true;
      // 注册'infinite'事件处理函数
       $(document).on('infinite', '.infinite-scroll-bottom',function() {
                   console.log("0");
