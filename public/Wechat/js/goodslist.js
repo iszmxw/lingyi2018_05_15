@@ -50,7 +50,7 @@ $(function(){
                 setTimeout(function() {
                     console.log("000");
                     //appendTestData(listDom, 10);
-                    //miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
+                    miniRefresh.endUpLoading(true);
                 }, 1000);
             }
         }
