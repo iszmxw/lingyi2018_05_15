@@ -34,7 +34,7 @@ $(function(){
     selectgoods(0,"");
     $('.goodslist').dropload({
         scrollArea : window,
-        autoLoad   : false,
+        autoLoad   : true,
         distance   : 50,
         domDown    :{
                 domClass : 'dropload-down',
