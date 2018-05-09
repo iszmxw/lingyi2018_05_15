@@ -80,7 +80,6 @@ class WxController extends Controller
         $res = $this->unifiedOrder($data);
         $res = json_decode($res, true);
 
-        $res["data"]["nonce_str"] = $this->getNonceStr();
         $res["data"]["timestamp"] = time();
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
