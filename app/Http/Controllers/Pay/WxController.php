@@ -349,11 +349,11 @@ class WxController extends Controller
         $qrCode->setValidateResult(false);
 
         // 直接输出
-        header('Content-Type: ' . $qrCode->getContentType());
-        return $qrCode->writeString();
+//        header('Content-Type: ' . $qrCode->getContentType());
+//        return $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
 
-//        $qrCode->writeFile("./uploads/pay_qr_code.png");
+        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 }
