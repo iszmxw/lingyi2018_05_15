@@ -90,7 +90,6 @@ class RetailCheckAjax
             case "retail/ajax/loss_list_confirm_check":       //审核订单安全密码确认
             case "retail/ajax/check_list_confirm_check":      //审核订单安全密码确认
             case "retail/ajax/supplier_delete_check":         //进销存管理--删除供应商确认
-            case "retail/ajax/dispatch_add_check":            //运费模板--添加运费模板安全密码检测
             case "retail/ajax/goods_thumb_delete_check":     //商品图片删除--检测登录安全密码和权限
             case "retail/ajax/dispatch_list_lock_check":     //启用、弃用运费模板确认
             case "retail/ajax/dispatch_list_delete_check":   //运费模板删除确认操作
