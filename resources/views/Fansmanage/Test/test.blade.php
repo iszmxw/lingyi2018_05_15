@@ -18,7 +18,7 @@
 <script src="https://www.w3cways.com/demo/vconsole/vconsole.min.js?v=2.2.0"></script>
 <script>
     wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端"console.log出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端"console.log出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '{{$signPackage["appId"]}}', // 必填，公众号的唯一标识
         timestamp: '{{$signPackage["timestamp"]}}', // 必填，生成签名的时间戳
         nonceStr: '{{$signPackage["nonceStr"]}}', // 必填，生成签名的随机串
