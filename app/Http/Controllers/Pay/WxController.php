@@ -51,6 +51,7 @@ class WxController extends Controller
         $data["order_money"] = 0.01 * 100;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $res = $this->unifiedOrder($data);
         echo $res;
     }
@@ -102,6 +103,8 @@ class WxController extends Controller
         // 通知地址
         $data["notify_url"] = $this->notify_url;
 
+        $data["openid"] =  $param["openid"];
+
 //        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
@@ -145,7 +148,7 @@ class WxController extends Controller
         $data["refund_fee"] = $param["refund_money"] * 100;
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
-        // 退款通知地址
+        // 通知地址
         $data["notify_url"] = $this->notify_url;
 
         $res = $this->wechat->refund($data);
