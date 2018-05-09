@@ -1192,11 +1192,12 @@ class WechatApiController extends Controller
                     $re = SimpleStock::getOneSimpleStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
                     $simple_stock = $re['stock'] - $value['total'];
                     SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    echo 1;exit;
+
                     // 修改stock_status为1表示该订单的库存状态已经减去
                     if ($type == 'online') {
                         SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
                     } else {
-                        echo 1;exit;
                         SimpleSelftakeOrder::editSimpleSelftakeOrder(['id' => $order_id], ['stock_status' => '1']);
                     }
 
