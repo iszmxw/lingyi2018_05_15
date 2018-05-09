@@ -664,24 +664,6 @@ Route::group(['prefix' => 'retail'], function () {
         Route::get('subordinate_list', 'Retail\SubordinateController@subordinate_list')->middleware('RetailCheck');  //下级人员列表
     });
 
-    //运费模板管理
-    //零售新版——暂时屏蔽的功能
-//    Route::group(['prefix' => 'dispatch'], function () {
-//        Route::get('dispatch_add', 'Retail\DispatchController@dispatch_add')->middleware('RetailCheck');   //添加运费模板
-//        Route::get('dispatch_list', 'Retail\DispatchController@dispatch_list')->middleware('RetailCheck'); //运费模板列表
-//        Route::get('dispatch_edit', 'Retail\DispatchController@dispatch_edit')->middleware('RetailCheck'); //运费模板列表
-//    });
-    //用户管理
-//    Route::group(['prefix' => 'user'], function () {
-//        Route::get('user_list', 'Retail\UserController@user_list')->middleware('RetailCheck');          //用户管理-粉丝用户管理
-//    });
-    //支付设置
-//    Route::group(['prefix' => 'paysetting'], function () {
-//        Route::get('payconfig', 'Retail\PaysettingController@payconfig')->middleware('RetailCheck');           //收款信息设置
-//        Route::get('shengpay_add', 'Retail\PaysettingController@shengpay_add')->middleware('RetailCheck');     //添加终端机器号信息
-//        Route::get('shengpay_list', 'Retail\PaysettingController@shengpay_list')->middleware('RetailCheck');   //终端机器号列表
-//    });
-
     //异步提交数据组
     Route::group(['prefix' => 'ajax'], function () {
         Route::post('login_check', 'Retail\LoginController@login_check')->middleware('RetailCheckAjax');//提交登录数据
@@ -743,37 +725,6 @@ Route::group(['prefix' => 'retail'], function () {
         Route::post('order_status_paytype_check', 'Retail\OrderController@order_status_paytype_check')->middleware('RetailCheckAjax');             //修改订单状态检测
         Route::any('goods_thumb', 'Retail\GoodsController@goods_thumb')->middleware('RetailCheckAjax');                           //商品规格异步加载页面
         Route::post('upload_thumb_check', 'Retail\GoodsController@upload_thumb_check')->middleware('RetailCheckAjax');             //上传文件检测
-        Route::post('dispatch_add_check', 'Retail\DispatchController@dispatch_add_check')->middleware('RetailCheckAjax');             //运费模板添加
-        Route::post('dispatch_province_add_check', 'Retail\DispatchController@dispatch_province_add_check')->middleware('RetailCheckAjax');  //运费模板省份添加
-        Route::post('dispatch_province_edit_check', 'Retail\DispatchController@dispatch_province_edit_check')->middleware('RetailCheckAjax');  //运费模信息编辑
-        Route::post('dispatch_province_delete_check', 'Retail\DispatchController@dispatch_province_delete_check')->middleware('RetailCheckAjax');  //运费模信息删除
-        Route::post('dispatch_list_lock', 'Retail\DispatchController@dispatch_list_lock')->middleware('RetailCheckAjax');                 //列表启用运费模板ajax显示
-        Route::post('dispatch_list_lock_check', 'Retail\DispatchController@dispatch_list_lock_check')->middleware('RetailCheckAjax');                 //列表启用运费模板ajax显示
-        Route::post('dispatch_list_delete', 'Retail\DispatchController@dispatch_list_delete')->middleware('RetailCheckAjax');                 //列表启用运费模板ajax显示
-        Route::post('dispatch_list_delete_check', 'Retail\DispatchController@dispatch_list_delete_check')->middleware('RetailCheckAjax');                 //列表启用运费模板ajax显示
-
-        Route::post('user_list_edit', 'Retail\UserController@user_list_edit')->middleware('RetailCheckAjax');                 //列表编辑ajax显示
-        Route::post('user_list_edit_check', 'Retail\UserController@user_list_edit_check')->middleware('RetailCheckAjax');     //列表编辑功能提交
-        Route::post('user_list_lock', 'Retail\UserController@user_list_lock')->middleware('RetailCheckAjax');                 //列表冻结ajax显示
-        Route::post('user_list_lock_check', 'Retail\UserController@user_list_lock_check')->middleware('RetailCheckAjax');     //列表冻结功能提交
-        Route::post('user_list_wallet', 'Retail\UserController@user_list_wallet')->middleware('RetailCheckAjax');             //列表粉丝钱包ajax显示
-
-
-        //支付设置
-        Route::post('payconfig_check', 'Retail\PaysettingController@payconfig_check')->middleware('RetailCheckAjax');         //收款信息功能提交
-        Route::post('payconfig_edit', 'Retail\PaysettingController@payconfig_edit')->middleware('RetailCheckAjax');           //收款信息编辑ajax
-        Route::post('payconfig_edit_check', 'Retail\PaysettingController@payconfig_edit_check')->middleware('RetailCheckAjax');//收款信息功能提交
-        Route::post('payconfig_apply', 'Retail\PaysettingController@payconfig_apply')->middleware('RetailCheckAjax');         //收款信息功能重新申请
-        Route::post('payconfig_apply_check', 'Retail\PaysettingController@payconfig_apply_check')->middleware('RetailCheckAjax');//收款信息功能重新申请功能提交
-        Route::post('payconfig_delete', 'Retail\PaysettingController@payconfig_delete')->middleware('RetailCheckAjax');       //收款信息功能解除绑定ajax显示
-        Route::post('payconfig_delete_check', 'Retail\PaysettingController@payconfig_delete_check')->middleware('RetailCheckAjax');//收款信息功能解除绑定功能提交
-        Route::post('shengpay_add_check', 'Retail\PaysettingController@shengpay_add_check')->middleware('RetailCheckAjax');   //添加终端机器号功能提交
-        Route::post('shengpay_edit', 'Retail\PaysettingController@shengpay_edit')->middleware('RetailCheckAjax');             //编辑终端机器号Ajax显示
-        Route::post('shengpay_edit_check', 'Retail\PaysettingController@shengpay_edit_check')->middleware('RetailCheckAjax'); //编辑终端机器号功能提交
-        Route::post('shengpay_apply', 'Retail\PaysettingController@shengpay_apply')->middleware('RetailCheckAjax');           //终端机器号重新申请Ajax
-        Route::post('shengpay_apply_check', 'Retail\PaysettingController@shengpay_apply_check')->middleware('RetailCheckAjax');//终端机器号重新申请功能提交
-        Route::post('shengpay_delete', 'Retail\PaysettingController@shengpay_delete')->middleware('RetailCheckAjax');         //终端机器号解除绑定ajax
-        Route::post('shengpay_delete_check', 'Retail\PaysettingController@shengpay_delete_check')->middleware('RetailCheckAjax');//终端机器号解除绑定功能提交
 
     });
 });
