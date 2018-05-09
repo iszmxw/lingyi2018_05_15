@@ -45,14 +45,18 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '150337637120180509095053';
-        $res = $this->orderQuery($data);
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01 * 100;
+        $data["ip_address"] = "120.78.140.10";
+        $data["ip_address"] = "JSAPI";
+        $res = $this->unifiedOrder($data);
         echo $res;
     }
 
     public function test14()
     {
+
     }
 
     public function demo()
@@ -92,9 +96,15 @@ class WxController extends Controller
         $data["out_trade_no"] = $param["order_num"];
         $data["total_fee"] = $param["order_money"];
         $data["spbill_create_ip"] = $param["ip_address"];
+        // 交易类型
+        $data["trade_type"] = $param["trade_type"];
+
         $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 
+//        dd($data);
+
         $res = $this->wechat->unifiedOrder($data);
+        dump($res);exit;
         return $this->resDispose($res);
     }
 
