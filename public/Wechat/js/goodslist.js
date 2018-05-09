@@ -86,7 +86,9 @@ $(function(){
             //setListData(curPageData, true);
         //}, function(){
             //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-            mescroll.endErr();
+            setTimeout(function(){
+                mescroll.endErr();
+            },1000);
         //});
     }
 
