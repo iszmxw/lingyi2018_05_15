@@ -79,6 +79,22 @@
     function callpay() {
         console.log(123);
         wx.ready(function () {
+
+            wx.checkJsApi({
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'openAddress',
+                    'chooseWXPay'
+                ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                success: function (res) {
+                    console.log(res);
+                    // 以键值对的形式返回，可用的api值true，不可用为false
+                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                }
+            });
+
             wx.chooseWXPay({
                 appId: '{{$wxpay["appid"]}}',
                 timestamp: '{{$wxpay["timestamp"]}}', // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
