@@ -890,7 +890,6 @@ class WechatApiController extends Controller
      */
     public function order_submit(Request $request)
     {
-
         // 用户id
         $user_id = $request->user_id;
         // 零壹id
@@ -909,7 +908,6 @@ class WechatApiController extends Controller
         $address_info = json_decode($request->address_info, TRUE);
         // 取货信息
         $self_take_info = json_decode($request->self_take_info, TRUE);
-        print_r($self_take_info);exit;
         // 商品信息
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
