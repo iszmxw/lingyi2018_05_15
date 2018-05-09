@@ -1014,8 +1014,6 @@ class WechatApiController extends Controller
                 ];
                 SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
             }
-
-
             // 说明下单减库存
             if ($stock_type == '1') {
                 // 减库存
@@ -1217,6 +1215,7 @@ class WechatApiController extends Controller
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
+            dd($e);
             // 事件回滚
             DB::rollBack();
             return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
