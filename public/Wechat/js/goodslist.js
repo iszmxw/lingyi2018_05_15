@@ -51,25 +51,25 @@ $(function(){
     function downCallback(){
         console.log("000");
         //联网加载数据
-        getListDataFromNet(0, 1, function(data){
+        //getListDataFromNet(0, 1, function(data){
             //联网成功的回调,隐藏下拉刷新的状态
             mescroll.endSuccess();
             //设置列表数据
-            setListData(data, false);
-        }, function(){
+            //setListData(data, false);
+        //}, function(){
             //联网失败的回调,隐藏下拉刷新的状态
             mescroll.endErr();
-        });
+        //});
     }
 
     /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function upCallback(page){
         console.log("111");
         //联网加载数据
-        getListDataFromNet(page.num, page.size, function(curPageData){
+        //getListDataFromNet(page.num, page.size, function(curPageData){
             //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
             //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-            console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
+            //console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
 
             //方法一(推荐): 后台接口有返回列表的总页数 totalPage
             //mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
@@ -81,14 +81,14 @@ $(function(){
             //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
 
             //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-            mescroll.endSuccess(curPageData.length);
+            //mescroll.endSuccess(curPageData.length);
 
             //设置列表数据
-            setListData(curPageData, true);
-        }, function(){
+            //setListData(curPageData, true);
+        //}, function(){
             //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
             mescroll.endErr();
-        });
+        //});
     }
 });
 //查询商品列表和购物车列表
