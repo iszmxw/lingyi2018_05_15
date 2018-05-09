@@ -66,6 +66,7 @@ class WxController extends Controller
         $res = json_decode($res,true);
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
 
+
     }
 
     public function test14()
