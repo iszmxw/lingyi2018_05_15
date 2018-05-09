@@ -168,7 +168,7 @@ function selectgoods(category,keyword_val){
                             json.data.goodslist[i].number,json.data.goodslist[i].id);
                         }
                         var $goodslist = $("#goodslist");
-                        $goodslist.empty();
+                        //$goodslist.empty();
                         $goodslist.append(str);
                         mescroll.endSuccess(20);
             		}else if (json.status == 0) {
