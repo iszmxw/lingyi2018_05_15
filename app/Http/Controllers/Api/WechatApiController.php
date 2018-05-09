@@ -928,7 +928,7 @@ class WechatApiController extends Controller
                 $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
                 $sort = 100001 + $num;
                 // 订单号
-                $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
+                $ordersn = 'online' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
                 // 数据处理
                 $orderData = [
                     'ordersn' => $ordersn,
@@ -982,7 +982,7 @@ class WechatApiController extends Controller
                 $num = SimpleSelftakeOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
                 $sort = 100001 + $num;
                 // 订单号
-                $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
+                $ordersn = 'selftake' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
                 // 提取码
                 $rand = rand(100000, 999999);
                 // 数据处理
