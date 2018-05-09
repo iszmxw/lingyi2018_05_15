@@ -1158,11 +1158,16 @@ class WechatApiController extends Controller
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
         $config = SimpleConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
+
         DB::beginTransaction();
         try {
-            if ($status == '1') {
-                // 订单快照中的商品
+            if ($type == 'online') {
                 $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
+            } else {
+                $goodsdata = SimpleSelftakeGoods::where([['order_id', $order_id]])->get();
+                dd($goodsdata);
+            }
+            if ($status == '1') {
                 foreach ($goodsdata as $key => $value) {
                     // 商品详情
                     $goods = SimpleGoods::getOne([['id', $value['goods_id']]]);
@@ -1196,14 +1201,11 @@ class WechatApiController extends Controller
                     if ($type == 'online') {
                         SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
                     } else {
-                        echo 1;exit;
                         SimpleSelftakeOrder::editSimpleSelftakeOrder(['id' => $order_id], ['stock_status' => '1']);
                     }
 
                 }
             } else {
-                // 订单快照中的商品
-                $goodsdata = SimpleOnlineGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
                     // 商品剩下的库存
                     $stock = SimpleGoods::getPluck([['id', $value['goods_id']]], 'stock');
