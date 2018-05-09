@@ -40,7 +40,7 @@ $(function(){
                 domLoad : '<div class="dropload-load">加载中...</div>',
                 domNoData : '<div class="dropload-noData">暂无数据</div>'
         },
-        loadDownFn : function(me){
+        DownFn : function(me){
             // $.ajax({
             //     type: 'GET',
             //     url: 'json/more.json',
@@ -169,7 +169,7 @@ $(function(){
         	);
         }
     });
-    
+
     //$.init();
 });
 
