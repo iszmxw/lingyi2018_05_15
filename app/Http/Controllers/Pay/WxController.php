@@ -72,24 +72,14 @@ class WxController extends Controller
 
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01;
+        $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
-        $res = $this->unifiedOrder($data);
-        $res = json_decode($res, true);
+        $res = $this->jsApiOrder($data);
 
-        $res["data"]["timestamp"] = time();
-
-//        $sign = $this->MakeSign($res["data"]);
-
-//        $res["data"]["paySign"] = $res["data"]["sign"];
-//        $res["data"]["paySign"] = $sign;
-        $res["data"]["nonce_str"] = $this->getNonceStr();
-
-        $paySign= "appId={$res["data"]["appid"]}&nonceStr={$res["data"]["nonce_str"]}&package=prepay_id={$res["data"]["prepay_id"]}&signType=MD5&timeStamp={$res["data"]["timestamp"]}&key={$this->key}";
-        $res["data"]["paySign"] = strtoupper(md5($paySign));
+        $res = json_decode($res,true);
 
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
@@ -107,19 +97,6 @@ class WxController extends Controller
         //签名步骤四：所有字符转为大写
         $result = strtoupper($string);
         return $result;
-    }
-
-    public function ToUrlParams($param)
-    {
-        $buff = "";
-        foreach ($param as $k => $v) {
-            if ($k != "sign" && $v != "" && !is_array($v)) {
-                $buff .= $k . "=" . $v . "&";
-            }
-        }
-
-        $buff = trim($buff, "&");
-        return $buff;
     }
 
     public function getNonceStr($length = 32)
@@ -163,6 +140,22 @@ class WxController extends Controller
     }
 
 
+    public function jsApiOrder($param)
+    {
+        // 统一下单地址
+        $res = $this->unifiedOrder($param);
+        $res = json_decode($res, true);
+        // 时间戳
+        $res["data"]["timestamp"] = time();
+        // 支付签名
+        $paySign = "appId={$res["data"]["appid"]}&nonceStr={$res["data"]["nonce_str"]}&package=prepay_id={$res["data"]["prepay_id"]}&signType=MD5&timeStamp={$res["data"]["timestamp"]}&key={$this->key}";
+        // 处理支付签名
+        $res["data"]["paySign"] = strtoupper(md5($paySign));
+        // 返回数据
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
+    }
+
+
     public function unifiedOrder($param = [])
     {
         // 商品信息
@@ -181,6 +174,7 @@ class WxController extends Controller
         $data["openid"] = $param["openid"];
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
+
         $res = $this->wechat->unifiedOrder($data);
         return $this->resDispose($res);
     }
