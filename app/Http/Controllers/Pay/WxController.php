@@ -59,6 +59,7 @@ class WxController extends Controller
         echo $res;
     }
 
+
     public function demo()
     {
         // 退款查询接口
