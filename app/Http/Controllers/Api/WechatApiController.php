@@ -10,6 +10,7 @@ use App\Models\DispatchProvince;
 use App\Models\SimpleAddress;
 use App\Models\Dispatch;
 use App\Models\Organization;
+use App\Models\SimpleOnlineOrder;
 use App\Models\SimpleSelftake;
 use App\Models\SimpleCategory;
 use App\Models\SimpleConfig;
@@ -876,6 +877,103 @@ class WechatApiController extends Controller
         $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id]];
 
         return response()->json($data);
+    }
+
+    /**
+     * 订单提交
+     */
+    public function order_submit(Request $request)
+    {
+        // 用户id
+        $user_id = $request->user_id;
+        // 零壹id
+        $zerone_user_id = $request->zerone_user_id;
+        // 联盟id
+        $fansmanage_id = $request->fansmanage_id;
+        // 店铺id
+        $store_id = $request->store_id;
+        // 配送方式（1-快递配送，2-到店自提）
+        $shipping_type = $request->shipping_type;
+        // 库存扣减方式（1-下单减库存，2-付款减库存）
+        $stock_type = $request->stock_type;
+        // 备注
+        $remarks = $request->remarks;
+        // 收货信息
+        $address_info = $request->address_info;
+        // 取货信息
+        $self_take_info = $request->self_take_info;
+
+
+        // 商品信息
+        $goods_list = json_decode($request->goods_list, TRUE);
+        $order_price = 0;
+        foreach ($goods_list as $key => $value) {
+            foreach ($value as $k => $v) {
+                // 查询商品是否下架
+                $goods_status = SimpleGoods::getPluck(['id' => $v['id']], 'status');
+                if ($goods_status == '0') {
+                    return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
+                }
+                $order_price += $v['price'] * $v['num'];
+            }
+        }
+
+        // 查询订单今天的数量
+        $num = SimpleOnlineOrder::where([['fansmanage_id',$fansmanage_id],['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
+        $num += 1;
+        $sort = 100000 + $num;
+        // 订单号
+        $ordersn = 'Sinple' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
+        // 数据处理
+        $orderData = [
+            'ordersn' => $ordersn,
+            'order_price' => $order_price,
+            'remarks' => $remarks,
+            'fansmanage_id' => $fansmanage_id,
+            'simple_id' => $store_id,
+            'user_id' => $user_id,
+            'slfetake_mobile' => $address_info['mobile'],
+            'status' => '0',
+        ];
+        DB::beginTransaction();
+        try {
+            // 添加入订单表
+            $order_id = SimpleOnlineOrder::addSimpleOnlineOrder($orderData);
+            foreach ($goods_list as $key => $value) {
+                foreach ($value as $k => $v) {
+                    // 查询商品库存数量
+                    $onedata = SimpleGoods::getOne([['id', $v['id']]]);
+                    $thumb = SimpleGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();//商品图片一张
+                    $data = [
+                        'order_id' => $order_id,
+                        'goods_id' => $v['id'],
+                        'title' => $onedata['name'],
+                        'thumb' => $thumb,
+                        'details' => $onedata['details'],
+                        'total' => $v['num'],
+                        'price' => $v['price'],
+                    ];
+                    SimpleOnlineGoods::addSimpleOnlineGoods($data);//添加商品快照
+                }
+            }
+            // 查询是下单减库存/付款减库存
+            $power = SimpleConfig::getPluck([['simple_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
+            // 说明下单减库存
+            if ($power != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return $re;
+                }
+            }
+            // 提交事务
+            DB::commit();
+        } catch (\Exception $e) {
+            // 事件回滚
+            DB::rollBack();
+            return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
+        }
+        return response()->json(['status' => '1', 'msg' => '提交订单成功', 'data' => ['order_id' => $order_id]]);
     }
 
     /**
