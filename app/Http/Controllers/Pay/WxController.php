@@ -103,12 +103,11 @@ class WxController extends Controller
         $qrCode->setRoundBlockSize(true);
         $qrCode->setValidateResult(false);
 
-        // 直接输出
-        header("Content-Type: {$qrCode->getContentType()};charset=UTF-8");
-        return $qrCode->writeString();
+//        // 直接输出
+//        header("Content-Type: {$qrCode->getContentType()};charset=UTF-8");
+//        return $qrCode->writeString();
         // 保存文件
-//        $qrCode->writeFile(__DIR__.'/qrcode.png');
-
+        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 
     public function demo()
@@ -352,8 +351,10 @@ class WxController extends Controller
 
         // 直接输出
 //        header('Content-Type: ' . $qrCode->getContentType());
-        return $qrCode->writeString();
+//        return $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
+
+        $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 }
