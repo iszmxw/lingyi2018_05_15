@@ -100,6 +100,7 @@ class WxController extends Controller
 //        dd($data);
 
         $res = $this->wechat->unifiedOrder($data);
+        dump($res);exit;
         return $this->resDispose($res);
     }
 
