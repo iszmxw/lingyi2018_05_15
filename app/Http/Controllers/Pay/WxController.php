@@ -79,6 +79,8 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
         $res = $this->jsApiOrder($data);
 
+        var_dump($res);
+        exit;
 
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
