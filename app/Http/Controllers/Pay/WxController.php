@@ -143,12 +143,9 @@ class WxController extends Controller
         $data["bill_date"] = $param["bill_date"];
         $data["bill_type"] = $param["bill_type"];
         $res = $this->wechat->downloadBill($data);
-//        return $this->resDispose($res);
-//        return $res;
-//        var_dump($res);
-        $res = str_replace("`","",$res["data"]);
-        file_put_contents("./uploads/1.csv",$res);
+
         $fileName = "./uploads/1.csv"; //得到文件名
+        file_put_contents($fileName,$res);
         header( "Content-Disposition:  attachment;  filename=".$fileName); //告诉浏览器通过附件形式来处理文件
         header('Content-Length: ' . filesize($fileName)); //下载文件大小
         readfile($fileName);  //读取文件内容
