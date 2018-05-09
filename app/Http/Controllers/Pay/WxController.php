@@ -63,7 +63,7 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
 
         $res = $this->nativeOrder($data);
-        return $res;
+
 //        header('Content-Type: image/jpeg');
 //        echo "<img src='{$res}'>";
     }
@@ -104,7 +104,7 @@ class WxController extends Controller
         $qrCode->setValidateResult(false);
 
         // 直接输出
-        header('Content-Type: ' . $qrCode->getContentType());
+        header("Content-Type: {$qrCode->getContentType()};charset=UTF-8");
         echo $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
