@@ -65,13 +65,18 @@ class WxController extends Controller
 
     public function test14()
     {
-        $data["order_num"] = 1503376371;
-        $res = $this->closeOrder($data);
+        $data["bill_date"] = 20180508;
+        $data["bill_type"] = "ALL";
+        $res = $this->downloadBill($data);
         echo $res;
     }
 
     public function demo()
     {
+        // 关闭订单
+//        $data["order_num"] = 1503376371;
+//        $res = $this->closeOrder($data);
+//        echo $res;
 
 //        // native 下单
 //        $data["desc"] = "商品-xho-test";
@@ -125,6 +130,22 @@ class WxController extends Controller
 //        $data["refund_reason"] = "不想买了";
 //        $res = $this->refund($data);
 //        echo $res;
+    }
+
+
+    /**
+     * @param array $param
+     * @return string
+     * @throws \Exception
+     */
+    public function downloadBill($param = [])
+    {
+        $data["bill_date"] = $param["bill_date"];
+        $data["bill_type"] = $param["bill_type"];
+        $res = $this->wechat->downloadBill($data);
+//        return $this->resDispose($res);
+//        return $res;
+        var_dump($res);
     }
 
 
@@ -283,7 +304,7 @@ class WxController extends Controller
         // 判断接口返回结果
         if ($param["return_code"] == "SUCCESS") {
             // 判断提交是否成功
-            if ($param["result_code"] == "FAIL") {
+            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
                 $res["return_code"] = 0;
                 $res["return_msg"] = $param["err_code_des"];
             } else {
