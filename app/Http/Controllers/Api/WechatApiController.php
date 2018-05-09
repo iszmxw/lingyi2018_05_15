@@ -965,6 +965,7 @@ class WechatApiController extends Controller
                     'mobile' => $address_info['mobile'],
                 ];
                 SimpleOnlineAddress::addSimpleOnlineAddress($address_data);
+                /******运费模板（待完成）**********/
             }else{
                 // 查询订单今天的数量
                 $num = SimpleSelftakeOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
