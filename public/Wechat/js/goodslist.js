@@ -37,7 +37,8 @@ $(function(){
                 setTimeout(function() {
                     // 每次下拉刷新后，上拉的状态会被自动重置
                     //appendTestData(listDom, 10, true);
-                    miniRefresh.endDownLoading(true);
+                    //miniRefresh.endDownLoading(true);
+                    console.log("asdas");
                 }, 1000);
             }
         },
@@ -45,8 +46,9 @@ $(function(){
             isAuto: true,
             callback: function() {
                 setTimeout(function() {
+                    console.log("000");
                     //appendTestData(listDom, 10);
-                    miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
+                    //miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
                 }, 1000);
             }
         }
