@@ -1158,6 +1158,8 @@ class WechatApiController extends Controller
         $data = SimpleOnlineOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
         $config = SimpleConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
+        echo 1;exit;
+
         DB::beginTransaction();
         try {
             if ($status == '1') {
@@ -1192,8 +1194,6 @@ class WechatApiController extends Controller
                     $re = SimpleStock::getOneSimpleStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
                     $simple_stock = $re['stock'] - $value['total'];
                     SimpleStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
-                    echo 1;exit;
-
                     // 修改stock_status为1表示该订单的库存状态已经减去
                     if ($type == 'online') {
                         SimpleOnlineOrder::editSimpleOnlineOrder(['id' => $order_id], ['stock_status' => '1']);
