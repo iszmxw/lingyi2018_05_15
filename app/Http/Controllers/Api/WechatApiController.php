@@ -145,7 +145,7 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有商品', 'data' => '']);
         }
         foreach ($goodslist as $key => $value) {
-            $goodslist[$key]['price'] = round($value['price'],2);
+            $goodslist[$key]['price'] = round($value['price'], 2);
             $goodslist[$key]['category_name'] = SimpleCategory::getPluck([['id', $value['category_id']]], 'name');
             $goodslist[$key]['thumb'] = SimpleGoodsThumb::where([['goods_id', $value['id']]])->select('thumb')->get();
             if (count($goodslist[$key]['thumb']) == 0) {
@@ -907,23 +907,19 @@ class WechatApiController extends Controller
         // 取货信息
         $self_take_info = $request->self_take_info;
 
-
         // 商品信息
         $goods_list = json_decode($request->goods_list, TRUE);
         $order_price = 0;
         foreach ($goods_list as $key => $value) {
-            foreach ($value as $k => $v) {
-                // 查询商品是否下架
-                $goods_status = SimpleGoods::getPluck(['id' => $v['id']], 'status');
-                if ($goods_status == '0') {
-                    return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
-                }
-                $order_price += $v['price'] * $v['num'];
+            // 查询商品是否下架
+            $goods_status = SimpleGoods::getPluck(['id' => $value['goods_id']], 'status');
+            if ($goods_status == '0') {
+                return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
             }
+            $order_price += $value['goods_price'] * $value['num'];
         }
-
         // 查询订单今天的数量
-        $num = SimpleOnlineOrder::where([['fansmanage_id',$fansmanage_id],['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
+        $num = SimpleOnlineOrder::where([['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
         $num += 1;
         $sort = 100000 + $num;
         // 订单号
@@ -964,18 +960,19 @@ class WechatApiController extends Controller
             }
 
             $address_data = [
-                'order_id' =>$order_id,
-                'province_name' =>$address_info['province_name'],
-                'city_name' =>$address_info['city_name'],
-                'district_name' =>$address_info['district_name'],
-                'address' =>$address_info['address'],
-                'relaname' =>$address_info['relaname'],
-                'mobile' =>$address_info['relaname'],
+                'order_id' => $order_id,
+                'province_name' => $address_info['province_name'],
+                'city_name' => $address_info['city_name'],
+                'district_name' => $address_info['district_name'],
+                'address' => $address_info['address'],
+                'relaname' => $address_info['relaname'],
+                'mobile' => $address_info['relaname'],
             ];
             SimpleOnlineAddress::addSimpleOnlineAddress($address_data);//添加商品快照
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
+            dd($e);
             // 事件回滚
             DB::rollBack();
             return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
@@ -1084,7 +1081,6 @@ class WechatApiController extends Controller
     }
 
 
-
     /**
      * 减库存
      * @order_id 订单id
@@ -1172,16 +1168,6 @@ class WechatApiController extends Controller
         }
         return 'ok';
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

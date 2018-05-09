@@ -67,25 +67,43 @@ class WxController extends Controller
     {
         $wechat = new WechatController();
         $wechat->getSignPackage();
-
         $signPackage = request()->get("zerone_jssdk_info");
-
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01;
+        $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
-        $res = $this->unifiedOrder($data);
-        $res = json_decode($res, true);
-
-        $res["data"]["timestamp"] = time();
-        $res["data"]["paySign"] = $res["data"]["sign"];
-
+        $res = $this->jsApiOrder($data);
+        $res = json_decode($res,true);
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
 
+
+    public function MakeSign($param)
+    {
+        //签名步骤一：按字典序排序参数
+        ksort($param);
+        $string = $this->ToUrlParams($param);
+        //签名步骤二：在string后加入KEY
+        $string = $string . "&key=" . $this->key;
+        //签名步骤三：MD5加密
+        $string = md5($string);
+        //签名步骤四：所有字符转为大写
+        $result = strtoupper($string);
+        return $result;
+    }
+
+    public function getNonceStr($length = 32)
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $str = "";
+        for ($i = 0; $i < $length; $i++) {
+            $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
+        }
+        return $str;
+    }
 
     public function demo()
     {
@@ -118,6 +136,22 @@ class WxController extends Controller
     }
 
 
+    public function jsApiOrder($param)
+    {
+        // 统一下单地址
+        $res = $this->unifiedOrder($param);
+        $res = json_decode($res, true);
+        // 时间戳
+        $res["data"]["timestamp"] = time();
+        // 支付签名
+        $paySign = "appId={$res["data"]["appid"]}&nonceStr={$res["data"]["nonce_str"]}&package=prepay_id={$res["data"]["prepay_id"]}&signType=MD5&timeStamp={$res["data"]["timestamp"]}&key={$this->key}";
+        // 处理支付签名
+        $res["data"]["paySign"] = strtoupper(md5($paySign));
+        // 返回数据
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
+    }
+
+
     public function unifiedOrder($param = [])
     {
         // 商品信息
@@ -136,6 +170,7 @@ class WxController extends Controller
         $data["openid"] = $param["openid"];
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
+
         $res = $this->wechat->unifiedOrder($data);
         return $this->resDispose($res);
     }
