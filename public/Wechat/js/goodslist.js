@@ -1,3 +1,4 @@
+var mescroll;
 $(function(){
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
@@ -31,7 +32,7 @@ $(function(){
 	);
 
     //创建MeScroll对象
-    var mescroll = new MeScroll("goodslist", {
+    mescroll = new MeScroll("goodslist", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
