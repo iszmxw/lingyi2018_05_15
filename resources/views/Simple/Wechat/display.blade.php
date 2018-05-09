@@ -28,7 +28,7 @@
 				<div class="head_bottom">
 					<div class="bottom_left">
 						<span id="month">
-							
+
 						</span>
 						<p class="bottomaddress" onclick="searchshop()"><i></i>获取位置信息...</p>
 					</div>
@@ -78,39 +78,8 @@
           signature: '{{$signature}}',
           jsApiList: [
                 'checkJsApi',
-		        'onMenuShareTimeline',
-		        'onMenuShareAppMessage',
-		        'onMenuShareQQ',
-		        'onMenuShareWeibo',
-		        'hideMenuItems',
-		        'showMenuItems',
-		        'hideAllNonBaseMenuItem',
-		        'showAllNonBaseMenuItem',
-		        'translateVoice',
-		        'startRecord',
-		        'stopRecord',
-		        'onRecordEnd',
-		        'playVoice',
-		        'pauseVoice',
-		        'stopVoice',
-		        'uploadVoice',
-		        'downloadVoice',
-		        'chooseImage',
-		        'previewImage',
-		        'uploadImage',
-		        'downloadImage',
-		        'getNetworkType',
 		        'openLocation',
-		        'getLocation',
-		        'hideOptionMenu',
-		        'showOptionMenu',
-		        'closeWindow',
-		        'scanQRCode',
-		        'chooseWXPay',
-		        'openProductSpecificView',
-		        'addCard',
-		        'chooseCard',
-		        'openCard'
+		        'getLocation'
           ]
       });
      wx.ready(function(){
