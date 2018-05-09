@@ -142,7 +142,7 @@ $(function(){
                         'category_id':category_id,'keyword':keyword_val,'limit':1},
                     	function(json){
                             var str = "";
-
+                            console.log(json);
                     		if (json.status == 1) {
                                 for (var i = 0; i < json.data.goodslist.length; i++) {
                                     //判断列表与购物车的id存在就读取购物车的数量
