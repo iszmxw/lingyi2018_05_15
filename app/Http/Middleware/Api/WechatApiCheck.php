@@ -87,7 +87,8 @@ class WechatApiCheck
                 $re = $this->checkOrderSubmit($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/wechatApi/online_order_list"://删除编辑取货信息提交数据
+            case "api/wechatApi/online_order_list"://线上订单列表
+            case "api/wechatApi/selftake_order_list"://自取订单列表
                 $re = $this->checkOnlineOrderList($request);
                 return self::format_response($re, $next);
                 break;
