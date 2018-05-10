@@ -953,6 +953,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::any('online_order_detail', 'Api\WechatApiController@online_order_detail')->middleware('WechatApiCheck');//线上订单详情
         Route::any('selftake_order_list', 'Api\WechatApiController@selftake_order_list')->middleware('WechatApiCheck');//自取订单列表
         Route::any('selftake_order_detail', 'Api\WechatApiController@selftake_order_detail')->middleware('WechatApiCheck');//自取订单详情
+        Route::any('cancel_online_order', 'Api\WechatApiController@cancel_online_order')->middleware('WechatApiCheck');//自取订单详情
     });
 
 
