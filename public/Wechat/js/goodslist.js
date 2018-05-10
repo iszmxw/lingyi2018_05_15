@@ -95,6 +95,7 @@ function selectgoods(category, keyword_val, limit, me) {
             'zerone_user_id': zerone_user_id
         },
         function (json) {
+            console.log(json,"00");
             if (json.status == 1) {
                 var str = "";
                 var cart_num = [];
