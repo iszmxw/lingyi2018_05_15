@@ -262,11 +262,9 @@ class WxController extends Controller
     {
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
-
-
-        $param = $this->fillData($data);
+        $data = $this->fillData($data);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        return $this->responseDispose($url, $param);
+        return $this->responseDispose($url, $data);
     }
 
 
