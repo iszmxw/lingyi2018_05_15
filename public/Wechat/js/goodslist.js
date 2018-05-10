@@ -373,6 +373,7 @@ function cart_empty(){
         data,
     	function(json){
     		if (json.status == 1) {
+
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
