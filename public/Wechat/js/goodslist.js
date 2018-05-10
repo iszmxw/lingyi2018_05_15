@@ -39,7 +39,7 @@ $(function () {
 //var $limit = 0, $category = 1, $keyword_val = '';
 
 var mea;//loadDownFn 用到,需要赋值
-$('.goodslist').dropload({
+var dropload = $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
@@ -172,13 +172,13 @@ function selectgoods(category, keyword_val, limit, me) {
                         // 锁定
                         //me.lock();
                         // 无数据
-                        me.noData();
+                        dropload.noData();
                     }
                     // 每次数据插入，必须重置
-                    me.resetload();
+                    dropload.resetload();
                 }
             ).error(function () {
-                me.resetload();
+                dropload.resetload();
             })
 
         }
@@ -281,13 +281,13 @@ function selectgoods_del(category, keyword_val, limit, me ,status) {
                         // 锁定
                         //me.lock();
                         // 无数据
-                        me.noData();
+                        dropload.noData();
                     }
                     // 每次数据插入，必须重置
-                    me.resetload();
+                    dropload.resetload();
                 }
             ).error(function () {
-                me.resetload();
+                dropload.resetload();
             })
 
         }
