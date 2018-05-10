@@ -64,18 +64,11 @@ $('.goodslist').dropload({
     },
     loadDownFn: function (me) {
         $limit++;
-
-
-            selectgoods($category, $keyword_val, $limit, me);
-
-
+        selectgoods($category, $keyword_val, $limit, me);
     },
     loadUpFn: function (me) {
         $limit++;
-
-            selectgoods($category, $keyword_val, $limit, me);
-
-
+        selectgoods($category, $keyword_val, $limit, me);
     },
     threshold: 50
 });
