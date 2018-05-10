@@ -44,15 +44,15 @@ $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
-    domUp: {
-        domClass: 'dropload-up',
-        // 下拉过程显示内容
-        domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
-        // 下拉到一定程度显示提示内容
-        domUpdate: '<div class="dropload-update">↑释放更新</div>',
-        // 释放后显示内容
-        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
-    },
+    // domUp: {
+    //     domClass: 'dropload-up',
+    //     // 下拉过程显示内容
+    //     domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+    //     // 下拉到一定程度显示提示内容
+    //     domUpdate: '<div class="dropload-update">↑释放更新</div>',
+    //     // 释放后显示内容
+    //     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+    // },
     domDown: {
         domClass: 'dropload-down',
         // 滑动到底部显示内容
@@ -60,7 +60,7 @@ $('.goodslist').dropload({
         // 内容加载过程中显示内容
         domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
         // 没有更多内容-显示提示
-        domNoData: '<div class="dropload-noData">暂无更多数据</div>'
+        domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
         $limit++;
