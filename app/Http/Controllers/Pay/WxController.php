@@ -451,6 +451,9 @@ class WxController extends Controller
     }
 
 
+    /**
+     * @throws \Exception
+     */
     public function test14()
     {
         // 查询订单类型，和相对应的订单号
