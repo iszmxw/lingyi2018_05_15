@@ -875,6 +875,7 @@ Route::group(['prefix' => 'zerone'], function () {
     Route::group(['prefix' => 'wechat'], function () {
         Route::any('/', 'Api\WechatController@display')->middleware('WechatCheck');
         Route::any('goodslist', 'Api\WechatController@goodslist')->middleware('WechatCheck');
+        Route::any('order_check', 'Api\WechatController@order_check')->middleware('WechatCheck');
     });
 
 });

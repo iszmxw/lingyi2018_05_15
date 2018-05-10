@@ -53,10 +53,17 @@ class WechatController extends Controller
 
         $fansmanage_id = session("zerone_auth_info.organization_id");
 
-
-
         // 渲染页面
         return view('Simple/Wechat/goodslist', ['store_id' => $store_id, 'fansmanage_id' => $fansmanage_id]);
+    }
+
+    /**
+     * 确定订单
+     */
+    public function order_check(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/order_check');
     }
 
     /**
