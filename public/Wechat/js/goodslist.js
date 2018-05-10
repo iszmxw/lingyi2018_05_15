@@ -36,7 +36,7 @@ $(function () {
 });
 
 
-var $limit = 0, $category = 1, $keyword_val = '';
+//var $limit = 0, $category = 1, $keyword_val = '';
 
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
@@ -63,8 +63,16 @@ $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
-        $limit++;
-        selectgoods($category, $keyword_val, $limit, me);
+        var category_id = "";
+        $("#goods_cs_lt_alert li").each(function (index, el) {
+            if ($(this).hasClass('action')) {
+                category_id = $(this).data('id');
+            }
+        });
+        var keyword_val = $("#search").val();
+        var limit = $("#limit").val();//分页
+        selectgoods(category_id, keyword_val, limit, me);
+        $("#limit").val(parseInt(limit) + 1 );
     },
     // loadUpFn: function (me) {
     //     $limit++;
@@ -75,7 +83,7 @@ $('.goodslist').dropload({
 
 
 //查询商品列表和购物车列表
-function selectgoods(category, keyword_val, limit, me) {
+function selectgoods(category, keyword_val, limit, me,category_status) {
     //获取购物车商品
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -84,7 +92,9 @@ function selectgoods(category, keyword_val, limit, me) {
     var cart_list_url = "http://develop.01nnt.com/api/wechatApi/shopping_cart_list";
     var shop_user_id = $("#shop_user_id").val();//用户店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//用户零壹ID
-    //var limit = $("#limit").val();//分页
+    var limit = $("#limit").val();//分页
+    var category_id = category;//分类ID
+    var keyword = keyword_val;
     $.post(
         cart_list_url,
         {
@@ -131,10 +141,6 @@ function selectgoods(category, keyword_val, limit, me) {
 
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
-            var category_id = category;//分类ID
-            var keyword = keyword_val;
-
-
             $.post(
                 goodslist_url,
                 {
@@ -160,7 +166,10 @@ function selectgoods(category, keyword_val, limit, me) {
 
 
                         var $goodslist = $("#goodslist");
-                        // $goodslist.empty();
+                        if(category_status){
+                            $goodslist.empty();
+                            category_status = false;
+                        }
                         $goodslist.append(str);
 
 
@@ -386,7 +395,9 @@ function cart_reduce(obj, status) {
 //获取分类查询
 function category_list(category_id) {
     var keyword_val = $("#search").val();
-    selectgoods(category_id, keyword_val);
+    var limit = $("#limit").val();//分页
+    var category_status = true;//判断点击分类，清空商品列表
+    selectgoods(category_id, keyword_val,limit,me,category_status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -401,7 +412,9 @@ function search_click() {
         }
     });
     var keyword_val = $("#search").val();
-    selectgoods(category_id, keyword_val);
+    var limit = $("#limit").val();//分页
+    var category_status = true;//判断搜索，清空商品列表
+    selectgoods(category_id, keyword_val,limit,me,category_status);
 }
 
 //清空购物车
