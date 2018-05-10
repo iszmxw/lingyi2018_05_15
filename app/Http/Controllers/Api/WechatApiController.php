@@ -1159,6 +1159,8 @@ class WechatApiController extends Controller
             'address_info'=>$address_info,
             /*******运费金额(待完成)*******/
             'dispatch_price' =>'11',
+            /*******退款原因(待完成)*******/
+            'rejected_info' => '退款原因（待完成）',
             // 添加时间
             'created_at' => $order['created_at'],
         ];
