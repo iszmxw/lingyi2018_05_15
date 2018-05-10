@@ -464,7 +464,9 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $param["out_refund_no"] = "1003022622018050853721122351525761650";
 
+        $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
+        $param["sign_type"] = "md5";
         var_dump($param);
         $param = $this->array2xml($param);
         var_dump($param);
@@ -475,6 +477,15 @@ class WxController extends Controller
     }
 
 
+    public function generateNonceStr() {
+    return sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+}
 
     public function generateSignature($data, $signType="md5") {
         $combineStr = '';
