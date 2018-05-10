@@ -133,7 +133,7 @@ class WechatApiController extends Controller
         // 分页
         $limit = $request->limit;
         // 条件
-        $where = [['fansmanage_id', $fansmanage_id], ['simple_id' => $store_id], ['status', '1']];
+        $where = [['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['status', '1']];
 
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
