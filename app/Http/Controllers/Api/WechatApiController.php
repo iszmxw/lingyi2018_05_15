@@ -1079,6 +1079,7 @@ class WechatApiController extends Controller
      */
     public function selftake_order_list(Request $request)
     {
+        
         // 联盟id
         $fansmanage_id = $request->fansmanage_id;
         // 店铺id
