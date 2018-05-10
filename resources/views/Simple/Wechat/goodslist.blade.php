@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7_2.min.css">
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7_2.min.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
 
