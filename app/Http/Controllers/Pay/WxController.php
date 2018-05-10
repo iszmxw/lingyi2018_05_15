@@ -457,8 +457,7 @@ class WxController extends Controller
         $param["out_trade_no"] = "150337637120180509095053";
         $param = $this->fillData($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        $res = $this->responseDispose($url,$param);
-        echo $this->resDispose($res);
+        echo $this->responseDispose($url, $param);
     }
 
 
@@ -471,7 +470,7 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function responseDispose($url,$data,$method = "POST",$is_ssh = false)
+    public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
     {
         // 将数据转化为 XML 格式
         $data = $this->array2xml($data);
@@ -501,7 +500,6 @@ class WxController extends Controller
         // 返回 json 数据
         return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
-
 
 
     /**
@@ -643,7 +641,6 @@ class WxController extends Controller
         curl_close($curl);
         return $response;
     }
-
 
 
     /**
