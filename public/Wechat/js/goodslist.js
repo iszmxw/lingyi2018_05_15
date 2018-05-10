@@ -52,7 +52,7 @@ $('.goodslist').dropload({
         domUpdate: '<div class="dropload-update">↑释放更新</div>',
         // 释放后显示内容
         domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
-    },
+    }
     // domDown: {
     //     domClass: 'dropload-down',
     //     // 滑动到底部显示内容
