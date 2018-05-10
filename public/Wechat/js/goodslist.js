@@ -40,6 +40,7 @@ $(function () {
 
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
+var mea;
 $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -63,6 +64,7 @@ $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
+        mea = me;
         var category_id = "";
         $("#goods_cs_lt_alert li").each(function (index, el) {
             if ($(this).hasClass('action')) {
@@ -148,7 +150,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
                     'category_id': category_id, 'keyword': keyword, 'limit': limit
                 },
                 function (json) {
-
+                    console.log(json)
                     var str = "";
                     if (json.status == 1) {
 
@@ -175,7 +177,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
                     } else if (json.status == 0) {
                         // 没有数据
-                        console.log(json.msg);
+                        console.log(json.msg+"0000");
                         // 锁定
                         me.lock();
                         // 无数据
@@ -397,8 +399,8 @@ function category_list(category_id) {
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
     var category_status = true;//判断点击分类，清空商品列表
-    var me = "";
-    selectgoods(category_id, keyword_val,limit,me,category_status);
+        console.log(category_id)
+    selectgoods(category_id, keyword_val,limit,mea,category_status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -415,7 +417,7 @@ function search_click() {
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
     var category_status = true;//判断搜索，清空商品列表
-    selectgoods(category_id, keyword_val,limit,me,category_status);
+    selectgoods(category_id, keyword_val,limit,mea,category_status);
 }
 
 //清空购物车
