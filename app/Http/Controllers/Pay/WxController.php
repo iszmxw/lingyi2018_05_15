@@ -52,7 +52,7 @@ class WxController extends Controller
     {
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.1*100;
+        $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
         $data["auth_code"] = "135511475437054192";
         echo $this->microOrder($data);
