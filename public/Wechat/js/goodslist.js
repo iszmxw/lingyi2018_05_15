@@ -53,19 +53,19 @@ $('.goodslist').dropload({
         // 释放后显示内容
         domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
     },
-    domDown: {
-        domClass: 'dropload-down',
-        // 滑动到底部显示内容
-        domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
-        // 内容加载过程中显示内容
-        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-        // 没有更多内容-显示提示
-        domNoData: '<div class="dropload-noData">暂无更多数据</div>'
-    },
-    loadDownFn: function (me) {
-        $limit++;
-        selectgoods($category, $keyword_val, $limit, me);
-    },
+    // domDown: {
+    //     domClass: 'dropload-down',
+    //     // 滑动到底部显示内容
+    //     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+    //     // 内容加载过程中显示内容
+    //     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+    //     // 没有更多内容-显示提示
+    //     domNoData: '<div class="dropload-noData">暂无更多数据</div>'
+    // },
+    // loadDownFn: function (me) {
+    //     $limit++;
+    //     selectgoods($category, $keyword_val, $limit, me);
+    // },
     loadUpFn: function (me) {
         $limit++;
         selectgoods($category, $keyword_val, $limit, me);
