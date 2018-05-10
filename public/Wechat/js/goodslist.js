@@ -32,7 +32,7 @@ $(function(){
 	);
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     selectgoods(0,"");
-    
+
     $.init();
 });
 
@@ -272,7 +272,13 @@ function cart_empty(){
         data,
     	function(json){
     		if (json.status == 1) {
-
+                $(".gs_show").each(function(index, el) {
+                    var $this = $(this);
+                    $this.removeClass("gs_show").addClass('gs_hide');
+                    if($this.parent().hasClass('cart_border')){
+                        $this.parent().removeClass('cart_border').addClass('action');
+                    }
+                });
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
