@@ -1120,16 +1120,15 @@ class WechatApiController extends Controller
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
+        dd($order);
         $order = $order->toArray();
-        //用户昵称
-        $goodsdata = $order['simple_order_goods'];//订单商品列表
-        foreach ($goodsdata as $key => $value) {
+        $goods_list = $order['Goods'];//订单商品列表
+        foreach ($goods_list as $key => $value) {
             $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
-            $ordergoods[$key]['title'] = $value['title']; //商品名字
-            $ordergoods[$key]['thumb'] = $value['thumb']; //商品图片
-            $ordergoods[$key]['details'] = $value['details'];//商品描述
-            $ordergoods[$key]['total'] = $value['total']; //商品数量
-            $ordergoods[$key]['price'] = $value['price']; //商品价格
+            $ordergoods[$key]['goods_name'] = $value['title']; //商品名字
+            $ordergoods[$key]['goods_thumb'] = $value['thumb']; //商品图片
+            $ordergoods[$key]['num'] = $value['total']; //商品数量
+            $ordergoods[$key]['goods_price'] = $value['price']; //商品价格
         }
         //防止值为null
         if (empty($order['remarks'])) {
@@ -1141,29 +1140,25 @@ class WechatApiController extends Controller
         if (empty($order['paytype'])) {
             $order['paytype'] = '';
         }
-        $orderdata = [
+        $data = [
             // 订单id
-            'id' => $order['id'],
+            'order_id' => $order['id'],
             // 订单编号
             'ordersn' => $order['ordersn'],
             // 订单价格
             'order_price' => $order['order_price'],
             // 订单备注
             'remarks' => $order['remarks'],
-            // 支付公司
-            'payment_company' => $order['payment_company'],
             // 订单状态
             'status' => $order['status'],
+            // 支付公司
+            'payment_company' => $order['payment_company'],
             // 支付方式
             'paytype' => $order['paytype'],
             // 店铺ID
             'simple_id' => $order['simple_id'],
             // 添加时间
             'created_at' => $order['created_at'],
-        ];
-        $data = [
-            'orderdata' => $orderdata,
-            'ordergoods' => $ordergoods,
         ];
         return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
     }
