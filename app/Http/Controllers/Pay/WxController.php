@@ -460,8 +460,8 @@ class WxController extends Controller
         $param["out_trade_no"] = "150337637120180509095053";
 
         $param["sign_type"] = "MD5";
-        $param["nonce_str"] = $this->generateNonceStr();
-        $param["sign"] = $this->generateSignature($param);
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
 
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         $param = $this->array2xml($param);
@@ -471,7 +471,11 @@ class WxController extends Controller
     }
 
 
-    public function generateNonceStr()
+    /**
+     * 生成随机数
+     * @return string
+     */
+    public function nonceStr()
     {
         return sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',
             mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -482,12 +486,19 @@ class WxController extends Controller
         );
     }
 
-    public function generateSignature($data)
+    /**
+     * 生成签名（只支持MD5）
+     * @param $data
+     * @return string
+     */
+    public function signature($data)
     {
         $combineStr = '';
+        // 去所有的键名
         $keys = array_keys($data);
-        asort($keys);  // 排序
-
+        // 排序
+        asort($keys);
+        // 处理数据
         foreach ($keys as $k) {
             $v = $data[$k];
             if ($k == "sign") {
@@ -498,8 +509,8 @@ class WxController extends Controller
                 continue;
             }
         }
-
         $combineStr = "${combineStr}key=$this->key";
+        // 返回签名
         return strtoupper(md5($combineStr));
     }
 
@@ -583,6 +594,8 @@ class WxController extends Controller
         curl_close($curl);
         return $response;
     }
+
+
 
     /**
      * 将XML格式字符串转换为array
