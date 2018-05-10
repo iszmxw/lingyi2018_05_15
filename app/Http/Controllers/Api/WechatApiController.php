@@ -1134,7 +1134,6 @@ class WechatApiController extends Controller
             // 商品价格
             $goods_list[$key]['goods_price'] = $value['price'];
         }
-        dd($order);
         $address_info = [
             'province_name'=>$order['address']['province_name'],
             'city_name'=>$order['address']['city_name'],
