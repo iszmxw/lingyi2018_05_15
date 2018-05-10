@@ -456,7 +456,6 @@ class WxController extends Controller
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
 
-
         // 查询订单类型，和相对应的订单号
         $param["out_trade_no"] = "150337637120180509095053";
 
@@ -464,13 +463,11 @@ class WxController extends Controller
         $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
 
-
-        $param = $this->array2xml($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        $param = $this->array2xml($param);
         $resXml = $this->httpRequest($url, "post", $param, [], false);
         $res = $this->xml2array($resXml);
         echo $this->resDispose($res);
-
     }
 
 
