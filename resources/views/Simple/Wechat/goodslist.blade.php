@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
 
     <style>
-        
+
     </style>
 </head>
 <body>
@@ -25,7 +25,7 @@
 <input type="hidden" name="limit" id="limit" value="0">
 
 
-<div class="page1">
+<div class="page">
     <div class="g-flexview">
         <div class="head">
             <div class="nav">
