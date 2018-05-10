@@ -55,9 +55,9 @@
                         <span class="goods_number" id="goods_totalnum" data-totalnum="0">0</span>
                     </div>
                 </div>
-                <h3 class="cart_price" id="cart_price" data-totalprice="0">您还未选购商品哦~111</h3>
+                <h3 class="cart_price" id="cart_price" data-totalprice="0">您还未选购商品哦~</h3>
             </div>
-            <div class="cart_right"><a href="http://develop.01nnt.com/zerone/wechat/order_check" external>去结算11<i></i></a></div>
+            <div class="cart_right"><a href="http://develop.01nnt.com/zerone/wechat/order_check" external>去结算<i></i></a></div>
         </div>
     </div>
     <!-- alert -->
