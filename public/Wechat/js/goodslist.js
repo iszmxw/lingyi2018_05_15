@@ -172,6 +172,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
                         if(category_status){
                             console.log("1111"+category_status);
                             $goodslist.empty();
+                            console.log("1111"+category_status);
                             category_status = false;
                         }
                         $goodslist.append(str);
