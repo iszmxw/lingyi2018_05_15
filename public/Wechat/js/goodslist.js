@@ -294,6 +294,7 @@ function cart_add(obj) {
         url,
         data,
         function (json) {
+            console.log(json);
             if (json.status == 1) {
                 //删除点击加号按钮的当前状态
                 $(".cart_border").removeClass('action');
@@ -629,7 +630,6 @@ function showcart(obj, em) {
             'zerone_user_id': zerone_user_id
         },
         function (json) {
-            console.log(json);
             $.hideIndicator();
             if (json.status == 1) {
                 var str = "";
