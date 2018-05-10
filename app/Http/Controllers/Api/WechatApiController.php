@@ -1107,7 +1107,6 @@ class WechatApiController extends Controller
     }
 
 
-
     /**
      * 线上订单详情接口
      */
@@ -1135,12 +1134,12 @@ class WechatApiController extends Controller
             $goods_list[$key]['goods_price'] = $value['price'];
         }
         $address_info = [
-            'province_name'=>$order['address']['province_name'],
-            'city_name'=>$order['address']['city_name'],
-            'district_name'=>$order['address']['district_name'],
-            'address'=>$order['address']['address'],
-            'realname'=>$order['address']['realname'],
-            'mobile'=>$order['address']['mobile'],
+            'province_name' => $order['address']['province_name'],
+            'city_name' => $order['address']['city_name'],
+            'district_name' => $order['address']['district_name'],
+            'address' => $order['address']['address'],
+            'realname' => $order['address']['realname'],
+            'mobile' => $order['address']['mobile'],
         ];
         $data = [
             // 订单id
@@ -1154,11 +1153,11 @@ class WechatApiController extends Controller
             // 订单状态
             'status' => $order['status'],
             // 订单商品
-            'goods_list'=>$goods_list,
+            'goods_list' => $goods_list,
             // 收货地址
-            'address_info'=>$address_info,
+            'address_info' => $address_info,
             /*******运费金额(待完成)*******/
-            'dispatch_price' =>'运费金额(待完成)',
+            'dispatch_price' => '运费金额(待完成)',
             /*******退款原因(待完成)*******/
             'rejected_info' => '退款原因（待完成）',
             // 添加时间
@@ -1180,7 +1179,6 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        dd($order);
         $goods_list = [];
         foreach ($order['goods'] as $key => $value) {
             // 商品id
@@ -1194,13 +1192,10 @@ class WechatApiController extends Controller
             // 商品价格
             $goods_list[$key]['goods_price'] = $value['price'];
         }
-        $address_info = [
-            'province_name'=>$order['address']['province_name'],
-            'city_name'=>$order['address']['city_name'],
-            'district_name'=>$order['address']['district_name'],
-            'address'=>$order['address']['address'],
-            'realname'=>$order['address']['realname'],
-            'mobile'=>$order['address']['mobile'],
+        $selftake_info = [
+            'realname' => $order['address']['realname'],
+            'sex' => $order['address']['sex'],
+            'mobile' => $order['address']['mobile'],
         ];
         $data = [
             // 订单id
@@ -1214,13 +1209,11 @@ class WechatApiController extends Controller
             // 订单状态
             'status' => $order['status'],
             // 订单商品
-            'goods_list'=>$goods_list,
+            'goods_list' => $goods_list,
             // 收货地址
-            'address_info'=>$address_info,
-            /*******运费金额(待完成)*******/
-            'dispatch_price' =>'运费金额(待完成)',
-            /*******退款原因(待完成)*******/
-            'rejected_info' => '退款原因（待完成）',
+            'selftake_info' => $selftake_info,
+            /*******取货时间(待完成)*******/
+            'selftake_time' => '取货时间(待完成)',
             // 添加时间
             'created_at' => $order['created_at'],
         ];
