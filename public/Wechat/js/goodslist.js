@@ -497,6 +497,7 @@ function category_list(category_id) {
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     var status = true;
+    dropload.lock();
     selectgoods_del(category_id, keyword_val,limit,status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
@@ -516,6 +517,7 @@ function search_click() {
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     var status = true;
+    dropload.lock();
     selectgoods_del(category_id, keyword_val,limit,status);
 }
 
