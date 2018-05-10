@@ -409,6 +409,7 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
+    
     dropload.lock();
     //selectgoods(category_id, keyword_val,limit);
     var $goodslist = $("#goodslist");
