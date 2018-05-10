@@ -502,6 +502,7 @@ class WxController extends Controller
         }
 
         $combineStr = "${combineStr}key=$this->key";
+        var_dump($combineStr);
         return strtoupper(md5($combineStr));
     }
 
