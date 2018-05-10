@@ -84,7 +84,7 @@ function selectgoods(category, keyword_val, limit, me) {
     var cart_list_url = "http://develop.01nnt.com/api/wechatApi/shopping_cart_list";
     var shop_user_id = $("#shop_user_id").val();//用户店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//用户零壹ID
-
+    //var limit = $("#limit").val();//分页
     $.post(
         cart_list_url,
         {
@@ -95,7 +95,6 @@ function selectgoods(category, keyword_val, limit, me) {
             'zerone_user_id': zerone_user_id
         },
         function (json) {
-            console.log(json,"00");
             if (json.status == 1) {
                 var str = "";
                 var cart_num = [];
