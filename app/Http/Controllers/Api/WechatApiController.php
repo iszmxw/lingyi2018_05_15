@@ -1111,22 +1111,17 @@ class WechatApiController extends Controller
     /**
      * 订单详情接口
      */
-    public function order_detail(Request $request)
+    public function online_order_detail(Request $request)
     {
-        // 店铺
-        $organization_id = $request->organization_id;
         // 订单id
         $order_id = $request->order_id;
         // 订单详情
-        $order = SimpleOrder::getOne([['id', $order_id], ['simple_id', $organization_id]]);
+        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]]);
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        $user_account = User::getPluck([['id', $order['user_id']]], 'account');//粉丝账号
-        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');//操作人员账号
         //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname')->first();
         $goodsdata = $order['simple_order_goods'];//订单商品列表
         foreach ($goodsdata as $key => $value) {
             $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
@@ -1140,9 +1135,6 @@ class WechatApiController extends Controller
         if (empty($order['remarks'])) {
             $order['remarks'] = '';
         }
-        if (empty($order['user_account'])) {
-            $order['user_account'] = '';
-        }
         if (empty($order['payment_company'])) {
             $order['payment_company'] = '';
         }
@@ -1150,20 +1142,24 @@ class WechatApiController extends Controller
             $order['paytype'] = '';
         }
         $orderdata = [
-            'id' => $order['id'], //订单id
-            'ordersn' => $order['ordersn'],//订单编号
-            'order_price' => $order['order_price'],//订单价格
-            'remarks' => $order['remarks'],//订单备注
-            'user_id' => $order['user_id'],//粉丝id
-            'user_account' => $user_account,//粉丝账号
-            'payment_company' => $order['payment_company'],//支付公司
-            'status' => $order['status'],//订单状态
-            'paytype' => $order['paytype'],//支付方式
-            'operator_id' => $order['operator_id'],//操作人id
-            'simple_id' => $order['simple_id'],//店铺ID
-            'operator_account' => $operator_account,//操作人账号
-            'realname' => $account_realname,//操作人员昵称
-            'created_at' => $order['created_at'],//添加时间
+            // 订单id
+            'id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 支付公司
+            'payment_company' => $order['payment_company'],
+            // 订单状态
+            'status' => $order['status'],
+            // 支付方式
+            'paytype' => $order['paytype'],
+            // 店铺ID
+            'simple_id' => $order['simple_id'],
+            // 添加时间
+            'created_at' => $order['created_at'],
         ];
         $data = [
             'orderdata' => $orderdata,
