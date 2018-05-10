@@ -17,6 +17,7 @@ class WechatCheck
         switch ($route_name) {
             case "zerone/wechat"://检测店铺列表提交数据
             case "zerone/wechat/goodslist"://检测店铺列表提交数据
+            case "zerone/wechat/order_check"://检测店铺列表提交数据
                 $this->checkToken();
                 break;
         }
