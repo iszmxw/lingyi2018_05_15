@@ -416,7 +416,7 @@ class WechatApiController extends Controller
         // 查看缓存是否存有商品
         $cart_data = Redis::get($key_id);
         // 如果有商品
-        if (empty(json_decode($cart_data))) {
+        if (empty(unserialize($cart_data))) {
             return response()->json(['status' => '0', 'msg' => '购物车没有商品', 'data' => '']);
         } else {
             // 序列化转成数组
@@ -1136,7 +1136,11 @@ class WechatApiController extends Controller
         }
         dd($order);
         $address_info = [
-            'province_name'=>1,
+            'province_name'=>$order['address']['province_name'],
+            'district_name'=>$order['address']['district_name'],
+            'province_name'=>$order['address']['province_name'],
+            'province_name'=>$order['address']['province_name'],
+            'province_name'=>$order['address']['province_name'],
         ];
         $data = [
             // 订单id
