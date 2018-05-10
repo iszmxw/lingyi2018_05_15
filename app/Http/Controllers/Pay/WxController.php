@@ -52,7 +52,7 @@ class WxController extends Controller
     {
         $reqData["order_num_type"] = "out_refund_no";
         $reqData["order_num"] = "1003022622018050853721122351525761650";
-        $reqData = json_encode($reqData,JSON_UNESCAPED_UNICODE);
+        $reqData = json_encode($reqData, JSON_UNESCAPED_UNICODE);
         $res = $this->refundQuery($reqData);
         echo $res;
     }
@@ -377,7 +377,6 @@ class WxController extends Controller
     }
 
 
-
     /**
      * 请求数据处理
      * @param $param
@@ -385,7 +384,7 @@ class WxController extends Controller
      */
     public function requestDispose($param)
     {
-        $res = json_decode($param,true);
+        $res = json_decode($param, true);
         return $res;
     }
 
@@ -452,12 +451,10 @@ class WxController extends Controller
     }
 
 
-
     public function test14()
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
-
         // 查询订单类型，和相对应的订单号
         $param["out_trade_no"] = "150337637120180509095053";
 
@@ -467,31 +464,39 @@ class WxController extends Controller
 
         $param = $this->array2xml($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        $resXml = $this->httpRequest($url,"post",$param,[],false);
+        $resXml = $this->httpRequest($url, "post", $param, [], false);
         $res = $this->xml2array($resXml);
         var_dump($res);
 
     }
 
 
-    public function generateNonceStr() {
-    return sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0x0fff) | 0x4000,
-        mt_rand(0, 0x3fff) | 0x8000,
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
-    );
-}
+    public function generateNonceStr()
+    {
+        return sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        );
+    }
 
-    public function generateSignature($data, $signType="md5") {
+    public function generateSignature($data)
+    {
         $combineStr = '';
         $keys = array_keys($data);
         asort($keys);  // 排序
 
-        foreach($keys as $k) {
+        foreach ($keys as $k) {
             $v = $data[$k];
-            $combineStr = "${combineStr}${k}=${v}&";
+            if ($k == "sign") {
+                continue;
+            } else if ((is_string($v) && strlen($v) > 0) || is_numeric($v)) {
+                $combineStr = "${combineStr}${k}=${v}&";
+            } else if (is_string($v) && strlen($v) == 0) {
+                continue;
+            }
         }
 
         $combineStr = "${combineStr}key=$this->key";
@@ -539,14 +544,14 @@ class WxController extends Controller
         curl_setopt($curl, CURLOPT_URL, $url);
 
         if ($ssl == true) {
-            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,TRUE);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
             // 严格校验
-            curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
             // 设置证书
-            curl_setopt($curl,CURLOPT_SSLCERTTYPE,'PEM');
-            curl_setopt($curl,CURLOPT_SSLCERT, $this->certPemPath);
-            curl_setopt($curl,CURLOPT_SSLKEYTYPE,'PEM');
-            curl_setopt($curl,CURLOPT_SSLKEY, $this->keyPemPath);
+            curl_setopt($curl, CURLOPT_SSLCERTTYPE, 'PEM');
+            curl_setopt($curl, CURLOPT_SSLCERT, $this->certPemPath);
+            curl_setopt($curl, CURLOPT_SSLKEYTYPE, 'PEM');
+            curl_setopt($curl, CURLOPT_SSLKEY, $this->keyPemPath);
         }
 
 
@@ -587,25 +592,23 @@ class WxController extends Controller
      * @return array
      * @throws \Exception
      */
-    public function xml2array($str) {
+    public function xml2array($str)
+    {
         $xml = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
         $json = json_encode($xml);
         $result = array();
-        $bad_result = json_decode($json,TRUE);  // value，一个字段多次出现，结果中的value是数组
+        $bad_result = json_decode($json, TRUE);  // value，一个字段多次出现，结果中的value是数组
         // return $bad_result;
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
                 if (count($v) == 0) {
                     $result[$k] = '';
-                }
-                else if (count($v) == 1) {
+                } else if (count($v) == 1) {
                     $result[$k] = $v[0];
-                }
-                else {
+                } else {
                     throw new \Exception('Duplicate elements in XML. ' . $str);
                 }
-            }
-            else {
+            } else {
                 $result[$k] = $v;
             }
         }
@@ -619,13 +622,13 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function array2xml($data) {
+    public function array2xml($data)
+    {
         $xml = new \SimpleXMLElement('<xml/>');
-        foreach($data as $k => $v ) {
+        foreach ($data as $k => $v) {
             if (is_string($k) && (is_numeric($v) || is_string($v))) {
-                $xml->addChild("$k",htmlspecialchars("$v"));
-            }
-            else {
+                $xml->addChild("$k", htmlspecialchars("$v"));
+            } else {
                 throw new \Exception('Invalid array, will not be converted to xml');
             }
         }
