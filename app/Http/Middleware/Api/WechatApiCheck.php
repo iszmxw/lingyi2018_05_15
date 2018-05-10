@@ -87,6 +87,10 @@ class WechatApiCheck
                 $re = $this->checkOrderSubmit($request);
                 return self::format_response($re, $next);
                 break;
+            case "api/wechatApi/online_order_list"://删除编辑取货信息提交数据
+                $re = $this->checkOnlineOrderList($request);
+                return self::format_response($re, $next);
+                break;
 
         }
         return $next($request);
@@ -387,40 +391,10 @@ class WechatApiCheck
     }
 
     /**
-     * 检测删除用户收货地址提交数据
+     * 检测订单提交数据
      */
     public function checkOrderSubmit($request)
     {
-
-//        $goods_list = [
-//            [
-//                "goods_id" => "22",
-//                "goods_name" => "优酸乳",
-//                "goods_thumb" => "uploads/simple/20180504065214953.jpg",
-//                "goods_price" => "11",
-//                "num" => 29,
-//                "stock" => 971
-//            ],
-//            [
-//                "goods_id" => "20",
-//                "goods_name" => "青菜肉丝面",
-//                "goods_thumb" => "http://develop.01nnt.com/public/thumb.png",
-//                "goods_price" => "11.00",
-//                "num" => 62,
-//                "stock" => 938
-//
-//            ]
-//        ];
-//        $address_info = [
-//            "province_name" => "广东省",
-//            "city_name" => "深圳市",
-//            "district_name" => "龙岗区",
-//            "address" => "万汇大厦1606",
-//            "realname" => "kbzz",
-//            "mobile" => "15277049514",
-//        ];
-
-
         if (empty($request->input('user_id'))) {
             return self::res(0, response()->json(['msg' => '用户ID不能为空', 'status' => '0', 'data' => '']));
         }
@@ -445,6 +419,22 @@ class WechatApiCheck
         return self::res(1, $request);
     }
 
+    /**
+     * 检测线上订单列表
+     */
+    public function checkOnlineOrderList($request)
+    {
+        if (empty($request->input('user_id'))) {
+            return self::res(0, response()->json(['msg' => '用户ID不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('fansmanage_id'))) {
+            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('store_id'))) {
+            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
 
 
     /**
