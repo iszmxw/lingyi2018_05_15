@@ -399,7 +399,7 @@ function category_list(category_id) {
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
     var category_status = true;//判断点击分类，清空商品列表
-
+        console.log(category_id)
     selectgoods(category_id, keyword_val,limit,mea,category_status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
