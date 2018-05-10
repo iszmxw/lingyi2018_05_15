@@ -289,7 +289,12 @@ function cart_empty(){
                         $this.parent().removeClass('cart_border').addClass('action');
                     }
                 });
+                //清空购物车总数
+                $("#goods_totalnum").text("0");
+                $("#goods_totalnum").attr('data-totalnum', '0');
+                //隐藏提示框
                 hide('alert');
+                //隐藏购物车
                 $("#cart").click();
                 $.hideIndicator();
                 $.toast("清空成功");
