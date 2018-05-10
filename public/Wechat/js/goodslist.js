@@ -395,7 +395,7 @@ function category_list(category_id) {
     hidegoodsclass('goodsclass');
     var $goodslist = $("#goodslist");
     $goodslist.empty();
-        dropload.autoLoad= false;
+    dropload.autoLoad= false;
 }
 
 //商品搜索
@@ -414,7 +414,7 @@ function search_click() {
     selectgoods(category_id, keyword_val,limit);
     var $goodslist = $("#goodslist");
     $goodslist.empty();
-        dropload.autoLoad= false;
+    dropload.autoLoad= false;
 }
 
 //清空购物车
