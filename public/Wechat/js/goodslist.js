@@ -143,6 +143,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
+            console.log(category_id)
             $.post(
                 goodslist_url,
                 {
@@ -177,7 +178,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
                     } else if (json.status == 0) {
                         // 没有数据
-                        console.log(json.msg+"0000");
+                        console.log(json.msg);
                         // 锁定
                         me.lock();
                         // 无数据
@@ -399,7 +400,8 @@ function category_list(category_id) {
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
     var category_status = true;//判断点击分类，清空商品列表
-        console.log(category_id)
+    $("#limit").val("1");//选择分类，分页重置
+    limit = 1;
     selectgoods(category_id, keyword_val,limit,mea,category_status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
@@ -416,6 +418,8 @@ function search_click() {
     });
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
+    $("#limit").val("1");//选择分类，分页重置
+    limit = 1;
     var category_status = true;//判断搜索，清空商品列表
     selectgoods(category_id, keyword_val,limit,mea,category_status);
 }
