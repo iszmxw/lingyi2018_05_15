@@ -85,7 +85,7 @@ $('.goodslist').dropload({
 });
 
 var mea;//loadDownFn 用到,需要赋值
-var category_status = 1;//判断搜索(分类)，清空商品列表
+window.category_status = 1;//判断搜索(分类)，清空商品列表
 //查询商品列表和购物车列表
 function selectgoods(category, keyword_val, limit, me,category_status) {
     //获取购物车商品
@@ -168,11 +168,11 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
                         var $goodslist = $("#goodslist");
                         console.log("22233333"+category_status);
-                        if(category_status == 1){
+                        if(window.category_status == 1){
 
                             $goodslist.empty();
 
-                            category_status = 0;
+                            window.category_status = 0;
                             console.log("2222"+category_status);
                         }
                         $goodslist.append(str);
