@@ -185,7 +185,7 @@ function selectgoods(category, keyword_val, limit, me) {
     );
 }
 //查询商品列表和购物车列表
-function selectgoods_del(category, keyword_val, limit, me) {
+function selectgoods_del(category, keyword_val, limit, me ,status) {
     //获取购物车商品
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -265,7 +265,11 @@ function selectgoods_del(category, keyword_val, limit, me) {
 
 
                         var $goodslist = $("#goodslist");
-                        $goodslist.empty();
+                        if(status){
+                            $goodslist.empty();
+                            status = false;
+                        }
+
                         $goodslist.append(str);
 
 
@@ -493,7 +497,8 @@ function category_list(category_id) {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    selectgoods_del(category_id, keyword_val,limit,mea);
+    var status = true;
+    selectgoods_del(category_id, keyword_val,limit,mea,status);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -511,7 +516,8 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    selectgoods_del(category_id, keyword_val,limit,mea);
+    var status = true;
+    selectgoods_del(category_id, keyword_val,limit,mea,status);
 }
 
 //清空购物车
