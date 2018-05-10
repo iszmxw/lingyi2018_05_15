@@ -30,8 +30,6 @@ class SimpleOnlineOrder extends Model
         return $this->hasOne('App\Models\SimpleOnlineAddress', 'order_id', 'id');
     }
 
-
-
     //获取餐饮商品列表
     public static function getListApi($where, $page = 0, $orderby, $sort = 'DESC', $select = [])
     {

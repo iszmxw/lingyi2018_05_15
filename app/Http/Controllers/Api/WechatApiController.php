@@ -1117,7 +1117,6 @@ class WechatApiController extends Controller
         $order_id = $request->order_id;
         // 订单详情
         $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]]);
-        dd($order);
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
