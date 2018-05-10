@@ -18,15 +18,19 @@ class SimpleSelftakeOrder extends Model
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
     public $guarded = [];
 
-
-    //获取列表
-    public static function getListPaginate($where, $paginate, $orderby, $sort = 'DESC', $select = [])
+    //获取餐饮商品列表
+    public static function getListApi($where, $page = 0, $orderby, $sort = 'DESC', $select = [])
     {
         $model = new SimpleSelftakeOrder();
+        if (!empty($page)) {
+            $page1 = $page * 2 - 2;
+            $page2 = $page * 2;
+            $model = $model->offset($page1,$page2)->limit(2);
+        }
         if (!empty($select)) {
             $model = $model->select($select);
         }
-        return $model->where($where)->orderBy($orderby, $sort)->paginate($paginate);
+        return $model->where($where)->orderBy($orderby, $sort)->get();
     }
 
     //获取单条数据

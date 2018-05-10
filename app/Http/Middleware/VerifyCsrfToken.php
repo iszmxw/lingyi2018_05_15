@@ -69,6 +69,8 @@ class VerifyCsrfToken extends Middleware
         'api/wechatApi/selftake_status',//设置为默认取货信息
         'api/wechatApi/shopping_cart_empty',//清空购物车
         'api/wechatApi/order_submit',//提交订单
+        'api/wechatApi/online_order_list',//线上订单列表
+        'api/wechatApi/selftake_order_list',//自取订单列表
         /****wechat接口****/
 
     ];

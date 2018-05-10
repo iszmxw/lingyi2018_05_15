@@ -29,6 +29,21 @@ class SimpleOnlineOrder extends Model
         return $model->where($where)->orderBy($orderby, $sort)->paginate($paginate);
     }
 
+    //获取餐饮商品列表
+    public static function getListApi($where, $page = 0, $orderby, $sort = 'DESC', $select = [])
+    {
+        $model = new SimpleOnlineOrder();
+        if (!empty($page)) {
+            $page1 = $page * 2 - 2;
+            $page2 = $page * 2;
+            $model = $model->offset($page1,$page2)->limit(2);
+        }
+        if (!empty($select)) {
+            $model = $model->select($select);
+        }
+        return $model->where($where)->orderBy($orderby, $sort)->get();
+    }
+
     //获取单条数据
     public static function getOne($where)
     {
