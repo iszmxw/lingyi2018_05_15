@@ -65,14 +65,14 @@ $('.goodslist').dropload({
     loadDownFn: function (me) {
         $limit++;
 
-        if($limit <= 2){
+        if($limit <= 4){
             selectgoods($category, $keyword_val, $limit, me);
         }
 
     },
     loadUpFn: function (me) {
         $limit++;
-        if($limit <= 2){
+        if($limit <= 4){
             selectgoods($category, $keyword_val, $limit, me);
         }
 
