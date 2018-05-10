@@ -28,7 +28,7 @@ class SimpleSelftakeOrder extends Model
     //和SimpleOnlineAddress表一对一的关系
     public function address()
     {
-        return $this->hasOne('App\Models\SimpleOnlineUser', 'order_id', 'id');
+        return $this->hasOne('App\Models\SimpleSelftakeUser', 'order_id', 'id');
     }
 
     //获取餐饮商品列表
