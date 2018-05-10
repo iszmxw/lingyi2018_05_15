@@ -459,7 +459,8 @@ class WxController extends Controller
         $param["mch_id"] = $this->mchId;
 
         // 查询订单类型，和相对应的订单号
-        $param["out_refund_no"] = "1003022622018050853721122351525761650";
+        $param["out_trade_no"] = "1003022622018050853721122351525761650";
+
 
         $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
