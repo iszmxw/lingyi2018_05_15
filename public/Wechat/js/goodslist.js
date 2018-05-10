@@ -39,7 +39,8 @@ $(function () {
 var $limit = 1, $category = 1, $keyword_val = '';
 
 // $('.social-warp').dropload({
-$('.g-flexview').dropload({
+// $('.g-flexview').dropload({
+$('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
