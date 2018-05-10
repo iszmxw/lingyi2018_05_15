@@ -36,7 +36,7 @@ $(function () {
 });
 
 
-var $limit = 0, $category = 1, $keyword_val = '';
+var $limit = 1, $category = 1, $keyword_val = '';
 
 // $('.social-warp').dropload({
 $('#goodslist').dropload({
