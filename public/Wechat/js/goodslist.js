@@ -61,6 +61,7 @@ var dropload = $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
+        console.log("1321");
         var category_id = "";
         $("#goods_cs_lt_alert li").each(function (index, el) {
             if ($(this).hasClass('action')) {
