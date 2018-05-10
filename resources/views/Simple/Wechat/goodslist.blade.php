@@ -22,7 +22,7 @@
 <input type="hidden" name="limit" id="limit" value="0">
 
 
-<div class="page">
+<div class="page1">
     <div class="g-flexview">
         <div class="head">
             <div class="nav">
