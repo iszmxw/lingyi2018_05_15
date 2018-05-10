@@ -54,7 +54,7 @@ class WxController extends Controller
         $data["order_num"] = md5(time());
         $data["order_money"] = 0.1*100;
         $data["ip_address"] = "120.78.140.10";
-        $data["auth_code"] = "";
+        $data["auth_code"] = "135511475437054192";
         echo $this->microOrder($data);
     }
 
@@ -154,6 +154,8 @@ class WxController extends Controller
         $data["auth_code"] = $param["auth_code"];
 
         $res = $this->wechat->microPay($data);
+        var_dump($res);
+        exit;
         return $this->resDispose($res);
     }
 
