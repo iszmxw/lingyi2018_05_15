@@ -950,7 +950,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::any('selftake_status', 'Api\WechatApiController@selftake_status')->middleware('WechatApiCheck');//设置默认取货信息
         Route::any('order_submit', 'Api\WechatApiController@order_submit')->middleware('WechatApiCheck');//订单提交
         Route::any('online_order_list', 'Api\WechatApiController@online_order_list')->middleware('WechatApiCheck');//线上订单列表
+        Route::any('online_order_detail', 'Api\WechatApiController@online_order_detail')->middleware('WechatApiCheck');//线上订单详情
         Route::any('selftake_order_list', 'Api\WechatApiController@selftake_order_list')->middleware('WechatApiCheck');//自取订单列表
+        Route::any('selftake_order_detail', 'Api\WechatApiController@selftake_order_detail')->middleware('WechatApiCheck');//自取订单详情
     });
 
 

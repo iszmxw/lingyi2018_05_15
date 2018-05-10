@@ -134,6 +134,7 @@ class WechatApiController extends Controller
         $limit = $request->limit;
         // 条件
         $where = [['fansmanage_id', $fansmanage_id], ['simple_id', $store_id], ['status', '1']];
+
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
         }
@@ -416,7 +417,7 @@ class WechatApiController extends Controller
         // 查看缓存是否存有商品
         $cart_data = Redis::get($key_id);
         // 如果有商品
-        if (empty(json_decode($cart_data))) {
+        if (empty(unserialize($cart_data))) {
             return response()->json(['status' => '0', 'msg' => '购物车没有商品', 'data' => '']);
         } else {
             // 序列化转成数组
@@ -1107,69 +1108,152 @@ class WechatApiController extends Controller
     }
 
 
-
     /**
-     * 订单详情接口
+     * 线上订单详情接口
      */
-    public function order_detail(Request $request)
+    public function online_order_detail(Request $request)
     {
-        // 店铺
-        $organization_id = $request->organization_id;
         // 订单id
         $order_id = $request->order_id;
         // 订单详情
-        $order = SimpleOrder::getOne([['id', $order_id], ['simple_id', $organization_id]]);
+        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]]);
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        $user_account = User::getPluck([['id', $order['user_id']]], 'account');//粉丝账号
-        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');//操作人员账号
-        //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname')->first();
-        $goodsdata = $order['simple_order_goods'];//订单商品列表
-        foreach ($goodsdata as $key => $value) {
-            $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
-            $ordergoods[$key]['title'] = $value['title']; //商品名字
-            $ordergoods[$key]['thumb'] = $value['thumb']; //商品图片
-            $ordergoods[$key]['details'] = $value['details'];//商品描述
-            $ordergoods[$key]['total'] = $value['total']; //商品数量
-            $ordergoods[$key]['price'] = $value['price']; //商品价格
+        $goods_list = [];
+        foreach ($order['goods'] as $key => $value) {
+            // 商品id
+            $goods_list[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $goods_list[$key]['goods_name'] = $value['title'];
+            // 商品图片
+            $goods_list[$key]['goods_thumb'] = $value['thumb'];
+            // 商品数量
+            $goods_list[$key]['num'] = $value['total'];
+            // 商品价格
+            $goods_list[$key]['goods_price'] = $value['price'];
         }
-        //防止值为null
-        if (empty($order['remarks'])) {
-            $order['remarks'] = '';
-        }
-        if (empty($order['user_account'])) {
-            $order['user_account'] = '';
-        }
-        if (empty($order['payment_company'])) {
-            $order['payment_company'] = '';
-        }
-        if (empty($order['paytype'])) {
-            $order['paytype'] = '';
-        }
-        $orderdata = [
-            'id' => $order['id'], //订单id
-            'ordersn' => $order['ordersn'],//订单编号
-            'order_price' => $order['order_price'],//订单价格
-            'remarks' => $order['remarks'],//订单备注
-            'user_id' => $order['user_id'],//粉丝id
-            'user_account' => $user_account,//粉丝账号
-            'payment_company' => $order['payment_company'],//支付公司
-            'status' => $order['status'],//订单状态
-            'paytype' => $order['paytype'],//支付方式
-            'operator_id' => $order['operator_id'],//操作人id
-            'simple_id' => $order['simple_id'],//店铺ID
-            'operator_account' => $operator_account,//操作人账号
-            'realname' => $account_realname,//操作人员昵称
-            'created_at' => $order['created_at'],//添加时间
+        $address_info = [
+            'province_name' => $order['address']['province_name'],
+            'city_name' => $order['address']['city_name'],
+            'district_name' => $order['address']['district_name'],
+            'address' => $order['address']['address'],
+            'realname' => $order['address']['realname'],
+            'mobile' => $order['address']['mobile'],
         ];
         $data = [
-            'orderdata' => $orderdata,
-            'ordergoods' => $ordergoods,
+            // 订单id
+            'order_id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 订单状态
+            'status' => $order['status'],
+            // 订单商品
+            'goods_list' => $goods_list,
+            // 收货地址
+            'address_info' => $address_info,
+            /*******运费金额(待完成)*******/
+            'dispatch_price' => '运费金额(待完成)',
+            /*******退款原因(待完成)*******/
+            'rejected_info' => '退款原因（待完成）',
+            // 添加时间
+            'created_at' => $order['created_at'],
         ];
         return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
+    }
+
+    /**
+     * 自取订单详情接口
+     */
+    public function selftake_order_detail(Request $request)
+    {
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = SimpleSelftakeOrder::getOneJoin([['id', $order_id]]);
+        if (empty($order)) {
+            return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
+        }
+        $order = $order->toArray();
+        $goods_list = [];
+        foreach ($order['goods'] as $key => $value) {
+            // 商品id
+            $goods_list[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $goods_list[$key]['goods_name'] = $value['title'];
+            // 商品图片
+            $goods_list[$key]['goods_thumb'] = $value['thumb'];
+            // 商品数量
+            $goods_list[$key]['num'] = $value['total'];
+            // 商品价格
+            $goods_list[$key]['goods_price'] = $value['price'];
+        }
+        $selftake_info = [
+            'realname' => $order['address']['realname'],
+            'sex' => $order['address']['sex'],
+            'mobile' => $order['address']['mobile'],
+        ];
+        $data = [
+            // 订单id
+            'order_id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 订单状态
+            'status' => $order['status'],
+            // 订单商品
+            'goods_list' => $goods_list,
+            // 收货地址
+            'selftake_info' => $selftake_info,
+            /*******取货时间(待完成)*******/
+            'selftake_time' => '取货时间(待完成)',
+            // 添加时间
+            'created_at' => $order['created_at'],
+        ];
+        return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
+    }
+
+
+    /**
+     * 取消订单接口
+     */
+    public function cancel_order(Request $request)
+    {
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = SimpleOrder::getOne([['id', $order_id]]);
+        if ($order['status'] != '0') {
+            return response()->json(['msg' => '订单状态不是待付款，不能取消', 'status' => '0', 'data' => '']);
+        }
+        DB::beginTransaction();
+        try {
+            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] == '1') {
+                // 归还库存
+                $re = $this->reduce_stock($order_id, '-1');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+                }
+            }
+            // 修改订单状态为取消
+            SimpleOrder::editSimpleOrder([['id', $order_id]], ['status' => '-1']);
+            // 提交事务
+            DB::commit();
+        } catch (\Exception $e) {
+            // 事件回滚
+            DB::rollBack();
+            return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+        }
+        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
 
 
