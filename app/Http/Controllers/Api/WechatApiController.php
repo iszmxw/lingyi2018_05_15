@@ -415,6 +415,7 @@ class WechatApiController extends Controller
         $key_id = 'simple' . $user_id . $zerone_user_id . $fansmanage_id . $store_id;
         // 查看缓存是否存有商品
         $cart_data = Redis::get($key_id);
+        echo $cart_data;exit;
         // 如果有商品
         if (empty($cart_data)) {
             return response()->json(['status' => '0', 'msg' => '购物车没有商品', 'data' => '']);
@@ -1146,7 +1147,7 @@ class WechatApiController extends Controller
         ];
         return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
     }
-    
+
 
     /**
      * WGS84转GCj02(北斗转高德)
