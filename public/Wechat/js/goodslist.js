@@ -141,8 +141,6 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
-
-
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
             $.post(
