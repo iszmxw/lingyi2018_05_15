@@ -38,7 +38,8 @@ $(function () {
 
 var $limit = 0, $category = 1, $keyword_val = '';
 
-$('#goodslist').dropload({
+// $('.social-warp').dropload({
+$('.page-current').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
