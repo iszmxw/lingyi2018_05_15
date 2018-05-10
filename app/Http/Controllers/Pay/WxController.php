@@ -54,7 +54,7 @@ class WxController extends Controller
         $reqData = json_encode($reqData,JSON_UNESCAPED_UNICODE);
         echo $reqData;
         $res = $this->refundQuery($reqData);
-        echo $res;
+//        echo $res;
     }
 
     public function demo()
