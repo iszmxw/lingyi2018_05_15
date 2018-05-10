@@ -154,8 +154,6 @@ class WxController extends Controller
         $data["auth_code"] = $param["auth_code"];
 
         $res = $this->wechat->microPay($data);
-        var_dump($res);
-        exit;
         return $this->resDispose($res);
     }
 
