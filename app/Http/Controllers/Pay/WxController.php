@@ -460,9 +460,9 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $param["out_trade_no"] = "150337637120180509095053";
 
+        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
-//        $param["sign_type"] = "MD5";
 
 
         $param = $this->array2xml($param);
