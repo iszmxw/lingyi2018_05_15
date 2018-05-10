@@ -1116,10 +1116,11 @@ class WechatApiController extends Controller
         // 订单id
         $order_id = $request->order_id;
         // 订单详情
-        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]])->toArray();
+        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]]);
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
+        $order = $order->toArray();
         $goods_list = [];
         foreach ($order['goods'] as $key => $value) {
             // 商品id
