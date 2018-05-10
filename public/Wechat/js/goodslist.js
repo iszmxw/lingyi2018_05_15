@@ -63,13 +63,13 @@ $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">暂无更多数据</div>'
     },
     loadDownFn: function (me) {
-        // $limit++;
-        // selectgoods($category, $keyword_val, $limit, me);
-    },
-    loadUpFn: function (me) {
         $limit++;
         selectgoods($category, $keyword_val, $limit, me);
     },
+    // loadUpFn: function (me) {
+    //     $limit++;
+    //     selectgoods($category, $keyword_val, $limit, me);
+    // },
     threshold: 50
 });
 
