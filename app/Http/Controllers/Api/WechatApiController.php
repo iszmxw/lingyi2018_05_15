@@ -1116,30 +1116,27 @@ class WechatApiController extends Controller
         // 订单id
         $order_id = $request->order_id;
         // 订单详情
-        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]]);
+        $order = SimpleOnlineOrder::getOneJoin([['id', $order_id]])->toArray();
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
-        $order = $order->toArray();
         $goods_list = [];
         foreach ($order['goods'] as $key => $value) {
-            $goods_list[$key]['goods_id'] = $value['goods_id']; //商品id
-            $goods_list[$key]['goods_name'] = $value['title']; //商品名字
-            $goods_list[$key]['goods_thumb'] = $value['thumb']; //商品图片
-            $goods_list[$key]['num'] = $value['total']; //商品数量
-            $goods_list[$key]['goods_price'] = $value['price']; //商品价格
+            // 商品id
+            $goods_list[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $goods_list[$key]['goods_name'] = $value['title'];
+            // 商品图片
+            $goods_list[$key]['goods_thumb'] = $value['thumb'];
+            // 商品数量
+            $goods_list[$key]['num'] = $value['total'];
+            // 商品价格
+            $goods_list[$key]['goods_price'] = $value['price'];
         }
-        dd($goods_list);
-        //防止值为null
-        if (empty($order['remarks'])) {
-            $order['remarks'] = '';
-        }
-        if (empty($order['payment_company'])) {
-            $order['payment_company'] = '';
-        }
-        if (empty($order['paytype'])) {
-            $order['paytype'] = '';
-        }
+        dd($order);
+        $address_info = [
+            'province_name'=>1,
+        ];
         $data = [
             // 订单id
             'order_id' => $order['id'],
@@ -1151,6 +1148,9 @@ class WechatApiController extends Controller
             'remarks' => $order['remarks'],
             // 订单状态
             'status' => $order['status'],
+            // 订单商品
+            'goods_list'=>$goods_list,
+
             // 支付公司
             'payment_company' => $order['payment_company'],
             // 支付方式
