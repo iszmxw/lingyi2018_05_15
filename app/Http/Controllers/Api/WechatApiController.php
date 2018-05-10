@@ -413,11 +413,10 @@ class WechatApiController extends Controller
         $store_id = $request->store_id;
         // 缓存键值
         $key_id = 'simple' . $user_id . $zerone_user_id . $fansmanage_id . $store_id;
-        echo $key_id;exit;
         // 查看缓存是否存有商品
         $cart_data = Redis::get($key_id);
         // 如果有商品
-        if (empty(json_decode($cart_data))) {
+        if (empty(unserialize($cart_data))) {
             return response()->json(['status' => '0', 'msg' => '购物车没有商品', 'data' => '']);
         } else {
             // 序列化转成数组
