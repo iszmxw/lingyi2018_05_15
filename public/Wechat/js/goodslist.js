@@ -38,7 +38,7 @@ $(function () {
 
 var $limit = 0, $category = 1, $keyword_val = '';
 
-$('.social-warp').dropload({
+$('#goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
@@ -143,7 +143,6 @@ function selectgoods(category, keyword_val, limit, me) {
 
                     var str = "";
                     if (json.status == 1) {
-
 
                         for (var i = 0; i < json.data.goodslist.length; i++) {
                             //判断列表与购物车的id存在就读取购物车的数量
