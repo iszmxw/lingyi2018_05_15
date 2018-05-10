@@ -65,6 +65,7 @@ $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
+        console.log(1);
         mea = me;
         var category_id = "";
         $("#goods_cs_lt_alert li").each(function (index, el) {
@@ -144,7 +145,6 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
-            console.log(category_id)
             $.post(
                 goodslist_url,
                 {
@@ -152,7 +152,6 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
                     'category_id': category_id, 'keyword': keyword, 'limit': limit
                 },
                 function (json) {
-                    console.log(json)
                     var str = "";
                     if (json.status == 1) {
 
