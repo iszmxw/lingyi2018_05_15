@@ -515,8 +515,6 @@ class WxController extends Controller
         $str = http_build_query($arr)."&key=".$this->key;
         $str = urldecode($str);
         return  strtoupper(md5($str));
-
-
     }
 
 
