@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
-    {{--<link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">--}}
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
 </head>
 <body>
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
