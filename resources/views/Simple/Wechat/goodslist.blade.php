@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
-
-    <style>
-        .goodslist {
-            overflow-y:none;
-        }
-    </style>
 </head>
 <body>
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
@@ -25,6 +19,11 @@
 <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
 <!-- 分页 -->
 <input type="hidden" name="limit" id="limit" value="0">
+
+<div class="goodslist">
+    <div class="lists" id="goodslist">
+    </div>
+</div>
 
 
 <div class="page">
