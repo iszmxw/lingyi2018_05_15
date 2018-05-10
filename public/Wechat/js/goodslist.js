@@ -40,7 +40,7 @@ $(function () {
 
 var dropload = $('.goodslist').dropload({
     scrollArea: window,
-    autoLoad: true,
+    autoLoad: false,
     // 下拉刷新模块显示内容
     // domUp: {
     //     domClass: 'dropload-up',
