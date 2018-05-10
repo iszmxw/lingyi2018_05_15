@@ -1,5 +1,4 @@
 $(function(){
-    $.showPreloader("加载中...");
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
     var store_id=$("#store_id").val();//店铺ID
@@ -33,7 +32,6 @@ $(function(){
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     selectgoods(0,"");
 
-    $.init();
 });
 
 //查询商品列表和购物车列表
@@ -107,7 +105,6 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
-                            $.hidePreloader();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
@@ -272,13 +269,34 @@ function cart_empty(){
         data,
     	function(json){
     		if (json.status == 1) {
-                $(".gs_show").each(function(index, el) {
+                //隐藏购物车的减号按钮
+                $(".delect_cart_btn").each(function(index, el) {
                     var $this = $(this);
                     $this.removeClass("gs_show").addClass('gs_hide');
                     if($this.parent().hasClass('cart_border')){
                         $this.parent().removeClass('cart_border').addClass('action');
                     }
                 });
+                //清空商品列表的数量
+                $(".delect_cart_inpt").each(function(index, el) {
+                    var $this = $(this);
+                    $this.removeClass("gs_show").addClass('gs_hide');
+                    $this.text("0");
+                    if($this.parent().hasClass('cart_border')){
+                        $this.parent().removeClass('cart_border').addClass('action');
+                    }
+                });
+                //清空购物车总数
+                $("#goods_totalnum").text("0");
+                $("#goods_totalnum").attr('data-totalnum', '0');
+                //清空价格
+                var _this = $("#cart_price");
+                _this.attr('data-totalprice',"0");
+                _this.html("您还未选购商品哦~");
+                //隐藏提示框
+                hide('alert');
+                //隐藏购物车
+                $("#cart").click();
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
@@ -398,15 +416,15 @@ function goods_list_box(name,details,stock,price,thumb,number,goods_id) {
     return str;
 }
 //隐藏alert
-$("#alert").click(function(e){
-    //stopPropagation(e);
-    if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
-        $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
-           setTimeout(function(){
-              $(".popup_alert").css({display: 'none'});
-         },250);
-    }
-});
+// $("#alert").click(function(e){
+//     stopPropagation(e);
+//     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
+//         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
+//            setTimeout(function(){
+//               $(".popup_alert").css({display: 'none'});
+//          },250);
+//     }
+// });
 //因为冒泡了，会执行到下面的方法。
 function stopPropagation(e) {
     var ev = e || window.event;
@@ -426,6 +444,11 @@ function hide(obj) {
     $("#"+obj+" .popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
 }
 function showcart(obj,em){
+    var goods_totalnum = $("#goods_totalnum").text();
+    if(goods_totalnum <= 0){
+        $.toast("请先选购商品");
+        return;
+    }
     $.showIndicator();
     //获取购物车商品
     var total_price = 0;//购物车总价格
