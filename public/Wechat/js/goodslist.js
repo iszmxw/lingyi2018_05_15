@@ -150,7 +150,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
                     'category_id': category_id, 'keyword': keyword, 'limit': limit
                 },
                 function (json) {
-
+                    console.log(json)
                     var str = "";
                     if (json.status == 1) {
 
@@ -177,7 +177,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
                     } else if (json.status == 0) {
                         // 没有数据
-                        console.log(json.msg);
+                        console.log(json.msg+"0000");
                         // 锁定
                         me.lock();
                         // 无数据
