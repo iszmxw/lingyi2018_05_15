@@ -47,6 +47,7 @@ class WxController extends Controller
         );
         $this->wechat = $wechat;
     }
+
     public function test13()
     {
         $reqData["order_num_type"] = "out_refund_no";
@@ -448,5 +449,175 @@ class WxController extends Controller
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
 
         $qrCode->writeFile("./uploads/pay_qr_code.png");
+    }
+
+
+
+    public function test14()
+    {
+        $param["appId"] = $this->appId;
+        $param["mchId"] = $this->mchId;
+        $param["key"] = $this->key;
+        $param["order_num_type"] = "out_refund_no";
+        $param["order_num"] = "1003022622018050853721122351525761650";
+
+        // 查询订单类型，和相对应的订单号
+        $param["out_refund_no"] = "1003022622018050853721122351525761650";
+
+        $param["sign"] = $this->generateSignature($param);
+        $param = $this->array2xml($param);
+        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        $res = $this->httpRequest($url,"post",$param,[],false);
+        var_dump($res);
+    }
+
+
+
+    public function generateSignature($data, $signType="md5") {
+        $combineStr = '';
+        $keys = array_keys($data);
+        asort($keys);  // 排序
+
+        foreach($keys as $k) {
+            $v = $data[$k];
+            $combineStr = "${combineStr}${k}=${v}&";
+        }
+
+        $combineStr = "${combineStr}key=$this->key";
+        return strtoupper(md5($combineStr));
+    }
+
+
+    /**
+     * CURL请求
+     * @param string $url 请求url地址
+     * @param string $method 请求方法 get post
+     * @param array $postData post数据数组
+     * @param array $headers 请求header信息
+     * @param bool $ssl 是否验证证书
+     * @param bool|false $debug 调试开启 默认false
+     * @return mixed
+     */
+    public function httpRequest($url, $method, $postData = [], $headers = [], $ssl = false, $debug = false)
+    {
+        // 将方法统一换成大写
+        $method = strtoupper($method);
+        // 初始化
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0");
+        // 在发起连接前等待的时间，如果设置为0，则无限等待
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60);
+        // 设置CURL允许执行的最长秒数
+        curl_setopt($curl, CURLOPT_TIMEOUT, 7);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        switch ($method) {
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, true);
+                if (!empty($postData)) {
+                    $tmpdatastr = is_array($postData) ? http_build_query($postData) : $postData;
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $tmpdatastr);
+                }
+                break;
+            default:
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method); /* //设置请求方式 */
+                break;
+        }
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+
+        if ($ssl == true) {
+            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,TRUE);
+            // 严格校验
+            curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,2);
+            // 设置证书
+            curl_setopt($curl,CURLOPT_SSLCERTTYPE,'PEM');
+            curl_setopt($curl,CURLOPT_SSLCERT, $this->certPemPath);
+            curl_setopt($curl,CURLOPT_SSLKEYTYPE,'PEM');
+            curl_setopt($curl,CURLOPT_SSLKEY, $this->keyPemPath);
+        }
+
+
+        // 启用时会将头文件的信息作为数据流输出
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        // 指定最多的HTTP重定向的数量，这个选项是和CURLOPT_FOLLOWLOCATION一起使用的
+        curl_setopt($curl, CURLOPT_MAXREDIRS, 2);
+
+        // 添加请求头部
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+        // COOKIE带过去
+//        curl_setopt($curl, CURLOPT_COOKIE, $Cookiestr);
+        $response = curl_exec($curl);
+        $requestInfo = curl_getinfo($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        // 开启调试模式就返回 curl 的结果
+        if ($debug) {
+            echo "=====post data======\r\n";
+            dump($postData);
+            echo "=====info===== \r\n";
+            dump($requestInfo);
+            echo "=====response=====\r\n";
+            dump($response);
+            echo "=====http_code=====\r\n";
+            dump($http_code);
+
+            dump(curl_getinfo($curl, CURLINFO_HEADER_OUT));
+        }
+        curl_close($curl);
+        return $response;
+    }
+
+    /**
+     * 将XML格式字符串转换为array
+     * 参考： http://php.net/manual/zh/book.simplexml.php
+     * @param string $str XML格式字符串
+     * @return array
+     * @throws \Exception
+     */
+    public function xml2array($str) {
+        $xml = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $result = array();
+        $bad_result = json_decode($json,TRUE);  // value，一个字段多次出现，结果中的value是数组
+        // return $bad_result;
+        foreach ($bad_result as $k => $v) {
+            if (is_array($v)) {
+                if (count($v) == 0) {
+                    $result[$k] = '';
+                }
+                else if (count($v) == 1) {
+                    $result[$k] = $v[0];
+                }
+                else {
+                    throw new \Exception('Duplicate elements in XML. ' . $str);
+                }
+            }
+            else {
+                $result[$k] = $v;
+            }
+        }
+        return $result;
+    }
+
+
+    /**
+     * 将array转换为XML格式的字符串
+     * @param array $data
+     * @return string
+     * @throws \Exception
+     */
+    public function array2xml($data) {
+        $xml = new \SimpleXMLElement('<xml/>');
+        foreach($data as $k => $v ) {
+            if (is_string($k) && (is_numeric($v) || is_string($v))) {
+                $xml->addChild("$k",htmlspecialchars("$v"));
+            }
+            else {
+                throw new \Exception('Invalid array, will not be converted to xml');
+            }
+        }
+        return $xml->asXML();
     }
 }
