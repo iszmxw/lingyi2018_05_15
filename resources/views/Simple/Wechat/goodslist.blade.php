@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
-    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css">
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
 
     <style>
         .goodslist {
