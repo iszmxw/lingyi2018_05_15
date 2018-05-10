@@ -445,6 +445,11 @@ function hide(obj) {
     $("#"+obj+" .popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
 }
 function showcart(obj,em){
+    var goods_totalnum = $("#goods_totalnum").text();
+    if(goods_totalnum <= 0){
+        $.toast("请先选购商品");
+        return;
+    }
     $.showIndicator();
     //获取购物车商品
     var total_price = 0;//购物车总价格
