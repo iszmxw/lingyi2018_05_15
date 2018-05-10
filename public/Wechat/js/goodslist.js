@@ -416,11 +416,11 @@ function goods_list_box(name,details,stock,price,thumb,number,goods_id) {
 }
 //隐藏alert
 $("#alert").click(function(e){
-    //stopPropagation(e);
+    stopPropagation(e);
     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
            setTimeout(function(){
-              $(this).css({display: 'none'});
+              $(".popup_alert").css({display: 'none'});
          },250);
     }
 });
