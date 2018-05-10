@@ -464,7 +464,7 @@ class WxController extends Controller
 
 
         $param = $this->array2xml($param);
-        var_dump($param);exit;
+
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         $resXml = $this->httpRequest($url, "post", $param, [], false);
         $res = $this->xml2array($resXml);
@@ -502,7 +502,6 @@ class WxController extends Controller
         }
 
         $combineStr = "${combineStr}key=$this->key";
-        var_dump($combineStr);
         return strtoupper(md5($combineStr));
     }
 
