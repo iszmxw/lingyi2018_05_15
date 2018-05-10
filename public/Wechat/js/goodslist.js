@@ -269,6 +269,7 @@ function selectgoods_del(category, keyword_val, limit, me ,status) {
                         if(status){
                             $goodslist.empty();
                             status = false;
+                            console.log(status);
                         }
 
                         $goodslist.append(str);
