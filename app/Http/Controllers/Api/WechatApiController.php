@@ -1121,7 +1121,7 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        dd(($order['Goods']);
+        dd(($order);
         $goods_list = [];
         foreach ($order['Goods'] as $key => $value) {
             $goods_list[$key]['goods_id'] = $value['goods_id']; //商品id
