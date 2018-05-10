@@ -389,7 +389,7 @@ function category_list(category_id) {
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     dropload.lock();
-    selectgoods(category_id, keyword_val,limit);
+    //selectgoods(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -410,7 +410,7 @@ function search_click() {
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     dropload.lock();
-    selectgoods(category_id, keyword_val,limit);
+    //selectgoods(category_id, keyword_val,limit);
     var $goodslist = $("#goodslist");
     $goodslist.empty();
 }
