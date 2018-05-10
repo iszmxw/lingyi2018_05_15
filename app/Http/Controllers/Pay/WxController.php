@@ -465,6 +465,7 @@ class WxController extends Controller
         $param["out_refund_no"] = "1003022622018050853721122351525761650";
 
         $param["sign"] = $this->generateSignature($param);
+        var_dump($param);
         $param = $this->array2xml($param);
         var_dump($param);
         exit;
