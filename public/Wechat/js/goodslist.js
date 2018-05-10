@@ -265,6 +265,7 @@ function selectgoods_del(category, keyword_val, limit, me ,status) {
 
 
                         var $goodslist = $("#goodslist");
+                        console.log(status);
                         if(status){
                             $goodslist.empty();
                             status = false;
