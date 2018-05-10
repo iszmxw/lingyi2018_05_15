@@ -413,6 +413,7 @@ class WechatApiController extends Controller
         $store_id = $request->store_id;
         // 缓存键值
         $key_id = 'simple' . $user_id . $zerone_user_id . $fansmanage_id . $store_id;
+        echo $key_id;exit;
         // 查看缓存是否存有商品
         $cart_data = Redis::get($key_id);
         // 如果有商品
@@ -1136,7 +1137,11 @@ class WechatApiController extends Controller
         }
         dd($order);
         $address_info = [
-            'province_name'=>1,
+            'province_name'=>$order['address']['province_name'],
+            'district_name'=>$order['address']['district_name'],
+            'province_name'=>$order['address']['province_name'],
+            'province_name'=>$order['address']['province_name'],
+            'province_name'=>$order['address']['province_name'],
         ];
         $data = [
             // 订单id
