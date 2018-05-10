@@ -420,7 +420,7 @@ $("#alert").click(function(e){
     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
            setTimeout(function(){
-              $(".popup_alert").css({display: 'none'});
+              $(this).css({display: 'none'});
          },250);
     }
 });
