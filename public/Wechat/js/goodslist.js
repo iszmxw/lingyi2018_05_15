@@ -79,8 +79,11 @@ function selectgoods(category,keyword_val){
                 $cart_list.empty();
                 $cart_list.append(str);
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
+
+
+
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
             var category_id = category;//分类ID
