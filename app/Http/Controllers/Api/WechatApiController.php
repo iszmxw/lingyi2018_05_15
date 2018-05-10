@@ -1056,6 +1056,8 @@ class WechatApiController extends Controller
         $status = $request->status;
         // 用户联盟id
         $user_id = $request->user_id;
+        // 页数
+        $page = $request->page;
 
         $where = [['simple_id', $store_id],['fansmanage_id',$fansmanage_id], ['user_id', $user_id]];
         if ($status) {
@@ -1065,7 +1067,7 @@ class WechatApiController extends Controller
             }
             $where[] = ['status', $status];
         }
-        $orderlist = SimpleOnlineOrder::getListPaginate($where, '20', 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        $orderlist = SimpleOnlineOrder::getListApi($where, $page, 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
         if ($orderlist->toArray()) {
             // 订单数量
             $total_num = count($orderlist);
