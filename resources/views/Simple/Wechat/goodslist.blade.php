@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7_2.min.css">
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7_2.min.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
 
@@ -52,19 +52,19 @@
         </div>
     </div>
 
-    {{--<div class="cart_bottom">--}}
-        {{--<div class="cart_fl">--}}
-            {{--<div class="cart_left">--}}
-                {{--<div class="cart_kuang clear_after" id="cart_btn_b" onclick="showcart('cart',this)">--}}
-                    {{--<div class="cart_kuang_img">--}}
-                        {{--<span class="goods_number" id="goods_totalnum" data-totalnum="0">0</span>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<h3 class="cart_price" id="cart_price" data-totalprice="0">您还未选购商品哦~</h3>--}}
-            {{--</div>--}}
-            {{--<div class="cart_right"><a href="javascript:;" onclick="show('alert')">去结算 <i></i></a></div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    <div class="cart_bottom">
+        <div class="cart_fl">
+            <div class="cart_left">
+                <div class="cart_kuang clear_after" id="cart_btn_b" onclick="showcart('cart',this)">
+                    <div class="cart_kuang_img">
+                        <span class="goods_number" id="goods_totalnum" data-totalnum="0">0</span>
+                    </div>
+                </div>
+                <h3 class="cart_price" id="cart_price" data-totalprice="0">您还未选购商品哦~</h3>
+            </div>
+            <div class="cart_right"><a href="javascript:;" onclick="show('alert')">去结算 <i></i></a></div>
+        </div>
+    </div>
     <!-- alert -->
     <div class="popup_alert" id="alert">
         <div class="quhuo alert_width popup_alert_hook">
