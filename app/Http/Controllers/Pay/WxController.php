@@ -484,23 +484,37 @@ class WxController extends Controller
 
     public function generateSignature($data)
     {
-        $combineStr = '';
-        $keys = array_keys($data);
-        asort($keys);  // 排序
+//        $combineStr = '';
+//        $keys = array_keys($data);
+//        asort($keys);  // 排序
+//
+//        foreach ($keys as $k) {
+//            $v = $data[$k];
+//            if ($k == "sign") {
+//                continue;
+//            } else if ((is_string($v) && strlen($v) > 0) || is_numeric($v)) {
+//                $combineStr = "${combineStr}${k}=${v}&";
+//            } else if (is_string($v) && strlen($v) == 0) {
+//                continue;
+//            }
+//        }
+//
+//        $combineStr = "${combineStr}key=$this->key";
+//        return strtoupper(md5($combineStr));
 
-        foreach ($keys as $k) {
-            $v = $data[$k];
-            if ($k == "sign") {
-                continue;
-            } else if ((is_string($v) && strlen($v) > 0) || is_numeric($v)) {
-                $combineStr = "${combineStr}${k}=${v}&";
-            } else if (is_string($v) && strlen($v) == 0) {
-                continue;
-            }
+
+        //去除数组中的空值
+        $arr = array_filter($data);
+        //如果数组中有签名删除签名
+        if(isset($arr['sign']))
+        {
+            unset($arr['sign']);
         }
-
-        $combineStr = "${combineStr}key=$this->key";
-        return strtoupper(md5($combineStr));
+        //按照键名字典排序
+        ksort($arr);
+        $str = http_build_query($arr)."&key=".$this->key;
+        $str = urldecode($str);
+        return  strtoupper(md5($str));
     }
 
 
