@@ -453,21 +453,26 @@ class WxController extends Controller
 
     public function test14()
     {
-        $param["appid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-
         // 查询订单类型，和相对应的订单号
         $param["out_trade_no"] = "150337637120180509095053";
-
-        $param["sign_type"] = "MD5";
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
+        $param = $this->fillData($param);
 
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         $param = $this->array2xml($param);
         $resXml = $this->httpRequest($url, "post", $param, [], false);
         $res = $this->xml2array($resXml);
         echo $this->resDispose($res);
+    }
+
+
+    public function fillData($param)
+    {
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["sign_type"] = "MD5";
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
     }
 
 
