@@ -451,20 +451,65 @@ class WxController extends Controller
     }
 
 
+    /**
+     * @throws \Exception
+     */
     public function test14()
     {
         // 查询订单类型，和相对应的订单号
         $param["out_trade_no"] = "150337637120180509095053";
         $param = $this->fillData($param);
-
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        $param = $this->array2xml($param);
-        $resXml = $this->httpRequest($url, "post", $param, [], false);
-        $res = $this->xml2array($resXml);
-        echo $this->resDispose($res);
+        echo $this->responseDispose($url, $param);
     }
 
 
+    /**
+     * 接口地址
+     * @param $url
+     * @param $data
+     * @param string $method
+     * @param bool $is_ssh
+     * @return string
+     * @throws \Exception
+     */
+    public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
+    {
+        // 将数据转化为 XML 格式
+        $data = $this->array2xml($data);
+        // 发送请求
+        $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
+        // 将XML 转化为 数组
+        $param = $this->xml2array($resXml);
+
+        // 判断接口返回结果
+        if ($param["return_code"] == "SUCCESS") {
+            // 判断提交是否成功
+            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
+                // 接口返回失败
+                $res["return_code"] = 0;
+                $res["return_msg"] = $param["err_code_des"];
+            } else {
+                // 接口返回成功
+                $res["data"] = $this->dataDispose($param);
+                $res["return_code"] = 1;
+                $res["return_msg"] = "SUCCESS";
+            }
+        } else {
+            // 接口返回失败
+            $res["return_code"] = 0;
+            $res["return_msg"] = $param["return_msg"];
+        }
+        // 返回 json 数据
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
+    }
+
+
+    /**
+     * 填充数据
+     * @param $param
+     * @return mixed
+     */
     public function fillData($param)
     {
         $param["appid"] = $this->appId;
@@ -599,7 +644,6 @@ class WxController extends Controller
         curl_close($curl);
         return $response;
     }
-
 
 
     /**
