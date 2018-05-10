@@ -47,6 +47,14 @@ class WxController extends Controller
         );
         $this->wechat = $wechat;
     }
+    public function test13()
+    {
+        $reqData["order_num_type"] = "out_refund_no";
+        $reqData["order_num"] = "1003022622018050853721122351525761650";
+        $reqData = json_decode($reqData,JSON_UNESCAPED_UNICODE);
+        $res = $this->refundQuery($reqData);
+        echo $res;
+    }
 
     public function demo()
     {
