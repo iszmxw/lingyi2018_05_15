@@ -50,10 +50,9 @@ class WxController extends Controller
 
     public function test13()
     {
-        $reqData["order_num_type"] = "out_refund_no";
-        $reqData["order_num"] = "1003022622018050853721122351525761650";
-        $reqData = json_encode($reqData, JSON_UNESCAPED_UNICODE);
-        $res = $this->refundQuery($reqData);
+        $data["order_num_type"] = 'out_trade_no';
+        $data["order_num"] = '150337637120180509095053';
+        $res = $this->orderQuery($data);
         echo $res;
     }
 
@@ -257,15 +256,15 @@ class WxController extends Controller
      *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
      * @param array $param
      * @return string
+     * @throws \Exception
      */
     public function orderQuery($param = [])
     {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
-        $res = $this->wechat->orderQuery($data);
-        return $this->resDispose($res);
+        $param = $this->fillData($param);
+        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        return $this->responseDispose($url, $param);
     }
 
 
@@ -348,6 +347,67 @@ class WxController extends Controller
         header('Content-Length: ' . filesize($fileName));
         // 读取文件内容
         readfile($fileName);
+    }
+
+
+
+    // +----------------------------------------------------------------------
+    // | Start - 公用方法
+    // +----------------------------------------------------------------------
+
+    /**
+     * 填充数据
+     * @param $param
+     * @return mixed
+     */
+    public function fillData($param)
+    {
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["sign_type"] = "MD5";
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+    /**
+     * 接口返回处理
+     * @param string $url 接口地址
+     * @param array $data 接口传输的数据
+     * @param string $method 请求方法
+     * @param bool $is_ssh 是否需要证书验证
+     * @return string
+     * @throws \Exception
+     */
+    public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
+    {
+        // 将数据转化为 XML 格式
+        $data = $this->array2xml($data);
+        // 发送请求
+        $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
+        // 将XML 转化为 数组
+        $param = $this->xml2array($resXml);
+
+        // 判断接口返回结果
+        if ($param["return_code"] == "SUCCESS") {
+            // 判断提交是否成功
+            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
+                // 接口返回失败
+                $res["return_code"] = 0;
+                $res["return_msg"] = $param["err_code_des"];
+            } else {
+                // 接口返回成功
+                $res["data"] = $this->dataDispose($param);
+                $res["return_code"] = 1;
+                $res["return_msg"] = "SUCCESS";
+            }
+        } else {
+            // 接口返回失败
+            $res["return_code"] = 0;
+            $res["return_msg"] = $param["return_msg"];
+        }
+        // 返回 json 数据
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -450,77 +510,6 @@ class WxController extends Controller
         $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
 
-
-    /**
-     * @throws \Exception
-     */
-    public function test14()
-    {
-        // 查询订单类型，和相对应的订单号
-        $param["out_trade_no"] = "150337637120180509095053";
-        $param = $this->fillData($param);
-        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        echo $this->responseDispose($url, $param);
-    }
-
-
-    /**
-     * 接口地址
-     * @param $url
-     * @param $data
-     * @param string $method
-     * @param bool $is_ssh
-     * @return string
-     * @throws \Exception
-     */
-    public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
-    {
-        // 将数据转化为 XML 格式
-        $data = $this->array2xml($data);
-        // 发送请求
-        $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
-        // 将XML 转化为 数组
-        $param = $this->xml2array($resXml);
-
-        // 判断接口返回结果
-        if ($param["return_code"] == "SUCCESS") {
-            // 判断提交是否成功
-            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
-                // 接口返回失败
-                $res["return_code"] = 0;
-                $res["return_msg"] = $param["err_code_des"];
-            } else {
-                // 接口返回成功
-                $res["data"] = $this->dataDispose($param);
-                $res["return_code"] = 1;
-                $res["return_msg"] = "SUCCESS";
-            }
-        } else {
-            // 接口返回失败
-            $res["return_code"] = 0;
-            $res["return_msg"] = $param["return_msg"];
-        }
-        // 返回 json 数据
-        return json_encode($res, JSON_UNESCAPED_UNICODE);
-    }
-
-
-    /**
-     * 填充数据
-     * @param $param
-     * @return mixed
-     */
-    public function fillData($param)
-    {
-        $param["appid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-        $param["sign_type"] = "MD5";
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
-        return $param;
-    }
-
-
     /**
      * 生成随机数
      * @return string
@@ -563,6 +552,7 @@ class WxController extends Controller
         // 返回签名
         return strtoupper(md5($combineStr));
     }
+
 
     /**
      * CURL请求
@@ -695,4 +685,8 @@ class WxController extends Controller
         }
         return $xml->asXML();
     }
+
+    // +----------------------------------------------------------------------
+    // | End - 公用方法
+    // +----------------------------------------------------------------------
 }
