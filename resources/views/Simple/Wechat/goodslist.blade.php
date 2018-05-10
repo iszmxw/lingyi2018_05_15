@@ -38,10 +38,6 @@
 {{--<!-- 分页 -->--}}
 <input type="hidden" name="limit" id="limit" value="0">
 
-<div class="goodslist">
-    <div class="lists" id="goodslist">
-    </div>
-</div>
 
 
 <div class="page">
