@@ -455,9 +455,9 @@ class WxController extends Controller
 
     public function test14()
     {
-        $param["appId"] = $this->appId;
-        $param["mchId"] = $this->mchId;
-        $param["key"] = $this->key;
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+
         $param["order_num_type"] = "out_refund_no";
         $param["order_num"] = "1003022622018050853721122351525761650";
 
