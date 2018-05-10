@@ -470,8 +470,10 @@ class WxController extends Controller
 
         $param = $this->array2xml($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        $res = $this->httpRequest($url,"post",$param,[],false);
+        $resXml = $this->httpRequest($url,"post",$param,[],false);
+        $res = $this->xml2array($resXml);
         var_dump($res);
+
     }
 
 
