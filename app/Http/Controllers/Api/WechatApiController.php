@@ -133,9 +133,8 @@ class WechatApiController extends Controller
         // 分页
         $limit = $request->limit;
         // 条件
-        $where []= ['fansmanage_id'=> $fansmanage_id];
-        $where []= ['simple_id'=> $store_id];
-        $where []= ['status'=> '1'];
+        $where = [['fansmanage_id', $fansmanage_id], ['simple_id' => $store_id], ['status', '1']];
+
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
         }
@@ -1256,7 +1255,6 @@ class WechatApiController extends Controller
         }
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
-
 
 
     /**
