@@ -94,6 +94,7 @@ class WechatApiCheck
                 break;
             case "api/wechatApi/online_order_detail"://线上订单详情
             case "api/wechatApi/selftake_order_detail"://自取订单详情
+            case "api/wechatApi/cancel_online_order"://取消线上订单
                 $re = $this->checkOnlineOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
