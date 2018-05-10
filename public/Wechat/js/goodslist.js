@@ -38,7 +38,6 @@ $(function () {
 
 //var $limit = 0, $category = 1, $keyword_val = '';
 
-var mea;//loadDownFn 用到,需要赋值
 var dropload = $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -62,8 +61,6 @@ var dropload = $('.goodslist').dropload({
         domNoData: '<div class="dropload-noData">没有更多商品了喔</div>'
     },
     loadDownFn: function (me) {
-        console.log(1);
-        mea = me;
         var category_id = "";
         $("#goods_cs_lt_alert li").each(function (index, el) {
             if ($(this).hasClass('action')) {
@@ -72,7 +69,7 @@ var dropload = $('.goodslist').dropload({
         });
         var keyword_val = $("#search").val();
         var limit = $("#limit").val();//分页
-        selectgoods(category_id, keyword_val, limit, me);
+        selectgoods(category_id, keyword_val, limit);
         $("#limit").val(parseInt(limit) + 1 );
     },
     // loadUpFn: function (me) {
@@ -82,7 +79,7 @@ var dropload = $('.goodslist').dropload({
     threshold: 50
 });
 //查询商品列表和购物车列表
-function selectgoods(category, keyword_val, limit, me) {
+function selectgoods(category, keyword_val, limit) {
     //获取购物车商品
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -185,7 +182,7 @@ function selectgoods(category, keyword_val, limit, me) {
     );
 }
 //查询商品列表和购物车列表
-function selectgoods_del(category, keyword_val, limit, me ,status) {
+function selectgoods_del(category, keyword_val, limit ,status) {
     //获取购物车商品
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -499,8 +496,8 @@ function category_list(category_id) {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    var status = true;
-    selectgoods_del(category_id, keyword_val,limit,mea,status);
+    dropload.lock();
+    selectgoods_del(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -518,8 +515,8 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    var status = true;
-    selectgoods_del(category_id, keyword_val,limit,mea,status);
+    dropload.lock();
+    selectgoods(category_id, keyword_val,limit);
 }
 
 //清空购物车
