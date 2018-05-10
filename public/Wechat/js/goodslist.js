@@ -390,7 +390,7 @@ function category_list(category_id) {
     limit = 1;
     var $goodslist = $("#goodslist");
     $goodslist.empty();
-    selectgoods(category_id, keyword_val,limit);
+    //selectgoods(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -410,7 +410,7 @@ function search_click() {
     limit = 1;
     var $goodslist = $("#goodslist");
     $goodslist.empty();
-    selectgoods(category_id, keyword_val,limit);
+    //selectgoods(category_id, keyword_val,limit);
 }
 
 //清空购物车
