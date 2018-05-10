@@ -58,7 +58,7 @@ body{position:absolute;top:0;right:0;bottom:0;left:0;z-index:2000;background:#ff
 
 a,button,input,select,textarea{outline:0}
 p{margin:1em 0}
-a{color:#0894ec;text-decoration:none;-webkit-tap-highlight-color:transparen t}
+a{color:#0894ec;text-decoration:none;-webkit-tap-highlight-color:transparent}
 a:active{color:#0a8ddf}
 .page{position:absolute;top:0;right:0;bottom:0;left:0;z-index:2000;background:#fff}
 .content{position:absolute;top:0;right:0;bottom:0;left:0;overflow:auto;-webkit-overflow-scrolling:touch}
