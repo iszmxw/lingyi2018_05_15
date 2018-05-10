@@ -1120,16 +1120,17 @@ class WechatApiController extends Controller
         if (empty($order)) {
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
-        dd($order);
         $order = $order->toArray();
-        $goods_list = $order['Goods'];//订单商品列表
-        foreach ($goods_list as $key => $value) {
-            $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
-            $ordergoods[$key]['goods_name'] = $value['title']; //商品名字
-            $ordergoods[$key]['goods_thumb'] = $value['thumb']; //商品图片
-            $ordergoods[$key]['num'] = $value['total']; //商品数量
-            $ordergoods[$key]['goods_price'] = $value['price']; //商品价格
+        dd($order['goods']);
+        $goods_list = [];
+        foreach ($order['Goods'] as $key => $value) {
+            $goods_list[$key]['goods_id'] = $value['goods_id']; //商品id
+            $goods_list[$key]['goods_name'] = $value['title']; //商品名字
+            $goods_list[$key]['goods_thumb'] = $value['thumb']; //商品图片
+            $goods_list[$key]['num'] = $value['total']; //商品数量
+            $goods_list[$key]['goods_price'] = $value['price']; //商品价格
         }
+        dd($goods_list);
         //防止值为null
         if (empty($order['remarks'])) {
             $order['remarks'] = '';
