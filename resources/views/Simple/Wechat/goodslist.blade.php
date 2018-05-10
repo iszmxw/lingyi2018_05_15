@@ -13,7 +13,7 @@
 
     <style>
         .goodslist {
-            overflow-y:auto;
+            overflow-y:none;
         }
     </style>
 </head>
