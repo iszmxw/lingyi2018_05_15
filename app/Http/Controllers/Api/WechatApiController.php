@@ -1044,7 +1044,7 @@ class WechatApiController extends Controller
 
 
     /**
-     * 订单列表接口
+     * 线上订单列表接口
      */
     public function online_order_list(Request $request)
     {
@@ -1073,6 +1073,40 @@ class WechatApiController extends Controller
         }
         return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => ['order_list' => $order_list]]);
     }
+
+    /**
+     * 线上订单列表接口
+     */
+    public function selftake_order_list(Request $request)
+    {
+        
+        // 联盟id
+        $fansmanage_id = $request->fansmanage_id;
+        // 店铺id
+        $store_id = $request->store_id;
+        // 订单状态
+        $status = $request->status;
+        // 用户联盟id
+        $user_id = $request->user_id;
+        // 页数
+        $page = $request->page;
+
+        $where = [['simple_id', $store_id], ['fansmanage_id', $fansmanage_id], ['user_id', $user_id]];
+        if ($status) {
+            if ($status != '-1') {
+                $status = preg_match('/(^[0-9]*$)/', $status, $a) ? $a[1] : 0;
+                $status = (string)$status;
+            }
+            $where[] = ['status', $status];
+        }
+        $order_list = SimpleSelftakeOrder::getListApi($where, $page, 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        if (empty($order_list->toArray())) {
+            return response()->json(['status' => '0', 'msg' => '没有订单', 'data' => '']);
+        }
+        return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => ['order_list' => $order_list]]);
+    }
+
+
 
     /**
      * 订单详情接口
