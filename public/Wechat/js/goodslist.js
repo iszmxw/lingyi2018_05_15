@@ -25,7 +25,7 @@ $(function(){
     			$goods_cs_lt_alert.empty();
     			$goods_cs_lt_alert.append(str);
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
 		}
 	);
@@ -110,7 +110,7 @@ function selectgoods(category,keyword_val){
                         $goodslist.empty();
                         $goodslist.append(str);
             		}else if (json.status == 0) {
-                        alert(msg);
+                        alert("接口出错了。");
                     }
         		}
         	);
@@ -167,7 +167,7 @@ function cart_add(obj){
                 totalnum(1,true);
                 $.hideIndicator();
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
 		}
 	);
@@ -228,7 +228,7 @@ function cart_reduce(obj,status){
                 totalnum(1,false);
                 $.hideIndicator();
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
 		}
 	);
@@ -304,7 +304,7 @@ function cart_empty(){
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
 		}
 	);
@@ -498,7 +498,7 @@ function showcart(obj,em){
                 $("#"+obj).css({display: 'flex'});
                 $("#"+obj+" .popup_alert_hook").addClass('fadeInUp');
     		}else if (json.status == 0) {
-                alert(msg);
+                alert("接口出错了。");
             }
 		}
 	);
