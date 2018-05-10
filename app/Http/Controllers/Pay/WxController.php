@@ -458,9 +458,6 @@ class WxController extends Controller
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
 
-        $param["order_num_type"] = "out_refund_no";
-        $param["order_num"] = "1003022622018050853721122351525761650";
-
         // 查询订单类型，和相对应的订单号
         $param["out_refund_no"] = "1003022622018050853721122351525761650";
 
