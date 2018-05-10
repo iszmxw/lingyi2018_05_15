@@ -19,13 +19,13 @@ class SimpleOnlineOrder extends Model
     public $guarded = [];
 
     //和SimpleOnlineOrderGoods表一对多的关系
-    public function Goods()
+    public function goods()
     {
         return $this->hasMany('App\Models\SimpleOnlineGoods', 'order_id', 'id');
     }
 
     //和SimpleOnlineAddress表一对一的关系
-    public function Address()
+    public function address()
     {
         return $this->hasOne('App\Models\SimpleOnlineAddress', 'order_id', 'id');
     }
@@ -54,7 +54,7 @@ class SimpleOnlineOrder extends Model
     //获取单条数据
     public static function getOneJoin($where)
     {
-        return  self::with('Address')->with('Goods')->where($where)->first();
+        return  self::with('address')->with('goods')->where($where)->first();
     }
 
     //修改订单信息
