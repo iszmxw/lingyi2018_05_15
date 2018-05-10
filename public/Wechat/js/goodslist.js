@@ -388,13 +388,12 @@ function category_list(category_id) {
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     dropload.lock();
-    var $goodslist = $("#goodslist");
-
+    selectgoods(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
+    var $goodslist = $("#goodslist");
     $goodslist.empty();
-    selectgoods(category_id, keyword_val,limit);
 }
 
 //商品搜索
