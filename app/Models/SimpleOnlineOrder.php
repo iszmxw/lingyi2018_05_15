@@ -18,16 +18,19 @@ class SimpleOnlineOrder extends Model
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
     public $guarded = [];
 
-
-    //获取列表
-    public static function getListPaginate($where, $paginate, $orderby, $sort = 'DESC', $select = [])
+    //和SimpleOnlineOrderGoods表一对多的关系
+    public function SimpleOnlineOrderGoods()
     {
-        $model = new SimpleOnlineOrder();
-        if (!empty($select)) {
-            $model = $model->select($select);
-        }
-        return $model->where($where)->orderBy($orderby, $sort)->paginate($paginate);
+        return $this->hasMany('App\Models\SimpleOnlineOrderGoods', 'order_id', 'id');
     }
+
+    //和SimpleOnlineAddress表一对一的关系
+    public function SimpleOnlineAddress()
+    {
+        return $this->hasOne('App\Models\SimpleOnlineAddress', 'order_id', 'id');
+    }
+
+
 
     //获取餐饮商品列表
     public static function getListApi($where, $page = 0, $orderby, $sort = 'DESC', $select = [])
@@ -48,6 +51,12 @@ class SimpleOnlineOrder extends Model
     public static function getOne($where)
     {
         return  self::where($where)->first();
+    }
+
+    //获取单条数据
+    public static function getOneJoin($where)
+    {
+        return  self::with('SimpleOnlineAddress')->with('SimpleOnlineOrderGoods')->where($where)->first();
     }
 
     //修改订单信息

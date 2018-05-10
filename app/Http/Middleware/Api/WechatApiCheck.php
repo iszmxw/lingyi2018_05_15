@@ -92,6 +92,11 @@ class WechatApiCheck
                 $re = $this->checkOnlineOrderList($request);
                 return self::format_response($re, $next);
                 break;
+            case "api/wechatApi/online_order_detail"://线上订单详情
+                $re = $this->checkOnlineOrderDetail($request);
+                return self::format_response($re, $next);
+                break;
+
 
         }
         return $next($request);
@@ -436,6 +441,18 @@ class WechatApiCheck
         }
         return self::res(1, $request);
     }
+
+    /**
+     * 检测线上订单详情
+     */
+    public function checkOnlineOrderDetail($request)
+    {
+        if (empty($request->input('order_id'))) {
+            return self::res(0, response()->json(['msg' => '订单ID不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
+
 
 
     /**
