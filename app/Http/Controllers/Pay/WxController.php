@@ -460,7 +460,7 @@ class WxController extends Controller
 
         $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
-        $param["sign_type"] = "MD5";
+//        $param["sign_type"] = "MD5";
 
 
         $param = $this->array2xml($param);
