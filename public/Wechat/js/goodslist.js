@@ -31,9 +31,52 @@ $(function(){
 	);
 
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
-    selectgoods(1,"");
+    // selectgoods(1,"");
 
 });
+
+
+
+
+
+
+$('.social-warp').dropload({
+    scrollArea: window,
+    autoLoad: true,
+    // 下拉刷新模块显示内容
+    domUp: {
+        domClass: 'dropload-up',
+        // 下拉过程显示内容
+        domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+        // 下拉到一定程度显示提示内容
+        domUpdate: '<div class="dropload-update">↑释放更新</div>',
+        // 释放后显示内容
+        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+    },
+    domDown: {
+        domClass: 'dropload-down',
+        // 滑动到底部显示内容
+        domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+        // 内容加载过程中显示内容
+        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+        // 没有更多内容-显示提示
+        domNoData: '<div class="dropload-noData">暂无更多数据</div>'
+    },
+    loadDownFn: function (me) {
+        $start++;
+        getList(me, $start, $length);
+    },
+    loadUpFn: function (me) {
+        $start++;
+        getList(me, $start, $length);
+    },
+    threshold: 50
+});
+
+
+
+
+
 
 //查询商品列表和购物车列表
 function selectgoods(category,keyword_val){
@@ -113,6 +156,16 @@ function selectgoods(category,keyword_val){
 		}
 	);
 }
+
+
+
+
+
+
+
+
+
+
 //添加商品购物车
 function cart_add(obj){
     $.showIndicator();
