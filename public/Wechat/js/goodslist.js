@@ -36,7 +36,7 @@ $(function () {
 });
 
 
-var $limit = 1, $category = 1, $keyword_val = '';
+var $limit = 0, $category = 1, $keyword_val = '';
 
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
@@ -64,11 +64,18 @@ $('.goodslist').dropload({
     },
     loadDownFn: function (me) {
         $limit++;
-        selectgoods($category, $keyword_val, $limit, me);
+
+        if($limit <= 4){
+            selectgoods($category, $keyword_val, $limit, me);
+        }
+
     },
     loadUpFn: function (me) {
         $limit++;
-        selectgoods($category, $keyword_val, $limit, me);
+        if($limit <= 4){
+            selectgoods($category, $keyword_val, $limit, me);
+        }
+
     },
     threshold: 50
 });
