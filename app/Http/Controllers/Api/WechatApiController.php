@@ -1107,9 +1107,8 @@ class WechatApiController extends Controller
     }
 
 
-
     /**
-     * 订单详情接口
+     * 线上订单详情接口
      */
     public function online_order_detail(Request $request)
     {
@@ -1135,12 +1134,12 @@ class WechatApiController extends Controller
             $goods_list[$key]['goods_price'] = $value['price'];
         }
         $address_info = [
-            'province_name'=>$order['address']['province_name'],
-            'city_name'=>$order['address']['city_name'],
-            'district_name'=>$order['address']['district_name'],
-            'address'=>$order['address']['address'],
-            'realname'=>$order['address']['realname'],
-            'mobile'=>$order['address']['mobile'],
+            'province_name' => $order['address']['province_name'],
+            'city_name' => $order['address']['city_name'],
+            'district_name' => $order['address']['district_name'],
+            'address' => $order['address']['address'],
+            'realname' => $order['address']['realname'],
+            'mobile' => $order['address']['mobile'],
         ];
         $data = [
             // 订单id
@@ -1154,11 +1153,11 @@ class WechatApiController extends Controller
             // 订单状态
             'status' => $order['status'],
             // 订单商品
-            'goods_list'=>$goods_list,
+            'goods_list' => $goods_list,
             // 收货地址
-            'address_info'=>$address_info,
+            'address_info' => $address_info,
             /*******运费金额(待完成)*******/
-            'dispatch_price' =>'运费金额(待完成)',
+            'dispatch_price' => '运费金额(待完成)',
             /*******退款原因(待完成)*******/
             'rejected_info' => '退款原因（待完成）',
             // 添加时间
@@ -1167,6 +1166,59 @@ class WechatApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
     }
 
+    /**
+     * 自取订单详情接口
+     */
+    public function selftake_order_detail(Request $request)
+    {
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = SimpleSelftakeOrder::getOneJoin([['id', $order_id]]);
+        if (empty($order)) {
+            return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
+        }
+        $order = $order->toArray();
+        $goods_list = [];
+        foreach ($order['goods'] as $key => $value) {
+            // 商品id
+            $goods_list[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $goods_list[$key]['goods_name'] = $value['title'];
+            // 商品图片
+            $goods_list[$key]['goods_thumb'] = $value['thumb'];
+            // 商品数量
+            $goods_list[$key]['num'] = $value['total'];
+            // 商品价格
+            $goods_list[$key]['goods_price'] = $value['price'];
+        }
+        $selftake_info = [
+            'realname' => $order['address']['realname'],
+            'sex' => $order['address']['sex'],
+            'mobile' => $order['address']['mobile'],
+        ];
+        $data = [
+            // 订单id
+            'order_id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 订单状态
+            'status' => $order['status'],
+            // 订单商品
+            'goods_list' => $goods_list,
+            // 收货地址
+            'selftake_info' => $selftake_info,
+            /*******取货时间(待完成)*******/
+            'selftake_time' => '取货时间(待完成)',
+            // 添加时间
+            'created_at' => $order['created_at'],
+        ];
+        return response()->json(['status' => '1', 'msg' => '订单详情查询成功', 'data' => $data]);
+    }
 
     /**
      * WGS84转GCj02(北斗转高德)
