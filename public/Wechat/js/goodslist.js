@@ -496,9 +496,8 @@ function category_list(category_id) {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    var status = true;
     dropload.lock();
-    selectgoods_del(category_id, keyword_val,limit,status);
+    selectgoods_del(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
@@ -516,9 +515,8 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    var status = true;
     dropload.lock();
-    selectgoods_del(category_id, keyword_val,limit,status);
+    selectgoods(category_id, keyword_val,limit);
 }
 
 //清空购物车
