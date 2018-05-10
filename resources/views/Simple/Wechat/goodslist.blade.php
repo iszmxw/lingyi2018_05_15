@@ -10,24 +10,7 @@
     {{--<link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">--}}
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/dropload.css">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/goodslist.css?v=<?php echo time(); ?>">
-    <style>
-        body, html {
-            height: auto;
-        }
-        body {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            overflow: auto;
-            font-family: PisngFang SC,"Helvetica Neue",Helvetica,sans-serif;
-            font-size: .85rem;
-            line-height: 1.2;
-            color: #3d4145;
-            background: #fff;
-        }
-    </style>
+
 </head>
 <body>
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
