@@ -34,9 +34,9 @@ class SimpleOnlineOrder extends Model
     {
         $model = new SimpleOnlineOrder();
         if (!empty($page)) {
-            $page1 = $page * 5 - 5;
-            $page2 = $page * 5;
-            $model = $model->offset($page1,$page2)->limit(20);
+            $page1 = $page * 2 - 2;
+            $page2 = $page * 2;
+            $model = $model->offset($page1,$page2)->limit(2);
         }
         if (!empty($select)) {
             $model = $model->select($select);
