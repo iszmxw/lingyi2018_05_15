@@ -1,5 +1,4 @@
 $(function(){
-    $.showPreloader("加载中...");
     var fansmanage_id=$("#fansmanage_id").val();//联盟主组织ID
     var _token=$("#_token").val();
     var store_id=$("#store_id").val();//店铺ID
@@ -107,7 +106,6 @@ function selectgoods(category,keyword_val){
                         var $goodslist = $("#goodslist");
                         $goodslist.empty();
                         $goodslist.append(str);
-                            $.hidePreloader();
             		}else if (json.status == 0) {
                         alert(msg);
                     }
@@ -292,6 +290,10 @@ function cart_empty(){
                 //清空购物车总数
                 $("#goods_totalnum").text("0");
                 $("#goods_totalnum").attr('data-totalnum', '0');
+                //清空价格
+                var _this = $("#cart_price");
+                _this.attr('data-totalprice',"0");
+                _this.html("您还未选购商品哦~");
                 //隐藏提示框
                 hide('alert');
                 //隐藏购物车
