@@ -40,8 +40,8 @@ $(function () {
 
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
-var mea;
-var category_status = true;//判断搜索，清空商品列表
+var mea;//loadDownFn 用到,需要赋值
+var category_status = true;//判断搜索(分类)，清空商品列表
 $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -180,7 +180,7 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
                         // 没有数据
                         console.log(json.msg);
                         // 锁定
-                        me.lock();
+                        //me.lock();
                         // 无数据
                         me.noData();
                     }
