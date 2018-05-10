@@ -1093,10 +1093,10 @@ class WechatApiController extends Controller
 
         $where = [['simple_id', $store_id], ['fansmanage_id', $fansmanage_id], ['user_id', $user_id]];
         if ($status) {
-//            if ($status != '-1') {
-//                $status = preg_match('/(^[0-9]*$)/', $status, $a) ? $a[1] : 0;
-//                $status = (string)$status;
-//            }
+            if ($status != '-1') {
+                $status = preg_match('/(^[0-9]*$)/', $status, $a) ? $a[1] : 0;
+                $status = (string)$status;
+            }
             $where[] = ['status', $status];
         }
         $order_list = SimpleSelftakeOrder::getListApi($where, $page, 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
