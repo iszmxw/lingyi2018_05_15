@@ -48,28 +48,15 @@ class WxController extends Controller
         $this->wechat = $wechat;
     }
 
-    public function test13()
-    {
-
-        $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
-        $data["order_money"] = 0.1;
-        $data["ip_address"] = "120.78.140.10";
-        $data["auth_code"] = "135463544838356441";
-        echo $this->microOrder($data);
-    }
-
-    public function test14()
-    {
-        $data["bill_date"] = 20180508;
-        $data["bill_type"] = "ALL";
-        $this->downloadBill($data);
-
-    }
-
     public function demo()
     {
-
+        // 刷卡支付
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["auth_code"] = "135463544838356441";
+//        echo $this->microOrder($data);
 
         // 下载对账单
 //        $data["bill_date"] = 20180508;
@@ -143,6 +130,9 @@ class WxController extends Controller
      */
     public function microOrder($param)
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+
         // 商品信息
         $data["body"] = $param["desc"];
         // 订单号
@@ -160,43 +150,14 @@ class WxController extends Controller
 
 
     /**
-     * 下载对账单
-     * @param array $param
-     * @return string
-     * @throws \Exception
-     */
-    public function downloadBill($param = [])
-    {
-        $data["bill_date"] = $param["bill_date"];
-        $data["bill_type"] = $param["bill_type"];
-        // 获取数据
-        $res = $this->wechat->downloadBill($data);
-
-        // 判断数据返回结果
-        if($res["return_code"] != "SUCCESS"){
-            return json_encode($res,JSON_UNESCAPED_UNICODE);
-        }
-
-        $res = $res["data"];
-        // 得到文件名
-        $fileName = "./uploads/download.csv";
-        file_put_contents($fileName,$res);
-        // 告诉浏览器通过附件形式来处理文件
-        header( "Content-Disposition:  attachment;  filename=".$fileName);
-        // 下载文件大小
-        header('Content-Length: ' . filesize($fileName));
-        // 读取文件内容
-        readfile($fileName);
-    }
-
-
-    /**
      * 扫码下单接口
      * @param $param
      * @return string|void
      */
     public function nativeOrder($param)
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
@@ -215,6 +176,8 @@ class WxController extends Controller
      */
     public function jsApiOrder($param)
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
@@ -240,6 +203,8 @@ class WxController extends Controller
      */
     public function closeOrder($param)
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data["out_trade_no"] = $param["order_num"];
         $res = $this->wechat->closeOrder($data);
@@ -253,6 +218,8 @@ class WxController extends Controller
      */
     public function unifiedOrder($param = [])
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 商品信息
         $data["body"] = $param["desc"];
         // 订单号
@@ -284,6 +251,8 @@ class WxController extends Controller
      */
     public function orderQuery($param = [])
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         $res = $this->wechat->orderQuery($data);
@@ -300,6 +269,8 @@ class WxController extends Controller
      */
     public function refund($param = [])
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 商户退款单号
@@ -328,12 +299,47 @@ class WxController extends Controller
      */
     public function refundQuery($param = [])
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         $data[$param["order_num_type"]] = $param["order_num"];
         // 查询接口
         $res = $this->wechat->refundQuery($data);
         return $this->resDispose($res);
     }
 
+    /**
+     * 下载对账单
+     * @param array $param
+     * @return string
+     * @throws \Exception
+     */
+    public function downloadBill($param = [])
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 对账日期
+        $data["bill_date"] = $param["bill_date"];
+        // 对账类型
+        $data["bill_type"] = $param["bill_type"];
+        // 获取数据
+        $res = $this->wechat->downloadBill($data);
+
+        // 判断数据返回结果
+        if ($res["return_code"] != "SUCCESS") {
+            return json_encode($res, JSON_UNESCAPED_UNICODE);
+        }
+
+        $res = $res["data"];
+        // 得到文件名
+        $fileName = "./uploads/download.csv";
+        file_put_contents($fileName, $res);
+        // 告诉浏览器通过附件形式来处理文件
+        header("Content-Disposition:  attachment;  filename=" . $fileName);
+        // 下载文件大小
+        header('Content-Length: ' . filesize($fileName));
+        // 读取文件内容
+        readfile($fileName);
+    }
 
     /**
      * 接口返回处理
@@ -361,6 +367,20 @@ class WxController extends Controller
         return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
 
+
+
+    /**
+     * 请求数据处理
+     * @param $param
+     * @return mixed
+     */
+    public function requestDispose($param)
+    {
+        $res = json_decode($param,true);
+        return $res;
+    }
+
+
     /**
      * 数据格式处理
      * @param $param
@@ -378,6 +398,10 @@ class WxController extends Controller
         return $param;
     }
 
+    /**
+     * 生成二维码
+     * @param $url
+     */
     public function qrCode($url)
     {
         // 生成二维码图片
