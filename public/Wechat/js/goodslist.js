@@ -629,7 +629,7 @@ function showcart(obj, em) {
             'zerone_user_id': zerone_user_id
         },
         function (json) {
-            console.log("sda");
+            console.log(json);
             $.hideIndicator();
             if (json.status == 1) {
                 var str = "";
