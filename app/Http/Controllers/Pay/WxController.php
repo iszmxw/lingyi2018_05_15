@@ -462,8 +462,6 @@ class WxController extends Controller
         $param["sign"] = $this->generateSignature($param);
         $param["sign_type"] = "MD5";
 
-        var_dump($param);
-        exit;
         $param = $this->array2xml($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         $resXml = $this->httpRequest($url, "post", $param, [], false);
