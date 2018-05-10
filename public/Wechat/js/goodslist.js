@@ -40,8 +40,7 @@ $(function () {
 
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
-var mea;//loadDownFn 用到,需要赋值
-var category_status = 1;//判断搜索(分类)，清空商品列表
+
 $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -85,7 +84,8 @@ $('.goodslist').dropload({
     threshold: 50
 });
 
-
+var mea;//loadDownFn 用到,需要赋值
+var category_status = 1;//判断搜索(分类)，清空商品列表
 //查询商品列表和购物车列表
 function selectgoods(category, keyword_val, limit, me,category_status) {
     //获取购物车商品
