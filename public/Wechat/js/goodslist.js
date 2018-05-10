@@ -304,7 +304,7 @@ function cart_add(obj) {
                 if (json.data.num == "1") {
                     $this.parent().addClass('cart_border');
                     $this.parent().children('a').removeClass('gs_hide').addClass('gs_show');
-                    console.log("asdasd0000");
+                    console.log(json.data.num);
                 }
                 //设置点击数量
                 $(".goods_id" + json.data.goods_id).text(json.data.num);
