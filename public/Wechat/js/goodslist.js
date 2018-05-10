@@ -41,6 +41,7 @@ $(function () {
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
 var mea;
+var category_status = true;//判断搜索，清空商品列表
 $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -401,7 +402,6 @@ function cart_reduce(obj, status) {
 function category_list(category_id) {
     var keyword_val = $("#search").val();
     var limit = $("#limit").val();//分页
-    var category_status = true;//判断点击分类，清空商品列表
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
     selectgoods(category_id, keyword_val,limit,mea,category_status);
@@ -422,7 +422,6 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    var category_status = true;//判断搜索，清空商品列表
     selectgoods(category_id, keyword_val,limit,mea,category_status);
 }
 
