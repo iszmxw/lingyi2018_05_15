@@ -47,10 +47,10 @@
         </div>
 
 
-        <div class="goodslist">
-            <div class="lists" id="goodslist">
-            </div>
-        </div>
+        {{--<div class="goodslist">--}}
+            {{--<div class="lists" id="goodslist">--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
 {{--<div class="cart_bottom">--}}
 {{--<div class="cart_fl">--}}
