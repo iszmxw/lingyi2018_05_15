@@ -1059,7 +1059,7 @@ class WechatApiController extends Controller
         // 页数
         $page = $request->page;
 
-        $where = [['simple_id', $store_id],['fansmanage_id',$fansmanage_id], ['user_id', $user_id]];
+        $where = [['simple_id', $store_id], ['fansmanage_id', $fansmanage_id], ['user_id', $user_id]];
         if ($status) {
             if ($status != '-1') {
                 $status = preg_match('/(^[0-9]*$)/', $status, $a) ? $a[1] : 0;
@@ -1067,24 +1067,11 @@ class WechatApiController extends Controller
             }
             $where[] = ['status', $status];
         }
-        $orderlist = SimpleOnlineOrder::getListApi($where, $page, 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
-        if ($orderlist->toArray()) {
-            // 订单数量
-            $total_num = count($orderlist);
-            $total_amount = 0;
-            foreach ($orderlist as $key => $value) {
-                // 订单总价格
-                $total_amount += $value['order_price'];
-            }
-        } else {
+        $order_list = SimpleOnlineOrder::getListApi($where, $page, 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        if (empty($order_list->toArray())) {
             return response()->json(['status' => '0', 'msg' => '没有订单', 'data' => '']);
         }
-        $data = [
-            'orderlist' => $orderlist,
-            'total_num' => $total_num,
-            'total_amount' => round($total_amount, 2),
-        ];
-        return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => $data]);
+        return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => ['order_list' => $order_list]]);
     }
 
     /**
