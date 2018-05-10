@@ -1048,14 +1048,16 @@ class WechatApiController extends Controller
      */
     public function online_order_list(Request $request)
     {
-        // 店铺
-        $organization_id = $request->organization_id;
+        // 联盟id
+        $fansmanage_id = $request->fansmanage_id;
+        // 店铺id
+        $store_id = $request->store_id;
         // 订单状态
         $status = $request->status;
         // 用户联盟id
         $user_id = $request->user_id;
 
-        $where = [['simple_id', $organization_id], ['user_id', $user_id]];
+        $where = [['simple_id', $store_id],['fansmanage_id',$fansmanage_id], ['user_id', $user_id]];
         if ($status) {
             if ($status != '-1') {
                 $status = preg_match('/(^[0-9]*$)/', $status, $a) ? $a[1] : 0;
