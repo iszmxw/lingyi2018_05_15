@@ -1256,6 +1256,40 @@ class WechatApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
 
+    /**
+     * 取消订单接口
+     */
+    public function cancel_selftake_order(Request $request)
+    {
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = SimpleSelftakeOrder::getOne([['id', $order_id]]);
+        if ($order['status'] != '0') {
+            return response()->json(['msg' => '订单状态不是待付款，不能取消', 'status' => '0', 'data' => '']);
+        }
+        DB::beginTransaction();
+        try {
+            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] == '1') {
+                // 归还库存
+                $re = $this->reduce_stock($order_id, '-1','selftake');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+                }
+            }
+            // 修改订单状态为取消
+            SimpleSelftakeOrder::editSimpleSelftakeOrder([['id', $order_id]], ['status' => '-1']);
+            // 提交事务
+            DB::commit();
+        } catch (\Exception $e) {
+            // 事件回滚
+            DB::rollBack();
+            return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+        }
+        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
+    }
+
 
     /**
      * WGS84转GCj02(北斗转高德)
