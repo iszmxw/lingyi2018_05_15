@@ -455,14 +455,12 @@ class WxController extends Controller
 
     public function test14()
     {
-        $param["appId"] = $this->appId;
-        $param["mchId"] = $this->mchId;
-        $param["key"] = $this->key;
-        $param["order_num_type"] = "out_refund_no";
-        $param["order_num"] = "1003022622018050853721122351525761650";
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
 
         // 查询订单类型，和相对应的订单号
-        $param["out_refund_no"] = "1003022622018050853721122351525761650";
+        $param["out_trade_no"] = "1003022622018050853721122351525761650";
+
 
         $param["nonce_str"] = $this->generateNonceStr();
         $param["sign"] = $this->generateSignature($param);
@@ -470,8 +468,10 @@ class WxController extends Controller
 
         $param = $this->array2xml($param);
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
-        $res = $this->httpRequest($url,"post",$param,[],false);
+        $resXml = $this->httpRequest($url,"post",$param,[],false);
+        $res = $this->xml2array($resXml);
         var_dump($res);
+
     }
 
 
