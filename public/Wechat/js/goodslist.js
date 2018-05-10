@@ -272,13 +272,25 @@ function cart_empty(){
         data,
     	function(json){
     		if (json.status == 1) {
-                $(".gs_show").each(function(index, el) {
+                //隐藏购物车的减号按钮
+                $(".delect_cart_btn").each(function(index, el) {
                     var $this = $(this);
                     $this.removeClass("gs_show").addClass('gs_hide');
                     if($this.parent().hasClass('cart_border')){
                         $this.parent().removeClass('cart_border').addClass('action');
                     }
                 });
+                //清空商品列表的数量
+                $(".delect_cart_inpt").each(function(index, el) {
+                    var $this = $(this);
+                    $this.removeClass("gs_show").addClass('gs_hide');
+                    $this.text("0");
+                    if($this.parent().hasClass('cart_border')){
+                        $this.parent().removeClass('cart_border').addClass('action');
+                    }
+                });
+                hide('alert');
+                $("#cart").click();
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
