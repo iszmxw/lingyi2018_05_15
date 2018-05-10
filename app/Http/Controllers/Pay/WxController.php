@@ -498,10 +498,11 @@ class WxController extends Controller
                 continue;
             }
         }
+
+        $combineStr = "${combineStr}key=$this->key";
         var_dump($combineStr);
         exit;
 
-        $combineStr = "${combineStr}key=$this->key";
         return strtoupper(md5($combineStr));
     }
 
