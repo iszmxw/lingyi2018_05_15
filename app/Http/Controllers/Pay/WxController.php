@@ -52,9 +52,8 @@ class WxController extends Controller
         $reqData["order_num_type"] = "out_refund_no";
         $reqData["order_num"] = "1003022622018050853721122351525761650";
         $reqData = json_encode($reqData,JSON_UNESCAPED_UNICODE);
-        echo $reqData;
         $res = $this->refundQuery($reqData);
-//        echo $res;
+        echo $res;
     }
 
     public function demo()
