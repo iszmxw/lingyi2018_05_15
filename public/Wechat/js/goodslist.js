@@ -80,6 +80,7 @@ function selectgoods(category,keyword_val){
                 $cart_list.append(str);
     		}else if (json.status == 0) {
                 alert("接口出错了。");
+
             }
 
 
