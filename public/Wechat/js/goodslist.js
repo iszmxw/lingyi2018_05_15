@@ -75,7 +75,7 @@ $('.goodslist').dropload({
         });
         var keyword_val = $("#search").val();
         var limit = $("#limit").val();//分页
-        selectgoods(category_id, keyword_val, limit, me);
+        selectgoods(category_id, keyword_val, limit, me ,category_status);
         $("#limit").val(parseInt(limit) + 1 );
     },
     // loadUpFn: function (me) {
