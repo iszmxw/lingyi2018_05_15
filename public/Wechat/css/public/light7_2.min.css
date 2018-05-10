@@ -54,7 +54,7 @@ table{border-spacing:0;border-collapse:collapse}
 td,th{padding:0}
 *{-moz-box-sizing:border-box;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 
-body{}
+body{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;font-family:PingFang SC,"Helvetica Neue",Helvetica,sans-serif;font-size:.85rem;line-height:1.2;color:#3d4145;background:#fff;}
 
 
 
