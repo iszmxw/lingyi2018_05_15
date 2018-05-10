@@ -148,8 +148,8 @@ function selectgoods(category, keyword_val, limit, me) {
                     if (json.status == 1) {
 
                         for (var i = 0; i < json.data.goodslist.length; i++) {
-                            console.log(cart_num);
-                            console.log(cart_num[json.data.goodslist[i].id]);
+                            // console.log(cart_num);
+                            // console.log(cart_num[json.data.goodslist[i].id]);
                             //判断列表与购物车的id存在就读取购物车的数量
                             if (cart_num && cart_num[json.data.goodslist[i].id]) {
                                 json.data.goodslist[i].number = cart_num[json.data.goodslist[i].id];
