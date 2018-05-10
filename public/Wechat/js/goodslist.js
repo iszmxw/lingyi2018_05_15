@@ -79,7 +79,7 @@ function selectgoods(category,keyword_val){
                 $cart_list.empty();
                 $cart_list.append(str);
     		}else if (json.status == 0) {
-                alert(json.msg);
+                console.log(json.msg);
             }
             //获取商品列表
             var goodslist_url = "http://develop.01nnt.com/api/wechatApi/goods_list";
@@ -107,7 +107,7 @@ function selectgoods(category,keyword_val){
                         $goodslist.empty();
                         $goodslist.append(str);
             		}else if (json.status == 0) {
-                        alert(json.msg);
+                        console.log(json.msg);
                     }
         		}
         	);
@@ -164,7 +164,7 @@ function cart_add(obj){
                 totalnum(1,true);
                 $.hideIndicator();
     		}else if (json.status == 0) {
-                alert(json.msg);
+                console.log(json.msg);
             }
 		}
 	);
@@ -225,7 +225,7 @@ function cart_reduce(obj,status){
                 totalnum(1,false);
                 $.hideIndicator();
     		}else if (json.status == 0) {
-                alert(json.msg);
+                console.log(json.msg);
             }
 		}
 	);
@@ -301,7 +301,7 @@ function cart_empty(){
                 $.hideIndicator();
                 $.toast("清空成功");
     		}else if (json.status == 0) {
-                alert(json.msg);
+                console.log(json.msg);
             }
 		}
 	);
@@ -495,7 +495,7 @@ function showcart(obj,em){
                 $("#"+obj).css({display: 'flex'});
                 $("#"+obj+" .popup_alert_hook").addClass('fadeInUp');
     		}else if (json.status == 0) {
-                alert(json.msg);
+                console.log(json.msg);
             }
 		}
 	);
