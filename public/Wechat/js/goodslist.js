@@ -39,7 +39,7 @@ $(function () {
 var $limit = 0, $category = 1, $keyword_val = '';
 
 // $('.social-warp').dropload({
-$('.page-current').dropload({
+$('#goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
     // 下拉刷新模块显示内容
@@ -172,16 +172,10 @@ function selectgoods(category, keyword_val, limit, me) {
                     // 每次数据插入，必须重置
                     me.resetload();
                 }
-            )
-                .success(function () {
-                    console.log("second success");
-                })
-                .error(function () {
-                    me.resetload();
-                })
-                .complete(function () {
-                    console.log("complete");
-                });
+            ).error(function () {
+                me.resetload();
+            })
+
         }
     );
 }
