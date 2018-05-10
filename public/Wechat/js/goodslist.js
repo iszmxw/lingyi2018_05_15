@@ -41,7 +41,7 @@ $(function () {
 // $('.social-warp').dropload({
 // $('.g-flexview').dropload({
 var mea;//loadDownFn 用到,需要赋值
-var category_status = true;//判断搜索(分类)，清空商品列表
+var category_status = 1;//判断搜索(分类)，清空商品列表
 $('.goodslist').dropload({
     scrollArea: window,
     autoLoad: true,
@@ -167,11 +167,11 @@ function selectgoods(category, keyword_val, limit, me,category_status) {
 
 
                         var $goodslist = $("#goodslist");
-                        if(category_status){
+                        if(category_status == 1){
                             console.log("1111"+category_status);
                             $goodslist.empty();
 
-                            category_status = false;
+                            category_status = 0;
                             console.log("2222"+category_status);
                         }
                         $goodslist.append(str);
