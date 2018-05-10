@@ -50,20 +50,12 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["body"] = "商品-xho-test";
-        $data["out_trade_no"] = md5(time());
-        $data["total_fee"] = 0.1*100;
-        $data["spbill_create_ip"] = "120.78.140.10";
-//        $data["trade_type"] = "MICROPAY";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-        $data["auth_code"] = 135432415240961290;
-//        $data["notify_url"] = $this->notify_url;
-
-        $res = $this->wechat->microPay($data);
-//        $res = json_decode($res, true);
-//        $res = $this->wechat->microPay($res);
-        var_dump($res);
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.1;
+        $data["ip_address"] = "120.78.140.10";
+        $data["auth_code"] = "135468194968010313";
+        echo $this->microOrder($data);
     }
 
     public function test14()
@@ -143,6 +135,29 @@ class WxController extends Controller
     }
 
 
+    /**
+     * 刷卡支付
+     * @param $param
+     * @return string
+     */
+    public function microOrder($param)
+    {
+        // 商品信息
+        $data["body"] = $param["desc"];
+        // 订单号
+        $data["out_trade_no"] = $param["order_num"];
+        // 金额
+        $data["total_fee"] = $param["order_money"] * 100;
+        // ip 地址
+        $data["spbill_create_ip"] = $param["ip_address"];
+        // 授权码
+        $data["auth_code"] = $param["auth_code"];
+
+        $res = $this->wechat->microPay($data);
+        var_dump($res);
+        exit;
+        return $this->resDispose($res);
+    }
 
 
     /**
