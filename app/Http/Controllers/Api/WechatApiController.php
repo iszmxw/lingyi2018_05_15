@@ -1134,13 +1134,13 @@ class WechatApiController extends Controller
             // 商品价格
             $goods_list[$key]['goods_price'] = $value['price'];
         }
-        dd($order);
         $address_info = [
             'province_name'=>$order['address']['province_name'],
+            'city_name'=>$order['address']['city_name'],
             'district_name'=>$order['address']['district_name'],
-            'province_name'=>$order['address']['province_name'],
-            'province_name'=>$order['address']['province_name'],
-            'province_name'=>$order['address']['province_name'],
+            'address'=>$order['address']['address'],
+            'realname'=>$order['address']['realname'],
+            'mobile'=>$order['address']['mobile'],
         ];
         $data = [
             // 订单id
@@ -1155,13 +1155,12 @@ class WechatApiController extends Controller
             'status' => $order['status'],
             // 订单商品
             'goods_list'=>$goods_list,
-
-            // 支付公司
-            'payment_company' => $order['payment_company'],
-            // 支付方式
-            'paytype' => $order['paytype'],
-            // 店铺ID
-            'simple_id' => $order['simple_id'],
+            // 收货地址
+            'address_info'=>$address_info,
+            /*******运费金额(待完成)*******/
+            'dispatch_price' =>'运费金额(待完成)',
+            /*******退款原因(待完成)*******/
+            'rejected_info' => '退款原因（待完成）',
             // 添加时间
             'created_at' => $order['created_at'],
         ];
