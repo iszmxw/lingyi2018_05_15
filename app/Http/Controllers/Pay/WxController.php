@@ -49,7 +49,7 @@ class WxController extends Controller
 //        $this->nativeOrder($data);
 //        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
-         活动名称
+         // 活动名称
         $data["activity_name"] = "zzzz";
         // 发放ip地址
         $data["ip_address"] = "120.78.140.10";
