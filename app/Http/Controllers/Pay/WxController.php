@@ -62,8 +62,6 @@ class WxController extends Controller
         $data["remark"] = "ganjinqiang";
         // 金额
         $data["order_money"] = "2";
-        // 发放人数
-        $data["order_people_num"] = "2";
         // 祝福语
         $data["wishing"] = "gongxi";
 
@@ -263,7 +261,7 @@ class WxController extends Controller
         // 金额
         $data["total_amount"] = $param["order_money"] * 100;
         // 发放人数
-        $data["total_num"] = $param["order_people_num"];
+        $data["total_num"] = 1;
         // 发放ip地址
         $data["client_ip"] = $param["ip_address"];
         // 祝福语
