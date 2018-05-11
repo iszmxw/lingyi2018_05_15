@@ -48,21 +48,27 @@ class WxController extends Controller
 //exit;
 //
 
-        // 商户订单号
-        $data["order_num"] = md5(time());
-        // 用户openid
-        $data["bank_card_num"] = "6214837873289338";
-        // 收款用户姓名
-        $data["bank_card_name"] = "郑旭宏";
-        $data["bank_code"] = "1001";
-        // 金额
-        $data["order_money"] = 1;
-        // 企业付款描述信息
-        $data["remark"] = "还钱";
-        // ip 地址
-        $data["ip_address"] = "120.78.140.10";
+//        // 商户订单号
+//        $data["order_num"] = md5(time());
+//        // 用户openid
+//        $data["bank_card_num"] = "6214837873289338";
+//        // 收款用户姓名
+//        $data["bank_card_name"] = "郑旭宏";
+//        $data["bank_code"] = "1001";
+//        // 金额
+//        $data["order_money"] = 1;
+//        // 企业付款描述信息
+//        $data["remark"] = "还钱";
+//        // ip 地址
+//        $data["ip_address"] = "120.78.140.10";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->pay_bank($data);
+
+
+        $data["bill_date"] = 20180508;
+        $data["bill_type"] = "ALL";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        echo $this->pay_bank($data);
+        $this->downloadBill($data);
     }
 
 
@@ -519,7 +525,12 @@ class WxController extends Controller
             }
         }
         // 得到文件名
-        $fileName = "./uploads/download.csv";
+        $filePath = "./uploads/wechat_pay_bill/" . date("Ymd") . "/";
+        // 检测文件夹是否存在
+        $this->checkPath($filePath);
+        // 保存文件名
+        $fileName = $filePath . "download_" . date("His") . ".csv";
+        // 写入文件夹
         file_put_contents($fileName, $res);
         // 告诉浏览器通过附件形式来处理文件
         header("Content-Disposition:  attachment;  filename=" . $fileName);
@@ -883,6 +894,48 @@ class WxController extends Controller
             return false;
         } else {
             return true;
+        }
+    }
+
+    /**
+     * 检测文件夹是否存在
+     * @param $savepath
+     * @return bool
+     */
+    public function checkPath($savepath)
+    {
+        /* 检测并创建目录 */
+        if (!$this->makeDir($savepath)) {
+            return false;
+        } else {
+            /* 检测目录是否可写 */
+            if (!is_writable($savepath)) {
+                //$this->error = '上传目录 ' . $savepath . ' 不可写！';
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * 创建文件夹
+     * @param $savepath
+     * @return bool
+     */
+    public function makeDir($savepath)
+    {
+        $dir = $savepath;
+        if (is_dir($dir)) {
+            return true;
+        }
+
+        if (mkdir($dir, 0777, true)) {
+            chmod($dir, 0777);
+            return true;
+        } else {
+            //$this->error = "目录 {$savepath} 创建失败！";
+            return false;
         }
     }
 
