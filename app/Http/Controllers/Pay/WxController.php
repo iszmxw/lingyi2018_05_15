@@ -67,29 +67,22 @@ class WxController extends Controller
 //exit;
 //
 
-//        // 商户订单号
-//        $data["order_num"] = md5(time());
-//        // 用户openid
-//        $data["bank_card_num"] = "6214837873289338";
-//        // 收款用户姓名
-//        $data["bank_card_name"] = "郑旭宏";
-//        $data["bank_code"] = "1001";
-//        // 金额
-//        $data["order_money"] = 1;
-//        // 企业付款描述信息
-//        $data["remark"] = "还钱";
-//        // ip 地址
-//        $data["ip_address"] = "120.78.140.10";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->pay_bank($data);
+        // 商户订单号
+        $data["order_num"] = md5(time());
+        // 用户openid
+        $data["bank_card_num"] = "6214837873289338";
+        // 收款用户姓名
+        $data["bank_card_name"] = "郑旭宏";
+        $data["bank_code"] = "1001";
+        // 金额
+        $data["order_money"] = 1;
+        // 企业付款描述信息
+        $data["remark"] = "还钱";
+        // ip 地址
+        $data["ip_address"] = "120.78.140.10";
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        echo $this->pay_bank($data);
 
-
-//        $data["bill_date"] = 20180508;
-//        $data["bill_type"] = "ALL";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-
-//        echo $this->getpublickey();
     }
 
 
@@ -117,9 +110,9 @@ class WxController extends Controller
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 收款方银行卡号
-        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], "");
+        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], $file_name);
         // 收款方用户名
-        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], "");
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], $file_name);
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
