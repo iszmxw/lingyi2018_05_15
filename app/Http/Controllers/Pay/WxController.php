@@ -33,7 +33,7 @@ class WxController extends Controller
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
-    private $mchName = "lingyifuwu";
+    private $mchName = "零壹服务";
 
 
     public function test13()
@@ -54,8 +54,8 @@ class WxController extends Controller
         // 发放ip地址
         $data["ip_address"] = "120.78.140.10";
         // 订单号
-//        $data["order_num"] = substr(md5(time()), 0, 28);
-        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+        $data["order_num"] = substr(md5(time()), 0, 28);
+//        $data["order_num"] = "6530cb44b093892f9e14d442472b";
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 备注
@@ -69,7 +69,7 @@ class WxController extends Controller
 
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->gethbinfo($data);
+        $res = $this->sendredpack($data);
         echo $res;
     }
 
