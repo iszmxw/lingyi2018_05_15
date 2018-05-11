@@ -61,7 +61,7 @@ class WxController extends Controller
         // 备注
         $data["remark"] = "ganjinqiang";
         // 金额
-        $data["order_money"] = "1";
+        $data["order_money"] = "0.1";
         // 祝福语
         $data["wishing"] = "gongxi";
 
