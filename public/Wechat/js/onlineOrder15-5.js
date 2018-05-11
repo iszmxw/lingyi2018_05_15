@@ -47,6 +47,7 @@ function ress_list(){
                 $ress_list.append(str);
                 show('quhuoinfo');
             } else if (json.status == 0) {
+                show('quhuoinfo');
                 console.log(json.msg);
             }
         }
@@ -76,7 +77,6 @@ function select_ress(address_id,obj){
     $(obj).find("input").addClass('action');//赋值当前单选框icon
     var ress_info = $(obj).find("input").val();
     $("#address_info").text(ress_info);//赋值上面的
-    console.log(ress_info);
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
