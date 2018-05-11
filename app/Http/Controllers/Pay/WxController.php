@@ -755,6 +755,8 @@ class WxController extends Controller
 
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
+                var_dump($v);
+                exit;
                 if (count($v) == 0) {
                     $result[$k] = '';
                 } else if (count($v) == 1) {
