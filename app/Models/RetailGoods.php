@@ -52,7 +52,7 @@ class RetailGoods extends Model{
         if (empty($row)) {
             return false;
         } else {
-            return $row;
+            return $row.'is';
         }
     }
 
