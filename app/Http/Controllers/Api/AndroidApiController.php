@@ -95,7 +95,7 @@ class AndroidApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
         }
         foreach ($categorylist as $key => $value) {
-            if (!RetailGoods::checkRowExists([['category_id', $value['id']]])) {
+            if (!RetailGoods::checkRowExists([['category_id', $value['id']]],'id')) {
                 unset($categorylist[$key]);
             };
         }

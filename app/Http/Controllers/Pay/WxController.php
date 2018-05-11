@@ -62,12 +62,184 @@ class WxController extends Controller
         // 祝福语
         $data["wishing"] = "gongxi";
 
+//        $data["amt_type"] = "ALL_RAND";
+
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->sendredpack($data);
         echo $res;
     }
 
 
+    // +----------------------------------------------------------------------
+    // | Start - 企业支付到零钱/银行
+    // +----------------------------------------------------------------------
+    /**
+     * 企业支付到银行卡接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function pay_bank($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 收款方银行卡号
+        $data["enc_bank_no"] = $param["bank_card_num"];
+        // 收款方用户名
+        $data["enc_true_name"] = $param["bank_card_name"];
+        // 收款方开户行
+        $data["bank_code"] = $param["bank_code"];
+        // 付款金额
+        $data["amount"] = $param["order_money"] * 100;
+        // 付款说明
+        $data["desc"] = $param["remark"];
+
+        // 填充数组
+        $data = $this->fillSptransData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 查询企业支付到银行卡接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function query_bank($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillSptransData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/query_bank";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+    /**
+     * 企业支付到零钱接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function transfers($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户订单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 用户openid
+        $data["openid"] = $param["openid"];
+        // 校验用户姓名选项
+        $data["check_name"] = "FORCE_CHECK";
+        // 收款用户姓名
+        $data["re_user_name"] = $param["bank_code"];
+        // 金额
+        $data["amount"] = $param["order_money"] * 100;
+        // 企业付款描述信息
+        $data["desc"] = $param["remark"];
+        // ip 地址
+        $data["spbill_create_ip"] = $param["ip_address"];
+        // 填充数组
+        $data = $this->fillTransfersData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 查询企业支付到零钱接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function gettransferinfo($param)
+    {
+
+    }
+    // +----------------------------------------------------------------------
+    // | End - 企业支付到零钱/银行
+    // +----------------------------------------------------------------------
+
+
+    // +----------------------------------------------------------------------
+    // | Start - 现金红包
+    // +----------------------------------------------------------------------
+    /**
+     * 红包查询记录
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function gethbinfo($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 订单号
+        $data["mch_billno"] = $param["order_num"];
+        // 查询类型
+        $data["bill_type"] = "MCHT";
+        // 填充数组
+        $data = $this->fillOrderData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 发送裂变红包
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function sendgroupredpack($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 订单号
+        $data["mch_billno"] = $param["order_num"];
+        // 发送的openid
+        $data["re_openid"] = $param["openid"];
+        // 金额
+        $data["total_amount"] = $param["order_money"] * 100;
+        // 发放人数
+        $data["total_num"] = $param["order_people_num"];
+        // 发放ip地址
+        $data["client_ip"] = $param["ip_address"];
+        // 祝福语
+        $data["wishing"] = $param["wishing"];
+        // 红包金额设置方式：ALL_RAND（由微信进行随机分配）
+        $data["amt_type"] = $param["amt_type"];
+        // 活动名称
+        $data["act_name"] = $param["activity_name"];
+        // 备注
+        $data["remark"] = $param["remark"];
+        // 填充数组
+        $data = $this->fillRedEnvelopeData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+    /**
+     * 普通红包
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
     public function sendredpack($param)
     {
         // 请求参数处理
@@ -88,15 +260,16 @@ class WxController extends Controller
         $data["act_name"] = $param["activity_name"];
         // 备注
         $data["remark"] = $param["remark"];
-
         // 填充数组
         $data = $this->fillRedEnvelopeData($data);
-
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
         return $this->responseDispose($url, $data, "POST", true);
     }
+    // +----------------------------------------------------------------------
+    // | End - 现金红包
+    // +----------------------------------------------------------------------
 
     // +----------------------------------------------------------------------
     // | Start - 订单相关接口
@@ -359,6 +532,29 @@ class WxController extends Controller
     // | Start - 公用方法
     // +----------------------------------------------------------------------
 
+    public function fillTransfersData($param)
+    {
+        $param["mch_appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+    /**
+     * 填充企业支付到银行数据
+     * @param $param
+     * @return mixed
+     */
+    public function fillSptransData($param)
+    {
+        $param["mch_id"] = $this->mchId;
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+
     /**
      * 填充红包数据
      * @param $param
@@ -369,7 +565,6 @@ class WxController extends Controller
         $param["wxappid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
         $param["send_name"] = $this->mchName;
-        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
@@ -406,6 +601,9 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
+//
+//        var_dump($resXml);
+//        exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
 

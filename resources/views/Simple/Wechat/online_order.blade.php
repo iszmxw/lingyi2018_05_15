@@ -12,8 +12,13 @@
   </head>
   <body>
     <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
+<<<<<<< HEAD
     <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
     <input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
+=======
+	<input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
+	<input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
+>>>>>>> e824055260237f0fd0139859fa011f32f7b9d4e1
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
     <div class="page">
 	    <div class="g-flexview">
