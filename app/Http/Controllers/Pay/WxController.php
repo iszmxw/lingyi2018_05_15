@@ -749,10 +749,10 @@ class WxController extends Controller
         $xml = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
         $json = json_encode($xml);
         $result = array();
-        $bad_result = json_decode($json, TRUE);  // value，一个字段多次出现，结果中的value是数组
+        // value，一个字段多次出现，结果中的value是数组
+        $bad_result = json_decode($json, TRUE);
         // return $bad_result;
-        var_dump($bad_result);
-exit;
+
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
                 if (count($v) == 0) {
