@@ -170,9 +170,6 @@ class WxController extends Controller
         $url = "https://api.mch.weixin.qq.com/pay/micropay";
         // 返回结果
         return $this->responseDispose($url, $data);
-//
-//        $res = $this->wechat->microPay($data);
-//        return $this->resDispose($res);
     }
 
 
