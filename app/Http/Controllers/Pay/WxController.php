@@ -141,8 +141,16 @@ class WxController extends Controller
         // 返回结果
         $res = $this->responseDispose($url, $data, "POST", true);
 
-        echo $res;
+        echo $res;exit;
 
+        // 得到文件名
+        $filePath = "./uploads/pay/wechat/public_key/" . $this->appId . "/";
+        // 检测文件夹是否存在
+        $this->checkPath($filePath);
+        // 保存文件名
+        $fileName = $filePath . "publicrsa.pem";
+        // 写入文件夹
+        file_put_contents($fileName,"");
 
     }
 
@@ -267,8 +275,7 @@ class WxController extends Controller
      * @throws \Exception
      */
     public function sendgroupredpack($param)
-    {
-        // 请求参数处理
+    {// 请求参数处理
         $param = $this->requestDispose($param);
         // 订单号
         $data["mch_billno"] = $param["order_num"];
