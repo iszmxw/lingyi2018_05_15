@@ -52,7 +52,7 @@ class WxController extends Controller
     {
         $data["bill_date"] = 20180509;
         $data["bill_type"] = "ALL";
-        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $this->downloadBill($data);
     }
 
@@ -340,16 +340,6 @@ class WxController extends Controller
         return $this->responseDispose($url, $data);
     }
 
-    function xml_parser($str){
-        $xml_parser = xml_parser_create();
-        if(!xml_parse($xml_parser,$str,true)){
-            xml_parser_free($xml_parser);
-            return false;
-        }else {
-//            return (json_decode(json_encode(simplexml_load_string($str)),true));
-            return true;
-        }
-    }
 
     /**
      * 下载对账单
@@ -376,18 +366,22 @@ class WxController extends Controller
         // 发送请求
         $res = $this->httpRequest($url, "POST", $data);
 
-        $res1 = $this->xml_parser($res);
-        var_dump($res1);
-       var_dump($res);
-       exit;
+        $res_xml_parser = $this->xmlParser($res);
+        if ($res_xml_parser == true) {
+            $res = json_decode(json_encode(simplexml_load_string($res)), true);
+            if ($res["return_code"] != "SUCCESS") {
+                return json_encode($res, JSON_UNESCAPED_UNICODE);
+            }
+        }
+
+        var_dump($res);
+        exit;
 
 //        // 获取数据
 //        $res = $this->wechat->downloadBill($data);
 
         // 判断数据返回结果
-        if ($res["return_code"] != "SUCCESS") {
-            return json_encode($res, JSON_UNESCAPED_UNICODE);
-        }
+
 
         $res = $res["data"];
         // 得到文件名
@@ -736,6 +730,22 @@ class WxController extends Controller
             }
         }
         return $xml->asXML();
+    }
+
+    /**
+     * 判断是否为xml 格式
+     * @param $str
+     * @return bool
+     */
+    function xmlParser($str)
+    {
+        $xml_parser = xml_parser_create();
+        if (!xml_parse($xml_parser, $str, true)) {
+            xml_parser_free($xml_parser);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // +----------------------------------------------------------------------
