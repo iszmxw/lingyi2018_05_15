@@ -37,6 +37,7 @@ class WxController extends Controller
 
     public function test13()
     {
+
         // 活动名称
         $data["activity_name"] = "zzzz";
         // 发放ip地址
