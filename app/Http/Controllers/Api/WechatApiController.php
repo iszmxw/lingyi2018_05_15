@@ -1045,7 +1045,7 @@ class WechatApiController extends Controller
                     'sex' => $self_take_info['sex'],
                     'realname' => $self_take_info['realname'],
                     'mobile' => $self_take_info['mobile'],
-                    'code' => $rand,
+//                    'code' => $rand,
                 ];
                 SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
 
