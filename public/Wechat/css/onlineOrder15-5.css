@@ -549,6 +549,19 @@ body {
 /* 选择快递方式弹框 */
 .selectexpress .quhuo{
 	width: 10.0rem;
+    padding: 0 0;
+    background: #ffffff;
+    z-index: 100;
+    min-height: 8.4rem;
+    padding-bottom: 2.4rem;
+    position: relative;
+}
+.selectexpress .quhuo .quhuoinfo{
+    font-size: 0.8rem;
+    color: rgb(0,0,0);
+    text-align: center;
+    margin: .75rem 0 .7rem 0;
+    font-weight: 600;
 }
 .selectexpress .quhuo .max_height_box > a:first-child{
 	margin-top: 0.25rem;
@@ -572,6 +585,41 @@ body {
 .selectexpress .quhuo .max_height_box .action{
 	color: rgb(254,219,67);
 	border: 0.025rem solid rgb(254,219,67);
+}
+.selectexpress .quhuo .alert_btn_wz{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+    width: 100%;
+}
+.selectexpress .quhuo .alert_btn_wz .btn_alert{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	text-align: center;
+}
+.selectexpress .quhuo .max_height_box {
+    max-height: 20rem;
+    overflow: auto;
+    padding: 0 1.925rem;
+}
+.selectexpress .quhuo .btn_alert_bg{
+	background: rgb(254,219,67);
+}
+.selectexpress .quhuo .btn_alert_bg1{
+	background: #ffffff;
+}
+.selectexpress .quhuo .my_text_align{
+	text-align: center;
+	color: rgb(0,0,00);
+	font-weight: 600;
 }
 /* 选择快递方式弹框 */
 /* alert */

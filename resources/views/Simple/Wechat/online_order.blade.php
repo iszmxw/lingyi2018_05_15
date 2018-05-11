@@ -39,7 +39,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>配送方式</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>到店自提</p>
+							<p>快递配送</p>
 					      </div>
 					    </div>
 				    </div>
