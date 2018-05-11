@@ -87,11 +87,7 @@ class WxController extends Controller
 //        $data["bill_date"] = 20180508;
 //        $data["bill_type"] = "ALL";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        if(
-            file_exists(realpath("./uploads/pay/wechat/public_key/wx3fb8f4754008e524/publicrsa.pem"))
-        ){
-            echo 123;
-        }
+
 
 //        echo $this->getpublickey();
     }
@@ -111,15 +107,19 @@ class WxController extends Controller
      */
     public function pay_bank($param)
     {
-
+        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
+        // 如果不存在公钥文件就进行生成
+        if (!file_exists(realpath($file_name))) {
+            $this->getpublickey();
+        }
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 收款方银行卡号
-        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"],"");
+        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], "");
         // 收款方用户名
-        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"],"");
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], "");
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
@@ -158,11 +158,11 @@ class WxController extends Controller
         }
 
         // 得到文件名
-        $filePath = "./uploads/pay/wechat/public_key/" . $this->appId . "/";
+        $filePath = "./uploads/pay/wechat/public_key/{$this->mchId}/";
         // 检测文件夹是否存在
         $this->checkPath($filePath);
         // 保存文件名
-        $fileName = $filePath . "publicrsa.pem";
+        $fileName = "{$filePath}publicrsa.pem";
         // 写入文件夹
         file_put_contents($fileName, $res["data"]["pub_key"]);
         // 返回保存路径
