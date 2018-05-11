@@ -50,9 +50,10 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '150337637120180509095053';
-        $res = $this->orderQuery($data);
+        $reqData["order_num_type"] = "out_refund_no";
+        $reqData["order_num"] = "1003022622018050853721122351525761650";
+        $reqData = json_encode($reqData,JSON_UNESCAPED_UNICODE);
+        $res = $this->refundQuery($reqData);
         echo $res;
     }
 
