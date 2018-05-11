@@ -2,7 +2,7 @@ $(function(){
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
-    var zerone_user_id = $("#zerone_user_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//userID
     //查询用户默认收货地址信息
     var address_url = "http://develop.01nnt.com/api/wechatApi/address";
     $.post(
@@ -22,10 +22,8 @@ $(function(){
     );
 });
 function ress_list(){
-    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
-    var store_id = $("#store_id").val();//店铺ID
-    var zerone_user_id = $("#zerone_user_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//userID
     var url = "http://develop.01nnt.com/api/wechatApi/address_list";
     $.post(
         url,
@@ -33,12 +31,39 @@ function ress_list(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
+                var str ="";
+                for (var i = 0; i < json.data.address_list.length; i++) {
+                    var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
+                                    json.data.address_list[i].district_name + json.data.address_list[i].address;
+                    var realname =json.data.address_list[i].realname;
+                    var mobile =json.data.address_list[i].mobile;
+                    var status =json.data.address_list[i].status;
+                    str += ress_list_box(ress_info,realname,mobile,status);
+                }
+                var $ress_list = $("#ress_list_box");
+                $ress_list.empty();
+                $ress_list.append(str);
                 show('quhuoinfo');
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
         }
     );
+}
+function ress_list_box(ress_info,realname,mobile,status){
+    var str = "";
+    str += '<div class="row alert_list">'+
+        '<div class="col-85 radio_css">';
+        if(status && status == 1){
+            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">';
+        }else{
+            str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
+        }
+        str += '<label for="userinfo">'+ress_info+'</label>'+realname+mobile+'</label>'+
+        '</div>'+
+        '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
+    '</div>';
+    return str;
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
