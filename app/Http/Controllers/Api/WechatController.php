@@ -50,7 +50,7 @@ class WechatController extends Controller
         $organization_name = Organization::getPluck([['id',$store_id]],'organization_name');
 
         Session::put('organization_name', $organization_name);
-        
+
         // 渲染页面
         return view('Simple/Wechat/goodslist');
     }
