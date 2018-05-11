@@ -128,7 +128,8 @@
 				</div>
 				<div class="alert_btn_wz">
 					<!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="hide('alert')">确认</a>
+					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg ress_confirm" id="ress_confirm">确认ress_confirm</a>
+					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg peisong_confirm" id="peisong_confirm">确认peisong_confirm</a>
 				</div>
 			</div>
 		</div>
