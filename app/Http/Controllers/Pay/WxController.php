@@ -436,6 +436,17 @@ class WxController extends Controller
     // | Start - 公用方法
     // +----------------------------------------------------------------------
 
+
+    public function fillRedEnvelopeQueryData($param)
+    {
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+
     public function fillTransfersData($param)
     {
         $param["mch_appid"] = $this->appId;
@@ -484,7 +495,7 @@ class WxController extends Controller
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
-//        $param["sign_type"] = "MD5";
+        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
