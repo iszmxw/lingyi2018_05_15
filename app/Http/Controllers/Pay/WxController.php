@@ -94,6 +94,7 @@ class WxController extends Controller
         $data["bill_type"] = "MCHT";
         // 填充数组
         $data = $this->fillOrderData($data);
+        unset($data["sign_type"]);
         dd($data);
         exit;
         // 接口地址
