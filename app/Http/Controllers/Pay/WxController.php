@@ -752,7 +752,7 @@ class WxController extends Controller
         $bad_result = json_decode($json, TRUE);  // value，一个字段多次出现，结果中的value是数组
         // return $bad_result;
         var_dump($bad_result);
-
+exit;
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
                 if (count($v) == 0) {
