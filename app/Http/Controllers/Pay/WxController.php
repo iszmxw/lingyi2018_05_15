@@ -542,6 +542,7 @@ class WxController extends Controller
      */
     function fillData($param, $type)
     {
+        $param["mch_id"] = $this->mchId;
         switch ($type) {
             // 填充订单数据
             case "order" :
@@ -563,7 +564,9 @@ class WxController extends Controller
             // 填充企业支付到零钱数据
             case "transfers" :
                 $param["mchid"] = $this->mchId;
+
                 $param["mch_appid"] = $this->appId;
+                $param["appid"] = $this->appId;
                 break;
             // 填充企业支付到银行数据
             case "sptrans" :
