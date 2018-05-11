@@ -39,7 +39,8 @@ function ress_list(){
                     var realname =json.data.address_list[i].realname;
                     var mobile =json.data.address_list[i].mobile;
                     var status =json.data.address_list[i].status;
-                    str += ress_list_box(ress_info,realname,mobile,status);
+                    var address_id =json.data.address_list[i].address_id;
+                    str += ress_list_box(ress_info,realname,mobile,status,address_id);
                 }
                 var $ress_list = $("#ress_list_box");
                 $ress_list.empty();
@@ -52,17 +53,17 @@ function ress_list(){
     );
 }
 //收货地址列表拼接
-function ress_list_box(ress_info,realname,mobile,status){
+function ress_list_box(ress_info,realname,mobile,status,address_id){
     var str = "";
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address">'+
-            '<label for="userinfo"  onclick="select_ress()">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address">'+
+            '<label for="userinfo'+address_id+'"  onclick="select_ress()">';
         }else{
-            str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address"><label for="userinfo">';
         }
-        str += '<label for="userinfo">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
+        str += '<label for="userinfo'+address_id+'">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
