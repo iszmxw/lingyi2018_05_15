@@ -87,7 +87,8 @@ function selectexpress(obj,address){
     $this.addClass("action").siblings().removeClass('action');
     //隐藏添加收货地址按钮
     if (address == 1) {//快递配送
-        return;
+        $("#ress_confirm").show();
+        $("#peisong_confirm").hide();
     }else if(address == 2){//到店自提
         $("#ress_confirm").hide();
         $("#peisong_confirm").show();
