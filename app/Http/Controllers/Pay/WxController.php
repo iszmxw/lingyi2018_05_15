@@ -167,13 +167,15 @@ class WxController extends Controller
 
 
     /**
-     * 扫码下单接口
+     * 扫码下订单
      * @param $param
-     * @return string|void
+     * @return string
+     * @throws \Exception
      */
     public function nativeOrder($param)
     {
-
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
@@ -186,9 +188,10 @@ class WxController extends Controller
     }
 
     /**
-     * jsApi 接口
+     * jsApi 下订单
      * @param $param
      * @return string
+     * @throws \Exception
      */
     public function jsApiOrder($param)
     {
@@ -216,6 +219,7 @@ class WxController extends Controller
      * 关闭订单接口
      * @param $param
      * @return string
+     * @throws \Exception
      */
     public function closeOrder($param)
     {
@@ -223,14 +227,19 @@ class WxController extends Controller
         $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data["out_trade_no"] = $param["order_num"];
-        $res = $this->wechat->closeOrder($data);
-        return $this->resDispose($res);
+        // 填充数组
+        $data = $this->fillData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/pay/closeorder";
+        // 返回结果
+        return $this->responseDispose($url, $data);
     }
 
     /**
      * 统一下单接口
      * @param array $param
      * @return string
+     * @throws \Exception
      */
     public function unifiedOrder($param)
     {
@@ -253,8 +262,17 @@ class WxController extends Controller
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
 
-        $res = $this->wechat->unifiedOrder($data);
-        return $this->resDispose($res);
+
+        // 填充数组
+        $data = $this->fillData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+        // 返回结果
+        return $this->responseDispose($url, $data, "post", false);
+//
+//        $res = $this->wechat->unifiedOrder($data);
+//        // 返回结果
+//        return $this->resDispose($res);
     }
 
 
@@ -276,6 +294,7 @@ class WxController extends Controller
         $data = $this->fillData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        // 返回结果
         return $this->responseDispose($url, $data);
     }
 
@@ -286,6 +305,7 @@ class WxController extends Controller
      *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
      * @param array $param
      * @return string
+     * @throws \Exception
      */
     public function refund($param = [])
     {
@@ -303,17 +323,12 @@ class WxController extends Controller
         $data["refund_desc"] = $param["refund_reason"];
         // 通知地址
         $data["notify_url"] = $this->notify_url;
-
-//        $res = $this->wechat->refund($data);
-//        return $this->resDispose($res);
-        // 请求参数处理
-
         // 填充数组
         $data = $this->fillData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-
-        return $this->responseDispose($url, $data,"POST",true);
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
     }
 
 
@@ -336,6 +351,7 @@ class WxController extends Controller
         $data = $this->fillData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/refundquery";
+        // 返回结果
         return $this->responseDispose($url, $data);
     }
 
