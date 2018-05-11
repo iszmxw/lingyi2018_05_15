@@ -616,7 +616,21 @@ class WechatApiController extends Controller
         // 用户零壹id
         $zerone_user_id = $request->zerone_user_id;
         // 查询收货地址列表
-        $address_list = SimpleAddress::getList([['zerone_user_id', $zerone_user_id]]);
+        $address = SimpleAddress::getList([['zerone_user_id', $zerone_user_id]]);
+
+        $address_list = [
+            "address_id" => $address['id'],
+            "province_id" => $address['province_id'],
+            "province_name" => $address['province_name'],
+            "city_id" => $address['city_id'],
+            "city_name" => $address['city_name'],
+            "district_id" => $address['district_id'],
+            "district_name" => $address['district_name'],
+            "address" => $address['address'],
+            "realname" => $address['realname'],
+            "mobile" => $address['mobile'],
+            "status" => $address['status'],
+        ];
 
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_list' => $address_list]];
 
@@ -1239,7 +1253,7 @@ class WechatApiController extends Controller
             // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
             if ($order['stock_status'] == '1') {
                 // 归还库存
-                $re = $this->reduce_stock($order_id, '-1','online');
+                $re = $this->reduce_stock($order_id, '-1', 'online');
                 if ($re != 'ok') {
                     return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
                 }
@@ -1273,7 +1287,7 @@ class WechatApiController extends Controller
             // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
             if ($order['stock_status'] == '1') {
                 // 归还库存
-                $re = $this->reduce_stock($order_id, '-1','selftake');
+                $re = $this->reduce_stock($order_id, '-1', 'selftake');
                 if ($re != 'ok') {
                     return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
                 }
