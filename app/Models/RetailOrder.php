@@ -103,6 +103,7 @@ class RetailOrder extends Model
     {
         return self::where($where)->pluck($pluck);
     }
+
 }
 
 ?>
