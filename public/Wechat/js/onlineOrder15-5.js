@@ -15,8 +15,9 @@ $(function(){
                                     json.data.address_info.district_name +json.data.address_info.address
                                     +json.data.address_info.mobile;
                 $("#address_info").text(address_info);
-                $("#address_info_box").show();
+                $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
+                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
             }
         }
@@ -71,6 +72,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     '</div>';
     return str;
 }
+//收货地址选择
 function select_ress(address_id,obj){
     $(":radio[name='dizhi']").removeAttr('checked');//找到所有单选框删除选择状态
     $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
@@ -79,16 +81,29 @@ function select_ress(address_id,obj){
     var ress_info = $(obj).find("input").val();
     $("#address_info").text(ress_info);//赋值上面的
 }
-//隐藏alert
-$(".popup_alert").click(function(e){
-    //stopPropagation(e);
-    if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
-        $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
-           setTimeout(function(){
-              $(".popup_alert").css({display: 'none'});
-         },250);
+//配送选择
+function selectexpress(obj,address){
+    var $this = $(obj);
+    $this.addClass("action").siblings().removeClass('action');
+    //隐藏添加收货地址按钮
+    if (address == 1) {//快递配送
+        $("#ress_confirm").show();
+        $("#peisong_confirm").hide();
+    }else if(address == 2){//到店自提
+        $("#ress_confirm").hide();
+        $("#peisong_confirm").show();
     }
-})
+}
+//隐藏alert
+// $(".popup_alert").click(function(e){
+//     //stopPropagation(e);
+//     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
+//         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
+//            setTimeout(function(){
+//               $(".popup_alert").css({display: 'none'});
+//          },250);
+//     }
+// })
 //因为冒泡了，会执行到下面的方法。
 function stopPropagation(e) {
     var ev = e || window.event;

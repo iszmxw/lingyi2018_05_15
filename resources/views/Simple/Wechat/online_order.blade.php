@@ -39,7 +39,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>配送方式</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>到店自提</p>
+							<p>快递配送</p>
 					      </div>
 					    </div>
 				    </div>
@@ -133,6 +133,26 @@
 			</div>
 		</div>
 		<!-- alert -->
+        <!-- alert -->
+        <div class="popup_alert selectexpress" id="selectexpress">
+            <div class="quhuo alert_width popup_alert_hook">
+                <p class="quhuoinfo">选择配送方式</p>
+                <div class="max_height_box">
+                    <a href="javascript:;" class="action" onclick="selectexpress(this,1)">快递配送</a>
+                    <a href="javascript:;" onclick="selectexpress(this,2)">到店自提</a>
+                </div>
+                <div class="alert_btn_wz">
+                    <!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
+                    <a href="http://develop.01nnt.com/zerone/wechat/address_add"
+                    class="btn_alert my_text_align btn_alert_bg ress_confirm"
+                    id="ress_confirm" external>确认</a>
+					<a href="http://develop.01nnt.com/zerone/wechat/selftake_order"
+                    class="btn_alert my_text_align btn_alert_bg peisong_confirm"
+                    id="peisong_confirm" external>确认</a>
+                </div>
+            </div>
+        </div>
+        <!-- alert -->
     </div>
 
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>

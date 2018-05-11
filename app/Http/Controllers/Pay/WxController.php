@@ -34,7 +34,26 @@ class WxController extends Controller
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
     private $mchName = "零壹服务";
-
+    // 微信支付支持的银行信息
+    private $bank_info = [
+        ["bank_name" => "工商银行", "bank_code" => "1002"],
+        ["bank_name" => "农业银行", "bank_code" => "1005"],
+        ["bank_name" => "中国银行", "bank_code" => "1026"],
+        ["bank_name" => "建设银行", "bank_code" => "1003"],
+        ["bank_name" => "招商银行", "bank_code" => "1001"],
+        ["bank_name" => "邮储银行", "bank_code" => "1066"],
+        ["bank_name" => "交通银行", "bank_code" => "1020"],
+        ["bank_name" => "浦发银行", "bank_code" => "1004"],
+        ["bank_name" => "民生银行", "bank_code" => "1006"],
+        ["bank_name" => "兴业银行", "bank_code" => "1009"],
+        ["bank_name" => "平安银行", "bank_code" => "1010"],
+        ["bank_name" => "中信银行", "bank_code" => "1021"],
+        ["bank_name" => "华夏银行", "bank_code" => "1025"],
+        ["bank_name" => "广发银行", "bank_code" => "1027"],
+        ["bank_name" => "光大银行", "bank_code" => "1022"],
+        ["bank_name" => "北京银行", "bank_code" => "1032"],
+        ["bank_name" => "宁波银行", "bank_code" => "1056"]
+    ];
 
     public function test13()
     {
@@ -48,28 +67,26 @@ class WxController extends Controller
 //exit;
 //
 
-//        // 商户订单号
-//        $data["order_num"] = md5(time());
-//        // 用户openid
-//        $data["bank_card_num"] = "6214837873289338";
-//        // 收款用户姓名
-//        $data["bank_card_name"] = "郑旭宏";
-//        $data["bank_code"] = "1001";
-//        // 金额
-//        $data["order_money"] = 1;
-//        // 企业付款描述信息
-//        $data["remark"] = "还钱";
-//        // ip 地址
-//        $data["ip_address"] = "120.78.140.10";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->pay_bank($data);
-
-
-        $data["bill_date"] = 20180508;
-        $data["bill_type"] = "ALL";
+        // 商户订单号
+        $data["order_num"] = md5(time());
+        // 用户openid
+        $data["bank_card_num"] = "6214837873289338";
+        // 收款用户姓名
+        $data["bank_card_name"] = "郑旭宏";
+        $data["bank_code"] = "1001";
+        // 金额
+        $data["order_money"] = 1;
+        // 企业付款描述信息
+        $data["remark"] = "还钱";
+        // ip 地址
+        $data["ip_address"] = "120.78.140.10";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $this->downloadBill($data);
+        echo $this->pay_bank($data);
+
     }
+
+
+
 
 
     // +----------------------------------------------------------------------
@@ -83,14 +100,21 @@ class WxController extends Controller
      */
     public function pay_bank($param)
     {
+        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
+        // 如果不存在公钥文件就进行生成
+        if (!file_exists(realpath($file_name))) {
+            $this->getpublickey();
+        }
+        var_dump($file_name);
+        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 收款方银行卡号
-        $data["enc_bank_no"] = $param["bank_card_num"];
+        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], $file_name);
         // 收款方用户名
-        $data["enc_true_name"] = $param["bank_card_name"];
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], $file_name);
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
@@ -103,6 +127,41 @@ class WxController extends Controller
         $url = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank";
         // 返回结果
         return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+    /**
+     * 获取公钥
+     * @return string
+     * @throws \Exception
+     */
+    public function getpublickey()
+    {
+        // 加密类型
+        $data["sign_type"] = "MD5";
+        // 填充数组
+        $data = $this->fillData($data, "sptrans");
+        // 接口地址
+        $url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
+        // 返回结果
+        $res_json = $this->responseDispose($url, $data, "POST", true);
+
+        $res = json_decode($res_json, true);
+        // 判断接口是否出错了
+        if ($res["return_code"] == 0) {
+            return $res_json;
+        }
+
+        // 得到文件名
+        $filePath = "./uploads/pay/wechat/public_key/{$this->mchId}/";
+        // 检测文件夹是否存在
+        $this->checkPath($filePath);
+        // 保存文件名
+        $fileName = "{$filePath}publicrsa.pem";
+        // 写入文件夹
+        file_put_contents($fileName, $res["data"]["pub_key"]);
+        // 返回保存路径
+        return $fileName;
     }
 
     /**
@@ -226,8 +285,7 @@ class WxController extends Controller
      * @throws \Exception
      */
     public function sendgroupredpack($param)
-    {
-        // 请求参数处理
+    {// 请求参数处理
         $param = $this->requestDispose($param);
         // 订单号
         $data["mch_billno"] = $param["order_num"];
@@ -525,7 +583,7 @@ class WxController extends Controller
             }
         }
         // 得到文件名
-        $filePath = "./uploads/wechat_pay_bill/" . date("Ymd") . "/";
+        $filePath = "./uploads/pay/wechat/bill/" . date("Ymd") . "/";
         // 检测文件夹是否存在
         $this->checkPath($filePath);
         // 保存文件名
@@ -661,6 +719,7 @@ class WxController extends Controller
     /**
      * 生成二维码
      * @param $url
+     * @return string
      */
     public function qrCode($url)
     {
@@ -699,7 +758,16 @@ class WxController extends Controller
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
 
-        $qrCode->writeFile("./uploads/pay_qr_code.png");
+
+        // 得到文件名
+        $filePath = "./uploads/pay/wechat/micro/" . date("Ymd") . "/";
+        // 检测文件夹是否存在
+        $this->checkPath($filePath);
+        // 保存文件名
+        $fileName = $filePath . date("His") . ".png";
+        // 二维码保存
+        $qrCode->writeFile($fileName);
+        return $fileName;
     }
 
     /**
@@ -939,6 +1007,28 @@ class WxController extends Controller
         }
     }
 
+    /**
+     * ras 加密
+     * @param $str
+     * @param $file_name
+     * @return string
+     */
+    public function rsa_encrypt($str, $file_name)
+    {
+        var_dump(file_get_contents($file_name));
+
+        $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
+        var_dump($pu_key);
+        exit;
+        $encryptedBlock = '';
+        $encrypted = '';
+        // 用标准的RSA加密库对敏感信息进行加密，选择RSA_PKCS1_OAEP_PADDING填充模式
+        openssl_public_encrypt($str, $encryptedBlock, $pu_key, OPENSSL_PKCS1_OAEP_PADDING);
+        // 得到进行rsa加密并转base64之后的密文
+        $str_base64 = base64_encode($encrypted . $encryptedBlock);
+        return $str_base64;
+    }
+
     // +----------------------------------------------------------------------
     // | End - 公用方法
     // +----------------------------------------------------------------------
@@ -1006,8 +1096,8 @@ class WxController extends Controller
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        $data["product_id"] = md5(time());
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->nativeOrder($data);
-//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
+//        $res = $this->nativeOrder($data);
+//        echo "<img src='$res'>";
 
 //        // jsapi 下单
 //        $wechat = new WechatController();
