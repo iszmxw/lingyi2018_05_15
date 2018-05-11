@@ -87,8 +87,17 @@ class WxController extends Controller
 //        $data["bill_date"] = 20180508;
 //        $data["bill_type"] = "ALL";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        echo $this->getpublickey();
+        if(
+            file_exists(realpath("./uploads/pay/wechat/public_key/wx3fb8f4754008e524/publicrsa.pem"))
+        ){
+            echo 123;
+        }
+
+//        echo $this->getpublickey();
     }
+
+
+
 
 
     // +----------------------------------------------------------------------
@@ -102,14 +111,15 @@ class WxController extends Controller
      */
     public function pay_bank($param)
     {
+
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 收款方银行卡号
-        $data["enc_bank_no"] = $param["bank_card_num"];
+        $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"],"");
         // 收款方用户名
-        $data["enc_true_name"] = $param["bank_card_name"];
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"],"");
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
@@ -141,9 +151,9 @@ class WxController extends Controller
         // 返回结果
         $res_json = $this->responseDispose($url, $data, "POST", true);
 
-        $res = json_decode($res_json,true);
+        $res = json_decode($res_json, true);
         // 判断接口是否出错了
-        if($res["return_code"] == 0){
+        if ($res["return_code"] == 0) {
             return $res_json;
         }
 
@@ -154,7 +164,7 @@ class WxController extends Controller
         // 保存文件名
         $fileName = $filePath . "publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName,$res["data"]["pub_key"]);
+        file_put_contents($fileName, $res["data"]["pub_key"]);
         // 返回保存路径
         return $fileName;
     }
@@ -1000,6 +1010,24 @@ class WxController extends Controller
             //$this->error = "目录 {$savepath} 创建失败！";
             return false;
         }
+    }
+
+    /**
+     * ras 加密
+     * @param $str
+     * @param $file_name
+     * @return string
+     */
+    public function rsa_encrypt($str, $file_name)
+    {
+        $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
+        $encryptedBlock = '';
+        $encrypted = '';
+        // 用标准的RSA加密库对敏感信息进行加密，选择RSA_PKCS1_OAEP_PADDING填充模式
+        openssl_public_encrypt($str, $encryptedBlock, $pu_key, OPENSSL_PKCS1_OAEP_PADDING);
+        // 得到进行rsa加密并转base64之后的密文
+        $str_base64 = base64_encode($encrypted . $encryptedBlock);
+        return $str_base64;
     }
 
     // +----------------------------------------------------------------------
