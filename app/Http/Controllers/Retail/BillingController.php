@@ -64,7 +64,6 @@ class BillingController extends Controller
         $son_menu_data = $request->get('son_menu_data');    //中间件产生的子菜单数据参数
         $route_name = $request->path();                         //获取当前的页面路由
         $ordersn = $request->get('ordersn');                //订单编号
-        dd($request);
         $fansmanage_id = Organization::getPluck(['id' => $admin_data['organization_id']], 'parent_id');         //获取粉丝管理平台的组织id
         $search_data = [
             'ordersn' => $ordersn,
@@ -74,6 +73,7 @@ class BillingController extends Controller
             'fansmanage_id' => $fansmanage_id,
         ];
         $list = RetailOrder::getPaginage($where, $search_data, '10', 'created_at', 'DESC'); //订单信息
+        dd($list);
         return view('Retail/Billing/check_goods', ['ordersn' => $ordersn, 'list' => $list, 'admin_data' => $admin_data, 'menu_data' => $menu_data, 'son_menu_data' => $son_menu_data, 'route_name' => $route_name]);
     }
 
