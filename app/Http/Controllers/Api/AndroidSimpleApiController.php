@@ -125,7 +125,12 @@ class AndroidSimpleApiController extends Controller
 
         // 备注
         $remarks = $request->remarks;
-
+        // 折扣比率
+        $discount = $request->discount;
+        if(empty($discount)){
+            // 原价
+            $discount = 10;
+        }
         // 商品数组
         $goodsdata = json_decode($request->goodsdata, TRUE);
         $order_price = 0;
@@ -146,6 +151,8 @@ class AndroidSimpleApiController extends Controller
         $sort = 100000 + $num;
         // 订单号
         $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;
+        // 折扣价
+        $discount_price = round($order_price * $discount/10,2);
         // 数据处理
         $orderData = [
             'ordersn' => $ordersn,
@@ -155,6 +162,8 @@ class AndroidSimpleApiController extends Controller
             'simple_id' => $organization_id,
             'user_id' => $user_id,
             'operator_id' => $account_id,
+            'discount_price' => $discount_price,
+            'discount' => $discount,
             'status' => '0',
         ];
         DB::beginTransaction();
