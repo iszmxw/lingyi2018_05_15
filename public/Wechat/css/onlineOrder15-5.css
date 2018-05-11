@@ -535,6 +535,8 @@ body {
     padding-left: 2.25rem;
     cursor: pointer;
     vertical-align: middle;
+    word-wrap: break-word;
+    word-break: normal;
 }
 
 .radio_address:checked+label:after {
