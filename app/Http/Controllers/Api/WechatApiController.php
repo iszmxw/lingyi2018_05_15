@@ -1101,7 +1101,7 @@ class WechatApiController extends Controller
     }
 
     /**
-     * 线上订单列表接口
+     * 自取订单列表接口
      */
     public function selftake_order_list(Request $request)
     {

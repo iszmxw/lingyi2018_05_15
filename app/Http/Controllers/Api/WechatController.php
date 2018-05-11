@@ -119,10 +119,10 @@ class WechatController extends Controller
     /**
      * 订单详情
      */
-    public function order_submit(Request $request)
+    public function onlineOrderDetail(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/order_submit');
+        return view('Simple/Wechat/onlineOrderDetail');
     }
 
     /**
