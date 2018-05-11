@@ -42,13 +42,15 @@ class WxController extends Controller
 //        $data["order_num"] = md5(time());
 //        $data["order_money"] = 3;
 //        $data["ip_address"] = "120.78.140.10";
-//        $data["auth_code"] = "135420422521767917";
+//        $data["auth_code"] = "135420899305495836";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        echo $this->microOrder($data);
+//exit;
 
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
+
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 收款用户姓名
         $data["bank_code"] = "郑旭宏";
@@ -58,6 +60,7 @@ class WxController extends Controller
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
+        echo $data["order_num"];
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $this->transfers($data);
     }
@@ -162,7 +165,7 @@ class WxController extends Controller
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 填充数组
-        $data = $this->fillData($data, "transfers");
+        $data = $this->fillData($data, "query");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
         // 返回结果
@@ -263,7 +266,7 @@ class WxController extends Controller
         // 查询类型
         $data["bill_type"] = "MCHT";
         // 填充数组
-        $data = $this->fillData($data, "red_query");
+        $data = $this->fillData($data, "query");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -550,7 +553,7 @@ class WxController extends Controller
                 $param["sign_type"] = "MD5";
                 break;
             // 填充红包查询数据
-            case "red_query" :
+            case "query" :
                 $param["mch_id"] = $this->mchId;
                 $param["appid"] = $this->appId;
                 break;
