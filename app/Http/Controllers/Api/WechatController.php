@@ -31,7 +31,6 @@ class WechatController extends Controller
         // 获取微信公众号JSSDK 凭证
         $this->getSignPackage();
 
-        echo session("zerone_jssdk_info.appId");
         // 赋值
         $zerone_jssdk_info = (request()->get("zerone_jssdk_info"));
         // 渲染页面
