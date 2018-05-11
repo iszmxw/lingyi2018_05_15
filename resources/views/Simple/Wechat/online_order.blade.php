@@ -26,7 +26,7 @@
 				    	<div class="row">
 					      <div class="col-20 item_info"><span>收货信息</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>薛志豪-13824322924</p>
+							<p>广东省深圳市龙岗区万汇大厦1606</p>
 					      </div>
 					    </div>
 			    	</div>
@@ -42,7 +42,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>备注</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>要点要点要点</p>
+							<p>要点要点要点1313</p>
 					      </div>
 					    </div>
 				    </div>
