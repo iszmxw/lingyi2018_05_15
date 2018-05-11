@@ -60,6 +60,7 @@ class WxController extends Controller
         $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
         $res = $this->jsApiOrder($data);
         $res = json_decode($res,true);
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
