@@ -38,7 +38,7 @@ class WxController extends Controller
     public function test13()
     {
         // 订单号
-        $data["order_num"] = md5(time());
+        $data["order_num"] = substr(md5(time()),0,28);
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 金额
