@@ -48,7 +48,7 @@ function ress_list(){
                 show('quhuoinfo');
                 function select_ress(address_id){
 
-                    console.log(address_id);
+                    alert();
                 }
             } else if (json.status == 0) {
                 console.log(json.msg);
