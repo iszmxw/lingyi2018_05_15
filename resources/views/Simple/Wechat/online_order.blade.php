@@ -112,7 +112,7 @@
 		<div class="popup_alert quhuoinfo" id="quhuoinfo">
 			<div class="quhuo alert_bottom popup_alert_hook">
 				<p class="quhuoinfo">我的收货地址</p>
-				<div class="max_height_box">
+				<div class="max_height_box" id="ress_list_box">
 					<div class="row alert_list">
 					    <div class="col-85 radio_css">
 					    	<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">
