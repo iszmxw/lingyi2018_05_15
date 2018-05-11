@@ -351,7 +351,8 @@ class WxController extends Controller
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 对账日期
-        $data["bill_date"] = $param["bill_date"];
+//        $data["bill_date"] = $param["bill_date"];
+        $data["bill_date"] = "20180501";
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
 
