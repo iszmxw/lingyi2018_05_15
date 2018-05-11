@@ -501,22 +501,11 @@ class WxController extends Controller
     public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
     {
         // 将数据转化为 XML 格式
-//        $data = $this->array2xml($data);
-        $data = "<xml>
-	<appid>wx3fb8f4754008e524</appid>
-	<bill_type>MCHT</bill_type>
-	<mch_billno>c925c5da84264c46f50ba4c00fd2</mch_billno>
-	<mch_id>1503376371</mch_id>
-	<nonce_str>1887fadbb76747989dca83f163144661</nonce_str>
-	<sign>0FE8EBB4098542051D5A9EA0D31E6A61</sign>
-</xml>";
+        $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
-
-        var_dump($resXml);exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
-
         // 判断接口返回结果
         if ($param["return_code"] == "SUCCESS") {
             // 判断提交是否成功
