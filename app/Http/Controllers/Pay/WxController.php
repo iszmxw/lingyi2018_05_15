@@ -513,7 +513,7 @@ class WxController extends Controller
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
 
-        var_dump($resXml);
+        var_dump($resXml);exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
 
