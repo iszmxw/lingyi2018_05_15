@@ -260,6 +260,8 @@ class WxController extends Controller
      */
     public function orderQuery($param = [])
     {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         $data = $this->fillData($data);
@@ -304,15 +306,23 @@ class WxController extends Controller
      *          out_refund_no(商户退款单号) 和 refund_id(微信退款单号)
      * @param array $param
      * @return string
+     * @throws \Exception
      */
     public function refundQuery($param = [])
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
+//        $data[$param["order_num_type"]] = $param["order_num"];
+//        // 查询接口
+//        $res = $this->wechat->refundQuery($data);
+//        return $this->resDispose($res);
+//
+
+        // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
-        // 查询接口
-        $res = $this->wechat->refundQuery($data);
-        return $this->resDispose($res);
+        $data = $this->fillData($data);
+        $url = "https://api.mch.weixin.qq.com/pay/refundquery";
+        return $this->responseDispose($url, $data);
     }
 
     /**
