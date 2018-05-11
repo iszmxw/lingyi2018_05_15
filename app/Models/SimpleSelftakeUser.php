@@ -35,7 +35,7 @@ class SimpleSelftakeUser extends Model
         $model->realname = $param['realname'];//取货人姓名
         $model->sex = $param['sex'];//性别
         $model->mobile = $param['mobile'];//手机号码
-        $model->code = $param['code'];//取货码
+//        $model->code = $param['code'];//取货码
         $model->save();
         return $model->id;
     }

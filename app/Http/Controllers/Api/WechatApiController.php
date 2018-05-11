@@ -1010,7 +1010,7 @@ class WechatApiController extends Controller
                 // 订单号
                 $ordersn = 'selftake' . date("Ymd", time()) . '_' . $store_id . '_' . $sort;
                 // 提取码
-                $rand = rand(100000, 999999);
+//                $rand = rand(100000, 999999);
                 // 数据处理
                 $orderData = [
                     'ordersn' => $ordersn,
@@ -1020,7 +1020,7 @@ class WechatApiController extends Controller
                     'simple_id' => $store_id,
                     'user_id' => $user_id,
                     'selftake_mobile' => $self_take_info['mobile'],
-                    'selftake_code' => $rand,
+//                    'selftake_code' => $rand,
                     'status' => '0',
                 ];
                 // 添加入订单表
@@ -1045,7 +1045,7 @@ class WechatApiController extends Controller
                     'sex' => $self_take_info['sex'],
                     'realname' => $self_take_info['realname'],
                     'mobile' => $self_take_info['mobile'],
-                    'code' => $rand,
+//                    'code' => $rand,
                 ];
                 SimpleSelftakeUser::addSimpleSelftakeUser($selftake_data);
 
