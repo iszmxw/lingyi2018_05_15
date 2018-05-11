@@ -58,6 +58,7 @@ class WxController extends Controller
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
+        echo $data["order_num"];
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $this->transfers($data);
     }
