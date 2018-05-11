@@ -11,7 +11,6 @@ namespace App\Http\Controllers\Pay;
 
 use App\Http\Controllers\Api\WechatController;
 use App\Http\Controllers\Controller;
-use WXPay\WXPay;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
