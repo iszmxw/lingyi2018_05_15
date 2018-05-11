@@ -52,6 +52,7 @@ class WxController extends Controller
     {
         $data["bill_date"] = 20180509;
         $data["bill_type"] = "ALL";
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
         $this->downloadBill($data);
     }
 
@@ -345,7 +346,7 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function downloadBill($param = [])
+    public function downloadBill($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
