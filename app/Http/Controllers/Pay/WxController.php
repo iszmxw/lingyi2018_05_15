@@ -69,7 +69,7 @@ class WxController extends Controller
 
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->gethbinfo($data);
+        $res = $this->sendredpack($data);
         echo $res;
     }
 
