@@ -50,10 +50,8 @@ class RetailGoods extends Model{
     {
         $row = self::getPluck($where, $pluck)->first();
         if (empty($row)) {
-            dd($row);
             return false;
         } else {
-            dd($row);
             return true;
         }
     }
