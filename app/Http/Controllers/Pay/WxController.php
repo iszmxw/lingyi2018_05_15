@@ -758,7 +758,7 @@ class WxController extends Controller
                 if (count($v) == 0) {
                     $result[$k] = '';
                 } else if (count($v) == 1) {
-                    var_dump($v["hbinfo"]);
+                    var_dump(current($v));
                     exit;
                     $result[$k] = $v[0];
                 } else {
