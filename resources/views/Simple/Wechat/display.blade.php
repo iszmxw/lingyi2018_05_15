@@ -64,7 +64,10 @@
 		</div>
 		<!-- alert -->
     </div>
-
+    <script type="text/javascript">
+        define = null;
+        require = null;
+    </script>
 	<script type='text/javascript' src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" charset='utf-8'></script>
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/jquery.min.js" charset='utf-8'></script>
     <script type='text/javascript' src="{{asset('public/Wechat')}}/js/public/light7.min.js" charset='utf-8'></script>
