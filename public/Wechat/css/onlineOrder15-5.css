@@ -602,7 +602,9 @@ body {
 	text-align: center;
 }
 .selectexpress .quhuo .max_height_box {
-    padding-bottom: none;
+    max-height: 20rem;
+    overflow: auto;
+    padding: 0 1.925rem;
 }
 .selectexpress .quhuo .btn_alert_bg{
 	background: rgb(254,219,67);
