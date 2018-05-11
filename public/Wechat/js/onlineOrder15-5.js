@@ -33,7 +33,7 @@ function ress_list(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-
+                show('quhuoinfo');
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
