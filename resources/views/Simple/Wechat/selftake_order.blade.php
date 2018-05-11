@@ -115,7 +115,7 @@
 				    		<label for="userinfo">广东省深圳市龙岗区万汇大厦1606</label>
 					    	薛志豪（先生） 13824322924</label>
 					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-15 right_height"><a href="{{url('zerone/wechat/selftake_edit')}}"  external class="update_address"></a></div>
 					</div>
 					<div class="row alert_list">
 					    <div class="col-85 radio_css">
@@ -123,7 +123,7 @@
 				    		<label for="userinfo1">广东省深圳市龙岗区万汇大厦1606</label>
 					    	薛志豪（先生） 13824322924</label>
 					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-15 right_height"><a href="{{url('zerone/wechat/selftake_edit')}}"  external class="update_address"></a></div>
 					</div>
 					<div class="row alert_list">
 					    <div class="col-85 radio_css">
@@ -131,7 +131,7 @@
 				    		<label for="userinfo2">广东省深圳市龙岗区万汇大厦1606</label>
 					    	薛志豪（先生） 13824322924</label>
 					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-15 right_height"><a href="{{url('zerone/wechat/selftake_edit')}}"  external class="update_address"></a></div>
 					</div>
 					<div class="row alert_list">
 					    <div class="col-85 radio_css">
@@ -139,7 +139,7 @@
 				    		<label for="userinfo3">广东省深圳市龙岗区万汇大厦1606</label>
 					    	薛志豪（先生） 13824322924</label>
 					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-15 right_height"><a href="{{url('zerone/wechat/selftake_edit')}}"  external class="update_address"></a></div>
 					</div>
 				</div>
 				<a href="{{url('zerone/wechat/selftake_add')}}"  external  class="add_address_btn my_text_align">添加收货地址</a>
