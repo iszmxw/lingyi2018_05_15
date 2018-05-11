@@ -46,23 +46,23 @@ class WxController extends Controller
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        echo $this->microOrder($data);
 //exit;
+//
 
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
-
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["bank_card_num"] = "6214837873289338";
         // 收款用户姓名
-        $data["bank_code"] = "郑旭宏";
+        $data["bank_card_name"] = "郑旭宏";
+        $data["bank_code"] = "1001";
         // 金额
         $data["order_money"] = 1;
         // 企业付款描述信息
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
-        echo $data["order_num"];
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        echo $this->transfers($data);
+        echo $this->pay_bank($data);
     }
 
 

@@ -32,20 +32,11 @@
 		</div>
 		<div class="order order_m1">
 			<div class="order_address">
-				<div class="item">
-					<div class="row">
-						<div class="col-20 item_info"><span>操作员</span></div>
-						<div class="col-80 item_info1">
-							<p>韦江</p>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="row">
-						<div class="col-20 item_info"><span>消费者</span></div>
-						<div class="col-80 item_info1">
-							<p>薛志豪-13824322924</p>
-						</div>
+				<div class="row">
+					<div class="col-20"><span class="dizhi">配送到</span></div>
+					<div class="col-80">
+						<p class="order_address_p">龙城广场万汇大厦1606</p>
+						<p>薛志豪（先生） 13824322924</p>
 					</div>
 				</div>
 				<div class="order_btn">
@@ -101,13 +92,16 @@
 						<div class="col-25">&yen;88</div>
 					</div>
 					<div class="order_btn order_zongji">
+						<p><span class="yunfei">运费</span><em>50</em></p>
+					</div>
+					<div class="order_btn order_zongji">
 						<p><em>总计</em>&nbsp;&nbsp;&yen;789</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="tijiao">
-			<a href="javascript:;" class="tijao_btn">提交订单<em>&yen;568</em></a>
+			<a href="javascript:;" class="tijao_btn">确认付款<em>&yen;568</em></a>
 		</div>
 	</div>
 	<!-- alert -->

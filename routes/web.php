@@ -935,6 +935,7 @@ Route::group(['prefix' => 'zerone'], function () {
         Route::any('selftake_add', 'Api\WechatController@selftake_add')->middleware('WechatCheck');//添加自取信息
         Route::any('selftake_edit', 'Api\WechatController@selftake_edit')->middleware('WechatCheck');//编辑自取信息
         Route::any('selftake_list', 'Api\WechatController@selftake_list')->middleware('WechatCheck');//自取信息列表
+        Route::any('order_submit', 'Api\WechatController@order_submit')->middleware('WechatCheck');//订单详情
     });
 
 });
