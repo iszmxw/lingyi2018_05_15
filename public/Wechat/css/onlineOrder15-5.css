@@ -466,6 +466,16 @@ body {
     border-radius: 0.2rem;
     font-weight: 500;
 }
+.order .order_box a>i {
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url(../images/address_icon@2.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    margin-bottom: .09rem;
+    margin-right: .425rem;
+}
 
 .max_height_box {
     max-height: 20rem;
