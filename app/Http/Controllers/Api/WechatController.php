@@ -90,6 +90,15 @@ class WechatController extends Controller
     }
 
     /**
+     * 添加自取信息
+     */
+    public function selftake_add(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/selftake_add');
+    }
+
+    /**
      * 获取 wx.config 里面的签名,JSSDk 所需要的
      */
     public function getSignPackage()
