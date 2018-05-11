@@ -56,7 +56,7 @@ function ress_list(){
 function ress_list_box(ress_info,realname,mobile,status,address_id){
     var str = "";
     str += '<div class="row alert_list">'+
-        '<div class="col-85 radio_css" >';
+        '<div class="col-85 radio_css" onclick="select_ress('+address_id+',this)">';
         if(status && status == 1){
             str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address">'+
             '<label for="userinfo'+address_id+'">';
@@ -69,13 +69,12 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     '</div>';
     return str;
 }
-// function select_ress(address_id,obj){
-//     stopPropagation(obj);
-//     $(":radio[name='dizhi']").removeAttr("checked");
-//     //$(obj).find("input").attr("checked","checked");
-//
-//     console.log($(obj).find("input"));
-// }
+function select_ress(address_id,obj){
+    $(":radio[name='dizhi']").removeAttr("checked");
+    $(obj).find("input").attr("checked","checked");
+
+    console.log($(obj).find("input"));
+}
 //隐藏alert
 $(".popup_alert").click(function(e){
     //stopPropagation(e);
