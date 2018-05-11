@@ -81,6 +81,21 @@ function select_ress(address_id,obj){
     var ress_info = $(obj).find("input").val();
     $("#address_info").text(ress_info);//赋值上面的
 }
+//配送选择
+function selectexpress(obj,address){
+    var $this = $(obj);
+    $this.addClass("action").siblings().removeClass('action');
+    //隐藏添加收货地址按钮
+    if (address == 1) {//快递配送
+        //$("#address").css({display:"block"});
+        //$("#zitiinfo").hide();
+        $("#distribution").text("快递配送");
+    }else if(address == 2){//到店自提
+        //$("#zitiinfo").css({display:"block"});
+        //$("#address").hide();
+        $("#distribution").text("到店自提");
+    }
+}
 //隐藏alert
 // $(".popup_alert").click(function(e){
 //     //stopPropagation(e);
