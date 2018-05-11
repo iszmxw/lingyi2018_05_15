@@ -87,9 +87,12 @@ class WxController extends Controller
 //        $data["bill_date"] = 20180508;
 //        $data["bill_type"] = "ALL";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        if(file_exists(realpath("./uploads/pay/wechat/public_key/wx3fb8f4754008e524/publicrsa.pem"))){
+        if(
+            file_exists(realpath("./uploads/pay/wechat/public_key/wx3fb8f4754008e524/publicrsa.pem"))
+        ){
             echo 123;
         }
+
 //        echo $this->getpublickey();
     }
 
@@ -1017,7 +1020,7 @@ class WxController extends Controller
      */
     public function rsa_encrypt($str, $file_name)
     {
-        $pu_key = openssl_pkey_get_public(file_get_contents($file_name);  //读取公钥内容
+        $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
         $encryptedBlock = '';
         $encrypted = '';
         // 用标准的RSA加密库对敏感信息进行加密，选择RSA_PKCS1_OAEP_PADDING填充模式
