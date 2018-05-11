@@ -450,6 +450,32 @@ body {
     background: rgb(253, 216, 12);
     font-size: 0.8rem;
 }
+.order .order_box .address_btn {
+    display: block;
+    width: 7.5rem;
+    height: 1.65rem;
+    line-height: 1.65rem;
+    text-align: center;
+    margin: 0 auto;
+    border: 0.025rem solid rgb(254,219,67);
+    font-size: 0.7rem;
+    color: rgb(254,219,67);
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    border-radius: 0.2rem;
+    font-weight: 500;
+}
+.order .order_box a>i {
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url(../images/address_icon@2.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    margin-bottom: .09rem;
+    margin-right: .425rem;
+}
 
 .max_height_box {
     max-height: 20rem;
