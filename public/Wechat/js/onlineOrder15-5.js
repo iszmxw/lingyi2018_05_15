@@ -70,7 +70,9 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     return str;
 }
 function select_ress(address_id,obj){
+    stopPropagation(obj);
     $(obj).find("input").attr("checked","checked");
+
     alert(address_id);
 }
 //隐藏alert
