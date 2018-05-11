@@ -32,18 +32,23 @@ class WxController extends Controller
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
-
+    // 商户名称
     private $mchName = "lingyifuwu";
+
 
     public function test13()
     {
-//        $reqData["order_num_type"] = "out_refund_no";
-//        $reqData["order_num"] = "1003022622018050853721122351525761650";
-//        $data = json_encode($reqData, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refundQuery($data);
-//        echo $res;
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 5;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $this->nativeOrder($data);
+//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
-
         // 活动名称
         $data["activity_name"] = "zzzz";
         // 发放ip地址
@@ -56,13 +61,11 @@ class WxController extends Controller
         // 备注
         $data["remark"] = "ganjinqiang";
         // 金额
-        $data["order_money"] = "1";
+        $data["order_money"] = "2";
         // 发放人数
-        $data["order_people_num"] = "1";
+        $data["order_people_num"] = "2";
         // 祝福语
         $data["wishing"] = "gongxi";
-
-//        $data["amt_type"] = "ALL_RAND";
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->sendredpack($data);
@@ -165,7 +168,16 @@ class WxController extends Controller
      */
     public function gettransferinfo($param)
     {
-
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillSptransData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
     }
     // +----------------------------------------------------------------------
     // | End - 企业支付到零钱/银行
@@ -601,9 +613,6 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
-//
-//        var_dump($resXml);
-//        exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
 

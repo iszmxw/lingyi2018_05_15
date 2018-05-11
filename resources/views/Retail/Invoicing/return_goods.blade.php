@@ -50,38 +50,6 @@
                             </div>
 
                             <div class="line line-border b-b pull-in"></div>
-
-                            <div class="col-sm-12">
-                                <form method="post" class="form-horizontal"  role="form" id="currentForm" action="{{ url('retail/ajax/goods_list') }}">
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                    <label class="col-sm-1 control-label">商&nbsp; &nbsp; &nbsp;品</label>
-
-
-                                    <div class="col-sm-2">
-                                        <select name="category_id" class="form-control m-b">
-                                            <option value="0">请选择分类</option>
-                                            @foreach($category as $key=>$val)
-                                                <option value="{{$val->id}}">{{$val->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-
-                                    <div class="col-sm-2">
-                                        <input class="input-sm form-control" size="16" type="text" value="" name="goods_name" placeholder="关键字">
-                                    </div>
-                                    <div class="col-sm-1">
-
-                                        <button type="button" class="btn btn-s-md btn-info" onclick="search_goods()"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div style="clear:both"></div>
-                            <div class="line line-border b-b pull-in"></div>
-                            {{--选择供应商--}}
-                            <div id="select_company">
-
-                            </div>
                             <div class="col-sm-12">
                                 <form method="post" class="form-horizontal"  role="form" id="search_company" action="{{ url('retail/ajax/search_company') }}">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -110,6 +78,38 @@
                                     <div class="col-sm-1">
                                         <button type="button" class="btn btn-s-md btn-info" onclick="search_company()"><i class="fa fa-hand-o-up"></i>&nbsp;&nbsp;选择搜索
                                         </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div style="clear:both"></div>
+                            <div class="line line-border b-b pull-in"></div>
+                            {{--选择供应商--}}
+                            <div id="select_company">
+
+                            </div>
+
+                            <div class="col-sm-12">
+                                <form method="post" class="form-horizontal"  role="form" id="currentForm" action="{{ url('retail/ajax/goods_list') }}">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                    <label class="col-sm-1 control-label">商&nbsp; &nbsp; &nbsp;品</label>
+
+
+                                    <div class="col-sm-2">
+                                        <select name="category_id" class="form-control m-b">
+                                            <option value="0">请选择分类</option>
+                                            @foreach($category as $key=>$val)
+                                                <option value="{{$val->id}}">{{$val->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <input class="input-sm form-control" size="16" type="text" value="" name="goods_name" placeholder="关键字">
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                        <button type="button" class="btn btn-s-md btn-info" onclick="search_goods()"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
                                     </div>
                                 </form>
                             </div>
