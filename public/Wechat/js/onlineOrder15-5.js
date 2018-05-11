@@ -87,13 +87,10 @@ function selectexpress(obj,address){
     $this.addClass("action").siblings().removeClass('action');
     //隐藏添加收货地址按钮
     if (address == 1) {//快递配送
-        //$("#address").css({display:"block"});
-        //$("#zitiinfo").hide();
-        $("#distribution").text("快递配送");
+        return;
     }else if(address == 2){//到店自提
-        //$("#zitiinfo").css({display:"block"});
-        //$("#address").hide();
-        $("#distribution").text("到店自提");
+        $("#ress_confirm").hide();
+        $("#peisong_confirm").show();
     }
 }
 //隐藏alert
