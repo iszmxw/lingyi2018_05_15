@@ -15,8 +15,9 @@ $(function(){
                                     json.data.address_info.district_name +json.data.address_info.address
                                     +json.data.address_info.mobile;
                 $("#address_info").text(address_info);
-                $("#address_info_box").show();
+                $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
+                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
             }
         }
