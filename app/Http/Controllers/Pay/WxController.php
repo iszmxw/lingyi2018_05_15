@@ -51,7 +51,7 @@ class WxController extends Controller
 //        exit;
         $data["order_num"] = "c925c5da84264c46f50ba4c00fd2";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $this->gethbinfo($data);
+        echo $this->gethbinfo($data);
 
     }
 
