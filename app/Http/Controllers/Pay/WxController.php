@@ -66,8 +66,6 @@ class WxController extends Controller
 //        $data["wishing"] = "gongxi";
 
         $data["order_num"] = "c925c5da84264c46f50ba4c00fd2";
-
-
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->gethbinfo($data);
         echo $res;
@@ -96,6 +94,7 @@ class WxController extends Controller
         $data = $this->fillOrderData($data);
         unset($data["sign_type"]);
 
+        var_dump($data);exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
