@@ -58,7 +58,7 @@ class WxController extends Controller
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
-        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $this->transfers($data);
     }
 
@@ -542,28 +542,33 @@ class WxController extends Controller
      */
     function fillData($param, $type)
     {
-        $param["mch_id"] = $this->mchId;
+
         switch ($type) {
             // 填充订单数据
             case "order" :
+                $param["mch_id"] = $this->mchId;
                 $param["appid"] = $this->appId;
                 $param["sign_type"] = "MD5";
                 break;
             // 填充红包查询数据
             case "red_query" :
+                $param["mch_id"] = $this->mchId;
                 $param["appid"] = $this->appId;
                 break;
             // 填充红包数据
             case "red_append" :
+                $param["mch_id"] = $this->mchId;
                 $param["wxappid"] = $this->appId;
                 $param["send_name"] = $this->mchName;
                 break;
-            // 填充企业支付到银行数据
+            // 填充企业支付到零钱数据
             case "transfers" :
+                $param["mchid"] = $this->mchId;
                 $param["mch_appid"] = $this->appId;
                 break;
-            // 填充企业支付到零钱数据
+            // 填充企业支付到银行数据
             case "sptrans" :
+                $param["mch_id"] = $this->mchId;
                 break;
         }
         $param["nonce_str"] = $this->nonceStr();
