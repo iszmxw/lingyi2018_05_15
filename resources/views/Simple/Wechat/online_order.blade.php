@@ -113,38 +113,6 @@
 			<div class="quhuo alert_bottom popup_alert_hook">
 				<p class="quhuoinfo">我的收货地址</p>
 				<div class="max_height_box" id="ress_list_box">
-					<div class="row alert_list">
-					    <div class="col-85 radio_css">
-					    	<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">
-				    		<label for="userinfo">广东省深圳市龙岗区万汇大厦1606</label>
-					    	薛志豪（先生） 13824322924</label>
-					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
-					</div>
-					<div class="row alert_list">
-					    <div class="col-85 radio_css">
-					    	<input type="radio" id="userinfo1" name="dizhi" class="radio_address"><label for="userinfo1">
-				    		<label for="userinfo1">广东省深圳市龙岗区万汇大厦1606</label>
-					    	薛志豪（先生） 13824322924</label>
-					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
-					</div>
-					<div class="row alert_list">
-					    <div class="col-85 radio_css">
-					    	<input type="radio" id="userinfo2" name="dizhi" class="radio_address"><label for="userinfo2">
-				    		<label for="userinfo2">广东省深圳市龙岗区万汇大厦1606</label>
-					    	薛志豪（先生） 13824322924</label>
-					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
-					</div>
-					<div class="row alert_list">
-					    <div class="col-85 radio_css">
-					    	<input type="radio" id="userinfo3" name="dizhi" class="radio_address"><label for="userinfo3">
-				    		<label for="userinfo3">广东省深圳市龙岗区万汇大厦1606</label>
-					    	薛志豪（先生） 13824322924</label>
-					    </div>
-					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
-					</div>
 				</div>
 				<a href="javascript:;" class="add_address_btn my_text_align">添加收货地址</a>
 			</div>

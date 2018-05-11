@@ -637,7 +637,6 @@ class WechatApiController extends Controller
             ];
         }
 
-
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_list' => $address_list]];
 
         return response()->json($data);
