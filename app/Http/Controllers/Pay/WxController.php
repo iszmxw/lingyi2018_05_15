@@ -33,144 +33,13 @@ class WxController extends Controller
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
-    public $wechat;
-
-    public function __construct()
-    {
-        $wechat = new WXPay(
-            $this->appId,
-            $this->mchId,     // mch id
-            $this->key,
-            realpath($this->certPemPath),
-            realpath($this->keyPemPath),
-            6000
-        );
-        $this->wechat = $wechat;
-    }
 
     public function test13()
     {
 
-
-        $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
-        $data["order_money"] = 0.1;
-        $data["ip_address"] = "120.78.140.10";
-        $data["auth_code"] = "135396626885200686";
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        echo $this->microOrder($data);
-    }
-
-    public function demo()
-    {
-        // 刷卡支付
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 0.1;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["auth_code"] = "135463544838356441";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->microOrder($data);
-
-        // 下载对账单
-//        $data["bill_date"] = 20180508;
-//        $data["bill_type"] = "ALL";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->downloadBill($data);
-
-        // 关闭订单
-//        $data["order_num"] = 1503376371;
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->closeOrder($data);
-//        echo $res;
-
-//        // native 下单
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 0.01;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["trade_type"] = "NATIVE";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->nativeOrder($data);
-//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
-
-//        // jsapi 下单
-//        $wechat = new WechatController();
-//        $wechat->getSignPackage();
-//        $signPackage = request()->get("zerone_jssdk_info");
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 0.1;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["trade_type"] = "JSAPI";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->jsApiOrder($data);
-//        $res = json_decode($res,true);
-//        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
-
-
-        // 订单查询
-//        $data["order_num_type"] = 'out_trade_no';
-//        $data["order_num"] = '150337637120180509095053';
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->orderQuery($data);
-//        echo $res;
-
-//        // 退款查询接口
-//        $reqData["order_num_type"] = "out_refund_no";
-//        $reqData["order_num"] = "1003022622018050853721122351525761650";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refundQuery($reqData);
-//        echo $res;
-
-//        // 退款接口
-//        $data["order_num_type"] = 'out_trade_no';
-//        $data["order_num"] = '150337637120180509095053';
-//        // 商户退款单号
-//        $data["refund_num"] = md5(time());
-//        // 订单金额
-//        $data["order_money"] = 0.1;
-//        // 退款金额
-//        $data["refund_money"] = 0.01;
-//        // 退款原因
-//        $data["refund_reason"] = "不想买了";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refund($data);
-//        echo $res;
     }
 
 
-    /**
-     * 刷卡支付
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function microOrder($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 商品信息
-        $data["body"] = $param["desc"];
-        // 订单号
-        $data["out_trade_no"] = $param["order_num"];
-        // 金额
-        $data["total_fee"] = $param["order_money"] * 100;
-        // ip 地址
-        $data["spbill_create_ip"] = $param["ip_address"];
-        // 授权码
-        $data["auth_code"] = $param["auth_code"];
-        // 填充数组
-        $data = $this->fillData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/pay/micropay";
-        // 返回结果
-        return $this->responseDispose($url, $data);
-    }
 
 
     /**
@@ -235,6 +104,35 @@ class WxController extends Controller
         // 返回结果
         return $this->responseDispose($url, $data);
     }
+
+    /**
+     * 刷卡支付
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function microOrder($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商品信息
+        $data["body"] = $param["desc"];
+        // 订单号
+        $data["out_trade_no"] = $param["order_num"];
+        // 金额
+        $data["total_fee"] = $param["order_money"] * 100;
+        // ip 地址
+        $data["spbill_create_ip"] = $param["ip_address"];
+        // 授权码
+        $data["auth_code"] = $param["auth_code"];
+        // 填充数组
+        $data = $this->fillData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/pay/micropay";
+        // 返回结果
+        return $this->responseDispose($url, $data);
+    }
+
 
     /**
      * 统一下单接口
@@ -749,5 +647,93 @@ class WxController extends Controller
 
     // +----------------------------------------------------------------------
     // | End - 公用方法
+    // +----------------------------------------------------------------------
+
+    // +----------------------------------------------------------------------
+    // | Start - 公共例子
+    // +----------------------------------------------------------------------
+    public function demo()
+    {
+        // 刷卡支付
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["auth_code"] = "135463544838356441";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->microOrder($data);
+
+        // 下载对账单
+//        $data["bill_date"] = 20180508;
+//        $data["bill_type"] = "ALL";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $this->downloadBill($data);
+
+        // 关闭订单
+//        $data["order_num"] = 1503376371;
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->closeOrder($data);
+//        echo $res;
+
+//        // native 下单
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.01;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $this->nativeOrder($data);
+//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
+
+//        // jsapi 下单
+//        $wechat = new WechatController();
+//        $wechat->getSignPackage();
+//        $signPackage = request()->get("zerone_jssdk_info");
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "JSAPI";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->jsApiOrder($data);
+//        $res = json_decode($res,true);
+//        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+
+
+        // 订单查询
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->orderQuery($data);
+//        echo $res;
+
+//        // 退款查询接口
+//        $reqData["order_num_type"] = "out_refund_no";
+//        $reqData["order_num"] = "1003022622018050853721122351525761650";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->refundQuery($reqData);
+//        echo $res;
+
+//        // 退款接口
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        // 商户退款单号
+//        $data["refund_num"] = md5(time());
+//        // 订单金额
+//        $data["order_money"] = 0.1;
+//        // 退款金额
+//        $data["refund_money"] = 0.01;
+//        // 退款原因
+//        $data["refund_reason"] = "不想买了";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->refund($data);
+//        echo $res;
+    }
+    // +----------------------------------------------------------------------
+    // | End - 公共例子
     // +----------------------------------------------------------------------
 }

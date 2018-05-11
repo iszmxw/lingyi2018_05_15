@@ -1,6 +1,0 @@
-.idea
-.vscode
-vendor
-composer.lock
-tests/Config.php
-tests/test.php

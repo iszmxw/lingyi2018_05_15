@@ -39,7 +39,6 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         array (
             'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
-            'WXPay\\' => 6,
         ),
         'T' => 
         array (
@@ -150,10 +149,6 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
-        ),
-        'WXPay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wxpay/wxpay/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -504,6 +499,8 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'App\\Models\\ProgramModuleNode' => __DIR__ . '/../..' . '/app/Models/ProgramModuleNode.php',
         'App\\Models\\Province' => __DIR__ . '/../..' . '/app/Models/Province.php',
         'App\\Models\\RetailCategory' => __DIR__ . '/../..' . '/app/Models/RetailCategory.php',
+        'App\\Models\\RetailCheckOrder' => __DIR__ . '/../..' . '/app/Models/RetailCheckOrder.php',
+        'App\\Models\\RetailCheckOrderGoods' => __DIR__ . '/../..' . '/app/Models/RetailCheckOrderGoods.php',
         'App\\Models\\RetailConfig' => __DIR__ . '/../..' . '/app/Models/RetailConfig.php',
         'App\\Models\\RetailGoods' => __DIR__ . '/../..' . '/app/Models/RetailGoods.php',
         'App\\Models\\RetailGoodsThumb' => __DIR__ . '/../..' . '/app/Models/RetailGoodsThumb.php',
@@ -538,6 +535,9 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'App\\Models\\SimplePurchaseOrder' => __DIR__ . '/../..' . '/app/Models/SimplePurchaseOrder.php',
         'App\\Models\\SimplePurchaseOrderGoods' => __DIR__ . '/../..' . '/app/Models/SimplePurchaseOrderGoods.php',
         'App\\Models\\SimpleSelftake' => __DIR__ . '/../..' . '/app/Models/SimpleSelftake.php',
+        'App\\Models\\SimpleSelftakeGoods' => __DIR__ . '/../..' . '/app/Models/SimpleSelftakeGoods.php',
+        'App\\Models\\SimpleSelftakeOrder' => __DIR__ . '/../..' . '/app/Models/SimpleSelftakeOrder.php',
+        'App\\Models\\SimpleSelftakeUser' => __DIR__ . '/../..' . '/app/Models/SimpleSelftakeUser.php',
         'App\\Models\\SimpleStock' => __DIR__ . '/../..' . '/app/Models/SimpleStock.php',
         'App\\Models\\SimpleStockLog' => __DIR__ . '/../..' . '/app/Models/SimpleStockLog.php',
         'App\\Models\\SimpleSupplier' => __DIR__ . '/../..' . '/app/Models/SimpleSupplier.php',
@@ -4179,9 +4179,6 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
-        'WXPay\\WXPay' => __DIR__ . '/..' . '/wxpay/wxpay/src/WXPay.php',
-        'WXPay\\WXPayConstants' => __DIR__ . '/..' . '/wxpay/wxpay/src/WXPayConstants.php',
-        'WXPay\\WXPayUtil' => __DIR__ . '/..' . '/wxpay/wxpay/src/WXPayUtil.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',

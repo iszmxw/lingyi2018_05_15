@@ -4575,40 +4575,6 @@
         ]
     },
     {
-        "name": "wxpay/wxpay",
-        "version": "0.0.5",
-        "version_normalized": "0.0.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/wxpay/WXPay-SDK-PHP.git",
-            "reference": "6bf6918257886b35327d86371a05f145997b8deb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/wxpay/WXPay-SDK-PHP/6bf6918257886b35327d86371a05f145997b8deb.zip",
-            "reference": "6bf6918257886b35327d86371a05f145997b8deb",
-            "shasum": ""
-        },
-        "time": "2017-03-13T13:19:01+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "WXPay\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD"
-        ],
-        "description": "微信支付 PHP SDK",
-        "keywords": [
-            "pay",
-            "sdk",
-            "wechat"
-        ]
-    },
-    {
         "name": "zhuzhichao/ip-location-zh",
         "version": "v1.9.4",
         "version_normalized": "1.9.4.0",
