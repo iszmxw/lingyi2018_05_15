@@ -42,7 +42,7 @@ class WxController extends Controller
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 金额
-        $data["order_money"] = "0.1";
+        $data["order_money"] = "0.01";
         // 发放人数
         $data["order_people_num"] = "1";
         // 发放ip地址
