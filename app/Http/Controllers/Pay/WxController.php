@@ -525,7 +525,7 @@ class WxController extends Controller
             }
         }
         // 得到文件名
-        $filePath = "./uploads/wechat_pay_bill/" . date("Ymd") . "/";
+        $filePath = "./uploads/pay/wechat/bill/" . date("Ymd") . "/";
         // 检测文件夹是否存在
         $this->checkPath($filePath);
         // 保存文件名
@@ -698,6 +698,17 @@ class WxController extends Controller
 //        return $qrCode->writeString();
         // 保存文件
 //        $qrCode->writeFile(__DIR__.'/qrcode.png');
+
+
+        // 得到文件名
+        $filePath = "./uploads/pay/wechat/micro/" . date("Ymd") . "/";
+        // 检测文件夹是否存在
+        $this->checkPath($filePath);
+        // 保存文件名
+        $fileName = $filePath . date("His") . ".csv";
+
+
+
 
         $qrCode->writeFile("./uploads/pay_qr_code.png");
     }
