@@ -21,6 +21,7 @@ $(function(){
         }
     );
 });
+//收货地址列表查询
 function ress_list(){
     var _token = $("#_token").val();
     var zerone_user_id = $("#zerone_user_id").val();//userID
@@ -50,12 +51,13 @@ function ress_list(){
         }
     );
 }
+//收货地址列表拼接
 function ress_list_box(ress_info,realname,mobile,status){
     var str = "";
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">';
+            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" onchange="select_ress()" class="radio_address"><label for="userinfo">';
         }else{
             str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
         }
@@ -64,6 +66,9 @@ function ress_list_box(ress_info,realname,mobile,status){
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
     return str;
+}
+function select_ress(){
+    console.log("adas");
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
