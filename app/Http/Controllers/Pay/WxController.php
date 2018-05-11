@@ -65,7 +65,7 @@ class WxController extends Controller
 //        // 祝福语
 //        $data["wishing"] = "gongxi";
 
-        $data["order_num"] = "86dc28bb7e80201a3d9b7d9d6209";
+        $data["order_num"] = "c925c5da84264c46f50ba4c00fd2";
 
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
