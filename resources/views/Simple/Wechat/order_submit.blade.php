@@ -32,12 +32,11 @@
 		</div>
 		<div class="order order_m1">
 			<div class="order_address">
-				<div class="item">
-					<div class="row">
-						<div class="col-20 item_info"><span>操作员</span></div>
-						<div class="col-80 item_info1">
-							<p>韦江</p>
-						</div>
+				<div class="row">
+					<div class="col-20"><span class="dizhi">配送到</span></div>
+					<div class="col-80">
+						<p class="order_address_p">龙城广场万汇大厦1606</p>
+						<p>薛志豪（先生） 13824322924</p>
 					</div>
 				</div>
 				<div class="item">
