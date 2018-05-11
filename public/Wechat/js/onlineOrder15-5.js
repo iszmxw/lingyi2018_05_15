@@ -59,7 +59,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
         '<div class="col-85 radio_css">';
         if(status && status == 1){
             str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address">'+
-            '<label for="userinfo'+address_id+'"  onchange="select_ress('+address_id+')">';
+            '<label for="userinfo'+address_id+'">';
         }else{
             str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address"><label for="userinfo">';
         }
@@ -69,10 +69,9 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     '</div>';
     return str;
 }
-function select_ress(address_id){
-
-    console.log(address_id);
-}
+$(".radio_address:radio").click(function(){
+   alert("您是..." + $(this).val());
+});
 //隐藏alert
 $(".popup_alert").click(function(e){
     //stopPropagation(e);
