@@ -484,7 +484,7 @@ class WxController extends Controller
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
-        $param["sign_type"] = "MD5";
+//        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
