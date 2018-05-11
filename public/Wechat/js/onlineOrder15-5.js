@@ -16,7 +16,9 @@ $(function(){
                 console.log(json.msg);
             }
         }
-    );
+    ).error(function(){
+            alert("请求失败");
+    });
 });
 
 //隐藏alert
