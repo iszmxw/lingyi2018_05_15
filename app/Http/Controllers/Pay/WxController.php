@@ -53,7 +53,7 @@ class WxController extends Controller
         $data["bill_date"] = 20180509;
         $data["bill_type"] = "ALL";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $this->downloadBill($data);
+        echo $this->downloadBill($data);
     }
 
     public function demo()
