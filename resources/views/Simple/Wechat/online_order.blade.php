@@ -12,7 +12,7 @@
   </head>
   <body>
     <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-    <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{$fansmanage_id}}">
+    <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="session("zerone_auth_info.organization_id")">
     <input type="hidden" name="store_id" id="store_id" value="{{$store_id}}">
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
     <div class="page">
