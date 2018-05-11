@@ -39,8 +39,23 @@ class WxController extends Controller
     }
 
 
+    public function sendredpack($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 查询订单类型，和相对应的订单号
+        $data["out_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillOrderData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        // 返回结果
+        return $this->responseDispose($url, $data);
+    }
 
-
+    // +----------------------------------------------------------------------
+    // | Start - 订单相关接口
+    // +----------------------------------------------------------------------
     /**
      * 扫码下订单
      * @param $param
@@ -97,7 +112,7 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $data["out_trade_no"] = $param["order_num"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/closeorder";
         // 返回结果
@@ -125,7 +140,7 @@ class WxController extends Controller
         // 授权码
         $data["auth_code"] = $param["auth_code"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/micropay";
         // 返回结果
@@ -160,7 +175,7 @@ class WxController extends Controller
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         // 返回结果
@@ -183,7 +198,7 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         // 返回结果
@@ -216,7 +231,7 @@ class WxController extends Controller
         // 通知地址
         $data["notify_url"] = $this->notify_url;
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
         // 返回结果
@@ -240,7 +255,7 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/refundquery";
         // 返回结果
@@ -263,7 +278,7 @@ class WxController extends Controller
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
         // 填充数组
-        $data = $this->fillData($data);
+        $data = $this->fillOrderData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
         // 将数据转化为 XML 格式
@@ -291,7 +306,9 @@ class WxController extends Controller
         readfile($fileName);
     }
 
-
+    // +----------------------------------------------------------------------
+    // | End - 订单相关接口
+    // +----------------------------------------------------------------------
 
     // +----------------------------------------------------------------------
     // | Start - 公用方法
@@ -302,7 +319,7 @@ class WxController extends Controller
      * @param $param
      * @return mixed
      */
-    public function fillData($param)
+    public function fillOrderData($param)
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
