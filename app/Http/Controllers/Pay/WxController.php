@@ -50,24 +50,25 @@ class WxController extends Controller
 //        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
          // 活动名称
-//        $data["activity_name"] = "zzzz";
-//        // 发放ip地址
-//        $data["ip_address"] = "120.78.140.10";
-//        // 订单号
-//        $data["order_num"] = substr(md5(time()), 0, 28);
-////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
-//        // 发送的openid
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        // 备注
-//        $data["remark"] = "ganjinqiang";
-//        // 金额
-//        $data["order_money"] = "1";
-//        // 祝福语
-//        $data["wishing"] = "gongxi";
+        $data["activity_name"] = "zzzz";
+        // 发放ip地址
+        $data["ip_address"] = "120.78.140.10";
+        // 订单号
+        $data["order_num"] = substr(md5(time()), 0, 28);
+//        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+        // 发送的openid
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 
-        $data["order_num"] = "c925c5da84264c46f50ba4c00fd2";
+        $data["order_people_num"] = 1;
+        // 备注
+        $data["remark"] = "ganjinqiang";
+        // 金额
+        $data["order_money"] = "1";
+        // 祝福语
+        $data["wishing"] = "gongxi";
+
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->gethbinfo($data);
+        $res = $this->sendgroupredpack($data);
         echo $res;
     }
 
@@ -76,66 +77,6 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     // | Start - 现金红包
     // +----------------------------------------------------------------------
-    /**
-     * 红包查询记录
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function gethbinfo($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 订单号
-        $data["mch_billno"] = $param["order_num"];
-        // 查询类型
-        $data["bill_type"] = "MCHT";
-        // 填充数组
-        $data = $this->fillOrderData($data);
-        unset($data["sign_type"]);
-
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-
-    /**
-     * 发送裂变红包
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function sendgroupredpack($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 订单号
-        $data["mch_billno"] = $param["order_num"];
-        // 发送的openid
-        $data["re_openid"] = $param["openid"];
-        // 金额
-        $data["total_amount"] = $param["order_money"] * 100;
-        // 发放人数
-        $data["total_num"] = $param["order_people_num"];
-        // 发放ip地址
-        $data["client_ip"] = $param["ip_address"];
-        // 祝福语
-        $data["wishing"] = $param["wishing"];
-        // 红包金额设置方式：ALL_RAND（由微信进行随机分配）
-        $data["amt_type"] = $param["amt_type"];
-        // 活动名称
-        $data["act_name"] = $param["activity_name"];
-        // 备注
-        $data["remark"] = $param["remark"];
-        // 填充数组
-        $data = $this->fillRedEnvelopeData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-
 
     /**
      * 普通红包
@@ -167,6 +108,67 @@ class WxController extends Controller
         $data = $this->fillRedEnvelopeData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 发送裂变红包
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function sendgroupredpack($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 订单号
+        $data["mch_billno"] = $param["order_num"];
+        // 发送的openid
+        $data["re_openid"] = $param["openid"];
+        // 金额
+        $data["total_amount"] = $param["order_money"] * 100;
+        // 发放人数
+        $data["total_num"] = $param["order_people_num"];
+        // 发放ip地址
+        $data["client_ip"] = $param["ip_address"];
+        // 祝福语
+        $data["wishing"] = $param["wishing"];
+        // 红包金额设置方式：ALL_RAND（由微信进行随机分配）
+//        $data["amt_type"] = $param["amt_type"];
+        $data["amt_type"] = "ALL_RAND";
+        // 活动名称
+        $data["act_name"] = $param["activity_name"];
+        // 备注
+        $data["remark"] = $param["remark"];
+        // 填充数组
+        $data = $this->fillRedEnvelopeData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+
+    /**
+     * 红包查询记录
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function gethbinfo($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 订单号
+        $data["mch_billno"] = $param["order_num"];
+        // 查询类型
+        $data["bill_type"] = "MCHT";
+        // 填充数组
+        $data = $this->fillRedEnvelopeQueryData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
         return $this->responseDispose($url, $data, "POST", true);
     }
@@ -435,6 +437,17 @@ class WxController extends Controller
     // | Start - 公用方法
     // +----------------------------------------------------------------------
 
+
+    public function fillRedEnvelopeQueryData($param)
+    {
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+
     public function fillTransfersData($param)
     {
         $param["mch_appid"] = $this->appId;
@@ -501,21 +514,11 @@ class WxController extends Controller
     public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
     {
         // 将数据转化为 XML 格式
-//        $data = $this->array2xml($data);
-        $data = "<xml>
-	<appid>wx3fb8f4754008e524</appid>
-	<bill_type>MCHT</bill_type>
-	<mch_billno>c925c5da84264c46f50ba4c00fd2</mch_billno>
-	<mch_id>1503376371</mch_id>
-	<nonce_str>1887fadbb76747989dca83f163144661</nonce_str>
-	<sign>0FE8EBB4098542051D5A9EA0D31E6A61</sign>
-</xml>";
+        $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
-
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
-
         // 判断接口返回结果
         if ($param["return_code"] == "SUCCESS") {
             // 判断提交是否成功
@@ -750,14 +753,17 @@ class WxController extends Controller
         $xml = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
         $json = json_encode($xml);
         $result = array();
-        $bad_result = json_decode($json, TRUE);  // value，一个字段多次出现，结果中的value是数组
+        // value，一个字段多次出现，结果中的value是数组
+        $bad_result = json_decode($json, TRUE);
         // return $bad_result;
+
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
                 if (count($v) == 0) {
                     $result[$k] = '';
                 } else if (count($v) == 1) {
-                    $result[$k] = $v[0];
+//                    $result[$k] = $v[0];
+                    $result[$k] = current($v);
                 } else {
                     throw new \Exception('Duplicate elements in XML. ' . $str);
                 }
