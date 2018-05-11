@@ -142,7 +142,7 @@
 					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
 					</div>
 				</div>
-				<a href="{{url('zerone/wechat/address_add')}}"  external  class="add_address_btn my_text_align">添加收货地址</a>
+				<a href="{{url('zerone/wechat/selftake_add')}}"  external  class="add_address_btn my_text_align">添加收货地址</a>
 			</div>
 		</div>
 		<!-- alert -->
