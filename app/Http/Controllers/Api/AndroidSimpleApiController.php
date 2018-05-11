@@ -73,7 +73,7 @@ class AndroidSimpleApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
         }
         foreach ($categorylist as $key => $value) {
-            if (!SimpleGoods::checkRowExists([['category_id', $value['id']]],'id')) {
+            if (!SimpleGoods::checkRowExists([['category_id', $value['id']]], 'id')) {
                 unset($categorylist[$key]);
             };
         }
@@ -127,7 +127,7 @@ class AndroidSimpleApiController extends Controller
         $remarks = $request->remarks;
         // 折扣比率
         $discount = $request->discount;
-        if(empty($discount)){
+        if (empty($discount)) {
             // 原价
             $discount = 10;
         }
@@ -152,7 +152,7 @@ class AndroidSimpleApiController extends Controller
         // 订单号
         $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;
         // 折扣价
-        $discount_price = round($order_price * $discount/10,2);
+        $discount_price = round($order_price * $discount / 10, 2);
         // 数据处理
         $orderData = [
             'ordersn' => $ordersn,
@@ -262,7 +262,7 @@ class AndroidSimpleApiController extends Controller
             }
             $where[] = ['status', $status];
         }
-        $orderlist = SimpleOrder::getListPaginate($where, '20', 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        $orderlist = SimpleOrder::getListPaginate($where, '20', 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'discount_price', 'payment_price', 'discount', 'created_at']);
         if ($orderlist->toArray()) {
             // 订单数量
             $total_num = count($orderlist);
@@ -277,7 +277,7 @@ class AndroidSimpleApiController extends Controller
         $data = [
             'orderlist' => $orderlist,
             'total_num' => $total_num,
-            'total_amount' => round($total_amount,2),
+            'total_amount' => round($total_amount, 2),
         ];
         return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => $data]);
     }
@@ -302,6 +302,7 @@ class AndroidSimpleApiController extends Controller
         //用户昵称
         $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname')->first();
         $goodsdata = $order['simple_order_goods'];//订单商品列表
+        $ordergoods = [];
         foreach ($goodsdata as $key => $value) {
             $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
             $ordergoods[$key]['title'] = $value['title']; //商品名字
@@ -323,6 +324,9 @@ class AndroidSimpleApiController extends Controller
         if (empty($order['paytype'])) {
             $order['paytype'] = '';
         }
+        if (empty($order['payment_price'])) {
+            $order['payment_price'] = '';
+        }
         $orderdata = [
             'id' => $order['id'], //订单id
             'ordersn' => $order['ordersn'],//订单编号
@@ -337,6 +341,9 @@ class AndroidSimpleApiController extends Controller
             'simple_id' => $order['simple_id'],//店铺ID
             'operator_account' => $operator_account,//操作人账号
             'realname' => $account_realname,//操作人员昵称
+            'discount_price' => $order['discount_price'],//折扣价
+            'payment_price' => $order['payment_price'],//实收价格
+            'discount' => $order['discount'],//折扣比率
             'created_at' => $order['created_at'],//添加时间
         ];
         $data = [
@@ -371,8 +378,11 @@ class AndroidSimpleApiController extends Controller
                     return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
+            // 折扣价
+            $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
+
             // 修改订单状态
-            SimpleOrder::editSimpleOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1']);
+            SimpleOrder::editSimpleOrder([['id', $order_id]], ['paytype' => $paytype, 'payment_price' => $payment_price, 'status' => '1']);
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
@@ -409,8 +419,9 @@ class AndroidSimpleApiController extends Controller
                     return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
+            $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
             // 修改订单状态
-            SimpleOrder::editSimpleOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1', 'payment_company' => $payment_company]);
+            SimpleOrder::editSimpleOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1', 'payment_company' => $payment_company, 'payment_price' => $payment_price]);
             // 提交事务
             DB::commit();
         } catch (\Exception $e) {
