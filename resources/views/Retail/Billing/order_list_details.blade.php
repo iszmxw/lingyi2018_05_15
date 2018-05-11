@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-2 text-right">订单编号</label>
+                        <label class="col-sm-2 text-right">单据编号</label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$order->ordersn}}" class="form-control" disabled="" name="ordersn">
                         </div>
@@ -65,7 +65,7 @@
                                 </tr>
                             @endforeach
                         @elseif($order->type == 4)
-                            @foreach($order->RetailOrderGoods as $key=>$val)
+                            @foreach($order->RetailCheckOrderGoods as $key=>$val)
                                 <tr>
                                     <td>{{$val->id}}</td>
                                     <td><a href="{{url('retail/goods/goods_edit?goods_id='.$val->goods_id)}}">{{$val->title}}</a></td>

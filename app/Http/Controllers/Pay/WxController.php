@@ -33,7 +33,7 @@ class WxController extends Controller
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
-    private $mchName = "lingyifuwu";
+    private $mchName = "零壹服务";
 
 
     public function test13()
@@ -49,137 +49,30 @@ class WxController extends Controller
 //        $this->nativeOrder($data);
 //        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
-        // 活动名称
-        $data["activity_name"] = "zzzz";
-        // 发放ip地址
-        $data["ip_address"] = "120.78.140.10";
-        // 订单号
+         // 活动名称
+//        $data["activity_name"] = "zzzz";
+//        // 发放ip地址
+//        $data["ip_address"] = "120.78.140.10";
+//        // 订单号
 //        $data["order_num"] = substr(md5(time()), 0, 28);
-        $data["order_num"] = "6530cb44b093892f9e14d442472b";
-        // 发送的openid
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        // 备注
-        $data["remark"] = "ganjinqiang";
-        // 金额
-        $data["order_money"] = "2";
-        // 祝福语
-        $data["wishing"] = "gongxi";
+////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+//        // 发送的openid
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        // 备注
+//        $data["remark"] = "ganjinqiang";
+//        // 金额
+//        $data["order_money"] = "1";
+//        // 祝福语
+//        $data["wishing"] = "gongxi";
+
+        $data["order_num"] = "86dc28bb7e80201a3d9b7d9d6209";
+
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->sendredpack($data);
+        $res = $this->gethbinfo($data);
         echo $res;
     }
 
-
-    // +----------------------------------------------------------------------
-    // | Start - 企业支付到零钱/银行
-    // +----------------------------------------------------------------------
-    /**
-     * 企业支付到银行卡接口
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function pay_bank($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 商户企业付款单号
-        $data["partner_trade_no"] = $param["order_num"];
-        // 收款方银行卡号
-        $data["enc_bank_no"] = $param["bank_card_num"];
-        // 收款方用户名
-        $data["enc_true_name"] = $param["bank_card_name"];
-        // 收款方开户行
-        $data["bank_code"] = $param["bank_code"];
-        // 付款金额
-        $data["amount"] = $param["order_money"] * 100;
-        // 付款说明
-        $data["desc"] = $param["remark"];
-
-        // 填充数组
-        $data = $this->fillSptransData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-
-    /**
-     * 查询企业支付到银行卡接口
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function query_bank($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 商户企业付款单号
-        $data["partner_trade_no"] = $param["order_num"];
-        // 填充数组
-        $data = $this->fillSptransData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/query_bank";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-
-
-    /**
-     * 企业支付到零钱接口
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function transfers($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 商户订单号
-        $data["partner_trade_no"] = $param["order_num"];
-        // 用户openid
-        $data["openid"] = $param["openid"];
-        // 校验用户姓名选项
-        $data["check_name"] = "FORCE_CHECK";
-        // 收款用户姓名
-        $data["re_user_name"] = $param["bank_code"];
-        // 金额
-        $data["amount"] = $param["order_money"] * 100;
-        // 企业付款描述信息
-        $data["desc"] = $param["remark"];
-        // ip 地址
-        $data["spbill_create_ip"] = $param["ip_address"];
-        // 填充数组
-        $data = $this->fillTransfersData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-
-    /**
-     * 查询企业支付到零钱接口
-     * @param $param
-     * @return string
-     * @throws \Exception
-     */
-    public function gettransferinfo($param)
-    {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
-        // 商户企业付款单号
-        $data["partner_trade_no"] = $param["order_num"];
-        // 填充数组
-        $data = $this->fillSptransData($data);
-        // 接口地址
-        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
-        // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
-    }
-    // +----------------------------------------------------------------------
-    // | End - 企业支付到零钱/银行
-    // +----------------------------------------------------------------------
 
 
     // +----------------------------------------------------------------------
@@ -201,6 +94,8 @@ class WxController extends Controller
         $data["bill_type"] = "MCHT";
         // 填充数组
         $data = $this->fillOrderData($data);
+        unset($data["sign_type"]);
+
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -937,6 +832,28 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     public function demo()
     {
+
+        //发放普通红包
+//        // 活动名称
+//        $data["activity_name"] = "zzzz";
+//        // 发放ip地址
+//        $data["ip_address"] = "120.78.140.10";
+//        // 订单号
+//        $data["order_num"] = substr(md5(time()), 0, 28);
+////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+//        // 发送的openid
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        // 备注
+//        $data["remark"] = "ganjinqiang";
+//        // 金额
+//        $data["order_money"] = "1";
+//        // 祝福语
+//        $data["wishing"] = "gongxi";
+//
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->sendredpack($data);
+//        echo $res;
+
         // 刷卡支付
 //        $data["desc"] = "商品-xho-test";
 //        $data["order_num"] = md5(time());
