@@ -49,23 +49,23 @@ class WxController extends Controller
 //        $this->nativeOrder($data);
 //        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
-        // 活动名称
-//        $data["activity_name"] = "zzzz";
-//        // 发放ip地址
-//        $data["ip_address"] = "120.78.140.10";
-//        // 订单号
-//        $data["order_num"] = substr(md5(time()), 0, 28);
-////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
-//        // 发送的openid
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        // 备注
-//        $data["remark"] = "ganjinqiang";
-//        // 金额
-//        $data["order_money"] = "1";
-//        // 祝福语
-//        $data["wishing"] = "gongxi";
+         活动名称
+        $data["activity_name"] = "zzzz";
+        // 发放ip地址
+        $data["ip_address"] = "120.78.140.10";
+        // 订单号
+        $data["order_num"] = substr(md5(time()), 0, 28);
+//        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+        // 发送的openid
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        // 备注
+        $data["remark"] = "ganjinqiang";
+        // 金额
+        $data["order_money"] = "1";
+        // 祝福语
+        $data["wishing"] = "gongxi";
 
-        $data["order_num"] = "86dc28bb7e80201a3d9b7d9d6209";
+//        $data["order_num"] = "86dc28bb7e80201a3d9b7d9d6209";
 
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
