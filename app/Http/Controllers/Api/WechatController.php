@@ -30,7 +30,6 @@ class WechatController extends Controller
 
         // 获取微信公众号JSSDK 凭证
         $this->getSignPackage();
-       print_r(Session::get("zerone_jssdk_info"));
         // 赋值
         $zerone_jssdk_info = (request()->get("zerone_jssdk_info"));
         // 渲染页面
