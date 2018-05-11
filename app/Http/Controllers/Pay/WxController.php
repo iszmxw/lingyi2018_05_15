@@ -501,7 +501,7 @@ class WxController extends Controller
     public function responseDispose($url, $data, $method = "POST", $is_ssh = false)
     {
         // 将数据转化为 XML 格式
-        $data = $this->array2xml($data);
+//        $data = $this->array2xml($data);
         $data = "<xml>
 	<appid>wx3fb8f4754008e524</appid>
 	<bill_type>MCHT</bill_type>
