@@ -620,17 +620,17 @@ class WechatApiController extends Controller
         $address_list = [];
         foreach($address as $key=>$value){
             $address_list[$key] = [
-                "address_id" => $address['id'],
-                "province_id" => $address['province_id'],
-                "province_name" => $address['province_name'],
-                "city_id" => $address['city_id'],
-                "city_name" => $address['city_name'],
-                "district_id" => $address['district_id'],
-                "district_name" => $address['district_name'],
-                "address" => $address['address'],
-                "realname" => $address['realname'],
-                "mobile" => $address['mobile'],
-                "status" => $address['status'],
+                "address_id" => $value['id'],
+                "province_id" => $value['province_id'],
+                "province_name" => $value['province_name'],
+                "city_id" => $value['city_id'],
+                "city_name" => $value['city_name'],
+                "district_id" => $value['district_id'],
+                "district_name" => $value['district_name'],
+                "address" => $value['address'],
+                "realname" => $value['realname'],
+                "mobile" => $value['mobile'],
+                "status" => $value['status'],
             ];
         }
 
