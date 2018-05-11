@@ -72,6 +72,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     '</div>';
     return str;
 }
+//收货地址选择
 function select_ress(address_id,obj){
     $(":radio[name='dizhi']").removeAttr('checked');//找到所有单选框删除选择状态
     $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
@@ -81,15 +82,15 @@ function select_ress(address_id,obj){
     $("#address_info").text(ress_info);//赋值上面的
 }
 //隐藏alert
-$(".popup_alert").click(function(e){
-    //stopPropagation(e);
-    if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
-        $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
-           setTimeout(function(){
-              $(".popup_alert").css({display: 'none'});
-         },250);
-    }
-})
+// $(".popup_alert").click(function(e){
+//     //stopPropagation(e);
+//     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
+//         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
+//            setTimeout(function(){
+//               $(".popup_alert").css({display: 'none'});
+//          },250);
+//     }
+// })
 //因为冒泡了，会执行到下面的方法。
 function stopPropagation(e) {
     var ev = e || window.event;
