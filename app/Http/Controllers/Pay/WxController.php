@@ -53,6 +53,7 @@ class WxController extends Controller
                 // native 下单
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
+
         $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "NATIVE";
