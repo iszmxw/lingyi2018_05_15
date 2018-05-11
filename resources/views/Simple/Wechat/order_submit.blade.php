@@ -92,7 +92,7 @@
 						<div class="col-25">&yen;88</div>
 					</div>
 					<div class="order_btn order_zongji">
-						<p><span class="yunfei">运费</span><em>请先添加收货地址</em></p>
+						<p><span class="yunfei">运费</span><em>50</em></p>
 					</div>
 					<div class="order_btn order_zongji">
 						<p><em>总计</em>&nbsp;&nbsp;&yen;789</p>
