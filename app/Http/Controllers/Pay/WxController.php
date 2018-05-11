@@ -254,10 +254,6 @@ class WxController extends Controller
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         // 返回结果
         return $this->responseDispose($url, $data, "post", false);
-//
-//        $res = $this->wechat->unifiedOrder($data);
-//        // 返回结果
-//        return $this->resDispose($res);
     }
 
 
@@ -369,22 +365,11 @@ class WxController extends Controller
         $res_xml_parser = $this->xmlParser($res);
         if ($res_xml_parser == true) {
             $res = $this->xml2array($res);
-            var_dump($res);
             if ($res["return_code"] != "SUCCESS") {
                 return json_encode($res, JSON_UNESCAPED_UNICODE);
             }
         }
 
-        var_dump($res);
-        exit;
-
-//        // 获取数据
-//        $res = $this->wechat->downloadBill($data);
-
-        // 判断数据返回结果
-
-
-        $res = $res["data"];
         // 得到文件名
         $fileName = "./uploads/download.csv";
         file_put_contents($fileName, $res);
