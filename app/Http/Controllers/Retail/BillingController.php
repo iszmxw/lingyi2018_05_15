@@ -72,6 +72,7 @@ class BillingController extends Controller
             'retail_id' => $admin_data['organization_id'],
             'fansmanage_id' => $fansmanage_id,
         ];
+
         $list = RetailOrder::getPaginage($where, $search_data, '10', 'created_at', 'DESC'); //订单信息
         return view('Retail/Billing/check_goods', ['ordersn' => $ordersn, 'list' => $list, 'admin_data' => $admin_data, 'menu_data' => $menu_data, 'son_menu_data' => $son_menu_data, 'route_name' => $route_name]);
     }
