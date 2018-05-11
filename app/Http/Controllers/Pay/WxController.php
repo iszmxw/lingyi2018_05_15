@@ -93,8 +93,8 @@ class WxController extends Controller
         // 填充数组
         $data = $this->fillOrderData($data);
         unset($data["sign_type"]);
+        var_dump($data);
 
-        var_dump($data);exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -484,7 +484,7 @@ class WxController extends Controller
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
-        $param["sign_type"] = "MD5";
+//        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
@@ -507,7 +507,6 @@ class WxController extends Controller
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
-
         // 判断接口返回结果
         if ($param["return_code"] == "SUCCESS") {
             // 判断提交是否成功
@@ -523,32 +522,6 @@ class WxController extends Controller
             }
         } else {
             // 接口返回失败
-            $res["return_code"] = 0;
-            $res["return_msg"] = $param["return_msg"];
-        }
-        // 返回 json 数据
-        return json_encode($res, JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * 接口返回处理
-     * @param $param
-     * @return string
-     */
-    public function resDispose($param)
-    {
-        // 判断接口返回结果
-        if ($param["return_code"] == "SUCCESS") {
-            // 判断提交是否成功
-            if (!empty($param["result_code"]) && $param["result_code"] == "FAIL") {
-                $res["return_code"] = 0;
-                $res["return_msg"] = $param["err_code_des"];
-            } else {
-                $res["data"] = $this->dataDispose($param);
-                $res["return_code"] = 1;
-                $res["return_msg"] = "SUCCESS";
-            }
-        } else {
             $res["return_code"] = 0;
             $res["return_msg"] = $param["return_msg"];
         }
