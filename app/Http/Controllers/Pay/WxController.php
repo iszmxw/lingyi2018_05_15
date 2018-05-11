@@ -362,10 +362,9 @@ class WxController extends Controller
 
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
-        // 获取数据
-        $res = $this->httpRequest($url,"POST",$data);
-        var_dump($res);
-        exit;
+        // 返回结果
+        return $this->responseDispose($url, $data);
+
 //        // 获取数据
 //        $res = $this->wechat->downloadBill($data);
 
