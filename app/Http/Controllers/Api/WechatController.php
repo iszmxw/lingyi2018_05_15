@@ -116,6 +116,14 @@ class WechatController extends Controller
         return view('Simple/Wechat/selftake_list');
     }
 
+    /**
+     * 订单详情
+     */
+    public function order_submit(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/order_submit');
+    }
 
     /**
      * 获取 wx.config 里面的签名,JSSDk 所需要的

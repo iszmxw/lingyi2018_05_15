@@ -58,10 +58,10 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css" onclick="select_ress('+address_id+',this)">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address">'+
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address action">'+
             '<label for="userinfo'+address_id+'">';
         }else{
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address action"><label for="userinfo'+address_id+'">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address"><label for="userinfo'+address_id+'">';
         }
         str += '<label for="userinfo'+address_id+'">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
@@ -70,7 +70,10 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     return str;
 }
 function select_ress(address_id,obj){
-
+    $(":radio[name='dizhi']").removeAttr('checked');
+    $(obj).find("input").attr("checked","checked");
+    $(":radio[name='dizhi']").removeClass('action');
+    $(obj).find("input").addClass('action');
     console.log($(obj).find("input").attr("checked"));
 }
 //隐藏alert
