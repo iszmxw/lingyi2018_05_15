@@ -404,6 +404,24 @@ class WxController extends Controller
     {
         // 将数据转化为 XML 格式
         $data = $this->array2xml($data);
+
+        $data = "<xml>
+	<act_name>zzzz</act_name>
+	<client_ip>120.78.140.10</client_ip>
+	<mch_billno>6530cb44b093892f9e14d442472b</mch_billno>
+	<mch_id>1503376371</mch_id>
+	<nonce_str>1c1b295bcfa64262a2840bc13b1c73df</nonce_str>
+	<re_openid>oK2HF1Sy1qdRQyqg69pPN5-rirrg</re_openid>
+	<remark>ganjinqiang</remark>
+	<send_name>lingyifuwu</send_name>
+	<sign_type>MD5</sign_type>
+	<total_amount>100</total_amount>
+	<total_num>1</total_num>
+	<wishing>gongxi</wishing>
+	<wxappid>wx3fb8f4754008e524</wxappid>
+	<sign>05B6E4D64D4CC8F00DB849279B5674A4</sign>
+</xml>";
+
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
         var_dump($resXml);
