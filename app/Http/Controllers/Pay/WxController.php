@@ -50,20 +50,9 @@ class WxController extends Controller
 
     public function test13()
     {
-                $wechat = new WechatController();
-        $wechat->getSignPackage();
-        $signPackage = request()->get("zerone_jssdk_info");
-        $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
-        $data["order_money"] = 0.1;
-        $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "JSAPI";
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        $data["product_id"] = md5(time());
-        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-        $res = $this->jsApiOrder($data);
-        $res = json_decode($res,true);
-        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+        $data["bill_date"] = 20180509;
+        $data["bill_type"] = "ALL";
+        $this->downloadBill($data);
     }
 
     public function demo()
@@ -200,7 +189,6 @@ class WxController extends Controller
         if ($res["return_code"] == 0) {
             return $res_json;
         }
-
         // 时间戳
         $res["data"]["timestamp"] = time();
         // 支付签名
@@ -365,8 +353,18 @@ class WxController extends Controller
         $data["bill_date"] = $param["bill_date"];
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
+
+        // 填充数组
+        $data = $this->fillData($data);
+
+
+
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
         // 获取数据
-        $res = $this->wechat->downloadBill($data);
+        $res = $this->httpRequest($url,"POST",$data);
+//        // 获取数据
+//        $res = $this->wechat->downloadBill($data);
 
         // 判断数据返回结果
         if ($res["return_code"] != "SUCCESS") {
