@@ -37,22 +37,24 @@ class WxController extends Controller
 
     public function test13()
     {
+        // 活动名称
+        $data["activity_name"] = "零壹活动";
+        // 发放ip地址
+        $data["ip_address"] = "120.78.140.10";
         // 订单号
         $data["order_num"] = substr(md5(time()),0,28);
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        // 备注
+        $data["remark"] = "赶紧抢";
         // 金额
         $data["order_money"] = "0.01";
         // 发放人数
         $data["order_people_num"] = "1";
-        // 发放ip地址
-        $data["ip_address"] = "120.78.140.10";
         // 祝福语
         $data["wishing"] = "恭喜";
-        // 活动名称
-        $data["activity_name"] = "零壹活动";
-        // 备注
-        $data["remark"] = "赶紧抢";
+
+
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->sendredpack($data);
