@@ -71,7 +71,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
 }
 function select_ress(address_id,obj){
     stopPropagation(obj);
-    $(":radio[name='dizhi']").removeAttr("checked");
+    //$(":radio[name='dizhi']").removeAttr("checked");
     $(obj).find("input").attr("checked","checked");
 
     console.log($(obj).find("input"));
