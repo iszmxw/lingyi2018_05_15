@@ -93,6 +93,11 @@ class SimpleOrder extends Model
         $simpleorder->operator_id = $param['operator_id'];//操作人员id
         $simpleorder->fansmanage_id = $param['fansmanage_id'];//管理平台id
         $simpleorder->simple_id = $param['simple_id'];//店铺所属组织ID
+        $simpleorder->discount_price = $param['discount_price'];//折扣价
+        if (!empty($param['payment_price'])) {
+            $simpleorder->payment_price = $param['payment_price'];//实收价
+        }
+        $simpleorder->discount = $param['discount'];//折扣比率
         if (!empty($param['paytype'])) {
             $simpleorder->paytype = $param['paytype'];//付款方式
         }
