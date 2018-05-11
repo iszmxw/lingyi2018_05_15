@@ -171,8 +171,7 @@ class WxController extends Controller
      */
     public function nativeOrder($param)
     {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
+
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
@@ -231,7 +230,7 @@ class WxController extends Controller
      * @param array $param
      * @return string
      */
-    public function unifiedOrder($param = [])
+    public function unifiedOrder($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
