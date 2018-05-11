@@ -124,7 +124,7 @@ class GoodsController extends Controller
             if ($is_barcode) {//判断商品条码是否唯一
                 return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
             }
-            if ($barcode != null) {//判断商品条码是否唯一
+            if ($barcode == null) {//判断商品条码是否唯一
                 return response()->json(['data' => '商品条码为null！', 'status' => '0']);
             }
             RetailGoods::editRetailGoods($where, $goods_data);
