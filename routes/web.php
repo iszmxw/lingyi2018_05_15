@@ -933,6 +933,7 @@ Route::group(['prefix' => 'zerone'], function () {
         Route::any('address_add', 'Api\WechatController@address_add')->middleware('WechatCheck');//添加收货地址
         Route::any('address_list', 'Api\WechatController@address_list')->middleware('WechatCheck');//收货地址列表
         Route::any('selftake_add', 'Api\WechatController@selftake_add')->middleware('WechatCheck');//添加自取信息
+        Route::any('selftake_edit', 'Api\WechatController@selftake_edit')->middleware('WechatCheck');//编辑自取信息
     });
 
 });
