@@ -405,6 +405,7 @@ class WxController extends Controller
         // 将数据转化为 XML 格式
         $data = $this->array2xml($data);
 
+
         $data = "<xml>
 	<act_name>zzzz</act_name>
 	<client_ip>120.78.140.10</client_ip>
