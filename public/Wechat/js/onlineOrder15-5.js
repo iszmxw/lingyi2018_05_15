@@ -71,7 +71,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
 }
 function select_ress(address_id,obj){
 
-    console.log($(obj).find("input"));
+    console.log($(obj).find("input").attr("checked"));
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
