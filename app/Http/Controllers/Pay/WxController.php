@@ -38,24 +38,129 @@ class WxController extends Controller
 
     public function test13()
     {
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 5;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["trade_type"] = "NATIVE";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->nativeOrder($data);
-//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
-//        exit;
-
-        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 5;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "NATIVE";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        echo $this->gethbinfo($data);
+        $this->nativeOrder($data);
+        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
+        exit;
 
     }
 
+
+    // +----------------------------------------------------------------------
+    // | Start - 企业支付到零钱/银行
+    // +----------------------------------------------------------------------
+    /**
+     * 企业支付到银行卡接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function pay_bank($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 收款方银行卡号
+        $data["enc_bank_no"] = $param["bank_card_num"];
+        // 收款方用户名
+        $data["enc_true_name"] = $param["bank_card_name"];
+        // 收款方开户行
+        $data["bank_code"] = $param["bank_code"];
+        // 付款金额
+        $data["amount"] = $param["order_money"] * 100;
+        // 付款说明
+        $data["desc"] = $param["remark"];
+        // 填充数组
+        $data = $this->fillData($data, "sptrans");
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 查询企业支付到银行卡接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function query_bank($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillData($data, "sptrans");
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaysptrans/query_bank";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+    /**
+     * 企业支付到零钱接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function transfers($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户订单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 用户openid
+        $data["openid"] = $param["openid"];
+        // 校验用户姓名选项
+        $data["check_name"] = "FORCE_CHECK";
+        // 收款用户姓名
+        $data["re_user_name"] = $param["bank_code"];
+        // 金额
+        $data["amount"] = $param["order_money"] * 100;
+        // 企业付款描述信息
+        $data["desc"] = $param["remark"];
+        // ip 地址
+        $data["spbill_create_ip"] = $param["ip_address"];
+        // 填充数组
+        $data = $this->fillData($data, "transfers");
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+
+    /**
+     * 查询企业支付到零钱接口
+     * @param $param
+     * @return string
+     * @throws \Exception
+     */
+    public function gettransferinfo($param)
+    {
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillData($data, "transfers");
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+    }
+    // +----------------------------------------------------------------------
+    // | End - 企业支付到零钱/银行
+    // +----------------------------------------------------------------------
 
 
     // +----------------------------------------------------------------------
@@ -774,11 +879,11 @@ class WxController extends Controller
     public function demo()
     {
 
-
         // 查询红包
-//        $data["order_num"] = c925c5da84264c46f50ba4c00fd2;
+//        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->gethbinfo($data);
+//        echo $this->gethbinfo($data);
+
 
         //发放普通红包
 //        // 活动名称
