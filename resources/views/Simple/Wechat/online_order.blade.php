@@ -26,6 +26,7 @@
 	        <div class="order order_m">
 				<div class="order_box">
 					<h3 class="order_state15-10">待支付</h3>
+                    <a href="javascript:;" id="address" class="address_btn" onclick="show('alert')"><i></i>添加收货地址</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
 					      <div class="col-20 item_info"><span>收货信息</span></div>
