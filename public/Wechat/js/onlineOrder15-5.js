@@ -68,6 +68,7 @@ function ress_list_box(ress_info,realname,mobile,status){
     return str;
 }
 function select_ress(){
+    
     console.log("adas");
 }
 //隐藏alert
