@@ -149,6 +149,8 @@ class WxController extends Controller
         $data["bill_type"] = "MCHT";
         // 填充数组
         $data = $this->fillData($param, "red_query");
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
