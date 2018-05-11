@@ -50,11 +50,16 @@ class WxController extends Controller
 
     public function test13()
     {
-        $reqData["order_num_type"] = "out_refund_no";
-        $reqData["order_num"] = "1003022622018050853721122351525761650";
-        $reqData = json_encode($reqData,JSON_UNESCAPED_UNICODE);
-        $res = $this->refundQuery($reqData);
-        echo $res;
+                // native 下单
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "NATIVE";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
+        $this->nativeOrder($data);
+        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
     }
 
     public function demo()
@@ -265,7 +270,9 @@ class WxController extends Controller
         $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
+        // 填充数组
         $data = $this->fillData($data);
+        // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         return $this->responseDispose($url, $data);
     }
@@ -312,16 +319,12 @@ class WxController extends Controller
     public function refundQuery($param = [])
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
-//        $data[$param["order_num_type"]] = $param["order_num"];
-//        // 查询接口
-//        $res = $this->wechat->refundQuery($data);
-//        return $this->resDispose($res);
-//
-
+            $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
+        // 填充数组
         $data = $this->fillData($data);
+        // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/refundquery";
         return $this->responseDispose($url, $data);
     }
