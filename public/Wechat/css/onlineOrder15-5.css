@@ -546,8 +546,34 @@ body {
     background: #ffffff;
     border-top: 0.025rem solid rgb(240, 240, 240);
 }
-
-
+/* 选择快递方式弹框 */
+.selectexpress .quhuo{
+	width: 10.0rem;
+}
+.selectexpress .quhuo .max_height_box > a:first-child{
+	margin-top: 0.25rem;
+}
+.selectexpress .quhuo .max_height_box > a{
+	display: block;
+	width: 4.15rem;
+	height: 1.4rem;
+	line-height: 1.4rem;
+	text-align: center;
+	margin: 0.75rem auto;
+	font-size: 0.7rem;
+	-webkit-border-radius: 0.2rem;
+	-moz-border-radius: 0.2rem;
+	-ms-border-radius: 0.2rem;
+	border-radius: 0.2rem;
+	font-weight: 500;
+	color: rgb(152,152,152);
+	border: 0.025rem solid #b8b8b8;
+}
+.selectexpress .quhuo .max_height_box .action{
+	color: rgb(254,219,67);
+	border: 0.025rem solid rgb(254,219,67);
+}
+/* 选择快递方式弹框 */
 /* alert */
 
 
