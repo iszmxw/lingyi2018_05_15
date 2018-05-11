@@ -61,7 +61,7 @@ function ress_list_box(ress_info,realname,mobile,status){
         }else{
             str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
         }
-        str += '<label for="userinfo" onchange="select_ress()">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
+        str += '<label for="userinfo" onclick="select_ress()">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
