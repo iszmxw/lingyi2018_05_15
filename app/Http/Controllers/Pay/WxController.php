@@ -1014,6 +1014,8 @@ class WxController extends Controller
     public function rsa_encrypt($str, $file_name)
     {
         $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
+        var_dump($pu_key);
+        exit;
         $encryptedBlock = '';
         $encrypted = '';
         // 用标准的RSA加密库对敏感信息进行加密，选择RSA_PKCS1_OAEP_PADDING填充模式
