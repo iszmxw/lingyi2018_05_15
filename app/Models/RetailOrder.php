@@ -91,12 +91,23 @@ class RetailOrder extends Model
     }
 
     //获取分页列表
-    public static function getPaginage($where, $paginate, $orderby, $sort = 'DESC')
-    {
+    public static function getPaginage($where,$search_data,$paginate,$orderby,$sort='DESC'){
         $model = self::with('User')->with('account')->with('account_info');
-        return $model->with('RetailOrderGoods')->where($where)->orderBy($orderby, $sort)->paginate($paginate);
-
+        if(!empty($search_data['user_id'])){
+            $model = $model->where([['user_id',$search_data['user_id']]]);
+        }
+        if(!empty($search_data['ordersn'])){
+            $model = $model->where([['ordersn',$search_data['ordersn']]]);
+        }
+        if(!empty($search_data['paytype'])){
+            $model = $model->where([['paytype',$search_data['paytype']]]);
+        }
+        if(!empty($search_data['status'])){
+            $model = $model->where([['status',$search_data['status']]]);
+        }
+        return $model->with('RetailOrderGoods')->where($where)->orderBy($orderby,$sort)->paginate($paginate);
     }
+
 
     //获取单行数据的其中一列
     public static function getPluck($where, $pluck)
