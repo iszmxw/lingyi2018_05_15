@@ -542,7 +542,6 @@ class WxController extends Controller
      */
     function fillData($param, $type)
     {
-
         switch ($type) {
             // 填充订单数据
             case "order" :
