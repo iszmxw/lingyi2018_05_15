@@ -62,8 +62,6 @@ class WxController extends Controller
         $data["remark"] = "ganjinqiang";
         // 金额
         $data["order_money"] = "2";
-        // 发放人数
-        $data["order_people_num"] = "1";
         // 祝福语
         $data["wishing"] = "gongxi";
 
