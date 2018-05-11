@@ -9,6 +9,7 @@ $(function(){
         address_url,
         {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
         function (json) {
+            
             console.log(json);
             if (json.status == 1) {
                 var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
