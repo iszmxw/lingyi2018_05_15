@@ -139,9 +139,13 @@ class WxController extends Controller
         // 接口地址
         $url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         // 返回结果
-        $res = $this->responseDispose($url, $data, "POST", true);
+        $res_json = $this->responseDispose($url, $data, "POST", true);
 
-        echo $res;exit;
+        $res = json_decode($res_json,true);
+        // 判断接口是否出错了
+        if($res["return_code"] == 0){
+            return $res_json;
+        }
 
         // 得到文件名
         $filePath = "./uploads/pay/wechat/public_key/" . $this->appId . "/";
@@ -150,8 +154,9 @@ class WxController extends Controller
         // 保存文件名
         $fileName = $filePath . "publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName,"");
-
+        file_put_contents($fileName,$res["data"]["pub_key"]);
+        // 返回保存路径
+        return $fileName;
     }
 
     /**
