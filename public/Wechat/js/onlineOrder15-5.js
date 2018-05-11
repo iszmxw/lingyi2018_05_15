@@ -32,18 +32,18 @@ function ress_list(){
             console.log(json);
             if (json.status == 1) {
                 var str ="";
-                for (var i = 0; i < json.data.address_list.length; i++) {
-                    var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
-                                    json.data.address_list[i].district_name + json.data.address_list[i].address;
-                    var realname =json.data.address_list[i].realname;
-                    var mobile =json.data.address_list[i].mobile;
-                    var status =json.data.address_list[i].status;
-                    str += ress_list_box(ress_info,realname,mobile,status);
-                }
-                var $ress_list = $("#ress_list_box");
-                $ress_list.empty();
-                $ress_list.append(str);
-                show('quhuoinfo');
+                // for (var i = 0; i < json.data.address_list.length; i++) {
+                //     var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
+                //                     json.data.address_list[i].district_name + json.data.address_list[i].address;
+                //     var realname =json.data.address_list[i].realname;
+                //     var mobile =json.data.address_list[i].mobile;
+                //     var status =json.data.address_list[i].status;
+                //     str += ress_list_box(ress_info,realname,mobile,status);
+                // }
+                // var $ress_list = $("#ress_list_box");
+                // $ress_list.empty();
+                // $ress_list.append(str);
+                // show('quhuoinfo');
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
