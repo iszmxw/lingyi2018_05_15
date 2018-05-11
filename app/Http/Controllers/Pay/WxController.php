@@ -86,7 +86,7 @@ class WxController extends Controller
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
-        return $this->responseDispose($url, $data);
+        return $this->responseDispose($url, $data,"POST",true);
     }
 
     // +----------------------------------------------------------------------
