@@ -30,12 +30,10 @@ class WechatController extends Controller
 
         // 获取微信公众号JSSDK 凭证
         $this->getSignPackage();
-        // 获取组织id
-        $organization_id = request()->get("organization_id");
         // 赋值
         $zerone_jssdk_info = (request()->get("zerone_jssdk_info"));
         // 渲染页面
-        return view('Simple/Wechat/display', ['appId' => $zerone_jssdk_info['appId'], 'nonceStr' => $zerone_jssdk_info['nonceStr'], 'timestamp' => $zerone_jssdk_info['timestamp'], 'rawString' => $zerone_jssdk_info['rawString'], 'signature' => $zerone_jssdk_info['signature'], 'organization_id' => $organization_id]);
+        return view('Simple/Wechat/display', ['appId' => $zerone_jssdk_info['appId'], 'nonceStr' => $zerone_jssdk_info['nonceStr'], 'timestamp' => $zerone_jssdk_info['timestamp'], 'signature' => $zerone_jssdk_info['signature']]);
     }
 
     /**
@@ -47,14 +45,12 @@ class WechatController extends Controller
 
         Session::put('store_id', $store_id);
 
-        $organization_name = Organization::getPluck([['id',$store_id]],'organization_name');
+        $organization_name = Organization::getPluck([['id', $store_id]], 'organization_name');
 
         Session::put('organization_name', $organization_name);
 
-        $fansmanage_id = session("zerone_auth_info.organization_id");
-
         // 渲染页面
-        return view('Simple/Wechat/goodslist', ['store_id' => $store_id, 'fansmanage_id' => $fansmanage_id]);
+        return view('Simple/Wechat/goodslist');
     }
 
     /**
@@ -73,6 +69,24 @@ class WechatController extends Controller
     {
         // 渲染页面
         return view('Simple/Wechat/selftake_order');
+    }
+
+    /**
+     * 添加收货地址
+     */
+    public function address_add(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/address_add');
+    }
+
+    /**
+     * 收货地址列表
+     */
+    public function address_list(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/address_list');
     }
 
     /**

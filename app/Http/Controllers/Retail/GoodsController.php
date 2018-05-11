@@ -45,13 +45,15 @@ class GoodsController extends Controller
         $displayorder = $request->get('displayorder');      //商品排序
         $details = $request->get('details');                //商品详情
         $fansmanage_id = Organization::getPluck(['id' => $admin_data['organization_id']], 'parent_id');
-        $goods_name = RetailGoods::checkRowExists(['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'name' => $name]);
-        $is_barcode = RetailGoods::checkRowExists(['barcode' => $barcode ]);
+        $goods_name = RetailGoods::checkRowExists(['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'name' => $name],'id');
+        $is_barcode = RetailGoods::checkRowExists(['barcode' => $barcode ],'id');
         if ($goods_name) {//判断商品名称是已经存在
             return response()->json(['data' => '商品名称重名，请重新输入！', 'status' => '0']);
         }
-        if ($is_barcode) {//判断商品条码是已经存在
-            return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+        if ($barcode != null) {//判断商品条码是否唯一
+            if ($is_barcode) {
+                return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+            }
         }
         if ($category_id == 0) {
             return response()->json(['data' => '请选择分类！', 'status' => '0']);
@@ -120,9 +122,11 @@ class GoodsController extends Controller
         DB::beginTransaction();
         try {
             RetailGoods::editRetailGoods(['id' => $goods_id],['barcode'=>'']);//修改商品前现将商品条码设置为空,在检测还有没有重复的商品条码
-            $is_barcode = RetailGoods::checkRowExists(['simple_id' => $admin_data['organization_id'], 'barcode' => $barcode ]);
-            if ($is_barcode) {//判断商品条码是否唯一
-                return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+            $is_barcode = RetailGoods::checkRowExists(['retail_id' => $admin_data['organization_id'], 'barcode' => $barcode ],'id');
+            if ($barcode != null) {//判断商品条码是否唯一
+                if ($is_barcode) {
+                    return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+                }
             }
             RetailGoods::editRetailGoods($where, $goods_data);
 //            $stock_data = ['category_id' => $category_id, 'stock' => $stock,];
@@ -135,6 +139,7 @@ class GoodsController extends Controller
             }
             DB::commit();
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();//事件回滚
             return response()->json(['data' => '编辑商品失败，请检查', 'status' => '0']);
         }

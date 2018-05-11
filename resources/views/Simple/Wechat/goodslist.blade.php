@@ -13,8 +13,8 @@
 </head>
 <body>
     <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-    <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{$fansmanage_id}}">
-    <input type="hidden" name="store_id" id="store_id" value="{{$store_id}}">
+    <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
+    <input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
     <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
     <input type="hidden" name="limit" id="limit" value="1">
@@ -57,7 +57,7 @@
                 </div>
                 <h3 class="cart_price" id="cart_price" data-totalprice="0">您还未选购商品哦~</h3>
             </div>
-            <div class="cart_right"><a href="http://develop.01nnt.com/zerone/wechat/order_check" external>去结算<i></i></a></div>
+            <div class="cart_right"><a href="http://develop.01nnt.com/zerone/wechat/online_order" external>去结算<i></i></a></div>
         </div>
     </div>
     <!-- alert -->
