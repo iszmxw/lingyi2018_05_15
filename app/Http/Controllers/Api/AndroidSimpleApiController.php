@@ -129,7 +129,7 @@ class AndroidSimpleApiController extends Controller
         $discount = $request->discount;
         if(empty($discount)){
             // 原价
-            $discount = 1;
+            $discount = 10;
         }
         // 商品数组
         $goodsdata = json_decode($request->goodsdata, TRUE);
@@ -152,7 +152,7 @@ class AndroidSimpleApiController extends Controller
         // 订单号
         $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;
         // 折扣价
-        $discount_price = $order_price * $discount;
+        $discount_price = round($order_price * $discount/10,2);
         // 数据处理
         $orderData = [
             'ordersn' => $ordersn,
