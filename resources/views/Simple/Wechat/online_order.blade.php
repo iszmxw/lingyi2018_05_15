@@ -15,6 +15,7 @@
 	<input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
 	<input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
+    <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
     <div class="page">
 	    <div class="g-flexview">
 	        <div class="top">
