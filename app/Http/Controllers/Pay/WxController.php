@@ -48,7 +48,7 @@ class WxController extends Controller
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $this->nativeOrder($data);
         echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
-        exit;
+
     }
 
 
