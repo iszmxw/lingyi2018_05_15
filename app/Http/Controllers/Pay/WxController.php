@@ -42,9 +42,10 @@ class WxController extends Controller
         $data["order_num"] = md5(time());
         $data["order_money"] = 3;
         $data["ip_address"] = "120.78.140.10";
-        $data["auth_code"] = "135463544838356441";
+        $data["auth_code"] = "135420422521767917";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $this->microOrder($data);
+
 
 
     }
