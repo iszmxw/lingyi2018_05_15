@@ -50,18 +50,19 @@ class WxController extends Controller
 
     public function test13()
     {
-        // native 下单
+                $wechat = new WechatController();
+        $wechat->getSignPackage();
+        $signPackage = request()->get("zerone_jssdk_info");
         $data["desc"] = "商品-xho-test";
         $data["order_num"] = md5(time());
-        $data["order_money"] = 0.01;
+        $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "NATIVE";
+        $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
-
-        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-        $this->nativeOrder($data);
-        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
+        $res = $this->jsApiOrder($data);
+        $res = json_decode($res,true);
+        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
     }
 
     public function demo()
@@ -191,8 +192,6 @@ class WxController extends Controller
      */
     public function jsApiOrder($param)
     {
-        // 请求参数处理
-        $param = $this->requestDispose($param);
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
