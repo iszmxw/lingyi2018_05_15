@@ -60,10 +60,19 @@ class WechatController extends Controller
     /**
      * 确定订单
      */
-    public function order_check(Request $request)
+    public function online_order(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/order_check');
+        return view('Simple/Wechat/online_order');
+    }
+
+    /**
+     * 确定订单
+     */
+    public function selftake_order(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/selftake_order');
     }
 
     /**

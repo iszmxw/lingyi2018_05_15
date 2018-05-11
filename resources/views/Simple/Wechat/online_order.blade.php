@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
-    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/onlineOrder15-10.css">
+    <link rel="stylesheet" href="{{asset('public/Wechat')}}/css/onlineOrder15-5.css">
   </head>
   <body>
     <div class="page">
@@ -24,9 +24,9 @@
 					<h3 class="order_state15-10">待支付</h3>
 			    	<div class="item" onclick="show('quhuoinfo')">
 				    	<div class="row">
-					      <div class="col-20 item_info"><span>取货信息</span></div>
+					      <div class="col-20 item_info"><span>收货信息</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>薛志豪-13824322924</p>
+							<p>广东省深圳市龙岗区万汇大厦1606</p>
 					      </div>
 					    </div>
 			    	</div>
@@ -42,7 +42,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>备注</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>要点要点要点</p>
+							<p>要点要点要点1313</p>
 					      </div>
 					    </div>
 				    </div>
@@ -107,22 +107,42 @@
 		<!-- alert -->
 		<div class="popup_alert quhuoinfo" id="quhuoinfo">
 			<div class="quhuo alert_bottom popup_alert_hook">
-				<p class="quhuoinfo">我的取货信息</p>
+				<p class="quhuoinfo">我的收货地址</p>
 				<div class="max_height_box">
 					<div class="row alert_list">
-					    <div class="col-85 radio_css"><input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">薛志豪（先生） 13824322924</label></div>
-					    <div class="col-15"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-85 radio_css">
+					    	<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">
+				    		<label for="userinfo">广东省深圳市龙岗区万汇大厦1606</label>
+					    	薛志豪（先生） 13824322924</label>
+					    </div>
+					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
 					</div>
 					<div class="row alert_list">
-					    <div class="col-85 radio_css"><input type="radio" id="userinfo1" name="dizhi" class="radio_address"><label for="userinfo1">薛志豪（先生） 13824322924</label></div>
-					    <div class="col-15"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-85 radio_css">
+					    	<input type="radio" id="userinfo1" name="dizhi" class="radio_address"><label for="userinfo1">
+				    		<label for="userinfo1">广东省深圳市龙岗区万汇大厦1606</label>
+					    	薛志豪（先生） 13824322924</label>
+					    </div>
+					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
 					</div>
 					<div class="row alert_list">
-					    <div class="col-85 radio_css"><input type="radio" id="userinfo2" name="dizhi" class="radio_address"><label for="userinfo2">薛志豪（先生） 13824322924</label></div>
-					    <div class="col-15"><a href="javascript:;" class="update_address"></a></div>
+					    <div class="col-85 radio_css">
+					    	<input type="radio" id="userinfo2" name="dizhi" class="radio_address"><label for="userinfo2">
+				    		<label for="userinfo2">广东省深圳市龙岗区万汇大厦1606</label>
+					    	薛志豪（先生） 13824322924</label>
+					    </div>
+					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+					</div>
+					<div class="row alert_list">
+					    <div class="col-85 radio_css">
+					    	<input type="radio" id="userinfo3" name="dizhi" class="radio_address"><label for="userinfo3">
+				    		<label for="userinfo3">广东省深圳市龙岗区万汇大厦1606</label>
+					    	薛志豪（先生） 13824322924</label>
+					    </div>
+					    <div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
 					</div>
 				</div>
-				<a href="javascript:;" class="add_address_btn my_text_align">添加取货信息</a>
+				<a href="javascript:;" class="add_address_btn my_text_align">添加收货地址</a>
 			</div>
 		</div>
 		<!-- alert -->
@@ -143,6 +163,6 @@
     </div>
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
-    <script type='text/javascript' src='{{asset('public/Wechat')}}/js/onlineOrder15-10.js' charset='utf-8'></script>
+    <script type='text/javascript' src='{{asset('public/Wechat')}}/js/onlineOrder15-5.js' charset='utf-8'></script>
   </body>
 </html>
