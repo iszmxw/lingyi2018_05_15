@@ -34,7 +34,26 @@ class WxController extends Controller
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
     private $mchName = "零壹服务";
-
+    // 微信支付支持的银行信息
+    private $bank_info = [
+        ["bank_name" => "工商银行", "bank_code" => "1002"],
+        ["bank_name" => "农业银行", "bank_code" => "1005"],
+        ["bank_name" => "中国银行", "bank_code" => "1026"],
+        ["bank_name" => "建设银行", "bank_code" => "1003"],
+        ["bank_name" => "招商银行", "bank_code" => "1001"],
+        ["bank_name" => "邮储银行", "bank_code" => "1066"],
+        ["bank_name" => "交通银行", "bank_code" => "1020"],
+        ["bank_name" => "浦发银行", "bank_code" => "1004"],
+        ["bank_name" => "民生银行", "bank_code" => "1006"],
+        ["bank_name" => "兴业银行", "bank_code" => "1009"],
+        ["bank_name" => "平安银行", "bank_code" => "1010"],
+        ["bank_name" => "中信银行", "bank_code" => "1021"],
+        ["bank_name" => "华夏银行", "bank_code" => "1025"],
+        ["bank_name" => "广发银行", "bank_code" => "1027"],
+        ["bank_name" => "光大银行", "bank_code" => "1022"],
+        ["bank_name" => "北京银行", "bank_code" => "1032"],
+        ["bank_name" => "宁波银行", "bank_code" => "1056"]
+    ];
 
     public function test13()
     {
@@ -120,7 +139,10 @@ class WxController extends Controller
         // 接口地址
         $url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         // 返回结果
-        return $this->responseDispose($url, $data, "POST", true);
+        $res = $this->responseDispose($url, $data, "POST", true);
+
+        echo $res;
+
 
     }
 
