@@ -94,8 +94,8 @@ class WxController extends Controller
         $data["bill_type"] = "MCHT";
         // 填充数组
         $data = $this->fillOrderData($data);
-        dd($data);
-        exit;
+        unset($data["sign_type"]);
+
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -506,7 +506,6 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
-        var_dump($resXml);exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
 
