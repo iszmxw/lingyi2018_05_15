@@ -550,6 +550,7 @@ body {
 .selectexpress .quhuo{
 	width: 10.0rem;
     background: #fff;
+    position: relative;
 }
 .selectexpress .quhuo .quhuoinfo{
     font-size: 0.8rem;
@@ -599,6 +600,9 @@ body {
 	height: 2.4rem;
 	line-height: 2.4rem;
 	text-align: center;
+}
+.selectexpress .quhuo .max_height_box {
+    padding-bottom: none;
 }
 .selectexpress .quhuo .btn_alert_bg{
 	background: rgb(254,219,67);
