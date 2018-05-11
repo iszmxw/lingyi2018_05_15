@@ -58,6 +58,8 @@ class WxController extends Controller
 //        $data["order_num"] = "6530cb44b093892f9e14d442472b";
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+
+        $data["order_people_num"] = "1";
         // 备注
         $data["remark"] = "ganjinqiang";
         // 金额
