@@ -162,7 +162,7 @@ class WxController extends Controller
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 填充数组
-        $data = $this->fillData($data, "transfers");
+        $data = $this->fillData($data, "query");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
         // 返回结果
@@ -263,7 +263,7 @@ class WxController extends Controller
         // 查询类型
         $data["bill_type"] = "MCHT";
         // 填充数组
-        $data = $this->fillData($data, "red_query");
+        $data = $this->fillData($data, "query");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -542,7 +542,6 @@ class WxController extends Controller
      */
     function fillData($param, $type)
     {
-        $param["mch_id"] = $this->mchId;
         switch ($type) {
             // 填充订单数据
             case "order" :
@@ -551,7 +550,7 @@ class WxController extends Controller
                 $param["sign_type"] = "MD5";
                 break;
             // 填充红包查询数据
-            case "red_query" :
+            case "query" :
                 $param["mch_id"] = $this->mchId;
                 $param["appid"] = $this->appId;
                 break;
@@ -564,9 +563,7 @@ class WxController extends Controller
             // 填充企业支付到零钱数据
             case "transfers" :
                 $param["mchid"] = $this->mchId;
-
                 $param["mch_appid"] = $this->appId;
-                $param["appid"] = $this->appId;
                 break;
             // 填充企业支付到银行数据
             case "sptrans" :
