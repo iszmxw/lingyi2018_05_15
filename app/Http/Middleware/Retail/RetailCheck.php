@@ -44,6 +44,10 @@ class RetailCheck
             case "retail/order/order_spot":             //订单管理-现场订单
             case "retail/order/order_spot_detail":      //订单管理-现场订单详情
 
+            case "retail/dispatch/dispatch_add":      //运费模板-添加运费模板
+            case "retail/dispatch/dispatch_list":     //运费模板-运费模板列表
+            case "retail/dispatch/dispatch_edit":     //运费模板-编辑运费模板
+
             case "retail/billing/purchase_goods":     //从供应商进货管理
             case "retail/billing/loss_goods":         //进销存管理--报损开单管理
             case "retail/billing/check_goods":        //进销存管理--盘点核对开单管理
@@ -56,6 +60,12 @@ class RetailCheck
 
             case "retail/supplier/supplier_add":        //进销存管理--添加供应商
             case "retail/supplier/supplier_list":        //进销存管理--供应商列表
+
+            case "retail/user/user_list":               //用户管理-粉丝用户管理
+
+            case "retail/paysetting/payconfig":        //支付设置-收款信息设置
+            case "retail/paysetting/shengpay_add":     //支付设置-添加终端机器号信息
+            case "retail/paysetting/shengpay_list":    //支付设置-终端机器号信息列表
                 $re = $this->checkLoginAndRule($request);//判断是否登录
                 return self::format_response($re, $next);
                 break;
