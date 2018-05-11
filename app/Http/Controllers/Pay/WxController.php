@@ -368,7 +368,8 @@ class WxController extends Controller
 
         $res_xml_parser = $this->xmlParser($res);
         if ($res_xml_parser == true) {
-            $res = json_decode(json_encode(simplexml_load_string($res)), true);
+            $res = $this->xml2array($res);
+
             if ($res["return_code"] != "SUCCESS") {
                 return json_encode($res, JSON_UNESCAPED_UNICODE);
             }
