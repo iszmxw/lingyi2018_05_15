@@ -58,6 +58,7 @@ class WxController extends Controller
         $data["trade_type"] = "NATIVE";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         $data["product_id"] = md5(time());
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
         $this->nativeOrder($data);
         echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
     }
