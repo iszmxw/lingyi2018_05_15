@@ -33,9 +33,30 @@ class WxController extends Controller
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
 
+    private $mchName = "零壹服务";
+
     public function test13()
     {
+        // 订单号
+        $data["order_num"] = md5(time());
+        // 发送的openid
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        // 金额
+        $data["order_money"] = "0.1";
+        // 发放人数
+        $data["order_people_num"] = "1";
+        // 发放ip地址
+        $data["ip_address"] = "120.78.140.10";
+        // 祝福语
+        $data["wishing"] = "恭喜";
+        // 活动名称
+        $data["activity_name"] = "零壹活动";
+        // 备注
+        $data["remark"] = "赶紧抢";
 
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        $res = $this->sendredpack($data);
+        echo $res;
     }
 
 
@@ -43,10 +64,25 @@ class WxController extends Controller
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
-        // 查询订单类型，和相对应的订单号
-        $data["out_trade_no"] = $param["order_num"];
+        // 订单号
+        $data["mch_billno"] = $param["order_num"] * 100;
+        // 发送的openid
+        $data["re_openid"] = $param["openid"];
+        // 金额
+        $data["total_amount"] = $param["order_money"];
+        // 发放人数
+        $data["total_num"] = $param["order_people_num"];
+        // 发放ip地址
+        $data["client_ip"] = $param["ip_address"];
+        // 祝福语
+        $data["wishing"] = $param["wishing"];
+        // 活动名称
+        $data["act_name"] = $param["activity_name"];
+        // 备注
+        $data["remark"] = $param["remark"];
+
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillRedEnvelopeData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
@@ -315,7 +351,24 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
 
     /**
-     * 填充数据
+     * 填充红包数据
+     * @param $param
+     * @return mixed
+     */
+    public function fillRedEnvelopeData($param)
+    {
+        $param["wxappid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["send_name"] = $this->mchName;
+        $param["sign_type"] = "MD5";
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+
+    /**
+     * 填充订单数据
      * @param $param
      * @return mixed
      */
