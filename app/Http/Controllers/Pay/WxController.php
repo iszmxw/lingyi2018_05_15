@@ -60,6 +60,7 @@ class WxController extends Controller
         $data["refund_money"] = 0.01;
         // 退款原因
         $data["refund_reason"] = "不想买了";
+        $data = json_encode($data);
         $res = $this->refund($data);
         echo $res;
     }
