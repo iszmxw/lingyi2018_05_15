@@ -48,7 +48,7 @@ class WxController extends Controller
         // 备注
         $data["remark"] = "赶紧抢";
         // 金额
-        $data["order_money"] = "0.01";
+        $data["order_money"] = "1";
         // 发放人数
         $data["order_people_num"] = "1";
         // 祝福语
