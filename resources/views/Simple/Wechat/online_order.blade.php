@@ -12,8 +12,13 @@
   </head>
   <body>
     <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
+<<<<<<< HEAD
+    <input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
+    <input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
+=======
 	<input type="hidden" name="fansmanage_id" id="fansmanage_id" value="{{session("zerone_auth_info.organization_id")}}">
 	<input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
+>>>>>>> e824055260237f0fd0139859fa011f32f7b9d4e1
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
     <div class="page">
 	    <div class="g-flexview">
@@ -30,7 +35,7 @@
 				    	<div class="row">
 					      <div class="col-20 item_info"><span>收货信息</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>广东省深圳市龙岗区万汇大厦1606</p>
+							<p id="address_info"></p>
 					      </div>
 					    </div>
 			    	</div>
@@ -165,6 +170,7 @@
 		</div>
 		<!-- alert -->
     </div>
+
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/onlineOrder15-5.js' charset='utf-8'></script>

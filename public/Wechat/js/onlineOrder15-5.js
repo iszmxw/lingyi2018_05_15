@@ -11,7 +11,10 @@ $(function(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-
+                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
+                                    json.data.address_info.district_name +json.data.address_info.address
+                                    +json.data.address_info.mobile;
+                $("#address_info").text(address_info);
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
