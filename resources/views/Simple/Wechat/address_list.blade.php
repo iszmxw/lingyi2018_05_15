@@ -3,66 +3,56 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>线上订单-订单详情</title>
+	<title>我的收货地址</title>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<link rel="stylesheet" href="{{asset('public/Wechat')}}/css/public/light7.min.css">
-	<link rel="stylesheet" href="{{asset('public/Wechat')}}/css/newReceivingAddress.css">
+	<link rel="stylesheet" href="{{asset('public/Wechat')}}/css/myRetaildeliveryRess.css">
 </head>
 <body>
 <div class="page">
 	<div class="g-flexview">
-		<div class="main_block">
-			<div class="main_item">
-				<ul>
-					<li class="a_b_b a_b_t">
-						<div class="item_title title_f">联系人:</div>
-						<div class="item_input">
-							<input type="text" name="" placeholder="请填写收货人的姓名">
-						</div>
-						<div class="weixin_ress"></div>
-					</li>
-					<li class="a_b_b a_b_t">
-						<div class="item_title title_f"></div>
-						<div class="item_input item_input_pd1">
-							<input type="radio" id="userinfo2" name="dizhi" checked="checked" class="radio_address">
-							<label for="userinfo2">先生</label>
-							<input type="radio" id="userinfo1" name="dizhi" class="radio_address">
-							<label for="userinfo1">女士</label>
-						</div>
-					</li>
-					<li class="a_b_b a_b_t">
-						<div class="item_title title_f item_input_pd">手机号码:</div>
-						<div class="item_input item_input_pd">
-							<input type="text" name="" placeholder="请填写收货人的手机号码">
-						</div>
-					</li>
-					<li class="a_b_t">
-						<div class="item_title title_f item_input_pd">收货地址:</div>
-						<div class="item_input item_input_pd item_icon item_input_right">
-							<input type="text" name="" placeholder="请选择" id="city-picker">
-						</div>
-						<!-- <div class="qingxuanz"><p>请选择</p></div> -->
-					</li>
-					<li class="a_b_t">
-						<div class="list-block">
-							<textarea placeholder="详细地址"></textarea>
-						</div>
-					</li>
-				</ul>
+		<div class="box">
+			<div class="max_height_box">
+				<div class="row alert_list">
+					<div class="col-85 radio_css">
+						<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">
+							<label for="userinfo">广东省深圳市龙岗区万汇大厦1606</label>
+							薛志豪（先生） 13824322924</label>
+					</div>
+					<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+				</div>
+				<div class="row alert_list">
+					<div class="col-85 radio_css">
+						<input type="radio" id="userinfo1" name="dizhi" class="radio_address"><label for="userinfo1">
+							<label for="userinfo1">广东省深圳市龙岗区万汇大厦1606</label>
+							薛志豪（先生） 13824322924</label>
+					</div>
+					<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+				</div>
+				<div class="row alert_list">
+					<div class="col-85 radio_css">
+						<input type="radio" id="userinfo2" name="dizhi" class="radio_address"><label for="userinfo2">
+							<label for="userinfo2">广东省深圳市龙岗区万汇大厦1606</label>
+							薛志豪（先生） 13824322924</label>
+					</div>
+					<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+				</div>
+				<div class="row alert_list">
+					<div class="col-85 radio_css">
+						<input type="radio" id="userinfo3" name="dizhi" class="radio_address"><label for="userinfo3">
+							<label for="userinfo3">广东省深圳市龙岗区万汇大厦1606</label>
+							薛志豪（先生） 13824322924</label>
+					</div>
+					<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>
+				</div>
 			</div>
 		</div>
-		<div class="morendizhi">
-				<span>
-					<input type="checkbox" name="" id="morendizhi">
-					<label><label for="morendizhi">设为默认地址</label></label>
-				</span>
-		</div>
-		<a href="javascript:;" class="preservation">保存</a>
+		<a href="javascript:;" class="preservation">新增收货地址</a>
 	</div>
 	<!-- alert -->
-	<div class="popup_alert">
+	<div class="popup_alert alert" id="alert">
 		<div class="quhuo alert_width popup_alert_hook">
 			<p class="quhuoinfo">订单备注</p>
 			<div class="max_height_box">
@@ -70,7 +60,7 @@
 			</div>
 			<div class="alert_btn_wz">
 				<!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-				<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="hide()">确认</a>
+				<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="hide('alert')">确认</a>
 			</div>
 		</div>
 	</div>
@@ -78,7 +68,6 @@
 </div>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7-city-picker.js' charset='utf-8'></script>
-<script type='text/javascript' src='{{asset('public/Wechat')}}/js/newReceivingAddress.js' charset='utf-8'></script>
+<script type='text/javascript' src='{{asset('public/Wechat')}}/js/myRetaildeliveryRess.js' charset='utf-8'></script>
 </body>
 </html>
