@@ -539,7 +539,7 @@ body {
     word-break: normal;
 }
 
-.radio_address .action:after {
+.radio_css .action:after {
     display: block;
 }
 
