@@ -22,14 +22,14 @@ $(function(){
     );
 });
 function ress_list(){
-    alert();
     var _token = $("#_token").val();
     var zerone_user_id = $("#zerone_user_id").val();//userID
     var url = "http://develop.01nnt.com/api/wechatApi/address_list";
     $.post(
         url,
-        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
+        {'_token': _token,'zerone_user_id':zerone_user_id},
         function (json) {
+                alert();
             console.log(json);
             if (json.status == 1) {
                 var str ="";
