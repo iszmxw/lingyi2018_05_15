@@ -105,8 +105,6 @@ class WxController extends Controller
         if (!file_exists(realpath($file_name))) {
             $this->getpublickey();
         }
-        var_dump($file_name);
-        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
@@ -1017,7 +1015,17 @@ class WxController extends Controller
     {
         var_dump(file_get_contents($file_name));
 
-        $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
+        $a = "-----BEGIN RSA PUBLIC KEY-----
+MIIBCgKCAQEArVScaDnFh+xtSfws5+SqBr2p3it8FMY808F7/XX4aKN2NhpTfiXP
+aIY85dO1u3yh23dT1VvUB9V3dpAZaXUBn3IlLXnCSjECocSNfwTgL+yceTGMTHvZ
+gFHiok7gypdIsnItH6UNPDlzdlEeoUNHCYMn0Y8FjR8ONhJKg3o0xiXrVCvYFJA1
+vzRoVKlz1drnWAEz8HYvWbJKj/R1CYvNMnCpXN3otR3E/UbpAaPr7iMYLzUnvWkE
+0IEQ+QJp1ojWFz73hRFBZY1Et0IaZPxOl6AjKOrCxItCTkorUp038z2qT8X/rISz
+0IScn4pfk3XqOFTbCcTg8Usf9HTqwD7lkwIDAQAB
+-----END RSA PUBLIC KEY-----
+";
+//        $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
+        $pu_key = openssl_pkey_get_public($a);  //读取公钥内容
         var_dump($pu_key);
         exit;
         $encryptedBlock = '';
