@@ -90,6 +90,8 @@ class WxController extends Controller
 
         // 填充数组
         $data = $this->fillRedEnvelopeData($data);
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
