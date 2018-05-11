@@ -47,6 +47,7 @@ function ress_list(){
                 $ress_list.append(str);
                 show('quhuoinfo');
             } else if (json.status == 0) {
+                show('quhuoinfo');
                 console.log(json.msg);
             }
         }
@@ -58,10 +59,10 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css" onclick="select_ress('+address_id+',this)">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address action">'+
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" value="'+ress_info+realname+mobile+'" class="radio_address action">'+
             '<label for="userinfo'+address_id+'">';
         }else{
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address"><label for="userinfo'+address_id+'">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" value="'+ress_info+realname+mobile+'" class="radio_address"><label for="userinfo'+address_id+'">';
         }
         str += '<label for="userinfo'+address_id+'">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
@@ -70,11 +71,12 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     return str;
 }
 function select_ress(address_id,obj){
-    $(":radio[name='dizhi']").removeAttr('checked');
-    $(obj).find("input").attr("checked","checked");
-    $(":radio[name='dizhi']").removeClass('action');
-    $(obj).find("input").addClass('action');
-    console.log($(obj).find("input").attr("checked"));
+    $(":radio[name='dizhi']").removeAttr('checked');//找到所有单选框删除选择状态
+    $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
+    $(":radio[name='dizhi']").removeClass('action');//到所有单选框inco删除action状态
+    $(obj).find("input").addClass('action');//赋值当前单选框icon
+    var ress_info = $(obj).find("input").val();
+    $("#address_info").text(ress_info);//赋值上面的
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
