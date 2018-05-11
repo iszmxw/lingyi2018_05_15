@@ -91,10 +91,7 @@ class WxController extends Controller
         // 查询类型
         $data["bill_type"] = "MCHT";
         // 填充数组
-        $data = $this->fillOrderData($data);
-        unset($data["sign_type"]);
-        var_dump($data);
-
+        $data = $this->fillRedEnvelopeQueryData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -436,6 +433,17 @@ class WxController extends Controller
     // | Start - 公用方法
     // +----------------------------------------------------------------------
 
+
+    public function fillRedEnvelopeQueryData($param)
+    {
+        $param["appid"] = $this->appId;
+        $param["mch_id"] = $this->mchId;
+        $param["nonce_str"] = $this->nonceStr();
+        $param["sign"] = $this->signature($param);
+        return $param;
+    }
+
+
     public function fillTransfersData($param)
     {
         $param["mch_appid"] = $this->appId;
@@ -484,7 +492,7 @@ class WxController extends Controller
     {
         $param["appid"] = $this->appId;
         $param["mch_id"] = $this->mchId;
-//        $param["sign_type"] = "MD5";
+        $param["sign_type"] = "MD5";
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
@@ -741,14 +749,16 @@ class WxController extends Controller
         $xml = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
         $json = json_encode($xml);
         $result = array();
-        $bad_result = json_decode($json, TRUE);  // value，一个字段多次出现，结果中的value是数组
+        // value，一个字段多次出现，结果中的value是数组
+        $bad_result = json_decode($json, TRUE);
         // return $bad_result;
+
         foreach ($bad_result as $k => $v) {
             if (is_array($v)) {
                 if (count($v) == 0) {
                     $result[$k] = '';
                 } else if (count($v) == 1) {
-                    $result[$k] = $v[0];
+                    $result[$k] = current($v);
                 } else {
                     throw new \Exception('Duplicate elements in XML. ' . $str);
                 }
