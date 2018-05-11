@@ -92,7 +92,9 @@ class SimpleSelftakeOrder extends Model
             $model->paytype = $param['paytype'];//付款方式
         }
         $model->selftake_mobile = $param['selftake_mobile'];//提取人电话
-        $model->selftake_code = $param['selftake_code'];//提取码
+        if (!empty($param['selftake_code'])) {
+            $model->selftake_code = $param['selftake_code'];//提取码
+        }
         $model->save();
         return $model->id;
     }
