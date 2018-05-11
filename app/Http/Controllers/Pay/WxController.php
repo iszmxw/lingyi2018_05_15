@@ -340,6 +340,16 @@ class WxController extends Controller
         return $this->responseDispose($url, $data);
     }
 
+    function xml_parser($str){
+        $xml_parser = xml_parser_create();
+        if(!xml_parse($xml_parser,$str,true)){
+            xml_parser_free($xml_parser);
+            return false;
+        }else {
+            return (json_decode(json_encode(simplexml_load_string($str)),true));
+        }
+    }
+
     /**
      * 下载对账单
      * @param array $param
@@ -365,7 +375,8 @@ class WxController extends Controller
         // 发送请求
         $res = $this->httpRequest($url, "POST", $data);
 
-        var_dump(gettype($res));
+        $res1 = $this->xml_parser($res);
+        var_dump($res1);
        var_dump($res);
        exit;
 
