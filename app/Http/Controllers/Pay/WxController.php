@@ -65,10 +65,10 @@ class WxController extends Controller
 //        echo $this->pay_bank($data);
 
 
-        $data["bill_date"] = 20180508;
-        $data["bill_type"] = "ALL";
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $this->downloadBill($data);
+//        $data["bill_date"] = 20180508;
+//        $data["bill_type"] = "ALL";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        echo $this->getpublickey();
     }
 
 
@@ -103,6 +103,25 @@ class WxController extends Controller
         $url = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank";
         // 返回结果
         return $this->responseDispose($url, $data, "POST", true);
+    }
+
+
+    /**
+     * 获取公钥
+     * @return string
+     * @throws \Exception
+     */
+    public function getpublickey()
+    {
+        // 加密类型
+        $data["sign_type"] = "MD5";
+        // 填充数组
+        $data = $this->fillData($data, "sptrans");
+        // 接口地址
+        $url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
+
     }
 
     /**
@@ -661,6 +680,7 @@ class WxController extends Controller
     /**
      * 生成二维码
      * @param $url
+     * @return string
      */
     public function qrCode($url)
     {
@@ -705,12 +725,10 @@ class WxController extends Controller
         // 检测文件夹是否存在
         $this->checkPath($filePath);
         // 保存文件名
-        $fileName = $filePath . date("His") . ".csv";
-
-
-
-
-        $qrCode->writeFile("./uploads/pay_qr_code.png");
+        $fileName = $filePath . date("His") . ".png";
+        // 二维码保存
+        $qrCode->writeFile($fileName);
+        return $fileName;
     }
 
     /**
@@ -1017,8 +1035,8 @@ class WxController extends Controller
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        $data["product_id"] = md5(time());
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->nativeOrder($data);
-//        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
+//        $res = $this->nativeOrder($data);
+//        echo "<img src='$res'>";
 
 //        // jsapi 下单
 //        $wechat = new WechatController();
