@@ -177,7 +177,8 @@ class WxController extends Controller
         // 统一下单地址
         $res_json = $this->unifiedOrder($param);
         $res = json_decode($res_json, true);
-
+        var_dump($res);
+        exit;
         // 判断接口是否存在问题
         if ($res["return_code"] == 0) {
             return $res_json;
