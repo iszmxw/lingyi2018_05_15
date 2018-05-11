@@ -49,27 +49,11 @@ class WxController extends Controller
 //        $this->nativeOrder($data);
 //        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
 //        exit;
-         // 活动名称
-        $data["activity_name"] = "zzzz";
-        // 发放ip地址
-        $data["ip_address"] = "120.78.140.10";
-        // 订单号
-        $data["order_num"] = substr(md5(time()), 0, 28);
-//        $data["order_num"] = "6530cb44b093892f9e14d442472b";
-        // 发送的openid
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 
-        $data["order_people_num"] = 1;
-        // 备注
-        $data["remark"] = "ganjinqiang";
-        // 金额
-        $data["order_money"] = "1";
-        // 祝福语
-        $data["wishing"] = "gongxi";
-
+        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->sendgroupredpack($data);
-        echo $res;
+        echo $this->gethbinfo($data);
+
     }
 
 
@@ -77,7 +61,6 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     // | Start - 现金红包
     // +----------------------------------------------------------------------
-
     /**
      * 普通红包
      * @param $param
@@ -105,7 +88,7 @@ class WxController extends Controller
         // 备注
         $data["remark"] = $param["remark"];
         // 填充数组
-        $data = $this->fillRedEnvelopeData($data);
+        $data = $this->fillData($data, "red_append");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
@@ -129,7 +112,8 @@ class WxController extends Controller
         // 金额
         $data["total_amount"] = $param["order_money"] * 100;
         // 发放人数
-        $data["total_num"] = $param["order_people_num"];
+//        $data["total_num"] = $param["order_people_num"];
+        $data["total_num"] = 1;
         // 发放ip地址
         $data["client_ip"] = $param["ip_address"];
         // 祝福语
@@ -142,14 +126,12 @@ class WxController extends Controller
         // 备注
         $data["remark"] = $param["remark"];
         // 填充数组
-        $data = $this->fillRedEnvelopeData($data);
+        $data = $this->fillData($data, "red_append");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
         return $this->responseDispose($url, $data, "POST", true);
     }
-
-
 
     /**
      * 红包查询记录
@@ -166,7 +148,9 @@ class WxController extends Controller
         // 查询类型
         $data["bill_type"] = "MCHT";
         // 填充数组
-        $data = $this->fillRedEnvelopeQueryData($data);
+        $data = $this->fillData($param, "red_query");
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
@@ -235,7 +219,7 @@ class WxController extends Controller
         // 查询订单类型，和相对应的订单号
         $data["out_trade_no"] = $param["order_num"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/closeorder";
         // 返回结果
@@ -263,7 +247,7 @@ class WxController extends Controller
         // 授权码
         $data["auth_code"] = $param["auth_code"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/micropay";
         // 返回结果
@@ -298,7 +282,7 @@ class WxController extends Controller
         // 商品ID (NATIVE : 扫码模式必填)
         $data["product_id"] = $param["product_id"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         // 返回结果
@@ -314,14 +298,14 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function orderQuery($param = [])
+    public function orderQuery($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         // 返回结果
@@ -337,7 +321,7 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function refund($param = [])
+    public function refund($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
@@ -354,7 +338,7 @@ class WxController extends Controller
         // 通知地址
         $data["notify_url"] = $this->notify_url;
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
         // 返回结果
@@ -371,14 +355,14 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function refundQuery($param = [])
+    public function refundQuery($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/refundquery";
         // 返回结果
@@ -401,7 +385,7 @@ class WxController extends Controller
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
         // 填充数组
-        $data = $this->fillOrderData($data);
+        $data = $this->fillData($data, "order");
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
         // 将数据转化为 XML 格式
@@ -437,66 +421,38 @@ class WxController extends Controller
     // | Start - 公用方法
     // +----------------------------------------------------------------------
 
-
-    public function fillRedEnvelopeQueryData($param)
-    {
-        $param["appid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
-        return $param;
-    }
-
-
-    public function fillTransfersData($param)
-    {
-        $param["mch_appid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
-        return $param;
-    }
-
     /**
-     * 填充企业支付到银行数据
+     * 填充数据
      * @param $param
+     * @param $type
      * @return mixed
      */
-    public function fillSptransData($param)
+    function fillData($param, $type)
     {
         $param["mch_id"] = $this->mchId;
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
-        return $param;
-    }
-
-
-    /**
-     * 填充红包数据
-     * @param $param
-     * @return mixed
-     */
-    public function fillRedEnvelopeData($param)
-    {
-        $param["wxappid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-        $param["send_name"] = $this->mchName;
-        $param["nonce_str"] = $this->nonceStr();
-        $param["sign"] = $this->signature($param);
-        return $param;
-    }
-
-
-    /**
-     * 填充订单数据
-     * @param $param
-     * @return mixed
-     */
-    public function fillOrderData($param)
-    {
-        $param["appid"] = $this->appId;
-        $param["mch_id"] = $this->mchId;
-        $param["sign_type"] = "MD5";
+        switch ($type) {
+            // 填充订单数据
+            case "order" :
+                $param["appid"] = $this->appId;
+                $param["sign_type"] = "MD5";
+                break;
+            // 填充红包查询数据
+            case "red_query" :
+                $param["appid"] = $this->appId;
+                break;
+            // 填充红包数据
+            case "red_append" :
+                $param["wxappid"] = $this->appId;
+                $param["send_name"] = $this->mchName;
+                break;
+            // 填充企业支付到银行数据
+            case "transfers" :
+                $param["mch_appid"] = $this->appId;
+                break;
+            // 填充企业支付到零钱数据
+            case "sptrans" :
+                break;
+        }
         $param["nonce_str"] = $this->nonceStr();
         $param["sign"] = $this->signature($param);
         return $param;
@@ -819,6 +775,12 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     public function demo()
     {
+
+
+        // 查询红包
+//        $data["order_num"] = c925c5da84264c46f50ba4c00fd2;
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $this->gethbinfo($data);
 
         //发放普通红包
 //        // 活动名称
