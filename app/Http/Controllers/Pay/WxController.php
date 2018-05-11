@@ -105,8 +105,6 @@ class WxController extends Controller
         if (!file_exists(realpath($file_name))) {
             $this->getpublickey();
         }
-        var_dump($file_name);
-        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
