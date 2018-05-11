@@ -465,7 +465,7 @@ body {
     -ms-border-radius: 0.2rem;
     border-radius: 0.2rem;
     font-weight: 500;
-    margin-bottom: .75rem
+    margin-bottom: .75rem;
 }
 .order .order_box a>i {
     display: inline-block;
