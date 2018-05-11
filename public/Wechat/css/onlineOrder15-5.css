@@ -549,7 +549,11 @@ body {
 /* 选择快递方式弹框 */
 .selectexpress .quhuo{
 	width: 10.0rem;
-    background: #fff;
+    padding: 0 0;
+    background: #ffffff;
+    z-index: 100;
+    min-height: 8.4rem;
+    padding-bottom: 2.4rem;
     position: relative;
 }
 .selectexpress .quhuo .quhuoinfo{
