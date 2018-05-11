@@ -33,28 +33,33 @@ class WxController extends Controller
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
 
-    private $mchName = "零壹服务";
+    private $mchName = "lingyifuwu";
 
     public function test13()
     {
+//        $reqData["order_num_type"] = "out_refund_no";
+//        $reqData["order_num"] = "1003022622018050853721122351525761650";
+//        $data = json_encode($reqData, JSON_UNESCAPED_UNICODE);
+//        $res = $this->refundQuery($data);
+//        echo $res;
+//        exit;
+
         // 活动名称
-        $data["activity_name"] = "零壹活动";
+        $data["activity_name"] = "zzzz";
         // 发放ip地址
         $data["ip_address"] = "120.78.140.10";
         // 订单号
-        $data["order_num"] = substr(md5(time()),0,28);
+        $data["order_num"] = substr(md5(time()), 0, 28);
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 备注
-        $data["remark"] = "赶紧抢";
+        $data["remark"] = "ganjinqiang";
         // 金额
         $data["order_money"] = "1";
         // 发放人数
         $data["order_people_num"] = "1";
         // 祝福语
-        $data["wishing"] = "恭喜";
-
-
+        $data["wishing"] = "gongxi";
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->sendredpack($data);
@@ -85,10 +90,12 @@ class WxController extends Controller
 
         // 填充数组
         $data = $this->fillRedEnvelopeData($data);
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
-        return $this->responseDispose($url, $data,"POST",true);
+        return $this->responseDispose($url, $data, "POST", true);
     }
 
     // +----------------------------------------------------------------------
