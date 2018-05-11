@@ -365,6 +365,7 @@ class WxController extends Controller
         // 发送请求
         $res = $this->httpRequest($url, "POST", $data);
 
+        var_dump(gettype($res));
        var_dump($res);
        exit;
 
