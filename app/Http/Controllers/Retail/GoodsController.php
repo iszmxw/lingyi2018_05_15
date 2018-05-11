@@ -50,8 +50,10 @@ class GoodsController extends Controller
         if ($goods_name) {//判断商品名称是已经存在
             return response()->json(['data' => '商品名称重名，请重新输入！', 'status' => '0']);
         }
-        if ($is_barcode) {//判断商品条码是已经存在
-            return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+        if ($barcode != null) {//判断商品条码是否唯一
+            if ($is_barcode) {
+                return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
+            }
         }
         if ($category_id == 0) {
             return response()->json(['data' => '请选择分类！', 'status' => '0']);
