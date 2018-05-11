@@ -103,10 +103,10 @@ class WxController extends Controller
         $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
         if (!file_exists(realpath($file_name))) {
-            $res = $this->getpublickey();
-            var_dump($res);
-            exit;
+            $this->getpublickey();
         }
+        var_dump($file_name);
+        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
