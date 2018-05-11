@@ -363,10 +363,6 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $res = $this->httpRequest($url, "POST", $data);
-        var_dump($res);exit;
-
-//        // 获取数据
-//        $res = $this->wechat->downloadBill($data);
 
         // 判断数据返回结果
         if ($res["return_code"] != "SUCCESS") {
