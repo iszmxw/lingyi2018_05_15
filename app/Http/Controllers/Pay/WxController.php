@@ -50,19 +50,17 @@ class WxController extends Controller
 
     public function test13()
     {
-        $data["order_num_type"] = 'out_trade_no';
-        $data["order_num"] = '81763c5690d2327115251a6f50bb2068';
-        // 商户退款单号
-        $data["refund_num"] = md5(time());
-        // 订单金额
-        $data["order_money"] = 0.1;
-        // 退款金额
-        $data["refund_money"] = 0.01;
-        // 退款原因
-        $data["refund_reason"] = "不想买了";
-        $data = json_encode($data);
-        $res = $this->refund($data);
-        echo $res;
+        // native 下单
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 0.01;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "NATIVE";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $this->nativeOrder($data);
+        echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
     }
 
     public function demo()
