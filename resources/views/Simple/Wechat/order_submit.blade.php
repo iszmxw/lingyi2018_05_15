@@ -107,7 +107,7 @@
 			</div>
 		</div>
 		<div class="tijiao">
-			<a href="javascript:;" class="tijao_btn">提交订单<em>&yen;568</em></a>
+			<a href="javascript:;" class="tijao_btn">确认付款<em>&yen;568</em></a>
 		</div>
 	</div>
 	<!-- alert -->
