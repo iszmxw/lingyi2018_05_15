@@ -566,6 +566,7 @@ class WxController extends Controller
                 $param["mchid"] = $this->mchId;
 
                 $param["mch_appid"] = $this->appId;
+                $param["appid"] = $this->appId;
                 break;
             // 填充企业支付到银行数据
             case "sptrans" :
