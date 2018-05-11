@@ -59,7 +59,7 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
         '<div class="col-85 radio_css">';
         if(status && status == 1){
             str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" class="radio_address">'+
-            '<label for="userinfo'+address_id+'"  onclick="select_ress('+address_id+')">';
+            '<label for="userinfo'+address_id+'"  onchange="select_ress('+address_id+')">';
         }else{
             str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" class="radio_address"><label for="userinfo">';
         }
