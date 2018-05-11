@@ -50,11 +50,9 @@ class WechatController extends Controller
         $organization_name = Organization::getPluck([['id',$store_id]],'organization_name');
 
         Session::put('organization_name', $organization_name);
-
-        $fansmanage_id = session("zerone_auth_info.organization_id");
-
+        
         // 渲染页面
-        return view('Simple/Wechat/goodslist', ['store_id' => $store_id, 'fansmanage_id' => $fansmanage_id]);
+        return view('Simple/Wechat/goodslist');
     }
 
     /**
