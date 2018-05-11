@@ -74,9 +74,9 @@ function select_ress(address_id,obj){
     $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
     $(":radio[name='dizhi']").removeClass('action');//到所有单选框inco删除action状态
     $(obj).find("input").addClass('action');//赋值当前单选框icon
+    var ress_info = $(obj).find("input").val();
 
-
-    console.log($(obj).find("input").attr("checked"));
+    console.log(ress_info);
 }
 //隐藏alert
 $(".popup_alert").click(function(e){
