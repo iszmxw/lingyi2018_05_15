@@ -32,7 +32,7 @@ $(function () {
 
     //查询商品列表和购物车列表(category(默认为0 全部,keyword_val搜索值默认为空))
     // selectgoods(1,"");
-
+    category_list(0);
 });
 
 
@@ -40,7 +40,7 @@ $(function () {
 
 var dropload = $('.goodslist').dropload({
     scrollArea: window,
-    autoLoad: true,
+    autoLoad: false,
     // 下拉刷新模块显示内容
     // domUp: {
     //     domClass: 'dropload-up',
@@ -388,13 +388,12 @@ function category_list(category_id) {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    dropload.lock();
-    //selectgoods(category_id, keyword_val,limit);
+    var $goodslist = $("#goodslist");
+    $goodslist.empty();
+    selectgoods(category_id, keyword_val,limit);
     $(".category" + category_id).siblings().removeClass('action');
     $(".category" + category_id).addClass('action');
     hidegoodsclass('goodsclass');
-    var $goodslist = $("#goodslist");
-    $goodslist.empty();
 }
 
 //商品搜索
@@ -409,11 +408,9 @@ function search_click() {
     var limit = $("#limit").val();//分页
     $("#limit").val("1");//选择分类，分页重置
     limit = 1;
-    
-    dropload.lock();
-    //selectgoods(category_id, keyword_val,limit);
     var $goodslist = $("#goodslist");
     $goodslist.empty();
+    //selectgoods(category_id, keyword_val,limit);
 }
 
 //清空购物车
