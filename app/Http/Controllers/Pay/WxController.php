@@ -91,10 +91,7 @@ class WxController extends Controller
         // 查询类型
         $data["bill_type"] = "MCHT";
         // 填充数组
-        $data = $this->fillOrderData($data);
-        unset($data["sign_type"]);
-        var_dump($data);
-
+        $data = $this->fillRedEnvelopeQueryData($data);
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
