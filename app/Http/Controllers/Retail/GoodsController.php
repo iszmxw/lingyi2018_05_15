@@ -123,7 +123,7 @@ class GoodsController extends Controller
             $is_barcode = RetailGoods::checkRowExists(['retail_id' => $admin_data['organization_id'], 'barcode' => $barcode ],'id');
             if ($barcode != null) {//判断商品条码是否唯一
                 if ($is_barcode) {
-                    return response()->json(['data' => '商品条码重复啦，请重新输入！'.$barcode, 'status' => '0']);
+                    return response()->json(['data' => $is_barcode.'商品条码重复啦，请重新输入！'.$barcode, 'status' => '0']);
                 }
             }
             RetailGoods::editRetailGoods($where, $goods_data);
