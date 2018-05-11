@@ -94,7 +94,6 @@ class WxController extends Controller
         $data = $this->fillOrderData($data);
         unset($data["sign_type"]);
 
-        var_dump($data);exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
         // 返回结果
