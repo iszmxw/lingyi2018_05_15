@@ -5,8 +5,8 @@ body {
 .g-flexview {
     height: 100%;
     margin: 0 auto;
-    max-width: 750px;
-    min-width: 300px;
+    max-width: 10rem;
+    min-width: 4rem;
     overflow: auto;
     padding-bottom: 3.425rem;
     background: rgb(241, 245, 248);
@@ -465,6 +465,7 @@ body {
     -ms-border-radius: 0.2rem;
     border-radius: 0.2rem;
     font-weight: 500;
+    margin-bottom: .75rem
 }
 .order .order_box a>i {
     display: inline-block;
@@ -513,7 +514,7 @@ body {
     font-weight: 600;
     color: rgb(102, 102, 102);
     font-size: 0.7rem;
-    letter-spacing: 2px;
+    letter-spacing: .03rem;
 }
 
 .alert .alert_btn_wz {
