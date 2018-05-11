@@ -926,9 +926,12 @@ Route::group(['prefix' => 'simple'], function () {
 /**********************微信端*********************/
 Route::group(['prefix' => 'zerone'], function () {
     Route::group(['prefix' => 'wechat'], function () {
-        Route::any('/', 'Api\WechatController@display')->middleware('WechatCheck');
-        Route::any('goodslist', 'Api\WechatController@goodslist')->middleware('WechatCheck');
-        Route::any('order_check', 'Api\WechatController@order_check')->middleware('WechatCheck');
+        Route::any('/', 'Api\WechatController@display')->middleware('WechatCheck'); //首页
+        Route::any('goodslist', 'Api\WechatController@goodslist')->middleware('WechatCheck');//商品列表
+        Route::any('online_order', 'Api\WechatController@online_order')->middleware('WechatCheck');//线上确认订单
+        Route::any('selftake_order', 'Api\WechatController@selftake_order')->middleware('WechatCheck');//自取确认订单
+        Route::any('address_add', 'Api\WechatController@address_add')->middleware('WechatCheck');//添加收货地址
+        Route::any('address_list', 'Api\WechatController@address_list')->middleware('WechatCheck');//收货地址列表
     });
 
 });

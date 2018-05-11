@@ -25,7 +25,7 @@ $(function () {
                 $goods_cs_lt_alert.empty();
                 $goods_cs_lt_alert.append(str);
             } else if (json.status == 0) {
-                alert(msg);
+                console.log(json.msg);
             }
         }
     );

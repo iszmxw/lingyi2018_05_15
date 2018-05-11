@@ -49,7 +49,8 @@ class WxController extends Controller
         // 发放ip地址
         $data["ip_address"] = "120.78.140.10";
         // 订单号
-        $data["order_num"] = substr(md5(time()), 0, 28);
+//        $data["order_num"] = substr(md5(time()), 0, 28);
+        $data["order_num"] = "6530cb44b093892f9e14d442472b";
         // 发送的openid
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
         // 备注
@@ -90,6 +91,7 @@ class WxController extends Controller
 
         // 填充数组
         $data = $this->fillRedEnvelopeData($data);
+
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         // 返回结果
