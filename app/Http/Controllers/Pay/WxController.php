@@ -1013,6 +1013,8 @@ class WxController extends Controller
      */
     public function rsa_encrypt($str, $file_name)
     {
+        var_dump(file_get_contents($file_name));
+
         $pu_key = openssl_pkey_get_public(file_get_contents($file_name));  //读取公钥内容
         var_dump($pu_key);
         exit;
