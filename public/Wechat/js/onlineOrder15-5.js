@@ -75,7 +75,7 @@ function select_ress(address_id,obj){
     $(":radio[name='dizhi']").removeClass('action');//到所有单选框inco删除action状态
     $(obj).find("input").addClass('action');//赋值当前单选框icon
     var ress_info = $(obj).find("input").val();
-
+    $("#address_info").text(ress_info);//赋值上面的
     console.log(ress_info);
 }
 //隐藏alert
