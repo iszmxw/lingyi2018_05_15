@@ -32,18 +32,12 @@ class WxController extends Controller
     private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
-
+    // 商户名称
     private $mchName = "lingyifuwu";
+
 
     public function test13()
     {
-//        $reqData["order_num_type"] = "out_refund_no";
-//        $reqData["order_num"] = "1003022622018050853721122351525761650";
-//        $data = json_encode($reqData, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refundQuery($data);
-//        echo $res;
-//        exit;
-
         // 活动名称
         $data["activity_name"] = "zzzz";
         // 发放ip地址
@@ -61,8 +55,6 @@ class WxController extends Controller
         $data["order_people_num"] = "1";
         // 祝福语
         $data["wishing"] = "gongxi";
-
-//        $data["amt_type"] = "ALL_RAND";
 
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->sendredpack($data);
