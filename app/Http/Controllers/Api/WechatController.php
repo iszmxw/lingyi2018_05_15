@@ -67,6 +67,15 @@ class WechatController extends Controller
     }
 
     /**
+     * 确定订单
+     */
+    public function selftake_order(Request $request)
+    {
+        // 渲染页面
+        return view('Simple/Wechat/selftake_order');
+    }
+
+    /**
      * 获取 wx.config 里面的签名,JSSDk 所需要的
      */
     public function getSignPackage()
