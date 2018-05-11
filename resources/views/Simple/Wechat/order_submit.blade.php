@@ -39,14 +39,6 @@
 						<p>薛志豪（先生） 13824322924</p>
 					</div>
 				</div>
-				<div class="item">
-					<div class="row">
-						<div class="col-20 item_info"><span>消费者</span></div>
-						<div class="col-80 item_info1">
-							<p>薛志豪-13824322924</p>
-						</div>
-					</div>
-				</div>
 				<div class="order_btn">
 					<div class="row" onclick="show()">
 						<div class="col-20"><span class="dizhi">备注</span></div>
