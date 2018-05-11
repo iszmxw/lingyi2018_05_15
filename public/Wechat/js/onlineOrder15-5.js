@@ -29,7 +29,6 @@ function ress_list(){
         url,
         {'_token': _token,'zerone_user_id':zerone_user_id},
         function (json) {
-                alert();
             console.log(json);
             if (json.status == 1) {
                 var str ="";
@@ -60,7 +59,7 @@ function ress_list_box(ress_info,realname,mobile,status){
         }else{
             str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
         }
-        str += '<label for="userinfo">'+ress_info+'</label>'+realname+mobile+'</label>'+
+        str += '<label for="userinfo">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
