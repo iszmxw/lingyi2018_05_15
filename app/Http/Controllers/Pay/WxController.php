@@ -52,6 +52,7 @@ class WxController extends Controller
     {
         $data["bill_date"] = 20180509;
         $data["bill_type"] = "ALL";
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
         $this->downloadBill($data);
     }
 
@@ -345,7 +346,7 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function downloadBill($param = [])
+    public function downloadBill($param)
     {
         // 请求参数处理
         $param = $this->requestDispose($param);
@@ -361,8 +362,9 @@ class WxController extends Controller
 
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
-        // 获取数据
-        $res = $this->httpRequest($url,"POST",$data);
+        // 返回结果
+        return $this->responseDispose($url, $data);
+
 //        // 获取数据
 //        $res = $this->wechat->downloadBill($data);
 
@@ -419,6 +421,8 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $resXml = $this->httpRequest($url, $method, $data, [], $is_ssh);
+        var_dump($resXml);
+        exit;
         // 将XML 转化为 数组
         $param = $this->xml2array($resXml);
 
