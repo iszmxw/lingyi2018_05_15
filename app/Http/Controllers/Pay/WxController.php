@@ -33,7 +33,7 @@ class WxController extends Controller
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
-    private $mchName = "lingyifuwu";
+    private $mchName = "零壹服务";
 
 
     public function test13()
