@@ -21,7 +21,25 @@ $(function(){
         }
     );
 });
-
+function ress_list(){
+    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//店铺ID
+    var url = "http://develop.01nnt.com/api/wechatApi/address_list";
+    $.post(
+        url,
+        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+                show('quhuoinfo');
+            } else if (json.status == 0) {
+                console.log(json.msg);
+            }
+        }
+    );
+}
 //隐藏alert
 $(".popup_alert").click(function(e){
     //stopPropagation(e);
