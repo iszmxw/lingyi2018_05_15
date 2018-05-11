@@ -37,6 +37,12 @@ class WxController extends Controller
 
     public function test13()
     {
+        $reqData["order_num_type"] = "out_refund_no";
+        $reqData["order_num"] = "1003022622018050853721122351525761650";
+        $data = json_encode($reqData, JSON_UNESCAPED_UNICODE);
+        $res = $this->refundQuery($data);
+        echo $res;
+        exit;
 
         // 活动名称
         $data["activity_name"] = "zzzz";
