@@ -47,7 +47,7 @@ class WxController extends Controller
 //        echo $this->microOrder($data);
 
         // 商户订单号
-        $data["order_num"] = "10101003022622018051100008578614";
+        $data["order_num"] = "1000018301201805117662388294";
 //        // 用户openid
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        // 收款用户姓名
