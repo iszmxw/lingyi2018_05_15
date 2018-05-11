@@ -49,7 +49,6 @@ class WxController extends Controller
         $this->nativeOrder($data);
         echo "<img src='http://develop.01nnt.com/uploads/pay_qr_code.png'>";
         exit;
-
     }
 
 
@@ -389,7 +388,10 @@ class WxController extends Controller
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         // 返回结果
-        return $this->responseDispose($url, $data, "post", false);
+//        return $this->responseDispose($url, $data, "post", false);
+        echo $this->responseDispose($url, $data, "post", false);
+        exit;
+
     }
 
 
