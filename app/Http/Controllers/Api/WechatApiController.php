@@ -617,20 +617,23 @@ class WechatApiController extends Controller
         $zerone_user_id = $request->zerone_user_id;
         // 查询收货地址列表
         $address = SimpleAddress::getList([['zerone_user_id', $zerone_user_id]]);
+        $address_list = [];
+        foreach($address as $key=>$value){
+            $address_list[$key] = [
+                "address_id" => $address['id'],
+                "province_id" => $address['province_id'],
+                "province_name" => $address['province_name'],
+                "city_id" => $address['city_id'],
+                "city_name" => $address['city_name'],
+                "district_id" => $address['district_id'],
+                "district_name" => $address['district_name'],
+                "address" => $address['address'],
+                "realname" => $address['realname'],
+                "mobile" => $address['mobile'],
+                "status" => $address['status'],
+            ];
+        }
 
-        $address_list = [
-            "address_id" => $address['id'],
-            "province_id" => $address['province_id'],
-            "province_name" => $address['province_name'],
-            "city_id" => $address['city_id'],
-            "city_name" => $address['city_name'],
-            "district_id" => $address['district_id'],
-            "district_name" => $address['district_name'],
-            "address" => $address['address'],
-            "realname" => $address['realname'],
-            "mobile" => $address['mobile'],
-            "status" => $address['status'],
-        ];
 
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_list' => $address_list]];
 
