@@ -304,8 +304,16 @@ class WxController extends Controller
         // 通知地址
         $data["notify_url"] = $this->notify_url;
 
-        $res = $this->wechat->refund($data);
-        return $this->resDispose($res);
+//        $res = $this->wechat->refund($data);
+//        return $this->resDispose($res);
+        // 请求参数处理
+
+        // 填充数组
+        $data = $this->fillData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+        return $this->responseDispose($url, $data,"POST",true);
     }
 
 
@@ -321,7 +329,7 @@ class WxController extends Controller
     public function refundQuery($param = [])
     {
         // 请求参数处理
-            $param = $this->requestDispose($param);
+        $param = $this->requestDispose($param);
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
