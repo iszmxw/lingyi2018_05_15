@@ -529,7 +529,7 @@ class WxController extends Controller
         // 检测文件夹是否存在
         $this->checkPath($filePath);
         // 保存文件名
-        $fileName = $filePath . "download_" . date("His") . ".csv";
+        $fileName = $filePath . date("His") . ".csv";
         // 写入文件夹
         file_put_contents($fileName, $res);
         // 告诉浏览器通过附件形式来处理文件
