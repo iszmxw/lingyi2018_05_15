@@ -42,7 +42,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>备注</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>要点要点要点</p>
+							<p>要点要点要点1313</p>
 					      </div>
 					    </div>
 				    </div>
