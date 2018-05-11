@@ -19,6 +19,8 @@ class WechatCheck
             case "zerone/wechat/goodslist"://商品列表
             case "zerone/wechat/online_order"://线上订单确认
             case "zerone/wechat/selftake_order"://自取订单确认
+            case "zerone/wechat/address_add"://添加收货地址
+            case "zerone/wechat/address_list"://收货地址列表
                 $this->checkToken();
                 break;
         }
