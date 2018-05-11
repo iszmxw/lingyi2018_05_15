@@ -55,9 +55,9 @@ function ress_list(){
 function ress_list_box(ress_info,realname,mobile,status){
     var str = "";
     str += '<div class="row alert_list">'+
-        '<div class="col-85 radio_css">';
+        '<div class="col-85 radio_css" onchange="select_ress()">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" onchange="select_ress()" class="radio_address"><label for="userinfo">';
+            str += '<input type="radio" id="userinfo" name="dizhi" checked="checked" class="radio_address"><label for="userinfo">';
         }else{
             str += '<input type="radio" id="userinfo" name="dizhi" class="radio_address"><label for="userinfo">';
         }
@@ -68,7 +68,7 @@ function ress_list_box(ress_info,realname,mobile,status){
     return str;
 }
 function select_ress(){
-    
+
     console.log("adas");
 }
 //隐藏alert
