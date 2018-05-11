@@ -165,7 +165,16 @@ class WxController extends Controller
      */
     public function gettransferinfo($param)
     {
-
+        // 请求参数处理
+        $param = $this->requestDispose($param);
+        // 商户企业付款单号
+        $data["partner_trade_no"] = $param["order_num"];
+        // 填充数组
+        $data = $this->fillSptransData($data);
+        // 接口地址
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+        // 返回结果
+        return $this->responseDispose($url, $data, "POST", true);
     }
     // +----------------------------------------------------------------------
     // | End - 企业支付到零钱/银行
