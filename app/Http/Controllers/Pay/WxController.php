@@ -348,11 +348,9 @@ class WxController extends Controller
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 对账日期
-//        $data["bill_date"] = $param["bill_date"];
-        $data["bill_date"] = "20180505";
+        $data["bill_date"] = $param["bill_date"];
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
-
         // 填充数组
         $data = $this->fillData($data);
         // 接口地址
@@ -361,15 +359,16 @@ class WxController extends Controller
         $data = $this->array2xml($data);
         // 发送请求
         $res = $this->httpRequest($url, "POST", $data);
-
+        // 判断是否为xml 格式
         $res_xml_parser = $this->xmlParser($res);
+        // 判断xml格式中接口返回结果是否正确
         if ($res_xml_parser == true) {
             $res = $this->xml2array($res);
+            // 判断结果返回结果
             if ($res["return_code"] != "SUCCESS") {
                 return json_encode($res, JSON_UNESCAPED_UNICODE);
             }
         }
-
         // 得到文件名
         $fileName = "./uploads/download.csv";
         file_put_contents($fileName, $res);
