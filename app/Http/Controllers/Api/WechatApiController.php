@@ -617,9 +617,9 @@ class WechatApiController extends Controller
         $zerone_user_id = $request->zerone_user_id;
         // 查询收货地址列表
         $address = SimpleAddress::getList([['zerone_user_id', $zerone_user_id]]);
-//        if(empty($address->toArray())){
-//            return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
-//        }
+        if($address->toArray()){
+            return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
+        }
         $address_list = [];
         foreach($address as $key=>$value){
             $address_list[$key] = [
