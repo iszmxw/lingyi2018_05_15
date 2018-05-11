@@ -65,11 +65,11 @@ class WxController extends Controller
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 订单号
-        $data["mch_billno"] = $param["order_num"] * 100;
+        $data["mch_billno"] = $param["order_num"];
         // 发送的openid
         $data["re_openid"] = $param["openid"];
         // 金额
-        $data["total_amount"] = $param["order_money"];
+        $data["total_amount"] = $param["order_money"] * 100;
         // 发放人数
         $data["total_num"] = $param["order_people_num"];
         // 发放ip地址
