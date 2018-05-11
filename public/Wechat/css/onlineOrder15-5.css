@@ -621,6 +621,9 @@ body {
 	color: rgb(0,0,00);
 	font-weight: 600;
 }
+.selectexpress .quhuo .peisong_confirm{
+    display: none;
+}
 /* 选择快递方式弹框 */
 /* alert */
 
