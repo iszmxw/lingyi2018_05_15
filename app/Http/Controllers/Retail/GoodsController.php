@@ -115,14 +115,13 @@ class GoodsController extends Controller
             return response()->json(['data' => '请选择分类！', 'status' => '0']);
         }
         $where = ['id' => $goods_id];
-        dd($barcode);
         //商品数据
         $goods_data = ['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'created_by' => $admin_data['id'], 'category_id' => $category_id, 'name' => $name, 'price' => $price, 'barcode' => $barcode, 'displayorder' => $displayorder, 'details' => $details];
         DB::beginTransaction();
         try {
             RetailGoods::editRetailGoods(['id' => $goods_id],['barcode'=>'']);//修改商品前现将商品条码设置为空,在检测还有没有重复的商品条码
             $is_barcode = RetailGoods::checkRowExists(['retail_id' => $admin_data['organization_id'], 'barcode' => $barcode ],'id');
-            if ($is_barcode) {//判断商品条码是否唯一
+            if ($barcode != null && $is_barcode) {//判断商品条码是否唯一
                 return response()->json(['data' => '商品条码重复啦，请重新输入！', 'status' => '0']);
             }
             RetailGoods::editRetailGoods($where, $goods_data);
