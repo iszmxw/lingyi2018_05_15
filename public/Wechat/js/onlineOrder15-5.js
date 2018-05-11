@@ -15,6 +15,7 @@ $(function(){
                                     json.data.address_info.district_name +json.data.address_info.address
                                     +json.data.address_info.mobile;
                 $("#address_info").text(address_info);
+                $("#address_info_box").show();
             } else if (json.status == 0) {
                 console.log(json.msg);
             }

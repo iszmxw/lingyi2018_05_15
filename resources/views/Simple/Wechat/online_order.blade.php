@@ -26,7 +26,8 @@
 	        <div class="order order_m">
 				<div class="order_box">
 					<h3 class="order_state15-10">待支付</h3>
-			    	<div class="item" onclick="ress_list()">
+                    <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external><i></i>添加收货地址</a>
+			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
 					      <div class="col-20 item_info"><span>收货信息</span></div>
 					      <div class="col-80 item_info1 item_icon">
