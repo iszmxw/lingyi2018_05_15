@@ -115,6 +115,7 @@ class GoodsController extends Controller
             return response()->json(['data' => '请选择分类！', 'status' => '0']);
         }
         $where = ['id' => $goods_id];
+        dd($barcode);
         //商品数据
         $goods_data = ['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'created_by' => $admin_data['id'], 'category_id' => $category_id, 'name' => $name, 'price' => $price, 'barcode' => $barcode, 'displayorder' => $displayorder, 'details' => $details];
         DB::beginTransaction();
