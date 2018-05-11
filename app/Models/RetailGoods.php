@@ -48,7 +48,7 @@ class RetailGoods extends Model{
     //查询数据是否存在（仅仅查询ID增加数据查询速度）
     public static function checkRowExists($where, $pluck)
     {
-        $row = self::getPluck($where, $pluck)->toArray();
+        $row = self::getPluck($where, $pluck)->first();
         if (empty($row)) {
             dd($row);
             return false;
