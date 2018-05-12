@@ -64,7 +64,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>备注</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>要点要点要点1313</p>
+							<p id="remarks_box">请输入您需要交代的话~</p>
 					      </div>
 					    </div>
 				    </div>
@@ -119,12 +119,12 @@
 				<p class="quhuoinfo">订单备注</p>
 				<div class="max_height_box">
 					<div class="list-block">
-    					<textarea placeholder="详细地址"></textarea>
+    					<textarea placeholder="请输入您需要交代的话~" id="remarks"></textarea>
     				</div>
 				</div>
 				<div class="alert_btn_wz">
 					<!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="hide('alert')">确认</a>
+					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="remarks()">确认</a>
 				</div>
 			</div>
 		</div>
