@@ -158,14 +158,12 @@ class WxController extends Controller
         // 写入文件夹
         file_put_contents($fileName, $res["data"]["pub_key"]);
 
-
-
-
-        $fileName = realpath($fileName);
-        $a = shell_exec("openssl rsa -RSAPublicKey_in -in $fileName -pubout");
-
-
-        var_dump($a);exit;
+        // 获取全程地址
+        $file_name = realpath($fileName);
+        // PKCS#8的公钥
+        $turn_code = shell_exec("openssl rsa -RSAPublicKey_in -in $file_name -pubout");
+        // 写入文件夹
+        file_put_contents($fileName, $turn_code);
         // 返回保存路径
         return $fileName;
     }
