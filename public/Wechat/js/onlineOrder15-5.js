@@ -143,6 +143,7 @@ function selectSelftake(){
                 $("#address").hide();
                 $("#addselftake").show();
                 $("#select_distribution").text('到点自取');//配送方式
+                hide("selectexpress");//隐藏选择取货框
                 console.log(json.msg);
             }
              $.hideIndicator();
