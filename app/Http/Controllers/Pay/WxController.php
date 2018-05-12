@@ -568,7 +568,7 @@ class WxController extends Controller
     public function downloadBill()
     {
 
-        $param = requset()->post();
+        $param = request()->post();
         var_dump($param);
         exit;
 //        // 请求参数处理
