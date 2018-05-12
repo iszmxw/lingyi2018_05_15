@@ -58,8 +58,9 @@ class WechatController extends Controller
      */
     public function online_order(Request $request)
     {
+        $return = $request->return;
         // 渲染页面
-        return view('Simple/Wechat/online_order');
+        return view('Simple/Wechat/online_order', ['return' => $return]);
     }
 
     /**
@@ -133,7 +134,6 @@ class WechatController extends Controller
         // 渲染页面
         return view('Simple/Wechat/selftakeOrderDetail');
     }
-
 
 
     /**
