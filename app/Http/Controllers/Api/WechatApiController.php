@@ -560,7 +560,7 @@ class WechatApiController extends Controller
         // 用户零壹id
         $zerone_user_id = $request->zerone_user_id;
         // 取货信息id
-        $selftake_id = $request->selftake_id;
+        $selftake_id = $request->self_take_id;
         // 查询默认取货信息
         $selftake = SimpleSelftake::getone([['zerone_user_id', $zerone_user_id], ['selftake_id', $selftake_id]]);
         if (empty($selftake)) {
