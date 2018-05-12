@@ -18,6 +18,7 @@
     <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
     <div class="page">
 	    <div class="g-flexview">
+            <input type="hidden" name="shipping_type" id="shipping_type" value="1">
 	        <div class="top">
 	            <div class="top_box">
 					<a href="javascript:;" class="return_btn"></a>
