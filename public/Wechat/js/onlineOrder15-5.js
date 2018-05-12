@@ -151,10 +151,12 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css" onclick="select_ress('+address_id+',this)">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked" value="'+ress_info+realname+mobile+'" class="radio_address action">'+
-            '<label for="userinfo'+address_id+'">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" checked="checked"'+
+                    'value="'+ress_info+realname+mobile+'" class="radio_address action">'+
+                    '<label for="userinfo'+address_id+'">';
         }else{
-            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" value="'+ress_info+realname+mobile+'" class="radio_address"><label for="userinfo'+address_id+'">';
+            str += '<input type="radio" id="userinfo'+address_id+'" name="dizhi" value="'+ress_info+realname+mobile+'"'+
+                    'class="radio_address"><label for="userinfo'+address_id+'">';
         }
         str += '<label for="userinfo'+address_id+'">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
@@ -166,11 +168,13 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
 function selftake_list_box(realname,sex,mobile,status,id){
     var str = "";
     str += '<div class="row alert_list">'+
-        '<div class="col-85 radio_css">';
+        '<div class="col-85 radio_css" onclick="select_selftake('+id+',this)">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+id+'" checked="checked" value="'+realname+"-"+mobile+'" name="selftake" class="radio_address action">';
+            str += '<input type="radio" id="userinfo'+id+'" checked="checked" value="'+realname+"-"+mobile+'"'+
+                    'name="selftake" class="radio_address action">';
         }else{
-            str += '<input type="radio" id="userinfo'+id+'" name="selftake" class="radio_address">';
+            str += '<input type="radio" id="userinfo'+id+'" name="selftake" value="'+realname+"-"+mobile+'"'+
+            'class="radio_address">';
         }
         str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
         '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
@@ -195,6 +199,15 @@ function select_ress(address_id,obj){
     $(obj).find("input").addClass('action');//赋值当前单选框icon
     var ress_info = $(obj).find("input").val();
     $("#address_info").text(ress_info);//赋值上面的
+}
+//自取信息选择
+function select_selftake(address_id,obj){
+    $(":radio[name='selftake']").removeAttr('checked');//找到所有单选框删除选择状态
+    $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
+    $(":radio[name='selftake']").removeClass('action');//到所有单选框inco删除action状态
+    $(obj).find("input").addClass('action');//赋值当前单选框icon
+    var ress_info = $(obj).find("input").val();
+    $("#selftake_info").text(ress_info);//赋值上面的
 }
 //配送选择
 function selectexpress(obj,address){
