@@ -104,6 +104,7 @@ function selectSelftake(){
                 var address_info = json.data.address_info.realname +"-"+ json.data.address_info.mobile;
                 $("#address_info").text(address_info);
                 hide("selectexpress");
+                
                 //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
