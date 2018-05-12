@@ -41,6 +41,12 @@
 				</ul>
 			</div>
 		</div>
+		<div class="morendizhi">
+				<span>
+					<input type="checkbox" name="" id="morendizhi">
+					<label><label for="morendizhi">设为默认地址</label></label>
+				</span>
+		</div>
 		<a href="javascript:;" class="preservation">保存</a>
 	</div>
 	<!-- alert -->
