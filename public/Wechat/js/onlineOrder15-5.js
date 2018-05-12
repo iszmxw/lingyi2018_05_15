@@ -105,7 +105,7 @@ function selftake_list(){
                     var sex = (json.data.self_take_info[i].sex ==1 ) ? "先生" : "女士";
                     var mobile = json.data.self_take_info[i].mobile;
                     var status = json.data.self_take_info[i].status;
-                    var id =json.data.address_list[i].id;
+                    var id =json.data.self_take_info[i].id;
                     str += selftake_list_box(realname,sex,mobile,status,id);
                 }
                 var $selftake_list = $("#selftake_list_box");
