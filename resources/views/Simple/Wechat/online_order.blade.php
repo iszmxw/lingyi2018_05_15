@@ -68,7 +68,7 @@
 			            	<p><span class="yunfei">运费</span><em>&yen;789</em></p>
 			            </div>
 			            <div class="order_btn order_zongji">
-			            	<p><em>总计</em id="order_num_price"></p>
+			            	<p id="order_num_price"><em>总计</em></p>
 			            </div>
 		    	    </div>
 				</div>
