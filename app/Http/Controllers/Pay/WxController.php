@@ -57,16 +57,19 @@ class WxController extends Controller
 
     public function test13()
     {
+//                // native 下单
 //        $data["desc"] = "商品-xho-test";
 //        $data["order_num"] = md5(time());
-//        $data["order_money"] = 3;
+//        $data["order_money"] = 2;
 //        $data["ip_address"] = "120.78.140.10";
-//        $data["auth_code"] = "135420899305495836";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->microOrder($data);
-//exit;
+//        $res = $this->nativeOrder($data);
+//        echo "<img src='http://develop.01nnt.com/$res'>";
 //
-
+//        exit;
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
@@ -75,13 +78,19 @@ class WxController extends Controller
         $data["bank_card_name"] = "郑旭宏";
         $data["bank_code"] = "1001";
         // 金额
-        $data["order_money"] = 1;
+        $data["order_money"] = 0.01;
         // 企业付款描述信息
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
+        echo $data["order_num"];
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
         echo $this->pay_bank($data);
+exit;
+        $data["order_num"] = md5(time());
+        echo $this->query_bank($data);
+
 
     }
 
@@ -99,11 +108,11 @@ class WxController extends Controller
      */
     public function pay_bank($param)
     {
-        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
+        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_8/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
-//        if (!file_exists(realpath($file_name))) {
+        if (!file_exists(realpath($file_name))) {
             $this->getpublickey();
-//        }
+        }
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
@@ -128,7 +137,7 @@ class WxController extends Controller
 
 
     /**
-     * 获取公钥
+     * 获取公钥，包括 PKCS#1 和 PKCS#8
      * @return string
      * @throws \Exception
      */
@@ -150,22 +159,28 @@ class WxController extends Controller
         }
 
         // 得到文件名
-        $filePath = "./uploads/pay/wechat/public_key/{$this->mchId}/";
+        $filePath_pkcs_1 = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_1/";
+        $filePath_pkcs_8 = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_8/";
+
         // 检测文件夹是否存在
-        $this->checkPath($filePath);
+        $this->checkPath($filePath_pkcs_1);
+        $this->checkPath($filePath_pkcs_8);
+
         // 保存文件名
-        $fileName = "{$filePath}publicrsa.pem";
+        $fileName_pkcs_1 = "{$filePath_pkcs_1}publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName, $res["data"]["pub_key"]);
+        file_put_contents($fileName_pkcs_1, $res["data"]["pub_key"]);
 
         // 获取全程地址
-        $file_name = realpath($fileName);
+        $file_name = realpath($fileName_pkcs_1);
         // PKCS#8的公钥
         $turn_code = shell_exec("openssl rsa -RSAPublicKey_in -in $file_name -pubout");
+        // 保存文件夹
+        $fileName_pkcs_8 = "{$filePath_pkcs_8}publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName, $turn_code);
+        file_put_contents($fileName_pkcs_8, $turn_code);
         // 返回保存路径
-        return $fileName;
+        return $fileName_pkcs_8;
     }
 
     /**
@@ -1019,11 +1034,8 @@ class WxController extends Controller
      */
     public function rsa_encrypt($str, $file_name)
     {
-        var_dump(file_get_contents($file_name));
         // 读取公钥内容
         $pu_key = openssl_pkey_get_public(file_get_contents($file_name));
-        var_dump($pu_key);
-        exit;
         $encryptedBlock = '';
         $encrypted = '';
         // 用标准的RSA加密库对敏感信息进行加密，选择RSA_PKCS1_OAEP_PADDING填充模式
