@@ -278,7 +278,7 @@ class WxPayCheckAjax
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        $this->downloadBill($data);
 
-        $res = request()->all();
+        $res = request()->post();
         var_dump($res);exit;
 
         // 金额处理
