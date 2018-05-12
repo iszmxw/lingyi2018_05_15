@@ -1,24 +1,36 @@
 $(function(){
-    var status = getUrlParam("status");
-    if(status){
-        var selftake_id = getUrlParam("selftake_id");
-        var realname = getUrlParam("realname");
-        $("#selftake_info").text(realname);
-        $("#address_info_box").hide();//隐藏收货地址列表
-        $("#selftake_info_box").show();//显示自取信息列表
-        $("#address").hide();//隐藏收货地址按钮
-        $("#select_distribution").text('到店自取');//配送方式
-        console.log(selftake_id);
-        console.log(realname);
-    }else{
-        //默认查找用户默认的收获地址
-        address_user();
-    }
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//userID
     var shop_user_id = $("#shop_user_id").val();//用户店铺ID
+    var status = getUrlParam("status");//返回自取状态
+    if(status && status=="selftake"){
+        var selftake_id = getUrlParam("selftake_id");
+        //查询返回来(新添加)的自取信息
+        var selftake_info = "http://develop.01nnt.com/api/wechatApi/selftake_info";
+        $.post(
+            selftake_info,
+            {'zerone_user_id': zerone_user_id, '_token': _token,'selftake_id':selftake_id},
+            function (json) {
+                console.log(json);
+                if (json.status == 1) {
+
+                } else if (json.status == 0) {
+                    $.toast("网络错误");
+                }
+            }
+        );
+        $("#selftake_info").text(realname);
+        $("#address_info_box").hide();//隐藏收货地址列表
+        $("#selftake_info_box").show();//显示自取信息列表
+        $("#address").hide();//隐藏收货地址按钮
+        $("#select_distribution").text('到店自取');//配送方式
+        $("#shipping_type").val("2");//修改到点自提id
+    }else{
+        //默认查找用户默认的收获地址
+        address_user();
+    }
     //查询购物车商品数据
     var cart_list_url = "http://develop.01nnt.com/api/wechatApi/shopping_cart_list";
     $.post(
