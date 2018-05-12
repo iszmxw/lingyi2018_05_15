@@ -66,7 +66,7 @@ class WxController extends Controller
 //        echo $this->microOrder($data);
 //exit;
 //
-         exec("ls -a",$a);
+         $a = shell_exec("ls -a");
          var_dump($a);
 exit;
         // 商户订单号
