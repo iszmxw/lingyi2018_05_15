@@ -99,7 +99,7 @@ class WxController extends Controller
      */
     public function pay_bank($param)
     {
-        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
+        $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_8/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
 //        if (!file_exists(realpath($file_name))) {
         $this->getpublickey();
