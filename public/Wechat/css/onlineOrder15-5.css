@@ -469,6 +469,7 @@ body {
     border-radius: 0.2rem;
     font-weight: 500;
     margin-bottom: .4rem;
+    display: none;
 }
 .order .order_box a>i {
     display: inline-block;
