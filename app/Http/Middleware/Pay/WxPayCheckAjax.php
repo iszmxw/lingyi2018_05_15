@@ -69,15 +69,11 @@ class WxPayCheckAjax
                 $res_check = $this->check_downloadBill();
                 break;
         }
-        var_dump($res_check);
-        exit;
 
         // 判断参数是否传输错误
-        if ($res_check == false) {
+        if ($res_check !== true) {
             // 接口返回失败
-            $res["return_code"] = 0;
-            $res["return_msg"] = "参数错误";
-            return json_encode($res, JSON_UNESCAPED_UNICODE);
+            return $res_check;
         }
         // 条件处理完就进入控制器中
         return $next($request);
@@ -275,18 +271,29 @@ class WxPayCheckAjax
      */
     public function check_downloadBill()
     {
+        // 获取数据
         $post_data = request()->post();
+        // 规则
         $rule = [
             'bill_date' => 'required',
             'bill_type' => 'required',
         ];
+        // 提示消息
         $message = [
             "bill_date.required" => "bill_date 必须填写",
             "bill_type.required" => "bill_type 必须填写",
         ];
+        // 返回验证结果
         return $this->validate($post_data, $rule,$message);
     }
 
+    /**
+     * 验证器
+     * @param $data
+     * @param $rule
+     * @param array $message
+     * @return bool|string
+     */
     private function validate($data, $rule, $message = [])
     {
         $validate = \Validator::make($data, $rule, $message);
