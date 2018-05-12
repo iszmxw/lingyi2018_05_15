@@ -42,7 +42,7 @@ $(function(){
                 $order_list.append(str);
                 //购物车总数
                 var order_num = json.data.total;
-                $("#order_num").text("&nbsp;&nbsp;("+order_num+"份商品)");
+                $("#order_num").html("&nbsp;&nbsp;("+order_num+"份商品)");
             } else if (json.status == 0) {
                 window.history.go(-1);
                 console.log(json.msg);
