@@ -30,7 +30,7 @@
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external><i></i>添加收货地址</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
-					      <div class="col-20 item_info"><span>收货信息</span></div>
+					      <div class="col-20 item_info"><span id="address_info_name">收货地址</span></div>
 					      <div class="col-80 item_info1 item_icon">
 							<p id="address_info"></p>
 					      </div>

@@ -100,11 +100,11 @@ function selectSelftake(){
         function (json) {
             console.log(json,"asd");
             if (json.status == 1) {
-                // var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                //                     json.data.address_info.district_name +json.data.address_info.address
-                //                     +json.data.address_info.mobile;
-                // $("#address_info").text(address_info);
-                // $("#address_info_box").show();//现在添加收货地址按钮
+                $("#address_info_name").text('自取信息');
+                var address_info = json.data.address_info.realname +"-"+ json.data.address_info.mobile;
+                $("#address_info").text(address_info);
+                hide("selectexpress");
+                //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
