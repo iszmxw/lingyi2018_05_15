@@ -1062,35 +1062,35 @@ Route::group(['prefix' => 'pay'], function () {
     // 微信支付通用路由组
     Route::group(['prefix' => 'wx'], function () {
         // 企业支付到银行卡接口
-        Route::post('pay_bank', 'Pay\WxController@pay_bank');
+        Route::post('pay_bank', 'Pay\WxController@pay_bank')->middleware("WxPayCheckAjax");
         // 查询企业支付到银行卡接口
-        Route::post('query_bank', 'Pay\WxController@query_bank');
+        Route::post('query_bank', 'Pay\WxController@query_bank')->middleware("WxPayCheckAjax");
         // 企业支付到零钱接口
-        Route::post('transfers', 'Pay\WxController@transfers');
+        Route::post('transfers', 'Pay\WxController@transfers')->middleware("WxPayCheckAjax");
         // 查询企业支付到零钱接口
-        Route::post('gettransferinfo', 'Pay\WxController@gettransferinfo');
+        Route::post('gettransferinfo', 'Pay\WxController@gettransferinfo')->middleware("WxPayCheckAjax");
         // 发送普通红包
-        Route::post('sendredpack', 'Pay\WxController@sendredpack');
+        Route::post('sendredpack', 'Pay\WxController@sendredpack')->middleware("WxPayCheckAjax");
         // 发送裂变红包
-        Route::post('sendgroupredpack', 'Pay\WxController@sendgroupredpack');
+        Route::post('sendgroupredpack', 'Pay\WxController@sendgroupredpack')->middleware("WxPayCheckAjax");
         // 红包查询记录
-        Route::post('gethbinfo', 'Pay\WxController@gethbinfo');
+        Route::post('gethbinfo', 'Pay\WxController@gethbinfo')->middleware("WxPayCheckAjax");
         // 扫码下订单
-        Route::post('nativeOrder', 'Pay\WxController@nativeOrder');
+        Route::post('nativeOrder', 'Pay\WxController@nativeOrder')->middleware("WxPayCheckAjax");
         // 微信公众号下订单
-        Route::post('jsApiOrder', 'Pay\WxController@jsApiOrder');
-        // 统一下单接口
-        Route::post('unifiedOrder', 'Pay\WxController@unifiedOrder');
+        Route::post('jsApiOrder', 'Pay\WxController@jsApiOrder')->middleware("WxPayCheckAjax");
+//        // 统一下单接口
+//        Route::post('unifiedOrder', 'Pay\WxController@unifiedOrder')->$this->middleware("WxPayCheckAjax");
         // 关闭订单接口
-        Route::post('closeOrder', 'Pay\WxController@closeOrder');
+        Route::post('closeOrder', 'Pay\WxController@closeOrder')->middleware("WxPayCheckAjax");
         // 刷卡支付
-        Route::post('microOrder', 'Pay\WxController@microOrder');
+        Route::post('microOrder', 'Pay\WxController@microOrder')->middleware("WxPayCheckAjax");
         // 订单查询接口
-        Route::post('orderQuery', 'Pay\WxController@orderQuery');
+        Route::post('orderQuery', 'Pay\WxController@orderQuery')->middleware("WxPayCheckAjax");
         // 退款接口
-        Route::post('refund', 'Pay\WxController@refund');
+        Route::post('refund', 'Pay\WxController@refund')->middleware("WxPayCheckAjax");
         // 退款订单查询
-        Route::post('refundQuery', 'Pay\WxController@refundQuery');
+        Route::post('refundQuery', 'Pay\WxController@refundQuery')->middleware("WxPayCheckAjax");
         // 下载对账单
         Route::post('downloadBill', 'Pay\WxController@downloadBill')->middleware("WxPayCheckAjax");
         // 获取微信支付支持的银行的信息
