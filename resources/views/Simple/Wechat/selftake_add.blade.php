@@ -28,9 +28,9 @@
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f"></div>
 						<div class="item_input item_input_pd1">
-							<input type="radio" id="userinfo2" name="dizhi" checked="checked" class="radio_address">
+							<input type="radio" id="userinfo2" name="dizhi" checked="checked" class="radio_address" value="1">
 							<label for="userinfo2">先生</label>
-							<input type="radio" id="userinfo1" name="dizhi" class="radio_address">
+							<input type="radio" id="userinfo1" name="dizhi" class="radio_address" value="2">
 							<label for="userinfo1">女士</label>
 						</div>
 					</li>
@@ -45,7 +45,7 @@
 		</div>
 		<div class="morendizhi" onclick="select_morendizhi()">
 				<span>
-					<input type="checkbox" name="morendizhi" id="morendizhi">
+					<input type="checkbox" name="morendizhi" id="morendizhi" value="1">
 					<label for="morendizhi" class="" id="morendizhi_action">
 						<label for="morendizhi">设为默认取货信息</label>
 					</label>
