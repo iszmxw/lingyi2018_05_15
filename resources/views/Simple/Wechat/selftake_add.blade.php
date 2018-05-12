@@ -43,7 +43,7 @@
 		</div>
 		<div class="morendizhi">
 				<span>
-					<input type="checkbox" name="morendizhi" id="morendizhi">
+					<input type="checkbox" name="morendizhi" id="morendizhi" checkbox="checkbox">
 					<label><label for="morendizhi">设为默认取货信息</label></label>
 				</span>
 		</div>
