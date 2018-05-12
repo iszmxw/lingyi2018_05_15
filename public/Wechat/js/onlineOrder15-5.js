@@ -33,7 +33,7 @@ $(function(){
             console.log(json);
             if (json.status == 1) {
                 var str = "";//拼接字符串
-                var order_num_price = "";
+                var order_num_price = 0;
                 for (var i = 0; i < json.data.goods_list.length; i++) {
                     str += order_list_box(json.data.goods_list[i].goods_name,json.data.goods_list[i].num,
                                 json.data.goods_list[i].goods_price);
