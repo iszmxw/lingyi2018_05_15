@@ -19,7 +19,6 @@ class SimpleSelftake extends Model
     protected $guarded = [];
 
 
-
     //获取多条信息
     public static function getList($where)
     {
@@ -55,6 +54,14 @@ class SimpleSelftake extends Model
         }
         $model->save();
     }
+
+    //修改数据
+    public static function editaa($where, $param)
+    {
+        // 更新信息
+        self::where($where)->update(['status' => $param["status"]]);
+    }
+
 
     //查询数据是否存在（仅仅查询ID增加数据查询速度）
     public static function checkRowExists($where)
