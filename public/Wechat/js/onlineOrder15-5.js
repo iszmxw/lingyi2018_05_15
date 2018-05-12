@@ -18,7 +18,7 @@ $(function(){
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
-                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
+                //show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
             }
         }
@@ -32,7 +32,17 @@ $(function(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-
+                var str = "";
+                for (var i = 0; i < json.data.goods_list.length; i++) {
+                    str += order_list_box(json.data.goods_list[i].goods_name,json.data.goods_list[i].num,
+                                json.data.goods_list[i].goods_price);
+                }
+                var $order_list =$("#order_list");
+                $order_list.empty();
+                $order_list.append(str);
+                //购物车总数
+                var order_num = json.data.goods_list.total;
+                $("#order_num").text("&nbsp;&nbsp;("+order_num+"份商品)");
             } else if (json.status == 0) {
                 window.history.go(-1);
                 console.log(json.msg);
@@ -50,7 +60,6 @@ function ress_list(){
         url,
         {'_token': _token,'zerone_user_id':zerone_user_id},
         function (json) {
-            console.log(json);
             if (json.status == 1) {
                 var str ="";
                 for (var i = 0; i < json.data.address_list.length; i++) {
@@ -88,6 +97,16 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
         '</div>'+
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
+    return str;
+}
+//订单列表拼接
+function order_list_box(goods_name,num,goods_price){
+    var str = "";
+    str += '<div class="row order_list_box">'+
+        '<div class="col-60">'+goods_name+'</div>'+
+        '<div class="col-15">&#215;'+num+'</div>'+
+        '<div class="col-25">&yen;'+goods_price+'</div>'+
+    '</div>'
     return str;
 }
 //收货地址选择
