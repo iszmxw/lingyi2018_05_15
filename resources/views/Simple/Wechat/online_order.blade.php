@@ -59,14 +59,52 @@
 				<div class="order_address1">
 					<div class="row order_address_m">
 				      <div class="col-50 dindanmx"><i></i>订单明细<em id="order_num"></em></div>
-				      <div class="col-50 riqi"></div>
+				      <div class="col-50 riqi">2018-04-19 05:45</div>
 				    </div>
-		    	    <div class="order_list" id="order_list">
-					    <div class="row order_list_box">
-				            <div class="col-60">2018春装新款格子修</div>
-				            <div class="col-15">&#215;1</div>
-				            <div class="col-25">&yen;88</div>
-				        </div>
+		    	    <div class="order_list">
+					    <div id="order_list">
+                            <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+    				        <div class="row order_list_box">
+    				            <div class="col-60">2018春装新款格子修</div>
+    				            <div class="col-15">&#215;1</div>
+    				            <div class="col-25">&yen;88</div>
+    				        </div>
+                        </div>
+				        <div class="order_btn order_zongji">
+			            	<p><span class="yunfei">运费</span><em>&yen;789</em></p>
+			            </div>
+			            <div class="order_btn order_zongji">
+			            	<p><em>总计</em>&nbsp;&nbsp;&yen;789</p>
+			            </div>
 		    	    </div>
 				</div>
 	        </div>
