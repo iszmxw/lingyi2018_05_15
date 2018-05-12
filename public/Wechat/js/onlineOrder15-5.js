@@ -173,6 +173,11 @@ function selectSelftake(){
             console.log(json,"asd");
             if (json.status == 1) {
                 var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
+                    $("#shipping_type").val("2");//修改到点自提id(存)
+                    $("#selftake_id").val(json.data.selftake_info.id);
+                    $("#shipping_mobile").val(json.data.selftake_info.mobile);
+                    $("#shipping_realname").val(json.data.selftake_info.realname);
+                    $("#shipping_sex").val(json.data.selftake_info.sex);
                 $("#selftake_info").text(address_info);
                 $("#address_info_box").hide();//隐藏收货地址列表
                 $("#selftake_info_box").show();//显示自取信息列表
