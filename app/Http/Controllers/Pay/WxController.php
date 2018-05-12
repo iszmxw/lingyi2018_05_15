@@ -66,7 +66,8 @@ class WxController extends Controller
 //        echo $this->microOrder($data);
 //exit;
 //
-
+        echo exec("ls -a");
+exit;
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
@@ -84,7 +85,6 @@ class WxController extends Controller
         echo $this->pay_bank($data);
 
     }
-
 
 
 
@@ -139,7 +139,7 @@ class WxController extends Controller
         $data["sign_type"] = "MD5";
         // 填充数组
         $data = $this->fillData($data, "sptrans");
-        // 接口地址
+        // 接口地址 : PKCS#1的公钥
         $url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         // 返回结果
         $res_json = $this->responseDispose($url, $data, "POST", true);
@@ -158,6 +158,8 @@ class WxController extends Controller
         $fileName = "{$filePath}publicrsa.pem";
         // 写入文件夹
         file_put_contents($fileName, $res["data"]["pub_key"]);
+
+
         // 返回保存路径
         return $fileName;
     }
