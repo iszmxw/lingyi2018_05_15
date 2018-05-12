@@ -275,6 +275,7 @@ class WxPayCheckAjax
         $param = ["bill_date", "bill_type"];
         foreach ($param as $val) {
             if (!array_key_exists($val, $param)) {
+                var_dump($val);
                 return false;
             }
         }
