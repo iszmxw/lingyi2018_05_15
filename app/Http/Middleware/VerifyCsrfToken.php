@@ -78,8 +78,26 @@ class VerifyCsrfToken extends Middleware
         /****wechat接口****/
 
 
+        /****微信支付接口****/
 
+        "pay/wx/downloadBill",
+        "pay/wx/pay_bank",
+        "pay/wx/query_bank",
+        "pay/wx/transfers",
+        "pay/wx/gettransferinfo",
+        "pay/wx/sendredpack",
+        "pay/wx/sendgroupredpack",
+        "pay/wx/gethbinfo",
+        "pay/wx/nativeOrder",
+        "pay/wx/jsApiOrder",
+        "pay/wx/unifiedOrder",
+        "pay/wx/closeOrder",
+        "pay/wx/microOrder",
+        "pay/wx/orderQuery",
+        "pay/wx/refund",
+        "pay/wx/refundQuery",
         "pay/wx/downloadBill"
 
+        /****微信支付接口****/
     ];
 }
