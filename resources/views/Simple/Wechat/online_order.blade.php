@@ -59,7 +59,7 @@
 				<div class="order_address1">
 					<div class="row order_address_m">
 				      <div class="col-50 dindanmx"><i></i>订单明细<em id="order_num"></em></div>
-				      <div class="col-50 riqi">2018-04-19 05:45</div>
+				      <!-- <div class="col-50 riqi"></div> -->
 				    </div>
 		    	    <div class="order_list">
 					    <div id="order_list">
