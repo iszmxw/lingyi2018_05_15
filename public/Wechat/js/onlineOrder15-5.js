@@ -99,22 +99,21 @@ function selftake_list(){
         function (json) {
             console.log(json,"取货");
             if (json.status == 1) {
-                // var str ="";
-                // for (var i = 0; i < json.data.address_list.length; i++) {
-                //     var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
-                //                     json.data.address_list[i].district_name + json.data.address_list[i].address;
-                //     var realname =json.data.address_list[i].realname;
-                //     var mobile =json.data.address_list[i].mobile;
-                //     var status =json.data.address_list[i].status;
-                //     var address_id =json.data.address_list[i].address_id;
-                //     str += selftake_list_box(ress_info,realname,mobile,status,address_id);
-                // }
-                // var $ress_list = $("#selftake_list_box");
-                // $ress_list.empty();
-                // $ress_list.append(str);
+                var str ="";
+                for (var i = 0; i < json.data.self_take_info.length; i++) {
+                    var realname = json.data.self_take_info[i].realname;
+                    var sex = (json.data.self_take_info[i].sex ==1 ) ? "先生" : "女士";
+                    var mobile = json.data.self_take_info[i].mobile;
+                    var status = json.data.self_take_info[i].status;
+                    var id =json.data.self_take_info[i].id;
+                    str += selftake_list_box(realname,sex,mobile,status,id);
+                }
+                var $selftake_list = $("#selftake_list_box");
+                $selftake_list.empty();
+                $selftake_list.append(str);
                 show('quhuoinfo_selftake');
             } else if (json.status == 0) {
-                show('quhuoinfo');
+                show('quhuoinfo_selftake');
                 console.log(json.msg);
             }
         }
@@ -161,6 +160,21 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
         str += '<label for="userinfo'+address_id+'">'+ress_info+'</label>'+realname+'&nbsp;&nbsp;&nbsp;&nbsp;'+mobile+'</label>'+
         '</div>'+
         '<div class="col-15 right_height"><a href="javascript:;" class="update_address"></a></div>'+
+    '</div>';
+    return str;
+}
+//取货信息列表拼接
+function selftake_list_box(realname,sex,mobile,status,id){
+    var str = "";
+    str += '<div class="row alert_list">'+
+        '<div class="col-85 radio_css">';
+        if(status && status == 1){
+            str += '<input type="radio" id="userinfo'+address_id+'" checked="checked" name="selftake" class="radio_address">';
+        }else{
+            str += '<input type="radio" id="userinfo'+address_id+'" name="selftake" class="radio_address">';
+        }
+        str += '<label for="userinfo'+address_id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
+        '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
     return str;
 }
