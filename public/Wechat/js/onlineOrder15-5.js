@@ -32,9 +32,9 @@ $(function(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                
-            } else if (json.status == 0) {
 
+            } else if (json.status == 0) {
+                window.history.go(-1);
                 console.log(json.msg);
             }
         }
