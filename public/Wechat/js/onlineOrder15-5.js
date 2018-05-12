@@ -21,7 +21,7 @@ $(function(){
                 }
             }
         );
-        $("#selftake_info").text(realname);
+        // $("#selftake_info").text(realname);
         $("#address_info_box").hide();//隐藏收货地址列表
         $("#selftake_info_box").show();//显示自取信息列表
         $("#address").hide();//隐藏收货地址按钮
