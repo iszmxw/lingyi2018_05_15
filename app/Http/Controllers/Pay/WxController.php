@@ -83,8 +83,9 @@ class WxController extends Controller
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $data["order_num"];
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
         echo $this->pay_bank($data);
 exit;
         $data["order_num"] = md5(time());
