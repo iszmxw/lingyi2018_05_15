@@ -51,7 +51,7 @@
                                         <input type="hidden" id="order_status_paytype" value="{{ url('retail/ajax/order_status_paytype') }}">
                                         <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
                                         <div class="form-group">
-                                            <label class="col-sm-3 text-right" for="input-id-1">订单编号</label>
+                                            <label class="col-sm-3 text-right" for="input-id-1">单据编号</label>
                                             <div class="col-sm-9">
                                                 <div>
                                                     {{$order->ordersn}}

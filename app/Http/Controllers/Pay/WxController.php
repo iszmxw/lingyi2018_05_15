@@ -66,8 +66,7 @@ class WxController extends Controller
 //        echo $this->microOrder($data);
 //exit;
 //
-        echo exec("ls -a");
-exit;
+
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
@@ -102,9 +101,9 @@ exit;
     {
         $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
-        if (!file_exists(realpath($file_name))) {
+//        if (!file_exists(realpath($file_name))) {
             $this->getpublickey();
-        }
+//        }
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 商户企业付款单号
@@ -160,6 +159,14 @@ exit;
         file_put_contents($fileName, $res["data"]["pub_key"]);
 
 
+        var_dump($fileName);
+        exit;
+
+        $fileName = realpath($fileName);
+//        $a = shell_exec("openssl rsa -RSAPublicKey_in -in <$fileName> -pubout");
+        $a = shell_exec("ls");
+
+        var_dump($a);exit;
         // 返回保存路径
         return $fileName;
     }
