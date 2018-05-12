@@ -88,6 +88,29 @@ function ress_list(){
         }
     );
 }
+//查询自取默认地址
+function selectSelftake(){
+    var _token = $("#_token").val();
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    //查询用户默认自取信息
+    var selftake_url = "http://develop.01nnt.com/api/wechatApi/selftake";
+    $.post(
+        selftake_url,
+        {'_token': _token,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json,"asd");
+            if (json.status == 1) {
+                // var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
+                //                     json.data.address_info.district_name +json.data.address_info.address
+                //                     +json.data.address_info.mobile;
+                // $("#address_info").text(address_info);
+                // $("#address_info_box").show();//现在添加收货地址按钮
+            } else if (json.status == 0) {
+                console.log(json.msg);
+            }
+        }
+    );
+}
 //收货地址列表拼接
 function ress_list_box(ress_info,realname,mobile,status,address_id){
     var str = "";

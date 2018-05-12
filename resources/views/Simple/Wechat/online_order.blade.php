@@ -114,7 +114,7 @@
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
-					<a href="http://develop.01nnt.com/zerone/wechat/selftake_order"
+					<a href="javascript:;" onclick="selectSelftake()"
                     class="btn_alert my_text_align btn_alert_bg peisong_confirm"
                     id="peisong_confirm" external>确认</a>
                 </div>
