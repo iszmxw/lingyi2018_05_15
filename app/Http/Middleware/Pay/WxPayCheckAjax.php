@@ -314,7 +314,7 @@ exit;
             }
             $res["return_code"] = 0;
             $res["return_msg"] =$error_msg;
-            return response()->json($res);
+            return json_encode($res,JSON_UNESCAPED_UNICODE);
         }
         return true;
     }
