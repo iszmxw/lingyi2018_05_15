@@ -798,7 +798,7 @@ class WechatApiController extends Controller
             DB::rollBack();
             return response()->json(['status' => '0', 'msg' => '添加失败', 'data' => '']);
         }
-        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['selftake_id' => $selftake_id, 'return' => 'success', 'realname' => $realname, 'mobile' => $mobile]];
+        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['selftake_id' => $selftake_id, 'return' => 'selftake', 'realname' => $realname, 'mobile' => $mobile]];
         return response()->json($data);
     }
 
