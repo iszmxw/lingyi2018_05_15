@@ -3,7 +3,7 @@
  * 检测中间件
  */
 
-namespace App\Http\Middleware\Retail;
+namespace App\Http\Middleware\Pay;
 
 use App\Models\Account;
 use App\Models\Program;
