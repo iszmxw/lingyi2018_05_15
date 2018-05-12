@@ -88,6 +88,65 @@ function ress_list(){
         }
     );
 }
+//自取信息列表查询
+function selftake_list(){
+    var _token = $("#_token").val();
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    var url = "http://develop.01nnt.com/api/wechatApi/selftake_list";
+    $.post(
+        url,
+        {'_token': _token,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json,"取货");
+            if (json.status == 1) {
+                // var str ="";
+                // for (var i = 0; i < json.data.address_list.length; i++) {
+                //     var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
+                //                     json.data.address_list[i].district_name + json.data.address_list[i].address;
+                //     var realname =json.data.address_list[i].realname;
+                //     var mobile =json.data.address_list[i].mobile;
+                //     var status =json.data.address_list[i].status;
+                //     var address_id =json.data.address_list[i].address_id;
+                //     str += selftake_list_box(ress_info,realname,mobile,status,address_id);
+                // }
+                // var $ress_list = $("#selftake_list_box");
+                // $ress_list.empty();
+                // $ress_list.append(str);
+                show('quhuoinfo_selftake');
+            } else if (json.status == 0) {
+                show('quhuoinfo');
+                console.log(json.msg);
+            }
+        }
+    );
+}
+//查询自取默认地址
+function selectSelftake(){
+    $.showIndicator();
+    var _token = $("#_token").val();
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    //查询用户默认自取信息
+    var selftake_url = "http://develop.01nnt.com/api/wechatApi/selftake";
+    $.post(
+        selftake_url,
+        {'_token': _token,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json,"asd");
+            if (json.status == 1) {
+                var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
+                $("#selftake_info").text(address_info);
+                $("#address_info_box").hide();//隐藏收货地址列表
+                $("#selftake_info_box").show();//显示自取信息列表
+                $("#address").hide();//隐藏收货地址按钮
+                 $.hideIndicator();
+                hide("selectexpress");//隐藏选择取货框
+                //$("#address_info_box").show();//现在添加收货地址按钮
+            } else if (json.status == 0) {
+                console.log(json.msg);
+            }
+        }
+    );
+}
 //收货地址列表拼接
 function ress_list_box(ress_info,realname,mobile,status,address_id){
     var str = "";
@@ -138,15 +197,15 @@ function selectexpress(obj,address){
     }
 }
 //隐藏alert
-// $(".popup_alert").click(function(e){
-//     //stopPropagation(e);
-//     if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
-//         $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
-//            setTimeout(function(){
-//               $(".popup_alert").css({display: 'none'});
-//          },250);
-//     }
-// })
+$("#quhuoinfo").click(function(e){
+    //stopPropagation(e);
+    if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
+        $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
+           setTimeout(function(){
+              $(".popup_alert").css({display: 'none'});
+         },250);
+    }
+})
 //因为冒泡了，会执行到下面的方法。
 function stopPropagation(e) {
     var ev = e || window.event;

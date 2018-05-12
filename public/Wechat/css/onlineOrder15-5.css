@@ -95,6 +95,9 @@ body {
 .order .order_box .address_info_box{
     display: none;
 }
+.order .order_box .selftake_info_box{
+    display: none;
+}
 .order .order_box .price {
     font-size: 1.5rem;
     color: rgb(51, 51, 51);

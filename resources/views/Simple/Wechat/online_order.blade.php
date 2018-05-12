@@ -30,9 +30,17 @@
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external><i></i>添加收货地址</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
-					      <div class="col-20 item_info"><span>收货信息</span></div>
+					      <div class="col-20 item_info"><span id="address_info_name">收货地址</span></div>
 					      <div class="col-80 item_info1 item_icon">
 							<p id="address_info"></p>
+					      </div>
+					    </div>
+			    	</div>
+                    <div class="item selftake_info_box" id="selftake_info_box" onclick="selftake_list()">
+				    	<div class="row">
+					      <div class="col-20 item_info"><span id="selftake_info_name">自取信息</span></div>
+					      <div class="col-80 item_info1 item_icon">
+							<p id="selftake_info"></p>
 					      </div>
 					    </div>
 			    	</div>
@@ -77,7 +85,7 @@
 				<a href="javascript:;" class="tijao_btn">提交订单<em id="order_btn_price"></em></a>
 	        </div>
 	    </div>
-		<!-- alert -->
+		<!-- 收货地址alert -->
 		<div class="popup_alert quhuoinfo" id="quhuoinfo">
 			<div class="quhuo alert_bottom popup_alert_hook">
 				<p class="quhuoinfo">我的收货地址</p>
@@ -86,7 +94,17 @@
 				<a href="javascript:;" class="add_address_btn my_text_align">添加收货地址</a>
 			</div>
 		</div>
-		<!-- alert -->
+		<!-- 收货地址alert -->
+        <!-- 自取信息alert -->
+		<div class="popup_alert quhuoinfo" id="quhuoinfo_selftake">
+			<div class="quhuo alert_bottom popup_alert_hook">
+				<p class="quhuoinfo">我的取货信息</p>
+				<div class="max_height_box" id="selftake_list_box">
+				</div>
+				<a href="javascript:;" class="add_address_btn my_text_align">添加取货信息</a>
+			</div>
+		</div>
+		<!-- 自取信息alert -->
 		<!-- alert -->
 		<div class="popup_alert alert" id="alert">
 			<div class="quhuo alert_width popup_alert_hook">
@@ -114,7 +132,7 @@
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
-					<a href="http://develop.01nnt.com/zerone/wechat/selftake_order"
+					<a href="javascript:;" onclick="selectSelftake()"
                     class="btn_alert my_text_align btn_alert_bg peisong_confirm"
                     id="peisong_confirm" external>确认</a>
                 </div>
