@@ -569,9 +569,9 @@ class WxController extends Controller
     public function downloadBill()
     {
 
-        var_dump(12312);exit;
-
-        $param = "";
+        $param = $_POST;
+        var_dump($param);
+        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 对账日期
