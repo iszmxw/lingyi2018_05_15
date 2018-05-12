@@ -71,6 +71,8 @@ class WxPayCheckAjax
         }
 
 
+        var_dump($res_check);
+        exit;
         // 判断参数是否传输错误
         if ($res_check == false) {
             // 接口返回失败
@@ -272,15 +274,6 @@ class WxPayCheckAjax
 
     public function check_downloadBill()
     {
-        // 下载对账单
-//        $data["bill_date"] = 20180508;
-//        $data["bill_type"] = "ALL";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $this->downloadBill($data);
-
-        $res = request()->post();
-        var_dump($res);exit;
-
         // 金额处理
         $param = ["total_fee", "cash_fee", "cmms_amt", "amount"];
         foreach ($param as $val) {
@@ -288,8 +281,7 @@ class WxPayCheckAjax
                 return false;
             }
         }
-        return $param;
-
+        return true;
     }
 
     public function checkRoleAddAndEdit($request)
