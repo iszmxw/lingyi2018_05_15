@@ -231,7 +231,17 @@ $("#quhuoinfo").click(function(e){
               $(".popup_alert").css({display: 'none'});
          },250);
     }
-})
+});
+//隐藏自取信息alert
+$("#quhuoinfo_selftake").click(function(e){
+    //stopPropagation(e);
+    if(!$(e.target).is(".popup_alert_hook *") && !$(e.target).is(".popup_alert_hook")){
+        $(".popup_alert_hook").removeClass('fadeInUp').addClass("fadeOutDown");
+           setTimeout(function(){
+              $(".popup_alert").css({display: 'none'});
+         },250);
+    }
+});
 //因为冒泡了，会执行到下面的方法。
 function stopPropagation(e) {
     var ev = e || window.event;
