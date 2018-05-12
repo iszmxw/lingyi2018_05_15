@@ -73,8 +73,7 @@ class WxPayCheckAjax
         // 判断参数是否传输错误
         if ($res_check !== true) {
             // 接口返回失败
-            echo $res_check;
-            exit;
+            return $res_check;exit;
         }
         // 条件处理完就进入控制器中
         return $next($request);
