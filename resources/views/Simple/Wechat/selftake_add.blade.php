@@ -12,6 +12,8 @@
 </head>
 <body>
 <div class="page">
+	<form role="form" id="selftake_add"  action="{{ url('api/wechatApi/selftake_add') }}">
+	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<div class="g-flexview">
 		<div class="main_block">
 			<div class="main_item">
@@ -19,7 +21,7 @@
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f">姓名:</div>
 						<div class="item_input">
-							<input type="text" name="" placeholder="请填写取货人的姓名">
+							<input type="text" name="username" placeholder="请填写取货人的姓名">
 						</div>
 						<div class="weixin_ress"></div>
 					</li>
@@ -35,7 +37,7 @@
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f item_input_pd">电话:</div>
 						<div class="item_input item_input_pd">
-							<input type="text" name="" placeholder="请填写取货人的手机号码">
+							<input type="text" name="mobile" placeholder="请填写取货人的手机号码">
 						</div>
 					</li>
 				</ul>
@@ -49,8 +51,9 @@
 					</label>
 				</span>
 		</div>
-		<a href="javascript:;" class="preservation">保存</a>
+		<a href="javascript:;" class="preservation" onclick="selftake_add_cm()">保存</a>
 	</div>
+	</form>
 	<!-- alert -->
 	<div class="popup_alert">
 		<div class="quhuo alert_width popup_alert_hook">
