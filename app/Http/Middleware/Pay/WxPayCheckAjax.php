@@ -273,7 +273,7 @@ class WxPayCheckAjax
     {
         $post_data = request()->post();
         // 必填数组
-        $param = ["bill_date", "bill_type"];
+        $param = ["bill_date", ""];
         foreach ($param as $val) {
             if (!array_key_exists($val, $post_data)) {
                 var_dump($val);
