@@ -621,7 +621,7 @@ class WxController extends Controller
      * @param $type
      * @return mixed
      */
-    function fillData($param, $type)
+    public function fillData($param, $type)
     {
         switch ($type) {
             // 填充订单数据
