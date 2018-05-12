@@ -58,7 +58,7 @@ class WechatController extends Controller
      */
     public function online_order(Request $request)
     {
-        $return = $request->return;
+        $status = $request->status;
         // 真实姓名
         $realname = $request->realname;
         // 性别
@@ -68,7 +68,7 @@ class WechatController extends Controller
         // 默认取货信息 1为默认
 
         // 渲染页面
-        return view('Simple/Wechat/online_order', ['return' => $return, 'selftake_id' => $selftake_id, 'mobile' => $mobile, 'realname' => $realname]);
+        return view('Simple/Wechat/online_order', ['status' => $status, 'selftake_id' => $selftake_id, 'mobile' => $mobile, 'realname' => $realname]);
     }
 
     /**
