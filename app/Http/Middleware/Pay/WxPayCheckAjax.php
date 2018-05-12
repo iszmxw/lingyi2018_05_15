@@ -303,11 +303,10 @@ class WxPayCheckAjax
         if (!$validate->passes()) {
             $error_msg = $validate->errors();
             $res = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
-            var_dump($res);
-            exit;
             foreach ($res as $val) {
-                $error_msg = $val[0];
+                $error_msg[] = $val[0];
             }
+            var_dump($error_msg);
             return response()->json(['data' => $error_msg, 'status' => '0']);
         }
 
