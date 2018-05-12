@@ -3,6 +3,11 @@ $(function(){
     if(status){
         var selftake_id = getUrlParam("selftake_id");
         var realname = getUrlParam("realname");
+        $("#selftake_info").text(realname);
+        $("#address_info_box").hide();//隐藏收货地址列表
+        $("#selftake_info_box").show();//显示自取信息列表
+        $("#address").hide();//隐藏收货地址按钮
+        $("#select_distribution").text('到店自取');//配送方式
         console.log(selftake_id);
         console.log(realname);
     }else{
@@ -154,12 +159,12 @@ function selectSelftake(){
                 $("#address_info_box").hide();//隐藏收货地址列表
                 $("#selftake_info_box").show();//显示自取信息列表
                 $("#address").hide();//隐藏收货地址按钮
-                $("#select_distribution").text('到点自取');//配送方式
+                $("#select_distribution").text('到店自取');//配送方式
                 hide("selectexpress");//隐藏选择取货框
             } else if (json.status == 0) {
                 $("#address").hide();
                 $("#addselftake").show().css('display','block');
-                $("#select_distribution").text('到点自取');//配送方式
+                $("#select_distribution").text('到店自取');//配送方式
                 hide("selectexpress");//隐藏选择取货框
                 console.log(json.msg);
             }
