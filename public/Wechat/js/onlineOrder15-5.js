@@ -139,7 +139,6 @@ function selectSelftake(){
                 $("#address").hide();//隐藏收货地址按钮
                  $.hideIndicator();
                 hide("selectexpress");//隐藏选择取货框
-                //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
