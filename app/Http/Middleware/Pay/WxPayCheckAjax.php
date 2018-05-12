@@ -16,127 +16,281 @@ class WxPayCheckAjax
 {
     public function handle($request, Closure $next)
     {
-        $route_name = $request->path();                 //获取当前的页面路由
+        // 获取当前的页面路由
+        $route_name = $request->path();
+        $res_check = true;
         switch ($route_name) {
-            case "retail/ajax/login_check":             //检测登录数据提交
-                $re = $this->checkLoginPost($request);
-                return self::format_response($re, $next);
+            case "pay/wx/pay_bank":
+                $res_check = $this->check_pay_bank();
                 break;
-
-
-            /****检测是否登录 权限 安全密码****/
-            case "retail/ajax/store_edit_check":        //店铺信息编辑弹窗页面
-            case "retail/ajax/category_delete_check":   //检测是否登录 权限 安全密码
-            case "retail/ajax/goods_delete_check":      //检测是否登录 权限 安全密码
-            case "retail/ajax/goods_status_check":      //检测是否登录 权限 安全密码
-            case "retail/ajax/order_status_check":      //检测是否登录 权限 安全密码
-            case "retail/ajax/order_status_paytype_check"://检测是否登录 权限 安全密码
-            case "retail/ajax/subordinate_lock_check":  //检测是否登录 权限 安全密码
-            case "retail/ajax/user_list_lock_check":    //检测是否登录 权限 安全密码--冻结粉丝标签
-            case "retail/ajax/purchase_list_confirm_check":   //审核订单安全密码确认
-            case "retail/ajax/loss_list_confirm_check":       //审核订单安全密码确认
-            case "retail/ajax/check_list_confirm_check":      //审核订单安全密码确认
-            case "retail/ajax/supplier_delete_check":         //进销存管理--删除供应商确认
-            case "retail/ajax/dispatch_add_check":            //运费模板--添加运费模板安全密码检测
-            case "retail/ajax/goods_thumb_delete_check":     //商品图片删除--检测登录安全密码和权限
-            case "retail/ajax/dispatch_list_lock_check":     //启用、弃用运费模板确认
-            case "retail/ajax/dispatch_list_delete_check":   //运费模板删除确认操作
-            case "retail/ajax/shengpay_apply_check":            // 终端机器号重新申请功能提交
-            case "retail/ajax/shengpay_delete_check":            // 终端机器号解除绑定功能提交
-            case "retail/ajax/payconfig_delete_check":           // 付款信息解除绑定功能提交
-            case "retail/ajax/payconfig_apply_check":            // 付款信息重新申请功能提交
-                $re = $this->checkLoginAndRuleAndSafe($request);
-                return self::format_response($re, $next);
+            case "pay/wx/query_bank":
+                $res_check = $this->check_query_bank();
                 break;
-            /****检测是否登录 权限 安全密码****/
-
-
-            /*********下级人员添加*********/
-            case "retail/ajax/subordinate_add_check"://检测 登录 和 权限 和 安全密码 和 添加下级人员的数据提交
-                $re = $this->checkLoginAndRuleAndSafeAndSubordinateAdd($request);
-                return self::format_response($re, $next);
+            case "pay/wx/transfers":
+                $res_check = $this->check_transfers();
                 break;
-            /*********下级人员添加*********/
-
-            /*********下级人员编辑*********/
-            case "retail/ajax/subordinate_edit_check"://检测 登录 和 权限 和 安全密码 和 编辑下级人员的数据提交
-                $re = $this->checkLoginAndRuleAndSafeAndSubordinateEdit($request);
-                return self::format_response($re, $next);
+            case "pay/wx/gettransferinfo":
+                $res_check = $this->check_gettransferinfo();
                 break;
-            /*********下级人员编辑*********/
-
-            /*********供应商添加和编辑*********/
-            case "retail/ajax/supplier_add_check"://检测登录，权限，及添加栏目分类的数据
-            case "retail/ajax/supplier_edit_check"://检测登录，权限，及编辑栏目分类的数据
-                $re = $this->checkLoginAndRuleAndSupplier($request);
-                return self::format_response($re, $next);
+            case "pay/wx/sendredpack":
+                $res_check = $this->check_sendredpack();
                 break;
-            /*********供应商添加和编辑*********/
-
-
-            /*********栏目分类添加和编辑*********/
-            case "retail/ajax/category_add_check"://检测登录，权限，及添加栏目分类的数据
-            case "retail/ajax/category_edit_check"://检测登录，权限，及编辑栏目分类的数据
-                $re = $this->checkLoginAndRuleAndCategoryAdd($request);
-                return self::format_response($re, $next);
+            case "pay/wx/sendgroupredpack":
+                $res_check = $this->check_sendgroupredpack();
                 break;
-            /*********栏目分类添加和编辑*********/
-
-            /*********商品添加和商品编辑*********/
-            case "retail/ajax/goods_add_check"://检测登录，权限，及添加商品的数据
-            case "retail/ajax/goods_edit_check"://检测登录，权限，及编辑商品的数据
-                $re = $this->checkLoginAndRuleAndGoodsAdd($request);
-                return self::format_response($re, $next);
+            case "pay/wx/gethbinfo":
+                $res_check = $this->check_gethbinfo();
                 break;
-            /*********商品添加和商品编辑*********/
-
-            /*********进销存商品选择列表*********/
-            case "retail/ajax/search_company":          //检测登录，权限，及供应商搜索的数据处理
-                $re = $this->checkLoginAndRuleAndSearchCompany($request);
-                return self::format_response($re, $next);
+            case "pay/wx/nativeOrder":
+                $res_check = $this->check_nativeOrder();
                 break;
-            /*********进销存商品选择列表*********/
-
-            /*********进销存--供应商到货开单处理*********/
-            case "retail/ajax/purchase_goods_check"://检测登录，权限，及供应商到货开单的数据处理
-                $re = $this->checkLoginAndRuleAndPurchaseGoods($request);
-                return self::format_response($re, $next);
+            case "pay/wx/jsApiOrder":
+                $res_check = $this->check_jsApiOrder();
                 break;
-            /*********进销存--供应商到货开单处理*********/
-
-            /*********进销存--报损开单处理*********/
-            case "retail/ajax/loss_goods_check"://检测登录，权限，及报损开单的数据
-            case "retail/ajax/check_goods_check"://检测登录，权限，及盘点开单的数据
-                $re = $this->checkLoginAndRuleAndLossAndCheckGoods($request);
-                return self::format_response($re, $next);
+            case "pay/wx/unifiedOrder":
+                $res_check = $this->check_unifiedOrder();
                 break;
-            /*********进销存--报损开单处理*********/
-
-            /****粉丝信息编辑****/
-            case "retail/ajax/user_list_edit_check"://检测 登录 和 权限 和 安全密码 和 用户编辑数据提交
-                $re = $this->checkLoginAndRuleAndSafeAndUserEdit($request);
-                return self::format_response($re, $next);
-            /****粉丝信息编辑****/
-
-
-            /****支付设置****/
-            case "retail/ajax/payconfig_check":    // 收款信息设置数据监测
-            case "retail/ajax/payconfig_edit_check":    // 收款信息设置数据监测
-                $re = $this->checkLoginAndRuleAndPayconfig($request);
-                return self::format_response($re, $next);
+            case "pay/wx/closeOrder":
+                $res_check = $this->check_closeOrder();
                 break;
-            case "retail/ajax/shengpay_add_check":            // 添加终端机器号信息功能提交
-            case "retail/ajax/shengpay_edit_check":
-                $re = $this->checkLoginAndRuleAndShengpayAdd($request);
-                return self::format_response($re, $next);
+            case "pay/wx/microOrder":
+                $res_check = $this->check_microOrder();
                 break;
-
-            /****粉丝信息编辑****/
-
-
+            case "pay/wx/orderQuery":
+                $res_check = $this->check_orderQuery();
+                break;
+            case "pay/wx/refund":
+                $res_check = $this->check_refund();
+                break;
+            case "pay/wx/refundQuery":
+                $res_check = $this->check_refundQuery();
+                break;
+            case "pay/wx/downloadBill":
+                $res_check = $this->check_downloadBill();
+                break;
         }
+
+
+        // 判断参数是否传输错误
+        if ($res_check == false) {
+            // 接口返回失败
+            $res["return_code"] = 0;
+            $res["return_msg"] = "参数错误";
+            return json_encode($res, JSON_UNESCAPED_UNICODE);
+        }
+        // 条件处理完就进入控制器中
+        return $next($request);
     }
 
+
+
+
+    public function check_pay_bank()
+    {
+        //        // 商户订单号
+//        $data["order_num"] = md5(time());
+//        // 用户openid
+//        $data["bank_card_num"] = "6214837873289338";
+//        // 收款用户姓名
+//        $data["bank_card_name"] = "郑旭宏";
+//        $data["bank_code"] = "1001";
+//        // 金额
+//        $data["order_money"] = 0.01;
+//        // 企业付款描述信息
+//        $data["remark"] = "还钱";
+//        // ip 地址
+//        $data["ip_address"] = "120.78.140.10";
+//
+//        echo $data["order_num"];
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//
+//        echo $this->pay_bank($data);
+
+    }
+
+    public function check_query_bank()
+    {
+        // 企业发放到银行卡查询
+//        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->query_bank($data);
+
+    }
+
+    public function check_transfers()
+    {
+
+    }
+
+    public function check_gettransferinfo()
+    {
+
+    }
+
+
+    public function check_sendredpack()
+    {
+        //发放普通红包
+//        // 活动名称
+//        $data["activity_name"] = "zzzz";
+//        // 发放ip地址
+//        $data["ip_address"] = "120.78.140.10";
+//        // 订单号
+//        $data["order_num"] = substr(md5(time()), 0, 28);
+////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
+//        // 发送的openid
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        // 备注
+//        $data["remark"] = "ganjinqiang";
+//        // 金额
+//        $data["order_money"] = "1";
+//        // 祝福语
+//        $data["wishing"] = "gongxi";
+//
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->sendredpack($data);
+//        echo $res;
+    }
+
+    public function check_sendgroupredpack()
+    {
+
+    }
+
+    public function check_gethbinfo()
+    {
+        // 查询红包
+//        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->gethbinfo($data);
+
+    }
+
+    public function check_nativeOrder()
+    {
+//        // native 下单
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.01;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->nativeOrder($data);
+//        echo "<img src='$res'>";
+
+    }
+
+    public function check_jsApiOrder()
+    {
+//        // jsapi 下单
+//        $wechat = new WechatController();
+//        $wechat->getSignPackage();
+//        $signPackage = request()->get("zerone_jssdk_info");
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "JSAPI";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->jsApiOrder($data);
+//        $res = json_decode($res,true);
+//        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+
+    }
+
+    public function check_unifiedOrder()
+    {
+
+    }
+
+    public function check_closeOrder()
+    {
+        // 关闭订单
+//        $data["order_num"] = 1503376371;
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->closeOrder($data);
+//        echo $res;
+    }
+
+    public function check_microOrder()
+    {
+        // 刷卡支付
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 0.1;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["auth_code"] = "135463544838356441";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->microOrder($data);
+
+    }
+
+    public function check_orderQuery()
+    {
+        // 订单查询
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->orderQuery($data);
+//        echo $res;
+
+    }
+
+    public function check_refund()
+    {
+//        // 退款接口
+//        $data["order_num_type"] = 'out_trade_no';
+//        $data["order_num"] = '150337637120180509095053';
+//        // 商户退款单号
+//        $data["refund_num"] = md5(time());
+//        // 订单金额
+//        $data["order_money"] = 0.1;
+//        // 退款金额
+//        $data["refund_money"] = 0.01;
+//        // 退款原因
+//        $data["refund_reason"] = "不想买了";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->refund($data);
+//        echo $res;
+
+    }
+
+    public function check_refundQuery()
+    {
+//        // 退款查询接口
+//        $reqData["order_num_type"] = "out_refund_no";
+//        $reqData["order_num"] = "1003022622018050853721122351525761650";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->refundQuery($reqData);
+//        echo $res;
+
+    }
+
+    public function check_downloadBill()
+    {
+        // 下载对账单
+//        $data["bill_date"] = 20180508;
+//        $data["bill_type"] = "ALL";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $this->downloadBill($data);
+
+        $res = request()->all();
+        var_dump($res);exit;
+
+        // 金额处理
+        $param = ["total_fee", "cash_fee", "cmms_amt", "amount"];
+        foreach ($param as $val) {
+            if (!array_key_exists($val, $param)) {
+                return false;
+            }
+        }
+        return $param;
+
+    }
 
     public function checkRoleAddAndEdit($request)
     {
