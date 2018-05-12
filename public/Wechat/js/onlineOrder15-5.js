@@ -11,7 +11,7 @@ $(function(){
         var selftake_info = "http://develop.01nnt.com/api/wechatApi/selftake_info";
         $.post(
             selftake_info,
-            {'zerone_user_id': zerone_user_id, '_token': _token,'selftake_id':selftake_id},
+            {'zerone_user_id': zerone_user_id, '_token': _token,'self_take_id':selftake_id},
             function (json) {
                 console.log(json);
                 if (json.status == 1) {
