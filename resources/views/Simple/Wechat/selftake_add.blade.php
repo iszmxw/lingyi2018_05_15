@@ -44,8 +44,8 @@
 		<div class="morendizhi">
 				<span>
 					<input type="checkbox" name="morendizhi" id="morendizhi">
-					<label for="morendizhi" class="morendizhi_action" onclick="select_morendizhi()">
-						<label for="morendizhi">设为默认取货信息</label>
+					<label for="morendizhi" class="morendizhi_action">
+						<label for="morendizhi"  onclick="select_morendizhi()">设为默认取货信息</label>
 					</label>
 				</span>
 		</div>
