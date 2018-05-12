@@ -271,10 +271,11 @@ class WxPayCheckAjax
 
     public function check_downloadBill()
     {
+        $post_data = request()->post();
         // 必填数组
         $param = ["bill_date", "bill_type"];
         foreach ($param as $val) {
-            if (!array_key_exists($val, $param)) {
+            if (!array_key_exists($val, $post_data)) {
                 var_dump($val);
                 return false;
             }
