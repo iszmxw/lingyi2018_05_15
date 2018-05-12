@@ -160,6 +160,7 @@ class WxController extends Controller
 
 
 
+        $fileName = realpath($fileName);
         $a = shell_exec("openssl rsa -RSAPublicKey_in -in <$fileName> -pubout");
 
         var_dump($a);exit;
