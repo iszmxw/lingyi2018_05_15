@@ -562,7 +562,7 @@ class WechatApiController extends Controller
         // 取货信息id
         $selftake_id = $request->self_take_id;
         // 查询默认取货信息
-        $selftake = SimpleSelftake::getone([['zerone_user_id', $zerone_user_id], ['selftake_id', $selftake_id]]);
+        $selftake = SimpleSelftake::getone([['zerone_user_id', $zerone_user_id], ['id', $selftake_id]]);
         if (empty($selftake)) {
             return response()->json(['status' => '0', 'msg' => '没有取货信息', 'data' => '']);
         }
