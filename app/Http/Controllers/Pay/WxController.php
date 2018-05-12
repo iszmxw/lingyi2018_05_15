@@ -70,25 +70,28 @@ class WxController extends Controller
 //        echo "<img src='http://develop.01nnt.com/$res'>";
 //
 //        exit;
-        // 商户订单号
-        $data["order_num"] = md5(time());
-        // 用户openid
-        $data["bank_card_num"] = "6214837873289338";
-        // 收款用户姓名
-        $data["bank_card_name"] = "郑旭宏";
-        $data["bank_code"] = "1001";
-        // 金额
-        $data["order_money"] = 0.01;
-        // 企业付款描述信息
-        $data["remark"] = "还钱";
-        // ip 地址
-        $data["ip_address"] = "120.78.140.10";
-        echo $data["order_num"];
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        // 商户订单号
+//        $data["order_num"] = md5(time());
+//        // 用户openid
+//        $data["bank_card_num"] = "6214837873289338";
+//        // 收款用户姓名
+//        $data["bank_card_name"] = "郑旭宏";
+//        $data["bank_code"] = "1001";
+//        // 金额
+//        $data["order_money"] = 0.01;
+//        // 企业付款描述信息
+//        $data["remark"] = "还钱";
+//        // ip 地址
+//        $data["ip_address"] = "120.78.140.10";
+//
+//        echo $data["order_num"];
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//
+//        echo $this->pay_bank($data);
+//exit;
 
-        echo $this->pay_bank($data);
-exit;
-        $data["order_num"] = md5(time());
+        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
+//        14add25e3c8967f1ee6afb0b3978e301
         echo $this->query_bank($data);
 
 
