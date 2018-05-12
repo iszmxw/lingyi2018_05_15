@@ -521,7 +521,16 @@ function cart_list_box(name, price, num, goods_id, stock, thumb) {
         '</li>';
     return str;
 }
-
+//跳转提交订单
+function online_order(){
+    var url = "http://develop.01nnt.com/zerone/wechat/online_order";
+    var totalnum = $("#goods_totalnum").text();
+    if(totalnum > 0){
+        window.location.href = url;
+    }else{
+        $.toast("您还没选购商品喔~~");
+    }
+}
 //商品列表
 function goods_list_box(name, details, stock, price, thumb, number, goods_id) {
     var str = "";
