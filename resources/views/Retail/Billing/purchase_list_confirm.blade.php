@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" method="get">
                     <div class="form-group">
-                        <label class="col-sm-2 text-right">订单编号</label>
+                        <label class="col-sm-2 text-right">单据编号</label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$order->ordersn}}" class="form-control" disabled="" name="ordersn">
                         </div>
