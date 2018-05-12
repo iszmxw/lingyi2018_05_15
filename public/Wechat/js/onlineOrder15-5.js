@@ -139,7 +139,6 @@ function selectSelftake(){
                 $("#address").hide();//隐藏收货地址按钮
                  $.hideIndicator();
                 hide("selectexpress");//隐藏选择取货框
-                //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
             }
@@ -169,11 +168,11 @@ function selftake_list_box(realname,sex,mobile,status,id){
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+address_id+'" checked="checked" name="selftake" class="radio_address">';
+            str += '<input type="radio" id="userinfo'+id+'" checked="checked" value="'+realname+"-"+mobile+'" name="selftake" class="radio_address action">';
         }else{
-            str += '<input type="radio" id="userinfo'+address_id+'" name="selftake" class="radio_address">';
+            str += '<input type="radio" id="userinfo'+id+'" name="selftake" class="radio_address">';
         }
-        str += '<label for="userinfo'+address_id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
+        str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
         '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
     return str;
