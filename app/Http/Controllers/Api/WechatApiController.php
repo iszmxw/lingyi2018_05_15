@@ -780,6 +780,8 @@ class WechatApiController extends Controller
         DB::beginTransaction();
         try {
             if ($status && !empty(SimpleSelftake::checkRowExists([['zerone_user_id', $zerone_user_id]]))) {
+                echo $status;exit;
+
                 SimpleSelftake::editSelftake([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
             }
             // 数据处理
