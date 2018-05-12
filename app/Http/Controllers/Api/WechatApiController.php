@@ -553,6 +553,37 @@ class WechatApiController extends Controller
     }
 
     /**
+     * 查询用户取货信息
+     */
+    public function selftake_info(Request $request)
+    {
+        // 用户零壹id
+        $zerone_user_id = $request->zerone_user_id;
+        // 取货信息id
+        $selftake_id = $request->selftake_id;
+        // 查询默认取货信息
+        $selftake = SimpleSelftake::getone([['zerone_user_id', $zerone_user_id], ['selftake_id', $selftake_id]]);
+        if (empty($selftake)) {
+            return response()->json(['status' => '0', 'msg' => '没有取货信息', 'data' => '']);
+        }
+        // 数据处理
+        $selftakeinfo = [
+            // id
+            'id' => $selftake['id'],
+            // 性别
+            'sex' => $selftake['sex'],
+            // 手机号
+            'mobile' => $selftake['mobile'],
+            // 真实姓名
+            'realname' => $selftake['realname'],
+        ];
+
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['selftake_info' => $selftakeinfo]];
+
+        return response()->json($data);
+    }
+
+    /**
      * 添加收货地址
      */
     public function address_add(Request $request)
@@ -780,9 +811,7 @@ class WechatApiController extends Controller
         DB::beginTransaction();
         try {
             if ($status && !empty(SimpleSelftake::checkRowExists([['zerone_user_id', $zerone_user_id]]))) {
-                echo $status;exit;
-
-                SimpleSelftake::editSelftake([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
+                SimpleSelftake::editaa([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
             }
             // 数据处理
             $selftakeData = [
@@ -800,7 +829,7 @@ class WechatApiController extends Controller
             DB::rollBack();
             return response()->json(['status' => '0', 'msg' => '添加失败', 'data' => '']);
         }
-        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['selftake_id' => $selftake_id, 'return' => 'selftake', 'realname' => $realname, 'mobile' => $mobile]];
+        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['selftake_id' => $selftake_id, 'return' => 'selftake']];
         return response()->json($data);
     }
 

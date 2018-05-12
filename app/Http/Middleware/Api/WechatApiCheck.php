@@ -80,9 +80,11 @@ class WechatApiCheck
                 return self::format_response($re, $next);
                 break;
             case "api/wechatApi/selftake_status"://删除编辑取货信息提交数据
-                $re = $this->checkselftakeStatus($request);
+            case "api/wechatApi/selftake_info"://删除编辑取货信息提交数据
+            $re = $this->checkselftakeStatus($request);
                 return self::format_response($re, $next);
                 break;
+
             case "api/wechatApi/order_submit"://删除编辑取货信息提交数据
                 $re = $this->checkOrderSubmit($request);
                 return self::format_response($re, $next);
