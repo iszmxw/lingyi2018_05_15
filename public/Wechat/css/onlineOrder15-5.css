@@ -512,7 +512,9 @@ body {
     overflow: auto;
     padding: 0 1.925rem;
 }
-
+.alert .max_height_box .list-block{
+    margin: 1rem 0;
+}
 .alert .max_height_box p {
     text-align: left;
     font-weight: 600;
