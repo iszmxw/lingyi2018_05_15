@@ -6,11 +6,11 @@ function select_morendizhi(obj){
     if($("#morendizhi").is(":checked")){
         $("#morendizhi").removeAttr('checked');
         $("#morendizhi_action").removeClass('morendizhi_action');
-        console.log("sadsad");
+        console.log($("#morendizhi").is(":checked"));
     }else{
         $("#morendizhi").prop("checked",true);
         $("#morendizhi_action").addClass('morendizhi_action');
-        console.log("13213");
+        console.log($("#morendizhi").is(":checked"));
     }
     // $(":radio[name='morendizhi']").removeAttr('checkbox');//找到所有单选框删除选择状态
     // $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
