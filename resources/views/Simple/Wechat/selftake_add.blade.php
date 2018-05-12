@@ -41,11 +41,11 @@
 				</ul>
 			</div>
 		</div>
-		<div class="morendizhi">
+		<div class="morendizhi" onclick="select_morendizhi()">
 				<span>
 					<input type="checkbox" name="morendizhi" id="morendizhi">
-					<label class="morendizhi_action">
-						<a onclick="select_morendizhi()">设为默认取货信息</a>
+					<label for="morendizhi" class="morendizhi_action">
+						<label for="morendizhi">设为默认取货信息</label>
 					</label>
 				</span>
 		</div>
