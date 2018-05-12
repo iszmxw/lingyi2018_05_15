@@ -298,18 +298,25 @@ class WxPayCheckAjax
             "bill_type.required" => "bill_type 必须填写",
         ];
 
-        $validate = \Validator::make($post_data, $rule, $message);
+        echo $this->validate($post_data,$rule,$message);
+exit;
 
+    }
+
+    private function validate($data,$rule,$message = [])
+    {
+        $validate = \Validator::make($data, $rule, $message);
         if (!$validate->passes()) {
             $error_msg = $validate->errors();
             $res = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
             foreach ($res as $val) {
-                $error_msg[] = $val[0];
+                $error_msg = $val[0];
             }
-            var_dump($error_msg);
-            return response()->json(['data' => $error_msg, 'status' => '0']);
-        }
 
+            $res["return_code"] = 0;
+            $res["return_msg"] =$error_msg;
+            return response()->json($res);
+        }
     }
 
 }
