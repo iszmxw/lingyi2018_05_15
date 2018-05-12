@@ -148,7 +148,7 @@ textarea{
 	color: #323232;
 	font-weight: 600;
 }
-.morendizhi input:checked + label:after
+#morendizhi:checked + label:after
 {
 	content: "";
 	position: absolute;
