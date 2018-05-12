@@ -102,11 +102,11 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
 //订单列表拼接
 function order_list_box(goods_name,num,goods_price){
     var str = "";
-    str += '<div class="row order_list_box">'+'
-        <div class="col-60">'+goods_name+'</div>'+'
-        <div class="col-15">&#215;'+num+'</div>'+'
-        <div class="col-25">&yen;'+goods_price+'</div>'+'
-    </div>'
+    str += '<div class="row order_list_box">'+
+        '<div class="col-60">'+goods_name+'</div>'+
+        '<div class="col-15">&#215;'+num+'</div>'+
+        '<div class="col-25">&yen;'+goods_price+'</div>'+
+    '</div>'
     return str;
 }
 //收货地址选择
