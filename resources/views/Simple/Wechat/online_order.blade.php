@@ -104,7 +104,7 @@
 				<p class="quhuoinfo">我的取货信息</p>
 				<div class="max_height_box" id="selftake_list_box">
 				</div>
-				<a href="http://develop.01nnt.com/zerone/wechat/selftake_add" class="add_address_btn my_text_align">添加取货信息</a>
+				<a href="http://develop.01nnt.com/zerone/wechat/selftake_add" class="add_address_btn my_text_align" external>添加取货信息</a>
 			</div>
 		</div>
 		<!-- 自取信息alert -->
