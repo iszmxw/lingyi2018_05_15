@@ -34,6 +34,7 @@ class WxController extends Controller
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
     private $mchName = "零壹服务";
+
     // 微信支付支持的银行信息
     private $bank_info = [
         ["bank_name" => "工商银行", "bank_code" => "1002"],
@@ -55,51 +56,36 @@ class WxController extends Controller
         ["bank_name" => "宁波银行", "bank_code" => "1056"]
     ];
 
-    public function test13()
+    // +----------------------------------------------------------------------
+    // | Start - 外部通用方法
+    // +----------------------------------------------------------------------
+    /**
+     * 设置微信公众号信息
+     * @param $wx_pay_config
+     */
+    public function setWxPayConfig($wx_pay_config)
     {
-//                // native 下单
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 2;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["trade_type"] = "NATIVE";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->nativeOrder($data);
-//        echo "<img src='http://develop.01nnt.com/$res'>";
-//
-//        exit;
-//        // 商户订单号
-//        $data["order_num"] = md5(time());
-//        // 用户openid
-//        $data["bank_card_num"] = "6214837873289338";
-//        // 收款用户姓名
-//        $data["bank_card_name"] = "郑旭宏";
-//        $data["bank_code"] = "1001";
-//        // 金额
-//        $data["order_money"] = 0.01;
-//        // 企业付款描述信息
-//        $data["remark"] = "还钱";
-//        // ip 地址
-//        $data["ip_address"] = "120.78.140.10";
-//
-//        echo $data["order_num"];
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//
-//        echo $this->pay_bank($data);
-//exit;
-
-        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        14add25e3c8967f1ee6afb0b3978e301
-        echo $this->query_bank($data);
-
-
+        !empty($wx_pay_config["appId"]) ? $this->appId = $wx_pay_config["appId"] : false;
+        !empty($wx_pay_config["appSecret"]) ? $this->appSecret = $wx_pay_config["appSecret"] : false;
+        !empty($wx_pay_config["mchId"]) ? $this->mchId = $wx_pay_config["mchId"] : false;
+        !empty($wx_pay_config["key"]) ? $this->key = $wx_pay_config["key"] : false;
+        !empty($wx_pay_config["certPemPath"]) ? $this->certPemPath = $wx_pay_config["certPemPath"] : false;
+        !empty($wx_pay_config["keyPemPath"]) ? $this->keyPemPath = $wx_pay_config["keyPemPath"] : false;
+        !empty($wx_pay_config["mchName"]) ? $this->mchName = $wx_pay_config["mchName"] : false;
     }
 
+    /**
+     * 获取微信支付支持的银行的信息
+     * @return string
+     */
+    public function getBankInfo()
+    {
+        return json_encode($this->bank_info, JSON_UNESCAPED_UNICODE);
+    }
 
-
+    // +----------------------------------------------------------------------
+    // | End - 外部通用方法
+    // +----------------------------------------------------------------------
 
     // +----------------------------------------------------------------------
     // | Start - 企业支付到零钱/银行
@@ -730,7 +716,7 @@ class WxController extends Controller
     public function dataDispose($param)
     {
         // 金额处理
-        $total_type = ["total_fee", "cash_fee","cmms_amt","amount"];
+        $total_type = ["total_fee", "cash_fee", "cmms_amt", "amount"];
         foreach ($total_type as $val) {
             if (array_key_exists($val, $param)) {
                 $param[$val] = $param[$val] / 100;
@@ -1059,11 +1045,40 @@ class WxController extends Controller
     public function demo()
     {
 
+        //        // 商户订单号
+//        $data["order_num"] = md5(time());
+//        // 用户openid
+//        $data["bank_card_num"] = "6214837873289338";
+//        // 收款用户姓名
+//        $data["bank_card_name"] = "郑旭宏";
+//        $data["bank_code"] = "1001";
+//        // 金额
+//        $data["order_money"] = 0.01;
+//        // 企业付款描述信息
+//        $data["remark"] = "还钱";
+//        // ip 地址
+//        $data["ip_address"] = "120.78.140.10";
+//
+//        echo $data["order_num"];
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//
+//        echo $this->pay_bank($data);
+
+        // 企业发放到银行卡
+//        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->query_bank($data);
+
+
+        // 企业发放到银行卡查询
+//        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        echo $this->query_bank($data);
+
         // 查询红包
 //        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        echo $this->gethbinfo($data);
-
 
         //发放普通红包
 //        // 活动名称
