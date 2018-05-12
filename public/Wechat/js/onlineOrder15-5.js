@@ -169,9 +169,9 @@ function selftake_list_box(realname,sex,mobile,status,id){
     str += '<div class="row alert_list">'+
         '<div class="col-85 radio_css">';
         if(status && status == 1){
-            str += '<input type="radio" id="userinfo'+address_id+'" checked="checked" name="selftake" class="radio_address">';
+            str += '<input type="radio" id="userinfo'+id+'" checked="checked" name="selftake" class="radio_address">';
         }else{
-            str += '<input type="radio" id="userinfo'+address_id+'" name="selftake" class="radio_address">';
+            str += '<input type="radio" id="userinfo'+id+'" name="selftake" class="radio_address">';
         }
         str += '<label for="userinfo'+address_id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
         '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
