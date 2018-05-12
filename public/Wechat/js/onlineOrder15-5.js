@@ -90,6 +90,7 @@ function ress_list(){
 }
 //查询自取默认地址
 function selectSelftake(){
+    $.showIndicator();
     var _token = $("#_token").val();
     var zerone_user_id = $("#zerone_user_id").val();//userID
     //查询用户默认自取信息
@@ -101,10 +102,10 @@ function selectSelftake(){
             console.log(json,"asd");
             if (json.status == 1) {
                 $("#address_info_name").text('自取信息');
-                var address_info = json.data.address_info.realname +"-"+ json.data.address_info.mobile;
+                var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
                 $("#address_info").text(address_info);
+                 $.hideIndicator();
                 hide("selectexpress");
-                
                 //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
