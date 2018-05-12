@@ -13,6 +13,10 @@ function selftake_add_cm(){
     var $selftake_add = $("#selftake_add");
     var url = $selftake_add.attr("action");
     var data = $selftake_add.serialize();
-    console.log(url);
-    console.log(data);
+    $.post(url,data,function(json){
+        console.log(json);
+        if(json.status==1){
+
+        }
+    });
 }
