@@ -67,7 +67,7 @@ class WxController extends Controller
         $data["product_id"] = md5(time());
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = $this->nativeOrder($data);
-        echo "<img src='$res'>";
+        echo "<img src='http://develop.01nnt.com/$res'>";
 
         exit;
         // 商户订单号
