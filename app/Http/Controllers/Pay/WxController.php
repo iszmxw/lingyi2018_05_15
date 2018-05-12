@@ -93,11 +93,10 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     /**
      * 企业支付到银行卡接口
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function pay_bank($param)
+    public function pay_bank()
     {
         $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_8/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
@@ -176,11 +175,10 @@ class WxController extends Controller
 
     /**
      * 查询企业支付到银行卡接口
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function query_bank($param)
+    public function query_bank()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -197,11 +195,10 @@ class WxController extends Controller
 
     /**
      * 企业支付到零钱接口
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function transfers($param)
+    public function transfers()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -229,11 +226,10 @@ class WxController extends Controller
 
     /**
      * 查询企业支付到零钱接口
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function gettransferinfo($param)
+    public function gettransferinfo()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -256,11 +252,10 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     /**
      * 普通红包
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function sendredpack($param)
+    public function sendredpack()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -290,11 +285,10 @@ class WxController extends Controller
 
     /**
      * 发送裂变红包
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function sendgroupredpack($param)
+    public function sendgroupredpack()
     {// 请求参数处理
         $param = $this->requestDispose();
         // 订单号
@@ -327,11 +321,10 @@ class WxController extends Controller
 
     /**
      * 红包查询记录
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function gethbinfo($param)
+    public function gethbinfo()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -355,14 +348,13 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     /**
      * 扫码下订单
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function nativeOrder($param)
+    public function nativeOrder()
     {
         // 统一下单地址
-        $res_json = $this->unifiedOrder($param);
+        $res_json = $this->unifiedOrder();
         $res = json_decode($res_json, true);
         // 判断接口是否存在问题
         if ($res["return_code"] == 0) {
@@ -373,14 +365,13 @@ class WxController extends Controller
 
     /**
      * jsApi 下订单
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function jsApiOrder($param)
+    public function jsApiOrder()
     {
         // 统一下单地址
-        $res_json = $this->unifiedOrder($param);
+        $res_json = $this->unifiedOrder();
         $res = json_decode($res_json, true);
         // 判断接口是否存在问题
         if ($res["return_code"] == 0) {
@@ -398,11 +389,10 @@ class WxController extends Controller
 
     /**
      * 关闭订单接口
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function closeOrder($param)
+    public function closeOrder()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -418,11 +408,10 @@ class WxController extends Controller
 
     /**
      * 刷卡支付
-     * @param $param
      * @return string
      * @throws \Exception
      */
-    public function microOrder($param)
+    public function microOrder()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -447,11 +436,10 @@ class WxController extends Controller
 
     /**
      * 统一下单接口
-     * @param array $param
      * @return string
      * @throws \Exception
      */
-    public function unifiedOrder($param)
+    public function unifiedOrder()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -484,11 +472,10 @@ class WxController extends Controller
      * 订单查询接口
      * order_num_type 有两个值：
      *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
-     * @param array $param
      * @return string
      * @throws \Exception
      */
-    public function orderQuery($param)
+    public function orderQuery()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -507,11 +494,10 @@ class WxController extends Controller
      * 退款接口
      * order_num_type 有两个值：
      *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
-     * @param array $param
      * @return string
      * @throws \Exception
      */
-    public function refund($param)
+    public function refund()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -541,11 +527,10 @@ class WxController extends Controller
      * order_num_type 有四个值：
      *          transaction_id(微信订单号) 和 out_trade_no(商户订单号)
      *          out_refund_no(商户退款单号) 和 refund_id(微信退款单号)
-     * @param array $param
      * @return string
      * @throws \Exception
      */
-    public function refundQuery($param)
+    public function refundQuery()
     {
         // 请求参数处理
         $param = $this->requestDispose();
@@ -700,6 +685,7 @@ class WxController extends Controller
 
     /**
      * 请求数据处理
+     * @param $param
      * @return mixed
      */
     public function requestDispose()
