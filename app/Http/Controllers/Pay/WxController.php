@@ -18,22 +18,46 @@ use Endroid\QrCode\Response\QrCodeResponse;
 
 class WxController extends Controller
 {
+//    // 公众账号ID
+//    private $appId = "wx3fb8f4754008e524";
+//    // 公众账号密钥
+//    private $appSecret = "eff84a38864f33660994eaaa2f258fcf";
+//    // 商户号
+//    private $mchId = "1503376371";
+//    // api 密钥
+//    private $key = "f1c7979edd28576bfe57e5d36f0a3604";
+//    // 商户支付证书
+//    private $certPemPath = "./uploads/pem/1503376371/apiclient_cert.pem";
+//    // 支付证书私钥
+//    private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
+//    // 通知地址
+//    private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
+//    // 商户名称
+//    private $mchName = "零壹服务";
+
+
+
     // 公众账号ID
-    private $appId = "wx3fb8f4754008e524";
+    private $appId = "wx96d9f85643a80012";
     // 公众账号密钥
     private $appSecret = "eff84a38864f33660994eaaa2f258fcf";
     // 商户号
-    private $mchId = "1503376371";
+    private $mchId = "1499778612";
     // api 密钥
     private $key = "f1c7979edd28576bfe57e5d36f0a3604";
     // 商户支付证书
-    private $certPemPath = "./uploads/pem/1503376371/apiclient_cert.pem";
+    private $certPemPath = "./uploads/pem/1499778612/apiclient_cert.pem";
     // 支付证书私钥
-    private $keyPemPath = "./uploads/pem/1503376371/apiclient_key.pem";
+    private $keyPemPath = "./uploads/pem/1499778612/apiclient_key.pem";
     // 通知地址
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
-    private $mchName = "零壹服务";
+    private $mchName = "零壹人";
+
+
+
+
+
 
     // 微信支付支持的银行信息
     private $bank_info = [
