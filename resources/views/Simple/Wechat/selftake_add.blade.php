@@ -44,7 +44,7 @@
 		<div class="morendizhi">
 				<span>
 					<input type="checkbox" name="morendizhi" id="morendizhi" checkbox="checkbox">
-					<label for="morendizhi"><label for="morendizhi">设为默认取货信息</label></label>
+					<label for="morendizhi" class="morendizhi_action"><label for="morendizhi">设为默认取货信息</label></label>
 				</span>
 		</div>
 		<a href="javascript:;" class="preservation">保存</a>
