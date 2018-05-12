@@ -40,7 +40,7 @@
                             </header>
                             <div class="row wrapper">
                                 <form class="form-horizontal" method="get">
-                                    <label class="col-sm-1 control-label">订单编号</label>
+                                    <label class="col-sm-1 control-label">单据编号</label>
                                     <div class="col-sm-2">
                                         <input class="input-sm form-control" name="ordersn" size="16" type="text" value="{{$search_data['ordersn']}}">
                                     </div>
@@ -88,7 +88,7 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>订单编号</th>
+                                        <th>单据编号</th>
                                         <th>操作员账号</th>
                                         <th>操作员昵称</th>
                                         <th>联系方式</th>

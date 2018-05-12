@@ -51,9 +51,9 @@
                                     <input type="hidden" id="order_list_details" value="{{ url('retail/ajax/order_list_details') }}">
                                     <input type="hidden" id="loss_list_confirm" value="{{ url('retail/ajax/loss_list_confirm') }}">
                                     <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-                                    <label class="col-sm-1 control-label">订单编号</label>
+                                    <label class="col-sm-1 control-label">单据编号</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" name="ordersn" value="{{$ordersn}}" placeholder="订单编号">
+                                        <input type="text" class="form-control" name="ordersn" value="{{$ordersn}}" placeholder="单据编号">
                                     </div>
                                     <div class="col-sm-1">
                                         <button type="submit" class="btn btn-s-md btn-info"><i class="icon icon-magnifier"></i>&nbsp;&nbsp;搜索</button>
@@ -64,7 +64,7 @@
                                 <table class="table table-striped b-t b-light">
                                     <thead>
                                     <tr>
-                                        <th>订单编号</th>
+                                        <th>单据编号</th>
                                         <th>类型</th>
                                         <th>经手操作人员</th>
                                         <th>订单总金额</th>
