@@ -32,10 +32,13 @@ $(function(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                var str = "";
+                var str = "";//拼接字符串
+                var order_num_price = "";
                 for (var i = 0; i < json.data.goods_list.length; i++) {
                     str += order_list_box(json.data.goods_list[i].goods_name,json.data.goods_list[i].num,
                                 json.data.goods_list[i].goods_price);
+                    order_num_price +=parseFloat(json.data.goods_list[i].goods_price) *
+                                      parseInt(json.data.goods_list[i].num);
                 }
                 var $order_list =$("#order_list");
                 $order_list.empty();
@@ -43,6 +46,9 @@ $(function(){
                 //购物车总数
                 var order_num = json.data.total;
                 $("#order_num").html("&nbsp;&nbsp;("+order_num+"份商品)");
+                //总价
+                $("#order_num_price").html("&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
+                $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
             } else if (json.status == 0) {
                 window.history.go(-1);
                 console.log(json.msg);
