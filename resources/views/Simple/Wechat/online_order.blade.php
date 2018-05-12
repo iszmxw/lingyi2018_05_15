@@ -85,7 +85,7 @@
 				<a href="javascript:;" class="tijao_btn">提交订单<em id="order_btn_price"></em></a>
 	        </div>
 	    </div>
-		<!-- alert -->
+		<!-- 收货地址alert -->
 		<div class="popup_alert quhuoinfo" id="quhuoinfo">
 			<div class="quhuo alert_bottom popup_alert_hook">
 				<p class="quhuoinfo">我的收货地址</p>
@@ -94,7 +94,17 @@
 				<a href="javascript:;" class="add_address_btn my_text_align">添加收货地址</a>
 			</div>
 		</div>
-		<!-- alert -->
+		<!-- 收货地址alert -->
+        <!-- 自取信息alert -->
+		<div class="popup_alert quhuoinfo" id="quhuoinfo_selftake">
+			<div class="quhuo alert_bottom popup_alert_hook">
+				<p class="quhuoinfo">我的取货信息</p>
+				<div class="max_height_box" id="selftake_list_box">
+				</div>
+				<a href="javascript:;" class="add_address_btn my_text_align">添加取货信息</a>
+			</div>
+		</div>
+		<!-- 自取信息alert -->
 		<!-- alert -->
 		<div class="popup_alert alert" id="alert">
 			<div class="quhuo alert_width popup_alert_hook">
