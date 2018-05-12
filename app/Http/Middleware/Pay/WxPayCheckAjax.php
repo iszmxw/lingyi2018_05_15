@@ -292,8 +292,8 @@ class WxPayCheckAjax
         $validate = \Validator::make($data, $rule, $message);
         if (!$validate->passes()) {
             $error_msg = $validate->errors();
-            $res = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
-            foreach ($res as $val) {
+            $error_arr = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
+            foreach ($error_arr as $val) {
                 $error_msg = $val[0];
             }
             $res["return_code"] = 0;
