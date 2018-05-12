@@ -562,15 +562,12 @@ class WxController extends Controller
 
     /**
      * 下载对账单
-     * @param array $param
      * @return string
      * @throws \Exception
      */
 //    public function downloadBill($param)
     public function downloadBill()
     {
-
-
 
         var_dump(12312);exit;
 
