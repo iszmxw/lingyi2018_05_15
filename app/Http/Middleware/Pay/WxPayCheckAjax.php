@@ -69,10 +69,9 @@ class WxPayCheckAjax
                 $res_check = $this->check_downloadBill();
                 break;
         }
-
-
         var_dump($res_check);
         exit;
+
         // 判断参数是否传输错误
         if ($res_check == false) {
             // 接口返回失败
@@ -83,8 +82,6 @@ class WxPayCheckAjax
         // 条件处理完就进入控制器中
         return $next($request);
     }
-
-
 
 
     public function check_pay_bank()
@@ -274,8 +271,8 @@ class WxPayCheckAjax
 
     public function check_downloadBill()
     {
-        // 金额处理
-        $param = ["total_fee", "cash_fee", "cmms_amt", "amount"];
+        // 必填数组
+        $param = ["bill_date", "bill_type"];
         foreach ($param as $val) {
             if (!array_key_exists($val, $param)) {
                 return false;
