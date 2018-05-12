@@ -575,6 +575,8 @@ class WxController extends Controller
         $data["bill_type"] = $param["bill_type"];
         // 填充数组
         $data = $this->fillData($data, "order");
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
         // 将数据转化为 XML 格式
