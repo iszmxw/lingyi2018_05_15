@@ -1092,7 +1092,7 @@ Route::group(['prefix' => 'pay'], function () {
         // 退款订单查询
         Route::post('refundQuery', 'Pay\WxController@refundQuery');
         // 下载对账单
-        Route::get('downloadBill', 'Pay\WxController@downloadBill');
+        Route::post('downloadBill', 'Pay\WxController@downloadBill');
         // 获取微信支付支持的银行的信息
         Route::get('getBankInfo', 'Pay\WxController@getBankInfo');
 
