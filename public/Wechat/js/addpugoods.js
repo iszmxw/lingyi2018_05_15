@@ -4,7 +4,7 @@
 //自取信息选择
 function select_morendizhi(obj){
     if($("#morendizhi").is(":checked")){
-        $("#morendizhi").attr('checked',"");
+        $("#morendizhi").removeAttr('checked');
         $("#morendizhi_action").removeClass('morendizhi_action');
         console.log("sadsad");
     }else{
