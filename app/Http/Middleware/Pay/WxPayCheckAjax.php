@@ -312,11 +312,11 @@ exit;
             foreach ($res as $val) {
                 $error_msg = $val[0];
             }
-
             $res["return_code"] = 0;
             $res["return_msg"] =$error_msg;
             return response()->json($res);
         }
+        return true;
     }
 
 }
