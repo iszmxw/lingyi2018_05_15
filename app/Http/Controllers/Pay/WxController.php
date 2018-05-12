@@ -730,7 +730,7 @@ class WxController extends Controller
     public function dataDispose($param)
     {
         // 金额处理
-        $total_type = ["total_fee", "cash_fee"];
+        $total_type = ["total_fee", "cash_fee","cmms_amt","amount"];
         foreach ($total_type as $val) {
             if (array_key_exists($val, $param)) {
                 $param[$val] = $param[$val] / 100;
