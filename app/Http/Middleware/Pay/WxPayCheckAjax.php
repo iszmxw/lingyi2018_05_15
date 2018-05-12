@@ -284,7 +284,7 @@ class WxPayCheckAjax
             "bill_date.required" => "bill_date 必须填写",
             "bill_type.required" => "bill_type 必须填写",
         ];
-        return $this->validate($post_data, $rule);
+        return $this->validate($post_data, $rule,$message);
     }
 
     private function validate($data, $rule, $message = [])
