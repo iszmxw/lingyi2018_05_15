@@ -9,6 +9,7 @@ function select_morendizhi(obj){
     }
 }
 function selftake_add_cm(){
+    alert();
     var $selftake_add = $("#selftake_add");
     var url = $selftake_add.attr("action");
     var data = $selftake_add.serialize();
