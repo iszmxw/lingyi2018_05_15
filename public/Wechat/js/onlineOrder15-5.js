@@ -172,7 +172,7 @@ function selftake_list_box(realname,sex,mobile,status,id){
         }else{
             str += '<input type="radio" id="userinfo'+id+'" name="selftake" class="radio_address">';
         }
-        str += '<label for="userinfo'+address_id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
+        str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
         '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
     '</div>';
     return str;
