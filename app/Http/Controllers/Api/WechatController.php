@@ -63,7 +63,7 @@ class WechatController extends Controller
         $realname = $request->realname;
         // 性别
         $selftake_id = $request->selftake_id;
-        
+
         // 渲染页面
         return view('Simple/Wechat/online_order', ['status' => $status, 'selftake_id' => $selftake_id, 'realname' => $realname]);
     }
