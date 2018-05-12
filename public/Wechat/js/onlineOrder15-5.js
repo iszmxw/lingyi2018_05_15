@@ -138,11 +138,14 @@ function selectSelftake(){
                 $("#selftake_info_box").show();//显示自取信息列表
                 $("#address").hide();//隐藏收货地址按钮
                 $("#select_distribution").text('到点自取');//配送方式
-                 $.hideIndicator();
                 hide("selectexpress");//隐藏选择取货框
             } else if (json.status == 0) {
+                $("#address").hide();
+                $("#addselftake").show();
+                $("#select_distribution").text('到点自取');//配送方式
                 console.log(json.msg);
             }
+             $.hideIndicator();
         }
     );
 }
