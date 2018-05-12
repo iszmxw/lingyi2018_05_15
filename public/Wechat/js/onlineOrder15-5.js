@@ -47,7 +47,7 @@ $(function(){
                 var order_num = json.data.total;
                 $("#order_num").html("&nbsp;&nbsp;("+order_num+"份商品)");
                 //总价
-                $("#order_num_price").html("&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
+                $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
                 $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
             } else if (json.status == 0) {
                 window.history.go(-1);
