@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class WxPayCheckAjax
 {
+
     public function handle($request, Closure $next)
     {
         // 获取当前的页面路由
@@ -96,26 +97,6 @@ class WxPayCheckAjax
      */
     public function check_pay_bank()
     {
-        //        // 商户订单号
-//        $data["order_num"] = md5(time());
-//        // 用户openid
-//        $data["bank_card_num"] = "6214837873289338";
-//        // 收款用户姓名
-//        $data["bank_card_name"] = "郑旭宏";
-//        $data["bank_code"] = "1001";
-//        // 金额
-//        $data["order_money"] = 0.01;
-//        // 企业付款描述信息
-//        $data["remark"] = "还钱";
-//        // ip 地址
-//        $data["ip_address"] = "120.78.140.10";
-//
-//        echo $data["order_num"];
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//
-//        echo $this->pay_bank($data);
-
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -240,28 +221,6 @@ class WxPayCheckAjax
      */
     public function check_sendredpack()
     {
-        //发放普通红包
-//        // 活动名称
-//        $data["activity_name"] = "zzzz";
-//        // 发放ip地址
-//        $data["ip_address"] = "120.78.140.10";
-//        // 订单号
-//        $data["order_num"] = substr(md5(time()), 0, 28);
-////        $data["order_num"] = "6530cb44b093892f9e14d442472b";
-//        // 发送的openid
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        // 备注
-//        $data["remark"] = "ganjinqiang";
-//        // 金额
-//        $data["order_money"] = "1";
-//        // 祝福语
-//        $data["wishing"] = "gongxi";
-//
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->sendredpack($data);
-//        echo $res;
-
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -326,11 +285,6 @@ class WxPayCheckAjax
      */
     public function check_gethbinfo()
     {
-        // 查询红包
-//        $data["order_num"] = "33d5540a1185917e72ff8bbb6d9d";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->gethbinfo($data);
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -351,23 +305,6 @@ class WxPayCheckAjax
      */
     public function check_order()
     {
-//        // jsapi 下单
-//        $wechat = new WechatController();
-//        $wechat->getSignPackage();
-//        $signPackage = request()->get("zerone_jssdk_info");
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 0.1;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["trade_type"] = "JSAPI";
-//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-//        $data["product_id"] = md5(time());
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->jsApiOrder($data);
-//        $res = json_decode($res,true);
-//        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
-
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -400,12 +337,6 @@ class WxPayCheckAjax
      */
     public function check_closeOrder()
     {
-        // 关闭订单
-//        $data["order_num"] = 1503376371;
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->closeOrder($data);
-//        echo $res;
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -426,16 +357,6 @@ class WxPayCheckAjax
      */
     public function check_microOrder()
     {
-        // 刷卡支付
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 0.1;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["auth_code"] = "135463544838356441";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->microOrder($data);
-
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -464,13 +385,6 @@ class WxPayCheckAjax
      */
     public function check_orderQuery()
     {
-        // 订单查询
-//        $data["order_num_type"] = 'out_trade_no';
-//        $data["order_num"] = '150337637120180509095053';
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->orderQuery($data);
-//        echo $res;
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -493,22 +407,6 @@ class WxPayCheckAjax
      */
     public function check_refund()
     {
-//        // 退款接口
-//        $data["order_num_type"] = 'out_trade_no';
-//        $data["order_num"] = '150337637120180509095053';
-//        // 商户退款单号
-//        $data["refund_num"] = md5(time());
-//        // 订单金额
-//        $data["order_money"] = 0.1;
-//        // 退款金额
-//        $data["refund_money"] = 0.01;
-//        // 退款原因
-//        $data["refund_reason"] = "不想买了";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refund($data);
-//        echo $res;
-
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -539,13 +437,6 @@ class WxPayCheckAjax
      */
     public function check_refundQuery()
     {
-//        // 退款查询接口
-//        $reqData["order_num_type"] = "out_refund_no";
-//        $reqData["order_num"] = "1003022622018050853721122351525761650";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        $res = $this->refundQuery($reqData);
-//        echo $res;
-
         // 获取数据
         $post_data = request()->post();
         // 规则
@@ -607,5 +498,4 @@ class WxPayCheckAjax
         }
         return true;
     }
-
 }
