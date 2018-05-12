@@ -1,28 +1,19 @@
 $(function(){
+    var status = getUrlParam("status");
+    if(status){
+        var selftake_id = getUrlParam("selftake_id");
+        var realname = getUrlParam("realname");
+        console.log(selftake_id);
+        console.log(realname);
+    }else{
+        //默认查找用户默认的收获地址
+        address_user();
+    }
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//userID
     var shop_user_id = $("#shop_user_id").val();//用户店铺ID
-    //查询用户默认收货地址信息
-    var address_url = "http://develop.01nnt.com/api/wechatApi/address";
-    $.post(
-        address_url,
-        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
-        function (json) {
-            console.log(json);
-            if (json.status == 1) {
-                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                                    json.data.address_info.district_name +json.data.address_info.address
-                                    +json.data.address_info.mobile;
-                $("#address_info").text(address_info);
-                $("#address_info_box").show();//现在添加收货地址按钮
-            } else if (json.status == 0) {
-                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
-                console.log(json.msg);
-            }
-        }
-    );
     //查询购物车商品数据
     var cart_list_url = "http://develop.01nnt.com/api/wechatApi/shopping_cart_list";
     $.post(
@@ -83,6 +74,32 @@ function ress_list(){
                 show('quhuoinfo');
             } else if (json.status == 0) {
                 show('quhuoinfo');
+                console.log(json.msg);
+            }
+        }
+    );
+}
+//查询用户默认收货地址信息
+function address_user(){
+    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    var shop_user_id = $("#shop_user_id").val();//用户店铺ID
+    var address_url = "http://develop.01nnt.com/api/wechatApi/address";
+    $.post(
+        address_url,
+        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
+                                    json.data.address_info.district_name +json.data.address_info.address
+                                    +json.data.address_info.mobile;
+                $("#address_info").text(address_info);
+                $("#address_info_box").show();//现在添加收货地址按钮
+            } else if (json.status == 0) {
+                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
             }
         }
@@ -226,6 +243,12 @@ function selectexpress(obj,address){
         $("#ress_confirm").hide();
         $("#peisong_confirm").show();
     }
+}
+//获取url中的参数
+function getUrlParam(name) {
+ var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+ var r = window.location.search.substr(1).match(reg); //匹配目标参数
+ if (r != null) return unescape(r[2]); return null; //返回参数值
 }
 //隐藏alert
 $("#quhuoinfo").click(function(e){
