@@ -159,12 +159,11 @@ class WxController extends Controller
         file_put_contents($fileName, $res["data"]["pub_key"]);
 
 
-        var_dump($fileName);
-        exit;
+
 
         $fileName = realpath($fileName);
-//        $a = shell_exec("openssl rsa -RSAPublicKey_in -in <$fileName> -pubout");
-        $a = shell_exec("ls");
+        $a = shell_exec("openssl rsa -RSAPublicKey_in -in $fileName -pubout");
+
 
         var_dump($a);exit;
         // 返回保存路径
