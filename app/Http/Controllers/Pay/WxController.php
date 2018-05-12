@@ -57,16 +57,19 @@ class WxController extends Controller
 
     public function test13()
     {
-//        $data["desc"] = "商品-xho-test";
-//        $data["order_num"] = md5(time());
-//        $data["order_money"] = 3;
-//        $data["ip_address"] = "120.78.140.10";
-//        $data["auth_code"] = "135420899305495836";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->microOrder($data);
-//exit;
-//
+                // native 下单
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = md5(time());
+        $data["order_money"] = 3;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "NATIVE";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = md5(time());
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        $res = $this->nativeOrder($data);
+        echo "<img src='$res'>";
 
+        exit;
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
