@@ -36,7 +36,6 @@ class WxController extends Controller
 //    private $mchName = "零壹服务";
 
 
-
     // 公众账号ID
     private $appId = "wx96d9f85643a80012";
     // 公众账号密钥
@@ -53,11 +52,6 @@ class WxController extends Controller
     private $notify_url = "http://develop.01nnt.com/pay/sft/test14";
     // 商户名称
     private $mchName = "零壹人";
-
-
-
-
-
 
     // 微信支付支持的银行信息
     private $bank_info = [
