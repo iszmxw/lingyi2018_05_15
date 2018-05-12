@@ -276,34 +276,18 @@ class WxPayCheckAjax
     public function check_downloadBill()
     {
         $post_data = request()->post();
-
-
-//        // 必填数组
-//        $param = ["bill_date", "bill_type"];
-//        foreach ($param as $val) {
-//            if (!array_key_exists($val, $post_data)) {
-//                return false;
-//            }
-//        }
-//        return true;
-
-
         $rule = [
             'bill_date' => 'required',
             'bill_type' => 'required',
         ];
-
         $message = [
             "bill_date.required" => "bill_date 必须填写",
             "bill_type.required" => "bill_type 必须填写",
         ];
-
-        echo $this->validate($post_data,$rule,$message);
-exit;
-
+        return $this->validate($post_data, $rule);
     }
 
-    private function validate($data,$rule,$message = [])
+    private function validate($data, $rule, $message = [])
     {
         $validate = \Validator::make($data, $rule, $message);
         if (!$validate->passes()) {
@@ -313,8 +297,8 @@ exit;
                 $error_msg = $val[0];
             }
             $res["return_code"] = 0;
-            $res["return_msg"] =$error_msg;
-            return json_encode($res,JSON_UNESCAPED_UNICODE);
+            $res["return_msg"] = $error_msg;
+            return json_encode($res, JSON_UNESCAPED_UNICODE);
         }
         return true;
     }
