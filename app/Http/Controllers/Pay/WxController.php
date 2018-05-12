@@ -105,7 +105,7 @@ class WxController extends Controller
             $this->getpublickey();
         }
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 收款方银行卡号
@@ -183,7 +183,7 @@ class WxController extends Controller
     public function query_bank($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 填充数组
@@ -204,7 +204,7 @@ class WxController extends Controller
     public function transfers($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商户订单号
         $data["partner_trade_no"] = $param["order_num"];
         // 用户openid
@@ -236,7 +236,7 @@ class WxController extends Controller
     public function gettransferinfo($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商户企业付款单号
         $data["partner_trade_no"] = $param["order_num"];
         // 填充数组
@@ -263,7 +263,7 @@ class WxController extends Controller
     public function sendredpack($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 订单号
         $data["mch_billno"] = $param["order_num"];
         // 发送的openid
@@ -296,7 +296,7 @@ class WxController extends Controller
      */
     public function sendgroupredpack($param)
     {// 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 订单号
         $data["mch_billno"] = $param["order_num"];
         // 发送的openid
@@ -334,7 +334,7 @@ class WxController extends Controller
     public function gethbinfo($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 订单号
         $data["mch_billno"] = $param["order_num"];
         // 查询类型
@@ -405,7 +405,7 @@ class WxController extends Controller
     public function closeOrder($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
         $data["out_trade_no"] = $param["order_num"];
         // 填充数组
@@ -425,7 +425,7 @@ class WxController extends Controller
     public function microOrder($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商品信息
         $data["body"] = $param["desc"];
         // 订单号
@@ -454,7 +454,7 @@ class WxController extends Controller
     public function unifiedOrder($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 商品信息
         $data["body"] = $param["desc"];
         // 订单号
@@ -491,7 +491,7 @@ class WxController extends Controller
     public function orderQuery($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
@@ -514,7 +514,7 @@ class WxController extends Controller
     public function refund($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 商户退款单号
@@ -548,7 +548,7 @@ class WxController extends Controller
     public function refundQuery($param)
     {
         // 请求参数处理
-        $param = $this->requestDispose($param);
+        $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
         $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
@@ -567,18 +567,16 @@ class WxController extends Controller
      */
     public function downloadBill()
     {
-
-        $param = request()->post();
-        var_dump($param);
-        exit;
-//        // 请求参数处理
-//        $param = $this->requestDispose($param);
+        // 请求参数处理
+        $param = $this->requestDispose();
         // 对账日期
         $data["bill_date"] = $param["bill_date"];
         // 对账类型
         $data["bill_type"] = $param["bill_type"];
         // 填充数组
         $data = $this->fillData($data, "order");
+        var_dump($data);
+        exit;
         // 接口地址
         $url = "https://api.mch.weixin.qq.com/pay/downloadbill";
         // 将数据转化为 XML 格式
@@ -702,13 +700,13 @@ class WxController extends Controller
 
     /**
      * 请求数据处理
-     * @param $param
      * @return mixed
      */
-    public function requestDispose($param)
+    public function requestDispose()
     {
-        $res = json_decode($param, true);
-        return $res;
+        $param = request()->post();
+//        $res = json_decode($param, true);
+        return $param;
     }
 
 
