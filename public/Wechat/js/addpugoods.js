@@ -14,6 +14,7 @@ function selftake_add_cm(){
     var data = $selftake_add.serialize();
     $.post(url,data,function(json){
         if(json.status==1){
+            console.log(json);
             $.toast("添加成功");
         }else if(json.status==0){
             $.toast(json.data);
