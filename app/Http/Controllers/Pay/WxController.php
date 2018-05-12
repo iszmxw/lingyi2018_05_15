@@ -57,19 +57,19 @@ class WxController extends Controller
 
     public function test13()
     {
-                // native 下单
-        $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
-        $data["order_money"] = 2;
-        $data["ip_address"] = "120.78.140.10";
-        $data["trade_type"] = "NATIVE";
-        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        $data["product_id"] = md5(time());
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $res = $this->nativeOrder($data);
-        echo "<img src='http://develop.01nnt.com/$res'>";
-
-        exit;
+//                // native 下单
+//        $data["desc"] = "商品-xho-test";
+//        $data["order_num"] = md5(time());
+//        $data["order_money"] = 2;
+//        $data["ip_address"] = "120.78.140.10";
+//        $data["trade_type"] = "NATIVE";
+//        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+//        $data["product_id"] = md5(time());
+//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+//        $res = $this->nativeOrder($data);
+//        echo "<img src='http://develop.01nnt.com/$res'>";
+//
+//        exit;
         // 商户订单号
         $data["order_num"] = md5(time());
         // 用户openid
@@ -78,14 +78,14 @@ class WxController extends Controller
         $data["bank_card_name"] = "郑旭宏";
         $data["bank_code"] = "1001";
         // 金额
-        $data["order_money"] = 1;
+        $data["order_money"] = 0.01;
         // 企业付款描述信息
         $data["remark"] = "还钱";
         // ip 地址
         $data["ip_address"] = "120.78.140.10";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         echo $this->pay_bank($data);
-
+exit;
         $data["order_num"] = md5(time());
         echo $this->query_bank($data);
 
