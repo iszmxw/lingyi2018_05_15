@@ -13,6 +13,6 @@ class EncryptCookies extends Middleware
      */
     protected $except = [
         //
-        "pay/wx/downloadBill"
+        "/pay/wx/downloadBill"
     ];
 }
