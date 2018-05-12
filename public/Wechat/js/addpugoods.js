@@ -1,14 +1,16 @@
-function select_morendizhi(){
-    alert();
-}
+// function select_morendizhi(){
+//     alert();
+// }
 //自取信息选择
 function select_morendizhi(obj){
     if($("#morendizhi").is(":checked")){
         $("#morendizhi").attr('checked',"");
-        $("#morendizhi").next().removeClass('morendizhi_action');
+        $("#morendizhi_action").removeClass('morendizhi_action');
+        console.log("sadsad");
     }else{
         $("#morendizhi").attr('checked',"checked");
-        $("#morendizhi").next().addClass('morendizhi_action');
+        $("#morendizhi_action").addClass('morendizhi_action');
+        console.log("13213");
     }
     // $(":radio[name='morendizhi']").removeAttr('checkbox');//找到所有单选框删除选择状态
     // $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
