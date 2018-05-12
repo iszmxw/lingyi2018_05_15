@@ -13,9 +13,10 @@ function selftake_add_cm(){
     var url = $selftake_add.attr("action");
     var data = $selftake_add.serialize();
     $.post(url,data,function(json){
-        console.log(json);
         if(json.status==1){
-
+            console.log(json);
+        }else if(json.status==0){
+            $.toast(json.data);
         }
     });
 }
