@@ -4,9 +4,11 @@ function select_morendizhi(){
 //自取信息选择
 function select_morendizhi(obj){
     if($("#morendizhi").is(":checked")){
-        alert("a");
+        $("#morendizhi").attr('checked',"");
+        $("#morendizhi").next().removeClass('morendizhi_action');
     }else{
-alert("b");
+        $("#morendizhi").attr('checked',"checked");
+        $("#morendizhi").next().addClass('morendizhi_action');
     }
     // $(":radio[name='morendizhi']").removeAttr('checkbox');//找到所有单选框删除选择状态
     // $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
