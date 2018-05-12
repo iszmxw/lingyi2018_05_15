@@ -275,7 +275,7 @@ function selectexpress(obj,address){
 //备注
 function remarks(){
     var $this = $("#remarks");
-    $("#remarks_box").text($this.val);
+    $("#remarks_box").text($this.val());
     hide("alert");
 }
 //获取url中的参数
