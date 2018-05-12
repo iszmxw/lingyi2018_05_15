@@ -59,6 +59,7 @@ class WxController extends Controller
     // +----------------------------------------------------------------------
     // | Start - 外部通用方法
     // +----------------------------------------------------------------------
+
     /**
      * 设置微信公众号信息
      * @param $wx_pay_config
@@ -561,12 +562,16 @@ class WxController extends Controller
 
     /**
      * 下载对账单
-     * @param array $param
      * @return string
      * @throws \Exception
      */
-    public function downloadBill($param)
+//    public function downloadBill($param)
+    public function downloadBill()
     {
+
+        $param = $_POST;
+        var_dump($param);
+        exit;
         // 请求参数处理
         $param = $this->requestDispose($param);
         // 对账日期
