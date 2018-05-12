@@ -565,15 +565,14 @@ class WxController extends Controller
      * @return string
      * @throws \Exception
      */
-//    public function downloadBill($param)
     public function downloadBill()
     {
 
-        $param = $_POST;
+        $param = requset()->post();
         var_dump($param);
         exit;
-        // 请求参数处理
-        $param = $this->requestDispose($param);
+//        // 请求参数处理
+//        $param = $this->requestDispose($param);
         // 对账日期
         $data["bill_date"] = $param["bill_date"];
         // 对账类型
