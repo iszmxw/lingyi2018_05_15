@@ -91,6 +91,7 @@ class WxController extends Controller
 //exit;
 
         $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
+//        14add25e3c8967f1ee6afb0b3978e301
         echo $this->query_bank($data);
 
 
