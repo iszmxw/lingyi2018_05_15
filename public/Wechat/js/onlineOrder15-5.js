@@ -104,8 +104,10 @@ function selectSelftake(){
                 $("#address_info_name").text('自取信息');
                 var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
                 $("#address_info").text(address_info);
+                $("#address_info_box").show();//显示自取信息列表
+                $("#address").hide();//隐藏收货地址按钮
                  $.hideIndicator();
-                hide("selectexpress");
+                hide("selectexpress");//隐藏选择取货框
                 //$("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 console.log(json.msg);
