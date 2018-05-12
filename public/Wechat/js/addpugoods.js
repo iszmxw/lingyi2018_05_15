@@ -8,7 +8,7 @@ function select_morendizhi(obj){
         $("#morendizhi_action").removeClass('morendizhi_action');
         console.log("sadsad");
     }else{
-        $("#morendizhi").attr('checked',"checked");
+        $("#morendizhi").attr("checked","checked");
         $("#morendizhi_action").addClass('morendizhi_action');
         console.log("13213");
     }
