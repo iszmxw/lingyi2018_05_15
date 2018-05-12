@@ -38,9 +38,9 @@
 			    	</div>
                     <div class="item selftake_info_box" id="selftake_info_box" onclick="selftake_list()">
 				    	<div class="row">
-					      <div class="col-20 item_info"><span id="address_info_name">收货地址</span></div>
+					      <div class="col-20 item_info"><span id="selftake_info_name">自取信息</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p id="address_info"></p>
+							<p id="selftake_info"></p>
 					      </div>
 					    </div>
 			    	</div>

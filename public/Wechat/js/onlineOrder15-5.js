@@ -101,7 +101,6 @@ function selectSelftake(){
         function (json) {
             console.log(json,"asd");
             if (json.status == 1) {
-                $("#address_info_name").text('自取信息');
                 var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
                 $("#address_info").text(address_info);
                 $("#address_info_box").hide();//隐藏收货地址列表
