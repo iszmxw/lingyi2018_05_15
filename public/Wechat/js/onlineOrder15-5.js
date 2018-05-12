@@ -168,8 +168,8 @@ function ress_list_box(ress_info,realname,mobile,status,address_id){
 //取货信息列表拼接
 function selftake_list_box(realname,sex,mobile,status,id){
     var str = "";
-    str += '<div class="row alert_list" onclick="select_selftake('+id+',this)">'+
-        '<div class="col-85 radio_css">';
+    str += '<div class="row alert_list">'+
+        '<div class="col-85 radio_css" onclick="select_selftake('+id+',this)">';
         if(status && status == 1){
             str += '<input type="radio" id="userinfo'+id+'" checked="checked" value="'+realname+"-"+mobile+'"'+
                     'name="selftake" class="radio_address action">';
