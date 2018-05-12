@@ -1040,7 +1040,7 @@ Route::group(['prefix' => 'api'], function () {
 
 /***************************对接支付接口路由*********************************/
 Route::group(['prefix' => 'pay'], function () {
-    //微信通用路由组
+    //盛付通支付通用路由组
     Route::group(['prefix' => 'sft'], function () {
         Route::any('test', 'Pay\SftController@test');//测试函数
         Route::any('notify', 'Pay\SftController@notify');//测试函数
@@ -1055,11 +1055,49 @@ Route::group(['prefix' => 'pay'], function () {
         Route::any('test10', 'Pay\SftController@test10');//测试函数
         Route::any('test11', 'Pay\SftController@test11')->middleware("UserCheck");//测试函数
         Route::any('test12', 'Pay\SftController@test12');//测试函数
-
         Route::any('test13', 'Pay\WxController@test13');//测试函数
-        Route::any('test14', 'Pay\WxController@test14');//测试函数
-        Route::any('test15', 'Pay\WxController@test15');//测试函数
-        Route::any('nativeOrder', 'Pay\WxController@nativeOrder');//测试函数
+    });
+
+
+    // 微信支付通用路由组
+    Route::group(['prefix' => 'wx'], function () {
+        // 企业支付到银行卡接口
+        Route::post('pay_bank', 'Pay\WxController@pay_bank');
+        // 查询企业支付到银行卡接口
+        Route::post('query_bank', 'Pay\WxController@query_bank');
+        // 企业支付到零钱接口
+        Route::post('transfers', 'Pay\WxController@transfers');
+        // 查询企业支付到零钱接口
+        Route::post('gettransferinfo', 'Pay\WxController@gettransferinfo');
+        // 发送普通红包
+        Route::post('sendredpack', 'Pay\WxController@sendredpack');
+        // 发送裂变红包
+        Route::post('sendgroupredpack', 'Pay\WxController@sendgroupredpack');
+        // 红包查询记录
+        Route::post('gethbinfo', 'Pay\WxController@gethbinfo');
+        // 扫码下订单
+        Route::post('nativeOrder', 'Pay\WxController@nativeOrder');
+        // 微信公众号下订单
+        Route::post('jsApiOrder', 'Pay\WxController@jsApiOrder');
+        // 统一下单接口
+        Route::post('unifiedOrder', 'Pay\WxController@unifiedOrder');
+        // 关闭订单接口
+        Route::post('closeOrder', 'Pay\WxController@closeOrder');
+        // 刷卡支付
+        Route::post('microOrder', 'Pay\WxController@microOrder');
+        // 订单查询接口
+        Route::post('orderQuery', 'Pay\WxController@orderQuery');
+        // 退款接口
+        Route::post('refund', 'Pay\WxController@refund');
+        // 退款订单查询
+        Route::post('refundQuery', 'Pay\WxController@refundQuery');
+        // 下载对账单
+        Route::post('downloadBill', 'Pay\WxController@downloadBill');
+        // 获取微信支付支持的银行的信息
+        Route::get('getBankInfo', 'Pay\WxController@getBankInfo');
+
+        // 测试地址
+        Route::get('demo', 'Pay\WxController@demo');
     });
 });
 /***************************对接支付接口路由*********************************/
