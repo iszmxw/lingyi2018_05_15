@@ -296,17 +296,13 @@ class WxPayCheckAjax
         $message = [
             "bill_date.required" => "bill_date 必须填写",
             "bill_type.required" => "bill_type 必须填写",
-            "appsecret.required" => "appsecret 必须填写",
-            "mchid.required" => "mchid 必须填写",
-            "api_key.required" => "api_key 必须填写",
         ];
 
         $validate = \Validator::make($post_data, $rule, $message);
 
         if (!$validate->passes()) {
             $error_msg = $validate->errors();
-            $res = json_encode($error_msg, JSON_UNESCAPED_UNICODE);
-            $res = json_decode($res, true);
+            $res = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
             var_dump($res);
             exit;
             foreach ($res as $val) {
