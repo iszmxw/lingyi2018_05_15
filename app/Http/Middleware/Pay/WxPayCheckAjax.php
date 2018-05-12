@@ -269,24 +269,52 @@ class WxPayCheckAjax
 
     }
 
+    /**
+     * 检测下载对账单数据
+     * @return bool
+     */
     public function check_downloadBill()
     {
         $post_data = request()->post();
-        // 必填数组
-        $param = ["bill_date", "bill_type"];
-        foreach ($param as $val) {
-            if (!array_key_exists($val, $post_data)) {
-                return false;
+
+
+//        // 必填数组
+//        $param = ["bill_date", "bill_type"];
+//        foreach ($param as $val) {
+//            if (!array_key_exists($val, $post_data)) {
+//                return false;
+//            }
+//        }
+//        return true;
+
+
+        $rule = [
+            'bill_date' => 'required',
+            'bill_type' => 'required',
+        ];
+
+        $message = [
+            "bill_date.required" => "bill_date 必须填写",
+            "bill_type.required" => "bill_type 必须填写",
+            "appsecret.required" => "appsecret 必须填写",
+            "mchid.required" => "mchid 必须填写",
+            "api_key.required" => "api_key 必须填写",
+        ];
+
+        $validate = \Validator::make($post_data, $rule, $message);
+
+        if (!$validate->passes()) {
+            $error_msg = $validate->errors();
+            $res = json_encode($error_msg, JSON_UNESCAPED_UNICODE);
+            $res = json_decode($res, true);
+            var_dump($res);
+            exit;
+            foreach ($res as $val) {
+                $error_msg = $val[0];
             }
+            return response()->json(['data' => $error_msg, 'status' => '0']);
         }
-        return true;
+
     }
 
-    public function checkRoleAddAndEdit($request)
-    {
-        if (empty($request->input('role_name'))) {
-            return self::res(0, response()->json(['data' => '角色名称不能为空', 'status' => '0']));
-        }
-        return self::res(1, $request);
-    }
 }
