@@ -77,5 +77,9 @@ class VerifyCsrfToken extends Middleware
         'api/wechatApi/cancel_selftake_order',//取消自取订单
         /****wechat接口****/
 
+
+
+        "pay/wx/downloadBill"
+
     ];
 }
