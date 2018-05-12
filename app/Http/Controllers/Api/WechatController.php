@@ -59,8 +59,16 @@ class WechatController extends Controller
     public function online_order(Request $request)
     {
         $return = $request->return;
+        // 真实姓名
+        $realname = $request->realname;
+        // 性别
+        $selftake_id = $request->selftake_id;
+        // 手机号
+        $mobile = $request->mobile;
+        // 默认取货信息 1为默认
+
         // 渲染页面
-        return view('Simple/Wechat/online_order', ['return' => $return]);
+        return view('Simple/Wechat/online_order', ['return' => $return, 'selftake_id' => $selftake_id, 'mobile' => $mobile, 'realname' => $realname]);
     }
 
     /**
