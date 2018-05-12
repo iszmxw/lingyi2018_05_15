@@ -102,7 +102,7 @@ class WxController extends Controller
         $file_name = "./uploads/pay/wechat/public_key/{$this->mchId}/publicrsa.pem";
         // 如果不存在公钥文件就进行生成
 //        if (!file_exists(realpath($file_name))) {
-            $this->getpublickey();
+        $this->getpublickey();
 //        }
         // 请求参数处理
         $param = $this->requestDispose($param);
@@ -128,7 +128,7 @@ class WxController extends Controller
 
 
     /**
-     * 获取公钥
+     * 获取公钥，包括 PKCS#1 和 PKCS#8
      * @return string
      * @throws \Exception
      */
@@ -150,22 +150,28 @@ class WxController extends Controller
         }
 
         // 得到文件名
-        $filePath = "./uploads/pay/wechat/public_key/{$this->mchId}/";
+        $filePath_pkcs_1 = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_1/";
+        $filePath_pkcs_8 = "./uploads/pay/wechat/public_key/{$this->mchId}/pkcs_8/";
+
         // 检测文件夹是否存在
-        $this->checkPath($filePath);
+        $this->checkPath($filePath_pkcs_1);
+        $this->checkPath($filePath_pkcs_8);
+
         // 保存文件名
-        $fileName = "{$filePath}publicrsa.pem";
+        $fileName_pkcs_1 = "{$filePath_pkcs_1}publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName, $res["data"]["pub_key"]);
+        file_put_contents($fileName_pkcs_1, $res["data"]["pub_key"]);
 
         // 获取全程地址
-        $file_name = realpath($fileName);
+        $file_name = realpath($fileName_pkcs_1);
         // PKCS#8的公钥
         $turn_code = shell_exec("openssl rsa -RSAPublicKey_in -in $file_name -pubout");
+        // 保存文件夹
+        $fileName_pkcs_8 = "{$filePath_pkcs_8}publicrsa.pem";
         // 写入文件夹
-        file_put_contents($fileName, $turn_code);
+        file_put_contents($fileName_pkcs_8, $turn_code);
         // 返回保存路径
-        return $fileName;
+        return $fileName_pkcs_8;
     }
 
     /**
