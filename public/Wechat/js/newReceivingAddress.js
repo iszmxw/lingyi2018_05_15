@@ -36,12 +36,12 @@ function ress_add(){
     var url = $ress_add.attr("action");
     var data = $ress_add.serialize();
     console.log(data+"++++");
-    $.post(select_url,data, function(json) {
+    $.post(url,data, function(json) {
         console.log(json);
         if (json.status == 1) {
 
         } else if (json.status == 0) {
-            $.toast("喔~获取地址出错了");
+            $.toast(json.data);
         }
     });
 }
