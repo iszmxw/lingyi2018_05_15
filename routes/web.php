@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Redis;
 Route::any('/', function () {
     echo "你好世界";
 //    exec("cd /www/web/54zm_com/public_html && git pull origin master 2>&1",$res);
-    exec("ll 2>&1",$res);
-    dump($res);
+    $shell = shell_exec("ll 2>&1");
+    dump($shell);
 });
 /***************************框架学习整理资料部分***************************/
 Route::get('zeott', 'Tooling\TestController@test');
