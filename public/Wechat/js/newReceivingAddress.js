@@ -6,22 +6,14 @@ $(function(){
         "zerone_user_id":zerone_user_id,
         "_token":_token
     }, function(json) {
-        console.log(json);
+        if (json.status == 1) {
+                var address_info = json.data.address_info;
+                  $.smConfig.rawCitiesData = address_info;
+        } else if (json.status == 0) {
+            $.toast("喔~获取地址出错了");
+        }
     });
-  // $.smConfig.rawCitiesData = [
-  //     {
-  //         "name":"1231",
-  //         "sub":[
-  //             {
-  //                 "name":"请选择"
-  //             },
-  //             {
-  //                 "name":"13213"
-  //             }
-  //         ],
-  //         "type":0
-  //     }
-  // ]
+
   $("#city-picker").cityPicker({
       toolbarTemplate: '<header class="bar bar-nav">\
       <button class="button button-link pull-right close-picker">确认</button>\
