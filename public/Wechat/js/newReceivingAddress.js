@@ -1,19 +1,4 @@
 $(function(){
-                  //     $.smConfig.rawCitiesData =
-                  // [
-                  //     {
-                  //         "name":"1231",
-                  //         "sub":[
-                  //             {
-                  //                 "name":"请选择"
-                  //             },
-                  //             {
-                  //                 "name":"13213"
-                  //             }
-                  //         ],
-                  //         "type":0
-                  //     }
-                  // ];
     var select_url = "http://develop.01nnt.com/api/wechatApi/select_address";
     var zerone_user_id =$("#zerone_user_id").val();
     var _token =$("#_token").val();
@@ -35,12 +20,18 @@ $(function(){
             $.toast("喔~获取地址出错了");
         }
     });
-
-
-    // $("#city-picker").change(function() {
-    //     var str = $("#city-picker").val();
-    //     var aa = str.split(" ");
-    //     console.log(aa);
-    // });
-
 });
+function ress_add(){
+    var $ress_add = $("#ress_add");
+    var url = $ress_add.attr("action");
+    var data = $ress_add.serialize();
+    console.log(data+"++++");
+    $.post(select_url,data, function(json) {
+        console.log(json);
+        if (json.status == 1) {
+
+        } else if (json.status == 0) {
+            $.toast("喔~获取地址出错了");
+        }
+    });
+}
