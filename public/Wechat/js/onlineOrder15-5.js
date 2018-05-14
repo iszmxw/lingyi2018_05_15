@@ -116,9 +116,11 @@ function address_user(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                                    json.data.address_info.district_name +json.data.address_info.address
-                                    +json.data.address_info.mobile;
+                var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
+                var address = (json.data.address_info.address) ? json.data.address_info.address : "";
+                var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
+                var address_info = city_name+district_name+address+mobile;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
