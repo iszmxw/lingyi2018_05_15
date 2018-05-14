@@ -1387,11 +1387,16 @@ class WechatApiController extends Controller
       $city = City::getList([['province_id', $province_id]]);
       $data = [];
       foreach($city as $key =>$value){
+          $re = $this->area($value['id']);
           $data[$key] = [
               'name'=>$value['city_name'],
-              'sub'=>$this->area($value['id']),
-
+              'sub'=>$re
           ];
+          if($re){
+              $data[$key] =[
+                  'type'=>'0'
+              ];
+          }
       }
       return $data;
     }
