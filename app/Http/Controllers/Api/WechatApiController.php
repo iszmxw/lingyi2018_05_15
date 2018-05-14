@@ -605,7 +605,7 @@ class WechatApiController extends Controller
                         $freight = $dispatch_info['freight'];
                     } else {
                         // 续重
-                        $additional_weight = $dispatch_info['first_weight'] - $weight;
+                        $additional_weight =  $weight - $dispatch_info['first_weight'];
                         // 续重费用
                         $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']);
                     }
