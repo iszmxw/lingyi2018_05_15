@@ -33,7 +33,7 @@ class WechatController extends Controller
         // 赋值
         $zerone_jssdk_info = (request()->get("zerone_jssdk_info"));
         // 渲染页面
-        return view('Simple/Wechat/display', ['appId' => $zerone_jssdk_info['appId'], 'nonceStr' => $zerone_jssdk_info['nonceStr'], 'timestamp' => $zerone_jssdk_info['timestamp'], 'signature' => $zerone_jssdk_info['signature']]);
+        return view('Retail/Wechat/display', ['appId' => $zerone_jssdk_info['appId'], 'nonceStr' => $zerone_jssdk_info['nonceStr'], 'timestamp' => $zerone_jssdk_info['timestamp'], 'signature' => $zerone_jssdk_info['signature']]);
     }
 
     /**
@@ -50,7 +50,7 @@ class WechatController extends Controller
         Session::put('organization_name', $organization_name);
 
         // 渲染页面
-        return view('Simple/Wechat/goodslist');
+        return view('Retail/Wechat/goodslist');
     }
 
     /**
@@ -65,7 +65,7 @@ class WechatController extends Controller
         $selftake_id = $request->selftake_id;
 
         // 渲染页面
-        return view('Simple/Wechat/online_order', ['status' => $status, 'selftake_id' => $selftake_id, 'realname' => $realname]);
+        return view('Retail/Wechat/online_order', ['status' => $status, 'selftake_id' => $selftake_id, 'realname' => $realname]);
     }
 
     /**
@@ -74,7 +74,7 @@ class WechatController extends Controller
     public function selftake_order(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/selftake_order');
+        return view('Retail/Wechat/selftake_order');
     }
 
     /**
@@ -83,7 +83,7 @@ class WechatController extends Controller
     public function address_add(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/address_add');
+        return view('Retail/Wechat/address_add');
     }
 
     /**
@@ -92,7 +92,7 @@ class WechatController extends Controller
     public function address_list(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/address_list');
+        return view('Retail/Wechat/address_list');
     }
 
     /**
@@ -101,7 +101,7 @@ class WechatController extends Controller
     public function selftake_add(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/selftake_add');
+        return view('Retail/Wechat/selftake_add');
     }
 
     /**
@@ -110,7 +110,7 @@ class WechatController extends Controller
     public function selftake_edit(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/selftake_edit');
+        return view('Retail/Wechat/selftake_edit');
     }
 
     /**
@@ -119,7 +119,7 @@ class WechatController extends Controller
     public function selftake_list(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/selftake_list');
+        return view('Retail/Wechat/selftake_list');
     }
 
     /**
@@ -128,7 +128,7 @@ class WechatController extends Controller
     public function onlineOrderDetail(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/onlineOrderDetail');
+        return view('Retail/Wechat/onlineOrderDetail');
     }
 
     /**
@@ -137,7 +137,7 @@ class WechatController extends Controller
     public function selftakeOrderDetail(Request $request)
     {
         // 渲染页面
-        return view('Simple/Wechat/selftakeOrderDetail');
+        return view('Retail/Wechat/selftakeOrderDetail');
     }
 
 
