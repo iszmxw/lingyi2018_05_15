@@ -7,8 +7,9 @@ $(function(){
         "_token":_token
     }, function(json) {
         if (json.status == 1) {
-                $.smConfig.rawCitiesData = json.data.address_info;
-                  // $.smConfig.rawCitiesData = address_info;
+                var address_info = json.data.address_info;
+                console.log(address_info);
+                  $.smConfig.rawCitiesData = address_info;
                   // [
                   //     {
                   //         "name":"1231",
