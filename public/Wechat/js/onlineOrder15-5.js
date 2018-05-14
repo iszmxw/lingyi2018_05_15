@@ -231,7 +231,7 @@ function selftake_list_box(realname,sex,mobile,status,id){
             'class="radio_address">';
         }
         str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
-        '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
+        '<div class="col-15"><a href="javascript:;" class="update_address" onClick="edit_selftake('+id+')"></a></div>'+
     '</div>';
     return str;
 }
@@ -263,6 +263,10 @@ function select_selftake(address_id,obj){
     var ress_info = $(obj).find("input").val();
     $("#selftake_info").text(ress_info);//赋值上面的
     hide('quhuoinfo_selftake');
+}
+//编辑自取信息
+function edit_selftake(id){
+    window.location = 'http://develop.01nnt.com/zerone/wechat/selftake_edit?selftake_id='+id;
 }
 //配送选择
 function selectexpress(obj,address){
