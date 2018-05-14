@@ -456,6 +456,88 @@ class WechatApiController extends Controller
      */
     public function shopping_cart_empty(Request $request)
     {
+
+
+
+//
+//        {
+//            "name": "北京",
+//	"sub": [{
+//            "name": "请选择"
+//		},
+//		{
+//            "name": "东城区"
+//		}
+//	],
+//	"type": 0
+//}
+//, {
+//        "name": "广东",
+//	"sub": [{
+//            "name": "请选择",
+//			"sub": [
+//
+//            ]
+//		},
+//		{
+//            "name": "广州",
+//			"sub": [{
+//            "name": "请选择"
+//				},
+//
+//				{
+//                    "name": "其他"
+//				}
+//			],
+//			"type": 0
+//		},
+//		{
+//            "name": "深圳",
+//			"sub": [{
+//            "name": "请选择"
+//				},
+//				{
+//                    "name": "福田区"
+//				},
+//				{
+//                    "name": "其他"
+//				}
+//			],
+//			"type": 0
+//		},
+//
+//
+//		{
+//            "name": "中山",
+//			"sub": [
+//
+//        ],
+//			"type": 0
+//		},
+//
+//		{
+//            "name": "其他"
+//		}
+//	],
+//	"type": 1
+//}
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // 用户店铺id
         $user_id = $request->user_id;
         // 用户零壹id
@@ -1345,6 +1427,23 @@ class WechatApiController extends Controller
         }
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
+
+
+    /**
+     * 取消订单接口
+     */
+    public function select_address(Request $request)
+    {
+
+        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
+    }
+
+
+
+
+
+
+
 
 
     /**
