@@ -154,7 +154,7 @@ class WxController extends Controller
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
-        $data["amount"] = $param["order_money"] * 100;
+        $data["amount"] = $param["order_money"];
         // 付款说明
         $data["desc"] = $param["remark"];
         // 填充数组
@@ -251,7 +251,7 @@ class WxController extends Controller
         // 收款用户姓名
         $data["re_user_name"] = $param["bank_user_name"];
         // 金额
-        $data["amount"] = $param["order_money"] * 100;
+        $data["amount"] = $param["order_money"];
         // 企业付款描述信息
         $data["desc"] = $param["remark"];
         // ip 地址
@@ -304,7 +304,7 @@ class WxController extends Controller
         // 发送的openid
         $data["re_openid"] = $param["openid"];
         // 金额
-        $data["total_amount"] = $param["order_money"] * 100;
+        $data["total_amount"] = $param["order_money"];
         // 发放人数
         $data["total_num"] = 1;
         // 发放ip地址
@@ -336,7 +336,7 @@ class WxController extends Controller
         // 发送的openid
         $data["re_openid"] = $param["openid"];
         // 金额
-        $data["total_amount"] = $param["order_money"] * 100;
+        $data["total_amount"] = $param["order_money"];
         // 发放人数
 //        $data["total_num"] = $param["order_people_num"];
         $data["total_num"] = 1;
@@ -460,7 +460,7 @@ class WxController extends Controller
         // 订单号
         $data["out_trade_no"] = $param["order_num"];
         // 金额
-        $data["total_fee"] = $param["order_money"] * 100;
+        $data["total_fee"] = $param["order_money"];
         // ip 地址
         $data["spbill_create_ip"] = $param["ip_address"];
         // 授权码
@@ -488,7 +488,7 @@ class WxController extends Controller
         // 订单号
         $data["out_trade_no"] = $param["order_num"];
         // 金额
-        $data["total_fee"] = $param["order_money"] * 100;
+        $data["total_fee"] = $param["order_money"];
         // ip 地址
         $data["spbill_create_ip"] = $param["ip_address"];
         // 交易类型
@@ -547,9 +547,9 @@ class WxController extends Controller
         // 商户退款单号
         $data["out_refund_no"] = $param["refund_num"];
         // 订单金额
-        $data["total_fee"] = $param["order_money"] * 100;
+        $data["total_fee"] = $param["order_money"];
         // 退款金额
-        $data["refund_fee"] = $param["refund_money"] * 100;
+        $data["refund_fee"] = $param["refund_money"];
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
         // 通知地址
@@ -743,13 +743,13 @@ class WxController extends Controller
      */
     public function dataDispose($param)
     {
-        // 金额处理
-        $total_type = ["total_fee", "cash_fee", "cmms_amt", "amount","payment_amount","cash_refund_fee","refund_fee"];
-        foreach ($total_type as $val) {
-            if (array_key_exists($val, $param)) {
-                $param[$val] = $param[$val] / 100;
-            }
-        }
+//        // 金额处理
+//        $total_type = ["total_fee", "cash_fee", "cmms_amt", "amount","payment_amount","cash_refund_fee","refund_fee"];
+//        foreach ($total_type as $val) {
+//            if (array_key_exists($val, $param)) {
+//                $param[$val] = $param[$val] / 100;
+//            }
+//        }
         return $param;
     }
 
