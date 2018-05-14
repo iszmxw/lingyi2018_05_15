@@ -25,7 +25,7 @@ $(function(){
                 var address_info = json.data.address_info;
                 console.log(address_info);
                 console.log($.smConfig.rawCitiesData+"++++");
-                  $.smConfig.rawCitiesData.splice(0,$.smConfig.rawCitiesData.length);
+                  $.smConfig.rawCitiesData = [];
                   $.smConfig.rawCitiesData = address_info;
 
         } else if (json.status == 0) {
