@@ -39,7 +39,7 @@ $(function(){
 function selftake_edit(){
     var $edit_form = $("#selftake_edit");
     var url = $edit_form.attr("action");
-    var data = $$edit_form.serialize();
+    var data = $edit_form.serialize();
     console.log(data);
         $.post(
         url,
