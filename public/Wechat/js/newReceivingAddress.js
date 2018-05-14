@@ -10,21 +10,22 @@ $(function(){
                 var address_info = json.data.address_info;
                 console.log(address_info);
                 console.log($.smConfig.rawCitiesData+"++++");
-                  $.smConfig.rawCitiesData = address_info;
-                  // [
-                  //     {
-                  //         "name":"1231",
-                  //         "sub":[
-                  //             {
-                  //                 "name":"请选择"
-                  //             },
-                  //             {
-                  //                 "name":"13213"
-                  //             }
-                  //         ],
-                  //         "type":0
-                  //     }
-                  // ]
+                  // $.smConfig.rawCitiesData = address_info;
+                  $.smConfig.rawCitiesData =
+                  [
+                      {
+                          "name":"1231",
+                          "sub":[
+                              {
+                                  "name":"请选择"
+                              },
+                              {
+                                  "name":"13213"
+                              }
+                          ],
+                          "type":0
+                      }
+                  ];
         } else if (json.status == 0) {
             $.toast("喔~获取地址出错了");
         }
