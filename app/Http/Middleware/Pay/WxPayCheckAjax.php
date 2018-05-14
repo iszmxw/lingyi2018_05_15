@@ -187,7 +187,6 @@ class WxPayCheckAjax
     {
         // 获取数据
         $post_data = request()->post();
-
         // 规则
         $rule = [
             'order_num' => 'required',
