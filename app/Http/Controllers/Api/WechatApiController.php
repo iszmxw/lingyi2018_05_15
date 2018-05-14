@@ -597,23 +597,20 @@ class WechatApiController extends Controller
         $zerone_user_id = $request->zerone_user_id;
         // 省份 城市 地区
         $address_info = $request->address_info;
-        //
-        $address_info = explode(" ",$address_info);
-
-        Province::provinceOne([['province_name',]]);
-
-//        // 省份id
-//        $province_id = $request->province_id;
-//        // 省份名称
-//        $province_name = $request->province_name;
-//        // 城市ID
-//        $city_id = $request->city_id;
-//        // 城市名称
-//        $city_name = $request->city_name;
-//        // 地区ID
-//        $area_id = $request->area_id;
-//        // 地区名称
-//        $area_name = $request->area_name;
+        // 转为数组
+        $address_info = explode(" ", $address_info);
+        // 获取省份id 和 名字
+        $province = Province::provinceOne([['province_name', $address_info['0']]]);
+        // 获取城市id 和 名字
+        $city = City::getOne([['city_name', $address_info['1']]]);
+        if (count($address_info) == 3) {
+            $area = Area::getOne([['area_name', $address_info['2']]]);
+        } else {
+            $area = [
+                'id' => '',
+                'area_name' => ''
+            ];
+        }
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
@@ -634,12 +631,12 @@ class WechatApiController extends Controller
             // 数据处理
             $addressData = [
                 'zerone_user_id' => $zerone_user_id,
-                'province_id' => $province_id,
-                'province_name' => $province_name,
-                'city_id' => $city_id,
-                'city_name' => $city_name,
-                'area_id' => $area_id,
-                'area_name' => $area_name,
+                'province_id' => $province['id'],
+                'province_name' => $province['province_name'],
+                'city_id' => $city['city_id'],
+                'city_name' => $city['city_name'],
+                'area_id' => $area['id'],
+                'area_name' => $area['area_name'],
                 'address' => $address,
                 'realname' => $realname,
                 'mobile' => $mobile,
