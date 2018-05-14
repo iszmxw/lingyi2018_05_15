@@ -53,6 +53,7 @@ function selftake_edit(){
             if (json.status == 1) {
                 $.toast("修改成功");
                 setTimeout(function(){
+                    
                     var selftake_id = json.data.selftake_id;
                     var status = json.data.return;
                     $.toast("添加成功");
