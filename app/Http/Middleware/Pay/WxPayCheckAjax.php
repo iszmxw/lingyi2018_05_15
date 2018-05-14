@@ -189,23 +189,11 @@ class WxPayCheckAjax
         $post_data = request()->post();
         // 规则
         $rule = [
-            'activity_name' => 'required',
             'order_num' => 'required',
-            'order_money' => 'required',
-            'ip_address' => 'required',
-            'openid' => 'required',
-            'remark' => 'required',
-            'wishing' => 'required',
         ];
         // 提示消息
         $message = [
-            "activity_name.required" => "activity_name 必须填写",
             "order_num.required" => "order_num 必须填写",
-            "order_money.required" => "order_money 必须填写",
-            "ip_address.required" => "ip_address 必须填写",
-            "openid.required" => "openid 必须填写",
-            "remark.required" => "remark 必须填写",
-            "wishing.required" => "wishing 必须填写",
         ];
         // 返回验证结果
         return $this->validate($post_data, $rule, $message);
