@@ -266,6 +266,7 @@ function select_selftake(address_id,obj){
 }
 //编辑自取信息
 function edit_selftake(id){
+    stopPropagation(e);
     window.location = 'http://develop.01nnt.com/zerone/wechat/selftake_edit?selftake_id='+id;
 }
 //配送选择
