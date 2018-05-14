@@ -599,7 +599,6 @@ class WechatApiController extends Controller
         $address_info = $request->address_info;
         // 转为数组
         $address_info = explode(" ",$address_info);
-        print_r($address_info);exit;
         // 获取省份id 和 名字
         $province = Province::provinceOne([['province_name',$address_info['1']]]);
         // 获取城市id 和 名字
@@ -607,19 +606,6 @@ class WechatApiController extends Controller
         if($address_info['3']){
             $area = Area::getOne([['area_name',$address_info['3']]]);
         }
-
-//        // 省份id
-//        $province_id = $request->province_id;
-//        // 省份名称
-//        $province_name = $request->province_name;
-//        // 城市ID
-//        $city_id = $request->city_id;
-//        // 城市名称
-//        $city_name = $request->city_name;
-//        // 地区ID
-//        $area_id = $request->area_id;
-//        // 地区名称
-//        $area_name = $request->area_name;
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
