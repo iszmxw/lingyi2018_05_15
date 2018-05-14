@@ -9,6 +9,7 @@ $(function(){
         if (json.status == 1) {
                 var address_info = json.data.address_info;
                 console.log(address_info);
+                console.log($.smConfig.rawCitiesData+"++++");
                   $.smConfig.rawCitiesData = address_info;
                   // [
                   //     {
