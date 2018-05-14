@@ -582,12 +582,18 @@ class WechatApiController extends Controller
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
                 $dispatch_info = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
-                dd($dispatch_info);
-                $province_id = explode(",", $dispatch_info['province_id']);
+              if($dispatch_info->toArray()){
+                  foreach($dispatch_info as $k=>$v){
+                      dd($v);
+                      $province_id = explode(",", $v['province_id']);
 
-                if(in_array($address['province_id'], $province_id)){
+                      if(in_array($address['province_id'], $province_id)){
 
-                }
+                      }
+                  }
+              }else{
+                  return response()->json(['status' => '0', 'msg' => '没有省份运费价格', 'data' => '']);
+              }
 
             }
         } else {
