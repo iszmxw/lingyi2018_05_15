@@ -10,8 +10,8 @@ class Province extends Model{
     use SoftDeletes;
     protected $table = 'province';
     protected $primaryKey = 'id';
-    public $timestamps = true;
-    public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
+//    public $timestamps = true;
+//    public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
 
     //和战区节点关联，多对多
     public function warzone()
@@ -26,6 +26,11 @@ class Province extends Model{
             $model = $model->limit($limit);
         }
         return $model->where($where)->orderBy($orderby,$sort)->get();
+    }
+
+    //获取省份列表
+    public static function provinceList($where){
+        return  $model = self::where($where)->get();
     }
 
     //获取战区
