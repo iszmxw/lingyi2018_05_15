@@ -1366,8 +1366,8 @@ class WechatApiController extends Controller
                 'type' => $re['type']
             ];
 //            dd($this->city($value['id']));
-            dd($address_info);
         }
+        dd($address_info);
 
 //        {
 //            "name": "北京",
