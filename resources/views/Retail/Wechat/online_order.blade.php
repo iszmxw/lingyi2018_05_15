@@ -32,9 +32,9 @@
 	        <div class="order order_m">
 				<div class="order_box">
 					<h3 class="order_state15-10">待支付</h3>
-                    <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external>
+                    <a href="http://develop.01nnt.com/zerone/wechatRetail/address_add" id="address" class="address_btn" external>
                     <i></i>添加收货地址</a>
-                    <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
+                    <a href="http://develop.01nnt.com/zerone/wechatRetail/selftake_add" id="addselftake" class="address_btn" external>
                     <i></i>添加取货信息</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
