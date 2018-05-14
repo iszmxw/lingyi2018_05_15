@@ -500,12 +500,12 @@ class WechatApiController extends Controller
         $address_info = [
             // ID
             'id' => $address['id'],
-            // 城市
+            // 省份
             'province_name' => $address['province_name'],
             // 区县
             'city_name' => $address['city_name'],
-            // 省份
-            'district_name' => $address['district_name'],
+            // 城市
+            'area_name' => $address['area_name'],
             // 详细地址
             'address' => $address['address'],
             // 收货人姓名
@@ -581,12 +581,12 @@ class WechatApiController extends Controller
         $address_info = [
             // ID
             'id' => $address['id'],
-            // 城市
+            // 省份
             'province_name' => $address['province_name'],
             // 区县
             'city_name' => $address['city_name'],
-            // 省份
-            'district_name' => $address['district_name'],
+            // 地区
+            'area_name' => $address['area_name'],
             // 详细地址
             'address' => $address['address'],
             // 收货人姓名
