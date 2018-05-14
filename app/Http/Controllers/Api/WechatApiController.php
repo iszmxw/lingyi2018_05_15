@@ -1384,7 +1384,6 @@ class WechatApiController extends Controller
 
     private function city($province_id)
     {
-        echo 1;exit;
         $city = City::getList([['province_id', $province_id]]);
         $data = [];
         $type = '0';
