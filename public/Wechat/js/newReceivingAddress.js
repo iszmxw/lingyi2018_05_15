@@ -24,9 +24,7 @@ $(function(){
             $.smConfig.rawCitiesData = [];
         if (json.status == 1) {
                 var address_info = json.data.address_info;
-                console.log(address_info);
-                console.log($.smConfig.rawCitiesData+"++++");
-                  //$.smConfig.rawCitiesData = address_info;
+                //address_info传值
                     $("#city-picker").cityPicker({
                       toolbarTemplate: '<header class="bar bar-nav">\
                       <button class="button button-link pull-right close-picker">确认</button>\
