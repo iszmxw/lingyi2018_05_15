@@ -2,13 +2,13 @@ $(function(){
     console.log($.smConfig.rawCitiesData);
   $.smConfig.rawCitiesData = [
       {
-          "name":"北dfgfd京",
+          "name":"1231",
           "sub":[
               {
                   "name":"请选择"
               },
               {
-                  "name":"东城dfgdf区"
+                  "name":"13213"
               }
           ],
           "type":0
