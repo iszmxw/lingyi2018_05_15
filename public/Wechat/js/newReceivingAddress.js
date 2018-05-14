@@ -1,4 +1,13 @@
 $(function(){
+    var select_url = "http://develop.01nnt.com/api/wechatApi/select_address";
+    var zerone_user_id =$("#zerone_user_id").val();
+    var _token =$("#_token").val();
+    $.post(select_url, {
+        "zerone_user_id":zerone_user_id,
+        "_token":_token
+    }, function(json) {
+        console.log(json);
+    });
   // $.smConfig.rawCitiesData = [
   //     {
   //         "name":"1231",
