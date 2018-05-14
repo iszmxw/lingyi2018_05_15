@@ -58,8 +58,14 @@ class WechatController extends Controller
      */
     public function online_order(Request $request)
     {
+        $status = $request->status;
+        // 真实姓名
+        $realname = $request->realname;
+        // 性别
+        $selftake_id = $request->selftake_id;
+
         // 渲染页面
-        return view('Simple/Wechat/online_order');
+        return view('Simple/Wechat/online_order', ['status' => $status, 'selftake_id' => $selftake_id, 'realname' => $realname]);
     }
 
     /**
@@ -133,7 +139,6 @@ class WechatController extends Controller
         // 渲染页面
         return view('Simple/Wechat/selftakeOrderDetail');
     }
-
 
 
     /**

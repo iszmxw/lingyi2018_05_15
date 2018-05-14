@@ -4,25 +4,39 @@ $(function(){
     var store_id = $("#store_id").val();//店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//userID
     var shop_user_id = $("#shop_user_id").val();//用户店铺ID
-    //查询用户默认收货地址信息
-    var address_url = "http://develop.01nnt.com/api/wechatApi/address";
-    $.post(
-        address_url,
-        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
-        function (json) {
-            console.log(json);
-            if (json.status == 1) {
-                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                                    json.data.address_info.district_name +json.data.address_info.address
-                                    +json.data.address_info.mobile;
-                $("#address_info").text(address_info);
-                $("#address_info_box").show();//现在添加收货地址按钮
-            } else if (json.status == 0) {
-                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
-                console.log(json.msg);
+    var status = getUrlParam("status");//返回自取状态
+    if(status && status=="selftake"){
+        var selftake_id = getUrlParam("selftake_id");
+        //查询返回来(新添加)的自取信息
+        var selftake_info = "http://develop.01nnt.com/api/wechatApi/selftake_info";
+        $.post(
+            selftake_info,
+            {'zerone_user_id': zerone_user_id, '_token': _token,'self_take_id':selftake_id},
+            function (json) {
+                if (json.status == 1) {
+                    var selftake_id = json.data.selftake_info.id;
+                    var mobile = json.data.selftake_info.mobile;
+                    var realname = json.data.selftake_info.realname;
+                    var sex = json.data.selftake_info.sex;
+                    $("#shipping_type").val("2");//修改到点自提id(存)
+                    $("#selftake_id").val(selftake_id);
+                    $("#shipping_mobile").val(mobile);
+                    $("#shipping_realname").val(realname);
+                    $("#shipping_sex").val(sex);
+                    $("#selftake_info").text(realname+"-"+mobile);
+                    $("#address_info_box").hide();//隐藏收货地址列表
+                    $("#selftake_info_box").show();//显示自取信息列表
+                    $("#address").hide();//隐藏收货地址按钮
+                    $("#select_distribution").text('到店自取');//配送方式
+                } else if (json.status == 0) {
+                    $.toast("网络错误");
+                }
             }
-        }
-    );
+        );
+    }else{
+        //默认查找用户默认的收获地址
+        address_user();
+    }
     //查询购物车商品数据
     var cart_list_url = "http://develop.01nnt.com/api/wechatApi/shopping_cart_list";
     $.post(
@@ -88,6 +102,32 @@ function ress_list(){
         }
     );
 }
+//查询用户默认收货地址信息
+function address_user(){
+    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    var shop_user_id = $("#shop_user_id").val();//用户店铺ID
+    var address_url = "http://develop.01nnt.com/api/wechatApi/address";
+    $.post(
+        address_url,
+        {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
+                                    json.data.address_info.district_name +json.data.address_info.address
+                                    +json.data.address_info.mobile;
+                $("#address_info").text(address_info);
+                $("#address_info_box").show();//现在添加收货地址按钮
+            } else if (json.status == 0) {
+                show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
+                console.log(json.msg);
+            }
+        }
+    );
+}
 //自取信息列表查询
 function selftake_list(){
     var _token = $("#_token").val();
@@ -133,16 +173,25 @@ function selectSelftake(){
             console.log(json,"asd");
             if (json.status == 1) {
                 var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
+                    $("#shipping_type").val("2");//修改到点自提id(存)
+                    $("#selftake_id").val(json.data.selftake_info.id);
+                    $("#shipping_mobile").val(json.data.selftake_info.mobile);
+                    $("#shipping_realname").val(json.data.selftake_info.realname);
+                    $("#shipping_sex").val(json.data.selftake_info.sex);
                 $("#selftake_info").text(address_info);
                 $("#address_info_box").hide();//隐藏收货地址列表
                 $("#selftake_info_box").show();//显示自取信息列表
                 $("#address").hide();//隐藏收货地址按钮
-                $("#select_distribution").text('到点自取');//配送方式
-                 $.hideIndicator();
+                $("#select_distribution").text('到店自取');//配送方式
                 hide("selectexpress");//隐藏选择取货框
             } else if (json.status == 0) {
+                $("#address").hide();
+                $("#addselftake").show().css('display','block');
+                $("#select_distribution").text('到店自取');//配送方式
+                hide("selectexpress");//隐藏选择取货框
                 console.log(json.msg);
             }
+             $.hideIndicator();
         }
     );
 }
@@ -222,6 +271,18 @@ function selectexpress(obj,address){
         $("#ress_confirm").hide();
         $("#peisong_confirm").show();
     }
+}
+//备注
+function remarks(){
+    var $this = $("#remarks");
+    $("#remarks_box").text($this.val());
+    hide("alert");
+}
+//获取url中的参数
+function getUrlParam(name) {
+ var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+ var r = window.location.search.substr(1).match(reg); //匹配目标参数
+ if (r != null) return unescape(r[2]); return null; //返回参数值
 }
 //隐藏alert
 $("#quhuoinfo").click(function(e){

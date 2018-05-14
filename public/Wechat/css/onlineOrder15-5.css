@@ -469,6 +469,7 @@ body {
     border-radius: 0.2rem;
     font-weight: 500;
     margin-bottom: .4rem;
+    display: none;
 }
 .order .order_box a>i {
     display: inline-block;
@@ -511,7 +512,9 @@ body {
     overflow: auto;
     padding: 0 1.925rem;
 }
-
+.alert .max_height_box .list-block{
+    margin: 1rem 0;
+}
 .alert .max_height_box p {
     text-align: left;
     font-weight: 600;

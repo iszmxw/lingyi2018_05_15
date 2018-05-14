@@ -18,6 +18,11 @@
     <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
     <div class="page">
 	    <div class="g-flexview">
+            <input type="hidden" name="shipping_type" id="shipping_type" value="1">
+            <input type="hidden" name="selftake_id" id="selftake_id">
+            <input type="hidden" name="selftake_mobile" id="selftake_mobile">
+            <input type="hidden" name="selftake_realname" id="selftake_realname">
+            <input type="hidden" name="selftake_sex" id="selftake_sex">
 	        <div class="top">
 	            <div class="top_box">
 					<a href="javascript:;" class="return_btn"></a>
@@ -27,7 +32,10 @@
 	        <div class="order order_m">
 				<div class="order_box">
 					<h3 class="order_state15-10">待支付</h3>
-                    <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external><i></i>添加收货地址</a>
+                    <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external>
+                    <i></i>添加收货地址</a>
+                    <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
+                    <i></i>添加取货信息</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
 					      <div class="col-20 item_info"><span id="address_info_name">收货地址</span></div>
@@ -56,7 +64,7 @@
 					    <div class="row">
 					      <div class="col-20 item_info"><span>备注</span></div>
 					      <div class="col-80 item_info1 item_icon">
-							<p>要点要点要点1313</p>
+							<p id="remarks_box">请输入您需要交代的话~</p>
 					      </div>
 					    </div>
 				    </div>
@@ -101,7 +109,7 @@
 				<p class="quhuoinfo">我的取货信息</p>
 				<div class="max_height_box" id="selftake_list_box">
 				</div>
-				<a href="javascript:;" class="add_address_btn my_text_align">添加取货信息</a>
+				<a href="http://develop.01nnt.com/zerone/wechat/selftake_add" class="add_address_btn my_text_align" external>添加取货信息</a>
 			</div>
 		</div>
 		<!-- 自取信息alert -->
@@ -110,11 +118,13 @@
 			<div class="quhuo alert_width popup_alert_hook">
 				<p class="quhuoinfo">订单备注</p>
 				<div class="max_height_box">
-					<p>我的取货信息我的取货信息我的取货信息</p>
+					<div class="list-block">
+    					<textarea placeholder="请输入您需要交代的话~" id="remarks"></textarea>
+    				</div>
 				</div>
 				<div class="alert_btn_wz">
 					<!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="hide('alert')">确认</a>
+					<a href="javascript:;" class="btn_alert my_text_align btn_alert_bg" onclick="remarks()">确认</a>
 				</div>
 			</div>
 		</div>

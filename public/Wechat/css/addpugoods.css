@@ -125,7 +125,7 @@ textarea{
 	transform: translate(0,-50%);
 }
 .morendizhi{
-	padding: 1.35rem 0 0 0.8rem;
+	margin: 1.35rem 0 0 0.8rem;
 }
 .morendizhi>span{
 	position: relative;
@@ -148,7 +148,7 @@ textarea{
 	color: #323232;
 	font-weight: 600;
 }
-.morendizhi input:checked + label:after
+.morendizhi .morendizhi_action:after
 {
 	content: "";
 	position: absolute;

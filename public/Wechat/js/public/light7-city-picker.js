@@ -15,7 +15,8 @@ $.smConfig.rawCitiesData = [
                 "name":"请选择"
             },
             {
-                "name":"东城区"
+                "name":"东城区",
+                "value":"1"
             },
             {
                 "name":"西城区"
@@ -13289,7 +13290,7 @@ $.smConfig.rawCitiesData = [
 
 + function($) {
   "use strict";
-  
+
   $.fn.cityPicker = function(params) {
     return this.each(function() {
       if(!this) return;
