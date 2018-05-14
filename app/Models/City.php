@@ -20,7 +20,7 @@ class City extends Model{
 
     //查询获取列表
     public static function getList($where){
-        return $model = self::where($where)->get();
+        return $model = self::where($where)->get()->toArray();
     }
 
 
