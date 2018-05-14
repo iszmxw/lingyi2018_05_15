@@ -555,6 +555,43 @@ class WechatApiController extends Controller
         return response()->json($data);
     }
 
+
+    /**
+     * 查询收货地址详情
+     */
+    public function address_info(Request $request)
+    {
+        // 用户零壹id
+        $zerone_user_id = $request->zerone_user_id;
+        // 联盟主id
+        $fansmanage_id = $request->fansmanage_id;
+        // 店铺id
+        $store_id = $request->store_id;
+        // 地址id
+        $address_id = $request->address_id;
+
+        // 查询默认收货地址
+        $address = SimpleAddress::getone([['id', $address_id]]);
+        if (empty($address)) {
+            return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
+        }
+
+        // 运费模板
+        $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
+        dd($dispatch);
+        $dispatch_info = [];
+        if ($dispatch->toArray()) {
+            foreach ($dispatch->toArray() as $key => $value) {
+                $dispatch_info[$key] = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
+            }
+
+        }
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
+        return response()->json($data);
+    }
+
+
+
     /**
      * 查询用户取货信息
      */
