@@ -1354,12 +1354,12 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-      $list = Province::provinceList()->toArray();
-       foreach($list as $key=>$value){
-          $re = City::getList([['province_id',$value['id']]]);
-          dd($re);
-       }
-
+        $list = Province::provinceList()->toArray();
+        $re = [];
+        foreach ($list as $key => $value) {
+            $re[$key] = City::getList([['province_id', $value['id']]]);
+        }
+        dd($re);
 //        DB::beginTransaction();
 //        try {
 //            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
@@ -1450,8 +1450,6 @@ class WechatApiController extends Controller
 //}
 //
 //
-
-
 
 
     /**
