@@ -872,14 +872,17 @@ class WechatApiController extends Controller
         if (empty(SimpleSelftake::checkRowExists([['id', $self_take_id]]))) {
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
-
         if ($status) {
+            $return = 'selftake';
             SimpleSelftake::editaa([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
+            SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile, 'status' => $status]);
+        } else {
+            $return = '';
+            SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile]);
+
         }
 
-        SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile]);
-
-        $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id]];
+        $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id, 'return' => $return]];
         return response()->json($data);
     }
 
@@ -1367,11 +1370,11 @@ class WechatApiController extends Controller
         foreach ($list as $key => $value) {
             $re = $this->city($value['id']);
 
-                $address_info[$key] = [
-                    'name' => $value['province_name'],
-                    'sub' => $re['data'],
-                    'type' => $re['type']
-                ];
+            $address_info[$key] = [
+                'name' => $value['province_name'],
+                'sub' => $re['data'],
+                'type' => $re['type']
+            ];
         }
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['address_info' => $address_info]]);
     }
