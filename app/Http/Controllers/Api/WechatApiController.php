@@ -1352,8 +1352,10 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-      $list = Province::provinceList()->toArray();
-        print_r($list);exit;
+      $list = Province::provinceList();
+       foreach($list as $key=>$value){
+           print_r($value);
+       }
 
 //        DB::beginTransaction();
 //        try {
