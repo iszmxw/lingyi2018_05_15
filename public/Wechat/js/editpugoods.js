@@ -16,20 +16,20 @@ $(function(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                // var selftake_id = json.data.selftake_info.id;
-                // var mobile = json.data.selftake_info.mobile;
-                // var realname = json.data.selftake_info.realname;
-                // var sex = json.data.selftake_info.sex;
-                // $("#shipping_type").val("2");//修改到点自提id(存)
-                // $("#selftake_id").val(selftake_id);
-                // $("#shipping_mobile").val(mobile);
-                // $("#shipping_realname").val(realname);
-                // $("#shipping_sex").val(sex);
-                // $("#selftake_info").text(realname+"-"+mobile);
-                // $("#address_info_box").hide();//隐藏收货地址列表
-                // $("#selftake_info_box").show();//显示自取信息列表
-                // $("#address").hide();//隐藏收货地址按钮
-                // $("#select_distribution").text('到店自取');//配送方式
+                var selftake_id = json.data.selftake_info.id;
+                var mobile = json.data.selftake_info.mobile;
+                var realname = json.data.selftake_info.realname;
+                var sex = json.data.selftake_info.sex;
+                $("#selftake_id").val(selftake_id);
+                $("#realname").val(realname);
+                $("#mobile").val(mobile);
+                if(sex==1){
+                    $("#sex2").attr("checked",false);
+                    $("#sex1").attr("checked","checked");
+                }else{
+                    $("#sex1").attr("checked",false);
+                    $("#sex2").attr("checked","checked");
+                }
             } else if (json.status == 0) {
                 $.toast("没找到您的信息喔,刷新一下吧");
             }
