@@ -598,13 +598,18 @@ class WechatApiController extends Controller
         // 省份 城市 地区
         $address_info = $request->address_info;
         // 转为数组
-        $address_info = explode(" ",$address_info);
+        $address_info = explode(" ", $address_info);
         // 获取省份id 和 名字
-        $province = Province::provinceOne([['province_name',$address_info['0']]]);
+        $province = Province::provinceOne([['province_name', $address_info['0']]]);
         // 获取城市id 和 名字
-        $city = City::getOne([['city_name',$address_info['1']]]);
-        if(count($address_info) == 3){
-            $area = Area::getOne([['area_name',$address_info['2']]]);
+        $city = City::getOne([['city_name', $address_info['1']]]);
+        if (count($address_info) == 3) {
+            $area = Area::getOne([['area_name', $address_info['2']]]);
+        } else {
+            $area = [
+                'id' => '',
+                'area_name' => ''
+            ];
         }
         // 详细地址
         $address = $request->address;
