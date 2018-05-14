@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>编辑取货信息</title>
+	<title>编辑取货信息1111111111111</title>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -22,7 +22,7 @@
 				<div class="main_item">
 					<ul>
 						<li class="a_b_b a_b_t">
-							<div class="item_title title_f">姓名:</div>
+							<div class="item_title title_f">姓名123:</div>
 							<div class="item_input">
 								<input type="text" name="realname" id="realname" placeholder="请填写取货人的姓名" value="">
 							</div>
@@ -45,17 +45,17 @@
 						</li>
 					</ul>
 				</div>
-			</div>
-			<div class="morendizhi" onclick="select_morendizhi()">
-				<span>
-					<input type="checkbox" name="status" id="morendizhi" value="1">
-					<label for="morendizhi" class="" id="morendizhi_action">
-						<label for="morendizhi">设为默认取货信息</label>
-					</label>
-				</span>
+				<div class="morendizhi" onclick="select_morendizhi()">
+					<span>
+						<input type="checkbox" name="status" id="morendizhi" value="1">
+						<label for="morendizhi" class="" id="morendizhi_action">
+							<label for="morendizhi">设为默认取货信息</label>
+						</label>
+					</span>
+				</div>
 			</div>
 
-		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存132132</a>
+		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存1132</a>
 	</div>
 	</form>
 	<!-- alert -->

@@ -52,7 +52,7 @@
 					</label>
 				</span>
 		</div>
-		<a href="javascript:;" class="preservation" onclick="selftake_add_cm()">保存</a>
+		<a href="javascript:;" class="preservation" onclick="selftake_add_cm()">保存1237777</a>
 	</div>
 	</form>
 	<!-- alert -->
