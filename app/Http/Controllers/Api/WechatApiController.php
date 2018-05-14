@@ -1360,6 +1360,7 @@ class WechatApiController extends Controller
             $address_info[$key] = [
                 'name' => $value['province_name'],
                 'sub' => $this->city($value['id']),
+                'type'=>0
                 ];
 //            dd($this->city($value['id']));
         }
