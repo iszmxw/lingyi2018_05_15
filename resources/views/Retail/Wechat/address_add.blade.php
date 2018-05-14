@@ -16,7 +16,7 @@
 	<input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
     <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
 	<div class="g-flexview">
-		<form role="form" id="ress_add" action="{{ url('api/api/wechatApi/address_add') }}">
+		<form role="form" id="ress_add" action="{{ url('api/wechatApi/address_add') }}">
 		    <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
 		    <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
 			<div class="main_block">
