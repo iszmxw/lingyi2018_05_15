@@ -20,6 +20,7 @@ $(function(){
                 var mobile = json.data.selftake_info.mobile;
                 var realname = json.data.selftake_info.realname;
                 var sex = json.data.selftake_info.sex;
+                var status = json.data.selftake_info.status;
                 $("#selftake_id").val(selftake_id);
                 $("#realname").val(realname);
                 $("#mobile").val(mobile);
@@ -29,6 +30,9 @@ $(function(){
                 }else{
                     $("#sex1").attr("checked",false);
                     $("#sex2").attr("checked","checked");
+                }
+                if(status && status == 1){
+                    $("#morendizhi").attr("checked","checked");
                 }
             } else if (json.status == 0) {
                 $.toast("没找到您的信息喔,刷新一下吧");
@@ -49,7 +53,9 @@ function selftake_edit(){
             if (json.status == 1) {
                 $.toast("修改成功");
                 setTimeout(function(){
-                    window.history.go(-1);
+                    var selftake_id = json.data.self_take_id;
+                    var status = json.data.return;
+                    window.location="http://develop.01nnt.com/zerone/wechatRetail/online_order?selftake_id="+selftake_id+"&status="+status;
                 },1000);
             } else if (json.status == 0) {
                 $.toast("没找到您的信息喔,刷新一下吧");

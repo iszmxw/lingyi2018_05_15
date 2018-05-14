@@ -18,7 +18,7 @@ function selftake_add_cm(){
             var selftake_id = json.data.selftake_id;
             var status = json.data.return;
             $.toast("添加成功");
-            window.location="http://develop.01nnt.com/zerone/wechat/online_order?selftake_id="+selftake_id+"&status="+status;
+            window.location="http://develop.01nnt.com/zerone/wechatRetail/online_order?selftake_id="+selftake_id+"&status="+status;
         }else if(json.status==0){
             $.toast(json.data);
         }

@@ -231,7 +231,7 @@ function selftake_list_box(realname,sex,mobile,status,id){
             'class="radio_address">';
         }
         str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
-        '<div class="col-15"><a href="http://develop.01nnt.com/zerone/wechat/selftake_edit?selftake_id='+id+'"'+
+        '<div class="col-15"><a href="http://develop.01nnt.com/zerone/wechatRetail/selftake_edit?selftake_id='+id+'"'+
         'class="update_address" external></a></div>'+
     '</div>';
     return str;

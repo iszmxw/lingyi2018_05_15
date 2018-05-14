@@ -13,7 +13,7 @@ function searchshop(){
 }
 //渲染店铺列表
 function shoplist(name,address,logo,distance,id) {
-	var str = "<li>"+"<a href='http://develop.01nnt.com/zerone/wechat/goodslist?store_id="+id+"' external>"+
+	var str = "<li>"+"<a href='http://develop.01nnt.com/zerone/wechatRetail/goodslist?store_id="+id+"' external>"+
 					"<div class='shop_img'>"+
 						"<img src='http://develop.01nnt.com/"+logo+"'>"+
 					"</div>"+
