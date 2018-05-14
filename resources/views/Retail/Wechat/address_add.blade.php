@@ -83,7 +83,7 @@
 </div>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
-<!-- <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7-city-picker.js' charset='utf-8'></script> -->
+<script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7-city-picker.js' charset='utf-8'></script>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/newReceivingAddress.js?v=<?php echo time(); ?>"' charset='utf-8'></script>
 </body>
 </html>
