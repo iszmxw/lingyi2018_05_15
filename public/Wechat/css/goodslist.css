@@ -147,13 +147,6 @@ body{
     font-size: 0.6rem;
     color: #999;
 }
-input::-webkit-search-cancel-button{
-  display: initial;
-}
-input[type=search]::-ms-clear{
-  display: initial;
-}
-
 .goodslist{
 	width: 100%;
     /*height: 329px;*/
