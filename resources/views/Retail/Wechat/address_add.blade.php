@@ -32,9 +32,9 @@
 						<li class="a_b_b a_b_t">
 							<div class="item_title title_f"></div>
 							<div class="item_input item_input_pd1">
-								<input type="radio" id="userinfo2" name="dizhi" checked="checked" class="radio_address">
+								<input type="radio" id="userinfo2" name="sex" checked="checked" value="1" class="radio_address">
 								<label for="userinfo2">先生</label>
-								<input type="radio" id="userinfo1" name="dizhi" class="radio_address">
+								<input type="radio" id="userinfo1" name="sex" class="radio_address" value="2">
 								<label for="userinfo1">女士</label>
 							</div>
 						</li>
@@ -47,7 +47,7 @@
 						<li class="a_b_t">
 							<div class="item_title title_f item_input_pd">收货地址:</div>
 							<div class="item_input item_input_pd item_icon item_input_right">
-								<input type="text" name="" placeholder="请选择" id="city-picker">
+								<input type="text" name="address_info" placeholder="请选择" id="city-picker">
 							</div>
 							<!-- <div class="qingxuanz"><p>请选择</p></div> -->
 						</li>
@@ -61,7 +61,7 @@
 			</div>
 			<div class="morendizhi">
 					<span>
-						<input type="checkbox" name="" id="morendizhi">
+						<input type="checkbox" name="status" id="morendizhi">
 						<label><label for="morendizhi">设为默认地址</label></label>
 					</span>
 			</div>

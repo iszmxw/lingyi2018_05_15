@@ -21,6 +21,16 @@ $(function(){
         }
     });
 });
+//默认地址选择
+function select_morendizhi(obj){
+    if($("#morendizhi").is(":checked")){
+        $("#morendizhi").removeAttr('checked');
+        $("#morendizhi_action").removeClass('morendizhi_action');
+    }else{
+        $("#morendizhi").prop("checked",true);
+        $("#morendizhi_action").addClass('morendizhi_action');
+    }
+}
 function ress_add(){
     var $ress_add = $("#ress_add");
     var url = $ress_add.attr("action");
