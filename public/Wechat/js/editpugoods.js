@@ -56,7 +56,7 @@ function selftake_edit(){
                     var selftake_id = json.data.selftake_id;
                     var status = json.data.return;
                     $.toast("添加成功");
-                    window.location="http://develop.01nnt.com/zerone/wechat/online_order?selftake_id="+selftake_id+"&status="+status;
+                    //window.location="http://develop.01nnt.com/zerone/wechat/online_order?selftake_id="+selftake_id+"&status="+status;
                 },1000);
             } else if (json.status == 0) {
                 $.toast("没找到您的信息喔,刷新一下吧");
