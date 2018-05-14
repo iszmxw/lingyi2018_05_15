@@ -1,19 +1,19 @@
 $(function(){
-                      $.smConfig.rawCitiesData =
-                  [
-                      {
-                          "name":"1231",
-                          "sub":[
-                              {
-                                  "name":"请选择"
-                              },
-                              {
-                                  "name":"13213"
-                              }
-                          ],
-                          "type":0
-                      }
-                  ];
+                  //     $.smConfig.rawCitiesData =
+                  // [
+                  //     {
+                  //         "name":"1231",
+                  //         "sub":[
+                  //             {
+                  //                 "name":"请选择"
+                  //             },
+                  //             {
+                  //                 "name":"13213"
+                  //             }
+                  //         ],
+                  //         "type":0
+                  //     }
+                  // ];
     var select_url = "http://develop.01nnt.com/api/wechatApi/select_address";
     var zerone_user_id =$("#zerone_user_id").val();
     var _token =$("#_token").val();
@@ -25,7 +25,8 @@ $(function(){
                 var address_info = json.data.address_info;
                 console.log(address_info);
                 console.log($.smConfig.rawCitiesData+"++++");
-                  // $.smConfig.rawCitiesData = address_info;
+                  $.smConfig.rawCitiesData = [];
+                  $.smConfig.rawCitiesData = address_info;
 
         } else if (json.status == 0) {
             $.toast("喔~获取地址出错了");
