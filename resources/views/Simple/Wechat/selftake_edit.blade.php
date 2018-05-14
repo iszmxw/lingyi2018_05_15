@@ -17,7 +17,7 @@
 	<div class="g-flexview">
 		<form role="form" id="selftake_edit"  action="{{ url('api/wechatApi/selftake_edit') }}">
 			<div class="main_block">
-			    <input type="hidden" name="selftake_id" id="selftake_id" value="">
+			    <input type="hidden" name="self_take_id" id="selftake_id" value="">
 				<div class="main_item">
 					<ul>
 						<li class="a_b_b a_b_t">
