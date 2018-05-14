@@ -600,11 +600,11 @@ class WechatApiController extends Controller
         // 转为数组
         $address_info = explode(" ",$address_info);
         // 获取省份id 和 名字
-        $province = Province::provinceOne([['province_name',$address_info['1']]]);
+        $province = Province::provinceOne([['province_name',$address_info['0']]]);
         // 获取城市id 和 名字
-        $city = City::getOne([['city_name',$address_info['2']]]);
-        if($address_info['3']){
-            $area = Area::getOne([['area_name',$address_info['3']]]);
+        $city = City::getOne([['city_name',$address_info['1']]]);
+        if($address_info['2']){
+            $area = Area::getOne([['area_name',$address_info['2']]]);
         }
         // 详细地址
         $address = $request->address;
