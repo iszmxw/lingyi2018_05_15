@@ -1018,6 +1018,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::any('cancel_selftake_order', 'Api\WechatApiController@cancel_selftake_order')->middleware('WechatApiCheck');//取消自取订单
         Route::any('selftake_info', 'Api\WechatApiController@selftake_info')->middleware('WechatApiCheck');//取消自取订单
         Route::any('select_address', 'Api\WechatApiController@select_address')->middleware('WechatApiCheck');//选择收货地址
+        Route::any('address_info', 'Api\WechatApiController@address_info')->middleware('WechatApiCheck');//单条收货地址
     });
 
 
