@@ -14,6 +14,7 @@ class City extends Model{
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
 
 
+
     //查询获取列表
     public static function getList($where,$limit=0,$orderby,$sort='DESC'){
         $model = self::with('organization')->with('account_info')->with('account_roles');
@@ -22,7 +23,7 @@ class City extends Model{
         }
         return $model->where($where)->orderBy($orderby,$sort)->get();
     }
-    
+
 
     //查询数据是否存在（仅仅查询ID增加数据查询速度）
     public static function checkRowExists($where){
