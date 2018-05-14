@@ -147,8 +147,7 @@ body{
     font-size: 0.6rem;
     color: #999;
 }
-input[type='search']::-webkit-search-cancel-button,
-input[type='search']::-webkit-search-decoration {
+input[type='search']{
     -webkit-appearance: initial;
 }
 .goodslist{
