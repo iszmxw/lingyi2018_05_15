@@ -90,8 +90,6 @@ class WxController extends Controller
         $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 
-        echo $data;
-        exit;
         $res = $this->jsApiOrder($data);
         $res = json_decode($res, true);
         return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
