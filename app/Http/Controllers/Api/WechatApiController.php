@@ -577,6 +577,23 @@ class WechatApiController extends Controller
         if (empty($address)) {
             return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
         }
+        // 数据处理
+        $address_info = [
+            // ID
+            'id' => $address['id'],
+            // 城市
+            'province_name' => $address['province_name'],
+            // 区县
+            'city_name' => $address['city_name'],
+            // 省份
+            'district_name' => $address['district_name'],
+            // 详细地址
+            'address' => $address['address'],
+            // 收货人姓名
+            'realname' => $address['realname'],
+            // 手机号码
+            'mobile' => $address['mobile'],
+        ];
         // 运费模板
         $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
         $freight = 0;
@@ -601,7 +618,7 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
 
-        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address, 'freight' => $freight]];
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'freight' => $freight]];
 
         return response()->json($data);
     }
