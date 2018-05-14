@@ -579,6 +579,8 @@ class WechatApiController extends Controller
             'mobile' => $selftake['mobile'],
             // 真实姓名
             'realname' => $selftake['realname'],
+            // 默认值
+            'status' => $selftake['status'],
         ];
 
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['selftake_info' => $selftakeinfo]];
