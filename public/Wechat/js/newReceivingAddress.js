@@ -5,6 +5,7 @@ $("#city-picker").cityPicker({
     </header>'
   });
   $(function(){
+      console.log($.smConfig.rawCitiesData);
     $.smConfig.rawCitiesData = [
         {
             "name":"北dfgfd京",
