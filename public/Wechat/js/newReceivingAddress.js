@@ -39,7 +39,12 @@ function ress_add(){
     $.post(url,data, function(json) {
         console.log(json);
         if (json.status == 1) {
-
+            $.toast("修改成功");
+            setTimeout(function(){
+                var address_id = json.data.address_id;
+                var status = json.data.return;
+                window.location="http://develop.01nnt.com/zerone/wechatRetail/online_order?address_id="+address_id+"&status="+status;
+            },1000);
         } else if (json.status == 0) {
             $.toast(json.data);
         }
