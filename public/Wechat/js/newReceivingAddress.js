@@ -19,10 +19,10 @@ $(function(){
       <h1 class="title">选择收货地址</h1>\
       </header>'
     });
-    $("#city-picker").change(function() {
-        var str = $("#city-picker").val();
-        var aa = str.split(" ");
-        console.log(aa);
-    });
+    // $("#city-picker").change(function() {
+    //     var str = $("#city-picker").val();
+    //     var aa = str.split(" ");
+    //     console.log(aa);
+    // });
 
 });
