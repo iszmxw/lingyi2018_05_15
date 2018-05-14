@@ -46,6 +46,14 @@
 					</ul>
 				</div>
 			</div>
+			<div class="morendizhi">
+				<span>
+					<input type="checkbox" name="status" id="morendizhi" value="1">
+					<label for="morendizhi" class="" id="morendizhi_action">
+						<label for="morendizhi">设为默认取货信息</label>
+					</label>
+				</span>
+		</div>
 		</form>
 		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
 	</div>
