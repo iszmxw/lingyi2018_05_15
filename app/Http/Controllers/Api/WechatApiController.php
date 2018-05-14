@@ -873,14 +873,16 @@ class WechatApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
         if ($status) {
+            $return = 'selftake';
             SimpleSelftake::editaa([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
             SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile, 'status' => $status]);
         } else {
+            $return = '';
             SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile]);
 
         }
 
-        $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id, 'return' => 'selftake']];
+        $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id, 'return' => $return]];
         return response()->json($data);
     }
 
