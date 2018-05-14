@@ -46,7 +46,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="morendizhi">
+			<div class="morendizhi" onclick="select_morendizhi()">
 				<span>
 					<input type="checkbox" name="status" id="morendizhi" value="1">
 					<label for="morendizhi" class="" id="morendizhi_action">

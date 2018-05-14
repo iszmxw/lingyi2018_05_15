@@ -57,6 +57,16 @@ function selftake_edit(){
         }
     );
 }
+//自取信息选择
+function select_morendizhi(obj){
+    if($("#morendizhi").is(":checked")){
+        $("#morendizhi").removeAttr('checked');
+        $("#morendizhi_action").removeClass('morendizhi_action');
+    }else{
+        $("#morendizhi").prop("checked",true);
+        $("#morendizhi_action").addClass('morendizhi_action');
+    }
+}
 //获取url中的参数
 function getUrlParam(name) {
  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
