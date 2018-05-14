@@ -63,6 +63,7 @@ class WechatApiCheck
             case "api/wechatApi/selftake"://用户默认取货信息
             case "api/wechatApi/address_list"://检测添加收货地址提交数据
             case "api/wechatApi/selftake_list"://检测添加收货地址提交数据
+            case "api/wechatApi/select_address"://选择收货地址
                 $re = $this->checkZeroneUserId($request);
                 return self::format_response($re, $next);
                 break;
