@@ -1,18 +1,18 @@
 $(function(){
-  $.smConfig.rawCitiesData = [
-      {
-          "name":"1231",
-          "sub":[
-              {
-                  "name":"请选择"
-              },
-              {
-                  "name":"13213"
-              }
-          ],
-          "type":0
-      }
-  ]
+  // $.smConfig.rawCitiesData = [
+  //     {
+  //         "name":"1231",
+  //         "sub":[
+  //             {
+  //                 "name":"请选择"
+  //             },
+  //             {
+  //                 "name":"13213"
+  //             }
+  //         ],
+  //         "type":0
+  //     }
+  // ]
   $("#city-picker").cityPicker({
       toolbarTemplate: '<header class="bar bar-nav">\
       <button class="button button-link pull-right close-picker">确认</button>\
