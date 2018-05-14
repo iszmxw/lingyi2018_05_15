@@ -25,7 +25,7 @@
 						<div class="item_input">
 							<input type="text" name="realname" id="realname" placeholder="请填写取货人的姓名" value="">
 						</div>
-						<div class="weixin_ress"></div>
+						<!-- <div class="weixin_ress"></div> -->
 					</li>
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f"></div>
