@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>线上订单-订单详情132</title>
+    <title>线上订单-订单详情</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -31,7 +31,7 @@
 	        </div>
 	        <div class="order order_m">
 				<div class="order_box">
-					<h3 class="order_state15-10">待支付</h3>
+					<h3 class="order_state15-10">待支付13213</h3>
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external>
                     <i></i>添加收货地址</a>
                     <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
