@@ -633,7 +633,7 @@ class WechatApiController extends Controller
                 'zerone_user_id' => $zerone_user_id,
                 'province_id' => $province['id'],
                 'province_name' => $province['province_name'],
-                'city_id' => $city['city_id'],
+                'city_id' => $city['id'],
                 'city_name' => $city['city_name'],
                 'area_id' => $area['id'],
                 'area_name' => $area['area_name'],
