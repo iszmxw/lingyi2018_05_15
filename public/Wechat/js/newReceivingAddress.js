@@ -4,3 +4,19 @@ $("#city-picker").cityPicker({
     <h1 class="title">选择收货地址</h1>\
     </header>'
   });
+  $(function(){
+    $.smConfig.rawCitiesData = [
+        {
+            "name":"北dfgfd京",
+            "sub":[
+                {
+                    "name":"请选择"
+                },
+                {
+                    "name":"东城dfgdf区"
+                }
+            ],
+            "type":0
+        }
+    ]
+  });
