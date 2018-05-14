@@ -1355,49 +1355,39 @@ class WechatApiController extends Controller
     public function select_address(Request $request)
     {
         $list = Province::provinceList()->toArray();
+        $address_info = [];
         foreach ($list as $key => $value) {
             $re = City::getList([['province_id', $value['id']]]);
-          dd($re);
 
+                $address_info[$key] = [
+                    'name' => $value['province_name'],
+//                    'sub' => [
+//                        'name' => $v['city_name']
+//                    ],
+                ];
         }
-//        DB::beginTransaction();
-//        try {
-//            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-//            if ($order['stock_status'] == '1') {
-//                // 归还库存
-//                $re = $this->reduce_stock($order_id, '-1', 'selftake');
-//                if ($re != 'ok') {
-//                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+        dd($address_info);
+
+//        {
+//            "name": "北京",
+//            "sub": [{
+//            "name": "请选择"
+//                },
+//                {
+//                    "name": "东城区"
 //                }
-//            }
-//            // 修改订单状态为取消
-//            SimpleSelftakeOrder::editSimpleSelftakeOrder([['id', $order_id]], ['status' => '-1']);
-//            // 提交事务
-//            DB::commit();
-//        } catch (\Exception $e) {
-//            // 事件回滚
-//            DB::rollBack();
-//            return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+//            ],
+//            "type": 0
 //        }
-//        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
+//
+//
     }
 
 
 
 
 
-//
-//        {
-//            "name": "北京",
-//	"sub": [{
-//            "name": "请选择"
-//		},
-//		{
-//            "name": "东城区"
-//		}
-//	],
-//	"type": 0
-//}
+
 //, {
 //        "name": "广东",
 //	"sub": [{
