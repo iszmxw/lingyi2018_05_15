@@ -1354,14 +1354,14 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-        $list = Province::provinceList([['id',1]])->toArray();
+        $list = Province::provinceList([['id', 1]])->toArray();
         $address_info = [];
         foreach ($list as $key => $value) {
             $address_info[$key] = [
                 'name' => $value['province_name'],
                 'sub' => $this->city($value['id']),
-                'type'=>0
-                ];
+                'type' => 0
+            ];
 //            dd($this->city($value['id']));
             dd($address_info);
         }
@@ -1384,30 +1384,32 @@ class WechatApiController extends Controller
 
     private function city($province_id)
     {
-      $city = City::getList([['province_id', $province_id]]);
-      $data = [];
-      foreach($city as $key =>$value){
-          $re = $this->area($value['id']);
-          $data[$key] = [
-              'name'=>$value['city_name'],
-              'sub'=>$re
-          ];
-          if($re){
-              $data[$key] =[
-                  'type'=>'0'
-              ];
-          }
-      }
-      return $data;
+        $city = City::getList([['province_id', $province_id]]);
+        $data = [];
+        foreach ($city as $key => $value) {
+            $re = $this->area($value['id']);
+            $data[$key] = [
+                'name' => $value['city_name'],
+                'sub' => $re
+            ];
+            if ($re) {
+                $data[$key] = [
+                    'name' => $value['city_name'],
+                    'sub' => $re,
+                    'type' => '0'
+                ];
+            }
+        }
+        return $data;
     }
 
     private function area($city_id)
     {
         $area = Area::getList([['city_id', $city_id]]);
         $data = [];
-        foreach($area as $key =>$value){
+        foreach ($area as $key => $value) {
             $data[$key] = [
-                'name'=>$value['area_name']
+                'name' => $value['area_name']
             ];
         }
         return $data;
