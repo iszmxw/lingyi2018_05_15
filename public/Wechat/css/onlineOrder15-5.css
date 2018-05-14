@@ -647,14 +647,17 @@ body {
     padding-left: 2.25rem;
     cursor: pointer;
     vertical-align: middle;
-    word-wrap: break-word;
-    word-break: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .radio_css .action +label:after {
     display: block;
 }
-
+.radio_css_right{
+    height: 0.775rem;
+}
 .radio_address+label:after {
     content: '';
     position: absolute;
