@@ -15,8 +15,7 @@ $.smConfig.rawCitiesData = [
                 "name":"请选择"
             },
             {
-                "name":"东城区",
-                "value":"1"
+                "name":"东城区"
             },
             {
                 "name":"西城区"
