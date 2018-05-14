@@ -619,6 +619,8 @@ class WechatApiController extends Controller
         $mobile = $request->mobile;
         // 默认收货地址 1为默认
         $status = $request->status;
+        // 1为男，2为女
+        $sex = $request->sex;
         // 如果没传值，查询是否设置有地址，没有的话为默认地址
         if (empty($status)) {
             $status = SimpleAddress::checkRowExists([['zerone_user_id', $zerone_user_id]]) ? '0' : '1';
@@ -640,7 +642,8 @@ class WechatApiController extends Controller
                 'address' => $address,
                 'realname' => $realname,
                 'mobile' => $mobile,
-                'status' => $status
+                'status' => $status,
+                'sex' => $sex
             ];
             $address_id = SimpleAddress::addAddress($addressData);
             // 提交事务
