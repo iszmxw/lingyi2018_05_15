@@ -103,6 +103,7 @@ class WxPayCheckAjax
         $rule = [
             'order_num' => 'required',
             'bank_card_num' => 'required',
+            'bank_card_name' => 'required',
             'bank_code' => 'required',
             'order_money' => 'required',
             'remark' => 'required',
@@ -110,13 +111,13 @@ class WxPayCheckAjax
         ];
         // 提示消息
         $message = [
-            "activity_name.required" => "activity_name 必须填写",
-            "order_num.required" => "order_num 必须填写",
-            "order_money.required" => "order_money 必须填写",
-            "ip_address.required" => "ip_address 必须填写",
-            "openid.required" => "openid 必须填写",
-            "remark.required" => "remark 必须填写",
-            "wishing.required" => "wishing 必须填写",
+            'order_num' => 'order_num 必须填写',
+            'bank_card_num' => 'bank_card_num 必须填写',
+            'bank_card_name' => 'bank_card_name 必须填写',
+            'bank_code' => 'bank_code 必须填写',
+            'order_money' => 'order_money 必须填写',
+            'remark' => 'remark 必须填写',
+            'ip_address' => 'ip_address 必须填写',
         ];
         // 返回验证结果
         return $this->validate($post_data, $rule, $message);
