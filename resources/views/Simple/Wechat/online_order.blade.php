@@ -36,7 +36,7 @@
                     <i></i>添加收货地址</a>
                     <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
                     <i></i>添加取货信息</a>
-			    	<div class="item address_info_box" id="address_info_box" onclick="hide('selectexpress');">
+			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
 					      <div class="col-20 item_info"><span id="address_info_name">收货地址</span></div>
 					      <div class="col-80 item_info1 item_icon">
@@ -139,7 +139,7 @@
                 </div>
                 <div class="alert_btn_wz">
                     <!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-                    <a href="javascript:;" onclick="selectress()"
+                    <a href="javascript:;" onclick="hide('selectexpress');"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
 					<a href="javascript:;" onclick="selectSelftake()"
