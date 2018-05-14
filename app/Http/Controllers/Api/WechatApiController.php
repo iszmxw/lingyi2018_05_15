@@ -653,7 +653,7 @@ class WechatApiController extends Controller
             DB::rollBack();
             return response()->json(['status' => '0', 'msg' => '添加失败', 'data' => '']);
         }
-        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['address_id' => $address_id]];
+        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['address_id' => $address_id, 'return' => 'address']];
         return response()->json($data);
     }
 
@@ -729,7 +729,8 @@ class WechatApiController extends Controller
         // 默认收货地址 1为默认
         $status = $request->status ? '1' : '0';
         // 如果没传值，查询是否设置有地址，没有的话为默认地址
-
+        // 1为男，2为女
+        $sex = $request->sex;
         // 数据处理
         $editData = [
             'province_id' => $province['id'],
@@ -741,13 +742,13 @@ class WechatApiController extends Controller
             'address' => $address,
             'realname' => $realname,
             'mobile' => $mobile,
-            'status' => $status
+            'status' => $status,
+            'sex' => $sex
         ];
 
         SimpleAddress::editAddress([['id', $address_id]], $editData);
 
-
-        $data = ['status' => '1', 'msg' => '编辑成功', 'data' => ['address_id' => $address_id]];
+        $data = ['status' => '1', 'msg' => '编辑成功', 'data' => ['address_id' => $address_id, 'return' => 'address']];
 
         return response()->json($data);
     }

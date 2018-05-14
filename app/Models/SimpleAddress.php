@@ -52,6 +52,7 @@ class SimpleAddress extends Model
         $address->realname = $param['realname'];//收货人真实姓名
         $address->mobile = $param['mobile'];//手机号码
         $address->status = $param['status'];//1为默认收货地址
+        $address->sex = $param['sex'];//性别
         $address->save();
         return $address->id;
     }
