@@ -74,6 +74,28 @@ class WxController extends Controller
         ["bank_name" => "宁波银行", "bank_code" => "1056"]
     ];
 
+    public function test13()
+    {
+        // jsapi 下单
+        $wechat = new WechatController();
+        $wechat->getSignPackage();
+        $signPackage = request()->get("zerone_jssdk_info");
+        $data["desc"] = "商品-xho-test";
+        $data["order_num"] = "2cca586ee1c1ad031972837a2ae59dd9";
+        $data["order_money"] = 0.1;
+        $data["ip_address"] = "120.78.140.10";
+        $data["trade_type"] = "JSAPI";
+        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
+        $data["product_id"] = "2cca586ee1c1ad031972837a2ae59dd9";
+        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+        $res = $this->jsApiOrder($data);
+        $res = json_decode($res, true);
+        return view("Fansmanage/Test/test", ["signPackage" => $signPackage, "wxpay" => $res["data"]]);
+    }
+
+
     // +----------------------------------------------------------------------
     // | Start - 外部通用方法
     // +----------------------------------------------------------------------
@@ -227,7 +249,7 @@ class WxController extends Controller
         // 校验用户姓名选项
         $data["check_name"] = "FORCE_CHECK";
         // 收款用户姓名
-        $data["re_user_name"] = $param["bank_code"];
+        $data["re_user_name"] = $param["bank_name"];
         // 金额
         $data["amount"] = $param["order_money"] * 100;
         // 企业付款描述信息
@@ -1064,16 +1086,9 @@ class WxController extends Controller
 //        $data["remark"] = "还钱";
 //        // ip 地址
 //        $data["ip_address"] = "120.78.140.10";
-//
 //        echo $data["order_num"];
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//
 //        echo $this->pay_bank($data);
-
-        // 企业发放到银行卡
-//        $data["order_num"] = "152e4b79e81e33edc4b843c077c82d24";
-//        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-//        echo $this->query_bank($data);
 
 
         // 企业发放到银行卡查询
