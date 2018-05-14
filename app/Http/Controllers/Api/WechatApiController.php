@@ -1359,6 +1359,7 @@ class WechatApiController extends Controller
         $address_info = [];
         foreach ($list as $key => $value) {
             $re = $this->city($value['id']);
+            dd($re['data']);
             if ($re['data']) {
                 $address_info[$key] = [
                     'name' => $value['province_name'],
