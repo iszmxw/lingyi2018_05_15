@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\DispatchProvince;
+use App\Models\Province;
 use App\Models\SimpleAddress;
 use App\Models\Dispatch;
 use App\Models\Organization;
@@ -456,88 +457,6 @@ class WechatApiController extends Controller
      */
     public function shopping_cart_empty(Request $request)
     {
-
-
-
-//
-//        {
-//            "name": "北京",
-//	"sub": [{
-//            "name": "请选择"
-//		},
-//		{
-//            "name": "东城区"
-//		}
-//	],
-//	"type": 0
-//}
-//, {
-//        "name": "广东",
-//	"sub": [{
-//            "name": "请选择",
-//			"sub": [
-//
-//            ]
-//		},
-//		{
-//            "name": "广州",
-//			"sub": [{
-//            "name": "请选择"
-//				},
-//
-//				{
-//                    "name": "其他"
-//				}
-//			],
-//			"type": 0
-//		},
-//		{
-//            "name": "深圳",
-//			"sub": [{
-//            "name": "请选择"
-//				},
-//				{
-//                    "name": "福田区"
-//				},
-//				{
-//                    "name": "其他"
-//				}
-//			],
-//			"type": 0
-//		},
-//
-//
-//		{
-//            "name": "中山",
-//			"sub": [
-//
-//        ],
-//			"type": 0
-//		},
-//
-//		{
-//            "name": "其他"
-//		}
-//	],
-//	"type": 1
-//}
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // 用户店铺id
         $user_id = $request->user_id;
         // 用户零壹id
@@ -1428,20 +1347,104 @@ class WechatApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
 
-
     /**
      * 取消订单接口
      */
     public function select_address(Request $request)
     {
+      $list = Province::provinceList([]);
+        print_r($list);exit;
 
-        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
+//        DB::beginTransaction();
+//        try {
+//            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+//            if ($order['stock_status'] == '1') {
+//                // 归还库存
+//                $re = $this->reduce_stock($order_id, '-1', 'selftake');
+//                if ($re != 'ok') {
+//                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+//                }
+//            }
+//            // 修改订单状态为取消
+//            SimpleSelftakeOrder::editSimpleSelftakeOrder([['id', $order_id]], ['status' => '-1']);
+//            // 提交事务
+//            DB::commit();
+//        } catch (\Exception $e) {
+//            // 事件回滚
+//            DB::rollBack();
+//            return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+//        }
+//        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
     }
 
 
 
 
 
+//
+//        {
+//            "name": "北京",
+//	"sub": [{
+//            "name": "请选择"
+//		},
+//		{
+//            "name": "东城区"
+//		}
+//	],
+//	"type": 0
+//}
+//, {
+//        "name": "广东",
+//	"sub": [{
+//            "name": "请选择",
+//			"sub": [
+//
+//            ]
+//		},
+//		{
+//            "name": "广州",
+//			"sub": [{
+//            "name": "请选择"
+//				},
+//
+//				{
+//                    "name": "其他"
+//				}
+//			],
+//			"type": 0
+//		},
+//		{
+//            "name": "深圳",
+//			"sub": [{
+//            "name": "请选择"
+//				},
+//				{
+//                    "name": "福田区"
+//				},
+//				{
+//                    "name": "其他"
+//				}
+//			],
+//			"type": 0
+//		},
+//
+//
+//		{
+//            "name": "中山",
+//			"sub": [
+//
+//        ],
+//			"type": 0
+//		},
+//
+//		{
+//            "name": "其他"
+//		}
+//	],
+//	"type": 1
+//}
+//
+//
 
 
 

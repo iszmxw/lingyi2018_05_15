@@ -28,6 +28,11 @@ class Province extends Model{
         return $model->where($where)->orderBy($orderby,$sort)->get();
     }
 
+    //获取省份列表
+    public static function provinceList($where){
+        return  $model = self::where($where)->get();
+    }
+
     //获取战区
     public static function getPluck($where,$pluck){
         $model = self::with('warzone');
