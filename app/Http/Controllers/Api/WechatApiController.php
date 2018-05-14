@@ -570,7 +570,7 @@ class WechatApiController extends Controller
         // 重量
         $weight = $request->weight;
 
-        $weight = '500';
+        $weight = '1500';
 
         // 查询默认收货地址
         $address = SimpleAddress::getone([['id', $address_id]]);
