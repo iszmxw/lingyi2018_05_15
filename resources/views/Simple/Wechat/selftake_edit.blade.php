@@ -55,7 +55,7 @@
 					</div>
 				</div>
 
-			<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存1132</a>
+			<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
 				</form>
 		</div>
 	<!-- alert -->
