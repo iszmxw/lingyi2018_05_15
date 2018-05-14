@@ -148,7 +148,7 @@ body{
     color: #999;
 }
 input[type='search']{
-    -webkit-appearance: initial;
+    -webkit-appearance: searchfield;
 }
 .goodslist{
 	width: 100%;
