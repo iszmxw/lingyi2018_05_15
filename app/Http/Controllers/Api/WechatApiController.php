@@ -578,13 +578,14 @@ class WechatApiController extends Controller
 
         // 运费模板
         $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
-        dd($dispatch);
         $dispatch_info = [];
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
+                dd($value);
                 $dispatch_info[$key] = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
             }
-
+        }else{
+            return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
         return response()->json($data);
