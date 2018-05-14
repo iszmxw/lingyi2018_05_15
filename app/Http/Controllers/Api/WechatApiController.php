@@ -603,7 +603,7 @@ class WechatApiController extends Controller
         $province = Province::provinceOne([['province_name',$address_info['0']]]);
         // 获取城市id 和 名字
         $city = City::getOne([['city_name',$address_info['1']]]);
-        if($address_info['2']){
+        if(count($address_info) == 3){
             $area = Area::getOne([['area_name',$address_info['2']]]);
         }
         // 详细地址
