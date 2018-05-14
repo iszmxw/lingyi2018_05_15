@@ -13290,7 +13290,7 @@ $.smConfig.rawCitiesData = [
 + function($) {
   "use strict";
 
-  $.fn.cityPicker = function(params) {
+  $.fn.cityPicker = function(params,data) {
     return this.each(function() {
       if(!this) return;
       var format = function(data) {
@@ -13328,8 +13328,10 @@ $.smConfig.rawCitiesData = [
         }
         return [""];
       };
+      if(data){
+          var raw = data;
+      }
 
-      var raw = $.smConfig.rawCitiesData;
       var provinces = raw.map(function(d) {
         return d.name;
       });
