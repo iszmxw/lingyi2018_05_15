@@ -597,10 +597,16 @@ class WechatApiController extends Controller
         $zerone_user_id = $request->zerone_user_id;
         // 省份 城市 地区
         $address_info = $request->address_info;
-        //
+        // 转为数组
         $address_info = explode(" ",$address_info);
-
-        Province::provinceOne([['province_name',]]);
+        print_r($address_info);exit;
+        // 获取省份id 和 名字
+        $province = Province::provinceOne([['province_name',$address_info['1']]]);
+        // 获取城市id 和 名字
+        $city = City::getOne([['city_name',$address_info['2']]]);
+        if($address_info['3']){
+            $area = Area::getOne([['area_name',$address_info['3']]]);
+        }
 
 //        // 省份id
 //        $province_id = $request->province_id;
@@ -634,12 +640,12 @@ class WechatApiController extends Controller
             // 数据处理
             $addressData = [
                 'zerone_user_id' => $zerone_user_id,
-                'province_id' => $province_id,
-                'province_name' => $province_name,
-                'city_id' => $city_id,
-                'city_name' => $city_name,
-                'area_id' => $area_id,
-                'area_name' => $area_name,
+                'province_id' => $province['id'],
+                'province_name' => $province['province_name'],
+                'city_id' => $city['city_id'],
+                'city_name' => $city['city_name'],
+                'area_id' => $area['id'],
+                'area_name' => $area['area_name'],
                 'address' => $address,
                 'realname' => $realname,
                 'mobile' => $mobile,
