@@ -116,7 +116,7 @@ body{
 	position: absolute;
     right: 0;
     top: 0;
-    display: block;
+    display: none;
 }
 .search .search_item .icon_scavenging:after{
 	content: "";
