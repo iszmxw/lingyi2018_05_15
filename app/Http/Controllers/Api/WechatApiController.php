@@ -1359,19 +1359,12 @@ class WechatApiController extends Controller
         $address_info = [];
         foreach ($list as $key => $value) {
             $re = $this->city($value['id']);
-//            if ($re['data']['0']['sub']) {
+
                 $address_info[$key] = [
                     'name' => $value['province_name'],
                     'sub' => $re['data'],
                     'type' => $re['type']
                 ];
-//            } else {
-//                $address_info[$key] = [
-//                    'name' => $value['province_name'],
-//                    'type' => $re['type']
-//                ];
-//            }
-
 //            dd($this->city($value['id']));
         }
         dd($address_info);
@@ -1409,7 +1402,6 @@ class WechatApiController extends Controller
             } else {
                 $data[$key] = [
                     'name' => $value['city_name'],
-                    'sub' => $re
                 ];
             }
         }
