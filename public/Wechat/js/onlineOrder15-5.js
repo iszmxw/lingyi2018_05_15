@@ -262,6 +262,7 @@ function select_selftake(address_id,obj){
     $(obj).find("input").addClass('action');//赋值当前单选框icon
     var ress_info = $(obj).find("input").val();
     $("#selftake_info").text(ress_info);//赋值上面的
+    hide('quhuoinfo_selftake');
 }
 //配送选择
 function selectexpress(obj,address){
