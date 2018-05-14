@@ -569,38 +569,41 @@ class WechatApiController extends Controller
         $store_id = $request->store_id;
         // 地址id
         $address_id = $request->address_id;
+        // 重量
+        $weight = $request->weight;
+
+        $weight = '500';
 
         // 查询默认收货地址
         $address = SimpleAddress::getone([['id', $address_id]]);
         if (empty($address)) {
             return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
         }
-
         // 运费模板
         $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
-        $dispatch_info = [];
+        $freight = 0;
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
-                $dispatch_info = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
-              if($dispatch_info->toArray()){
-                  foreach($dispatch_info as $k=>$v){
-                      dd($v);
-                      $province_id = explode(",", $v['province_id']);
-
-                      if(in_array($address['province_id'], $province_id)){
-
-                      }
-                  }
-              }else{
-                  return response()->json(['status' => '0', 'msg' => '没有省份运费价格', 'data' => '']);
-              }
+                $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id', $address['province_id']]]);
+                if ($dispatch_info->toArray()) {
+                    if ($weight < $dispatch_info['first_weight']) {
+                        $freight = $dispatch_info['freight'];
+                    } else {
+                        // 续重
+                        $additional_weight = $dispatch_info['first_weight'] - $weight;
+                        // 续重费用
+                        $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']);
+                    }
+                } else {
+                    return response()->json(['status' => '0', 'msg' => '店铺没设有该省份配送', 'data' => '']);
+                }
 
             }
         } else {
             return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
 
-        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address, 'freight' => $freight]];
         return response()->json($data);
     }
 
