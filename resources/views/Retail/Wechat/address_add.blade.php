@@ -59,11 +59,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="morendizhi">
-					<span>
-						<input type="checkbox" name="status" id="morendizhi">
-						<label><label for="morendizhi">设为默认地址</label></label>
-					</span>
+			<div class="morendizhi" onclick="select_morendizhi()">
+				<span>
+					<input type="checkbox" name="status" id="morendizhi" value="1">
+					<label for="morendizhi" class="" id="morendizhi_action">
+						<label for="morendizhi">设为默认收货地址</label>
+					</label>
+				</span>
 			</div>
 			<a href="javascript:;" class="preservation" onclick="ress_add()">保存</a>
 		</form>
