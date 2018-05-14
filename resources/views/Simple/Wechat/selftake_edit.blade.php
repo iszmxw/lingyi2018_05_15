@@ -12,16 +12,10 @@
 </head>
 <body>
 <div class="page">
-
 		<div class="g-flexview">
-				<form role="form" id="selftake_edit"  action="{{ url('api/wechatApi/selftake_edit') }}">
-<<<<<<< HEAD
+			<form role="form" id="selftake_edit"  action="{{ url('api/wechatApi/selftake_edit') }}">
 				<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-<<<<<<< Updated upstream
-=======
-					<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-				    <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
->>>>>>> e46453e60f3a17d2d5f61fe9b27a7ee9f24a8f90
+			    <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
 				<div class="main_block">
 				    <input type="hidden" name="self_take_id" id="selftake_id" value="">
 					<div class="main_item">
@@ -60,9 +54,8 @@
 					</span>
 				</div>
 			<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
-				</form>
+			</form>
 		</div>
-=======
 			<div class="main_block">
 			    <input type="hidden" name="self_take_id" id="selftake_id" value="">
 				<div class="main_item">
@@ -95,7 +88,6 @@
 		</form>
 		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
 	</div>
->>>>>>> Stashed changes
 	<!-- alert -->
 	<div class="popup_alert">
 		<div class="quhuo alert_width popup_alert_hook">
