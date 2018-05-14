@@ -36,6 +36,37 @@ $(function(){
         }
     );
 });
+function selftake_edit(){
+    var $edit_form = $("#selftake_edit");
+    var url = $edit_form.attr("action");
+    var data = $edit_form.serialize();
+    console.log(data);
+        $.post(
+        url,
+        data,
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+                $.toast("修改成功");
+                setTimeout(function(){
+                    window.history.go(-1);
+                },1000);
+            } else if (json.status == 0) {
+                $.toast("没找到您的信息喔,刷新一下吧");
+            }
+        }
+    );
+}
+//自取信息选择
+function select_morendizhi(obj){
+    if($("#morendizhi").is(":checked")){
+        $("#morendizhi").removeAttr('checked');
+        $("#morendizhi_action").removeClass('morendizhi_action');
+    }else{
+        $("#morendizhi").prop("checked",true);
+        $("#morendizhi_action").addClass('morendizhi_action');
+    }
+}
 //获取url中的参数
 function getUrlParam(name) {
  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象

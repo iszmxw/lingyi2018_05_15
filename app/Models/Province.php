@@ -35,8 +35,8 @@ class Province extends Model{
     }
 
     //获取省份列表
-    public static function provinceList($where){
-        return  $model = self::where($where)->get();
+    public static function provinceList(){
+        return  $model = self::get();
     }
 
     //获取战区

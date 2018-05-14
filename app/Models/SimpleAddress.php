@@ -55,11 +55,8 @@ class SimpleAddress extends Model
     // 修改数据
     public static function editAddress($where, $param)
     {
-        $model = self::where($where)->first();
-        foreach ($param as $key => $val) {
-            $model->$key = $val;
-        }
-        $model->save();
+        // 更新信息
+        self::where($where)->update(['status' => $param["status"]]);
     }
 
     // 查询数据是否存在（仅仅查询ID增加数据查询速度）

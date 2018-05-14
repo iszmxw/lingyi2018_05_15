@@ -864,12 +864,18 @@ class WechatApiController extends Controller
         $sex = $request->sex;
         // 手机号
         $mobile = $request->mobile;
+        // 默认取货地址 1为默认
+        $status = $request->status;
+        // 零壹id
+        $zerone_user_id = $request->zerone_user_id;
 
         if (empty(SimpleSelftake::checkRowExists([['id', $self_take_id]]))) {
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
-
-        SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile]);
+        if ($status) {
+            SimpleSelftake::editaa([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
+        }
+        SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile, 'status' => $status]);
 
         $data = ['status' => '1', 'msg' => '修改成功', 'data' => ['self_take_id' => $self_take_id]];
         return response()->json($data);
@@ -1354,41 +1360,18 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-        $id = $request->id;
-        $list = Province::provinceList([['id', $id]])->toArray();
+        $list = Province::provinceList()->toArray();
         $address_info = [];
         foreach ($list as $key => $value) {
             $re = $this->city($value['id']);
-            if ($re['data']['0']['sub']) {
-                $address_info[$key] = [
-                    'name' => $value['province_name'],
-                    'sub' => $re['data'],
-                    'type' => $re['type']
-                ];
-            } else {
-                $address_info[$key] = [
-                    'name' => $value['province_name'],
-                    'type' => $re['type']
-                ];
-            }
 
-//            dd($this->city($value['id']));
+            $address_info[$key] = [
+                'name' => $value['province_name'],
+                'sub' => $re['data'],
+                'type' => $re['type']
+            ];
         }
-        dd($address_info);
-
-//        {
-//            "name": "北京",
-//            "sub": [{
-//            "name": "请选择"
-//                },
-//                {
-//                    "name": "东城区"
-//                }
-//            ],
-//            "type": 0
-//        }
-//
-//
+        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['address_info' => $address_info]]);
     }
 
 
@@ -1409,7 +1392,6 @@ class WechatApiController extends Controller
             } else {
                 $data[$key] = [
                     'name' => $value['city_name'],
-                    'sub' => $re
                 ];
             }
         }
@@ -1431,62 +1413,6 @@ class WechatApiController extends Controller
         }
         return $data;
     }
-
-
-
-//, {
-//        "name": "广东",
-//	"sub": [{
-//            "name": "请选择",
-//			"sub": [
-//
-//            ]
-//		},
-//		{
-//            "name": "广州",
-//			"sub": [{
-//            "name": "请选择"
-//				},
-//
-//				{
-//                    "name": "其他"
-//				}
-//			],
-//			"type": 0
-//		},
-//		{
-//            "name": "深圳",
-//			"sub": [{
-//            "name": "请选择"
-//				},
-//				{
-//                    "name": "福田区"
-//				},
-//				{
-//                    "name": "其他"
-//				}
-//			],
-//			"type": 0
-//		},
-//
-//
-//		{
-//            "name": "中山",
-//			"sub": [
-//
-//        ],
-//			"type": 0
-//		},
-//
-//		{
-//            "name": "其他"
-//		}
-//	],
-//	"type": 1
-//}
-//
-//
-
 
     /**
      * WGS84转GCj02(北斗转高德)
