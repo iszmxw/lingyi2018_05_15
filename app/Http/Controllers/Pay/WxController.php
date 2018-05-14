@@ -150,7 +150,7 @@ class WxController extends Controller
         // 收款方银行卡号
         $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], $file_name);
         // 收款方用户名
-        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], $file_name);
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_user_name"], $file_name);
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额

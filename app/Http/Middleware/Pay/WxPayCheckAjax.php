@@ -103,7 +103,7 @@ class WxPayCheckAjax
         $rule = [
             'order_num' => 'required',
             'bank_card_num' => 'required',
-            'bank_card_name' => 'required',
+            'bank_user_name' => 'required',
             'bank_code' => 'required',
             'order_money' => 'required',
             'remark' => 'required',
@@ -113,7 +113,7 @@ class WxPayCheckAjax
         $message = [
             'order_num' => 'order_num 必须填写',
             'bank_card_num' => 'bank_card_num 必须填写',
-            'bank_card_name' => 'bank_card_name 必须填写',
+            'bank_user_name' => 'bank_user_name 必须填写',
             'bank_code' => 'bank_code 必须填写',
             'order_money' => 'order_money 必须填写',
             'remark' => 'remark 必须填写',
