@@ -268,6 +268,9 @@ class WechatApiCheck
         if (!preg_match("/^1[34578]\d{9}$/", $mobile)) {
             return self::res(0, response()->json(['data' => '请输入正确手机号码', 'status' => '0']));
         }
+        if (empty($request->input('sex'))) {
+            return self::res(0, response()->json(['msg' => '性别不能为空', 'status' => '0', 'data' => '']));
+        }
         return self::res(1, $request);
     }
 
