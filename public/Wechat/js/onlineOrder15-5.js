@@ -88,7 +88,7 @@ function ress_list(){
                     var district_name = (json.data.address_list[i].district_name) ? json.data.address_list[i].district_name : "";
                     var address = (json.data.address_list[i].address) ? json.data.address_list[i].address : "";
 
-                    var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address;
+                    var ress_info = province_name +"——"+city_name+"——"+district_name+"——"+address;
                     var realname =json.data.address_list[i].realname;
                     var mobile =json.data.address_list[i].mobile;
                     var status =json.data.address_list[i].status;
