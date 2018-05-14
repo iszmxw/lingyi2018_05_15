@@ -864,16 +864,18 @@ class WechatApiController extends Controller
         $sex = $request->sex;
         // 手机号
         $mobile = $request->mobile;
-        //
+        // 默认取货地址 1为默认
         $status = $request->status;
-        // 如果没传值，查询是否设置有地址，没有的话为默认地址
-        if (empty($status)) {
-            $status = SimpleSelftake::checkRowExists([['zerone_user_id', $zerone_user_id]]) ? '0' : '1';
-        }
+        // 零壹id
+        $zerone_user_id = $request->zerone_user_id;
 
         if (empty(SimpleSelftake::checkRowExists([['id', $self_take_id]]))) {
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
+
+        if ($status) {
+            SimpleSelftake::editaa([['zerone_user_id', $zerone_user_id]], ['status' => '0']);
+        }
 
         SimpleSelftake::editSelftake([['id', $self_take_id]], ['realname' => $realname, 'sex' => $sex, 'mobile' => $mobile]);
 
