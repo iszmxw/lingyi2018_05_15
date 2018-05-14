@@ -249,7 +249,7 @@ class WxController extends Controller
         // 校验用户姓名选项
         $data["check_name"] = "FORCE_CHECK";
         // 收款用户姓名
-        $data["re_user_name"] = $param["bank_name"];
+        $data["re_user_name"] = $param["bank_user_name"];
         // 金额
         $data["amount"] = $param["order_money"] * 100;
         // 企业付款描述信息

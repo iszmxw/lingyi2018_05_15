@@ -121,8 +121,6 @@ class WxPayCheckAjax
         ];
         // 返回验证结果
         return $this->validate($post_data, $rule, $message);
-
-
     }
 
     /**
@@ -166,6 +164,7 @@ class WxPayCheckAjax
             'ip_address' => 'required',
             'openid' => 'required',
             'remark' => 'required',
+            'bank_user_name' => 'required',
         ];
         // 提示消息
         $message = [
@@ -174,6 +173,7 @@ class WxPayCheckAjax
             "ip_address.required" => "ip_address 必须填写",
             "openid.required" => "openid 必须填写",
             "remark.required" => "remark 必须填写",
+            "bank_user_name.required" => "bank_user_name 必须填写",
         ];
         // 返回验证结果
         return $this->validate($post_data, $rule, $message);
