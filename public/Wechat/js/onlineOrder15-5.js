@@ -123,7 +123,7 @@ function address_user(){
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
-                $("#address").show();//显示收货地址按钮
+                $("#address").show().css('display','block');//显示收货地址按钮
                 $("#address_info_box").hide();//隐藏添加收货地址按钮
                 show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
