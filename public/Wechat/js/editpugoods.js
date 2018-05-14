@@ -36,6 +36,24 @@ $(function(){
         }
     );
 });
+function selftake_edit(){
+    var $edit_form = $("#selftake_edit");
+    var url = $edit_form.attr("action");
+    var data = $$edit_form.serialize();
+    console.log(data);
+        $.post(
+        url,
+        data,
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+
+            } else if (json.status == 0) {
+                $.toast("没找到您的信息喔,刷新一下吧");
+            }
+        }
+    );
+}
 //获取url中的参数
 function getUrlParam(name) {
  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
