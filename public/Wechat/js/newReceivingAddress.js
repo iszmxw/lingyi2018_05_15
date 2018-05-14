@@ -1,5 +1,4 @@
 $(function(){
-    console.log($.smConfig.rawCitiesData);
   $.smConfig.rawCitiesData = [
       {
           "name":"1231",
@@ -20,4 +19,8 @@ $(function(){
       <h1 class="title">选择收货地址</h1>\
       </header>'
     });
+    $("#city-picker").change(function() {
+        console.log($("#city-picker").val());
+    });
+
 });
