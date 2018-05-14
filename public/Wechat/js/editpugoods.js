@@ -14,6 +14,7 @@ $(function(){
         selftake_info,
         {'zerone_user_id': zerone_user_id, '_token': _token,'self_take_id':id},
         function (json) {
+            console.log(json);
             if (json.status == 1) {
                 // var selftake_id = json.data.selftake_info.id;
                 // var mobile = json.data.selftake_info.mobile;
@@ -30,7 +31,7 @@ $(function(){
                 // $("#address").hide();//隐藏收货地址按钮
                 // $("#select_distribution").text('到店自取');//配送方式
             } else if (json.status == 0) {
-                $.toast("网络错误");
+                $.toast("没找到您的信息喔,刷新一下吧");
             }
         }
     );
