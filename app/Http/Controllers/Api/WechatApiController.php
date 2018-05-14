@@ -1354,6 +1354,7 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
+        echo 1;exit;
         $id = $request->id;
 
         $list = Province::provinceList([['id', $id]])->toArray();
@@ -1366,8 +1367,8 @@ class WechatApiController extends Controller
                 'type' => $re['type']
             ];
 //            dd($this->city($value['id']));
-            dd($address_info);
         }
+        dd($address_info);
 
 //        {
 //            "name": "北京",
@@ -1392,7 +1393,6 @@ class WechatApiController extends Controller
         $type = '0';
         foreach ($city as $key => $value) {
             $re = $this->area($value['id']);
-            dd($re);
             if ($re) {
                 $data[$key] = [
                     'name' => $value['city_name'],
