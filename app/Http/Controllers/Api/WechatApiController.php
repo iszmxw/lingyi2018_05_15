@@ -1359,9 +1359,9 @@ class WechatApiController extends Controller
         foreach ($list as $key => $value) {
             $address_info[$key] = [
                 'name' => $value['province_name'],
-//                'sub' => $this->city($value['id']),
+                'sub' => $this->city($value['id']),
                 ];
-            dd($this->city($value['id']));
+//            dd($this->city($value['id']));
         }
         dd($address_info);
 
@@ -1383,8 +1383,14 @@ class WechatApiController extends Controller
 
     private function city($province_id)
     {
-      return  $re = City::getList([['province_id', $province_id]]);
-
+      $city = City::getList([['province_id', $province_id]]);
+      $data = [];
+      foreach($city as $key =>$value){
+          $data[$key] = [
+              'name'=>$value['city_name']
+          ];
+      }
+      return $data;
     }
 
 
