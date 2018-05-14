@@ -19,7 +19,7 @@ class Province extends Model{
         return $this->belongsToMany('App\Models\Warzone','warzone_province','province_id','zone_id');
     }
 
-    //和账号多对多的关系
+
     public function city()
     {
         return $this->hasMany('App\Models\City','province_id','id');
@@ -36,7 +36,7 @@ class Province extends Model{
 
     //获取省份列表
     public static function provinceList(){
-        return  $model = self::with('city')->get();
+        return  $model = self::get();
     }
 
     //获取战区

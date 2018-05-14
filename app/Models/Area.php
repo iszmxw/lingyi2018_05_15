@@ -6,21 +6,22 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class City extends Model{
+class Area extends Model{
     use SoftDeletes;
-    protected $table = 'city';
+    protected $table = 'area';
     protected $primaryKey = 'id';
     public $timestamps = true;
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
 
-    public function area()
-    {
-        return $this->hasMany('App\Models\Area','city_id','id');
-    }
+
 
     //查询获取列表
-    public static function getList($where){
-        return $model = self::with('area')->where($where)->get();
+    public static function getList($where,$limit=0,$orderby,$sort='DESC'){
+        $model = self::where($where);
+        if(!empty($limit)){
+            $model = $model->limit($limit);
+        }
+        return $model->orderBy($orderby,$sort)->get();
     }
 
 
@@ -39,7 +40,7 @@ class City extends Model{
     }
     //获取分页数据
     public static function getPaginage($where,$paginate,$orderby,$sort='DESC'){
-        return self::with('account_roles')->with('account_info')->where($where)->orderBy($orderby,$sort)->paginate($paginate);
+        return self::where($where)->orderBy($orderby,$sort)->paginate($paginate);
     }
 }
 ?>
