@@ -81,12 +81,12 @@ class WxController extends Controller
         $wechat->getSignPackage();
         $signPackage = request()->get("zerone_jssdk_info");
         $data["desc"] = "商品-xho-test";
-        $data["order_num"] = md5(time());
+        $data["order_num"] = "2cca586ee1c1ad031972837a2ae59dd9";
         $data["order_money"] = 0.1;
         $data["ip_address"] = "120.78.140.10";
         $data["trade_type"] = "JSAPI";
         $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
-        $data["product_id"] = md5(time());
+        $data["product_id"] = "2cca586ee1c1ad031972837a2ae59dd9";
         $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 
