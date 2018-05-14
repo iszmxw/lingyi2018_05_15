@@ -83,8 +83,12 @@ function ress_list(){
             if (json.status == 1) {
                 var str ="";
                 for (var i = 0; i < json.data.address_list.length; i++) {
-                    var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
-                                    json.data.address_list[i].district_name + json.data.address_list[i].address;
+                    var province_name =(json.data.address_list[i].province_name) ? json.data.address_list[i].province_name : "";
+                    var city_name = (json.data.address_list[i].city_name) ? json.data.address_list[i].city_name : "";
+                    var district_name = (json.data.address_list[i].district_name) ? json.data.address_list[i].district_name : "";
+                    var address = (json.data.address_list[i].address) ? json.data.address_list[i].address : "";
+
+                    var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address;
                     var realname =json.data.address_list[i].realname;
                     var mobile =json.data.address_list[i].mobile;
                     var status =json.data.address_list[i].status;
@@ -116,9 +120,11 @@ function address_user(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                                    json.data.address_info.district_name +json.data.address_info.address
-                                    +json.data.address_info.mobile;
+                var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
+                var address = (json.data.address_info.address) ? json.data.address_info.address : "";
+                var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
+                var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
@@ -145,9 +151,9 @@ function selftake_list(){
             if (json.status == 1) {
                 var str ="";
                 for (var i = 0; i < json.data.self_take_info.length; i++) {
-                    var realname = json.data.self_take_info[i].realname;
+                    var realname = (json.data.self_take_info[i].realname) ? json.data.self_take_info[i].realname : "";
                     var sex = (json.data.self_take_info[i].sex ==1 ) ? "先生" : "女士";
-                    var mobile = json.data.self_take_info[i].mobile;
+                    var mobile = (json.data.self_take_info[i].mobile) ? json.data.self_take_info[i].mobile : "";
                     var status = json.data.self_take_info[i].status;
                     var id =json.data.self_take_info[i].id;
                     str += selftake_list_box(realname,sex,mobile,status,id);
