@@ -150,7 +150,7 @@ class WxController extends Controller
         // 收款方银行卡号
         $data["enc_bank_no"] = $this->rsa_encrypt($param["bank_card_num"], $file_name);
         // 收款方用户名
-        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_card_name"], $file_name);
+        $data["enc_true_name"] = $this->rsa_encrypt($param["bank_user_name"], $file_name);
         // 收款方开户行
         $data["bank_code"] = $param["bank_code"];
         // 付款金额
@@ -249,7 +249,7 @@ class WxController extends Controller
         // 校验用户姓名选项
         $data["check_name"] = "FORCE_CHECK";
         // 收款用户姓名
-        $data["re_user_name"] = $param["bank_name"];
+        $data["re_user_name"] = $param["bank_user_name"];
         // 金额
         $data["amount"] = $param["order_money"] * 100;
         // 企业付款描述信息
