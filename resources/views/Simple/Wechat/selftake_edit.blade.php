@@ -53,7 +53,7 @@
 						<label for="morendizhi">设为默认取货信息</label>
 					</label>
 				</span>
-		</div>
+			</div>
 		</form>
 		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
 	</div>
