@@ -472,7 +472,8 @@ class WxController extends Controller
         // 交易类型
         $data["trade_type"] = $param["trade_type"];
         // 通知地址
-        $data["notify_url"] = $this->notify_url;
+//        $data["notify_url"] = $this->notify_url;
+        $data["notify_url"] = $param["notify_url"];
         // openid (JSAPI : 公众号支付必填)
         $data["openid"] = $param["openid"];
         // 商品ID (NATIVE : 扫码模式必填)
@@ -530,7 +531,8 @@ class WxController extends Controller
         // 退款原因
         $data["refund_desc"] = $param["refund_reason"];
         // 通知地址
-        $data["notify_url"] = $this->notify_url;
+//        $data["notify_url"] = $this->notify_url;
+        $data["notify_url"] = $param["notify_url"];
         // 填充数组
         $data = $this->fillData($data, "order");
         // 接口地址
@@ -1134,6 +1136,7 @@ class WxController extends Controller
 //        $data["trade_type"] = "NATIVE";
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        $data["product_id"] = md5(time());
+//        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        $res = $this->nativeOrder($data);
 //        echo "<img src='$res'>";
@@ -1149,6 +1152,7 @@ class WxController extends Controller
 //        $data["trade_type"] = "JSAPI";
 //        $data["openid"] = "oK2HF1Sy1qdRQyqg69pPN5-rirrg";
 //        $data["product_id"] = md5(time());
+//        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 //        $res = $this->jsApiOrder($data);
 //        $res = json_decode($res,true);
@@ -1178,6 +1182,7 @@ class WxController extends Controller
 //        $data["order_money"] = 0.1;
 //        // 退款金额
 //        $data["refund_money"] = 0.01;
+//        $data["notify_url"] = "http://develop.01nnt.com/pay/sft/test14";
 //        // 退款原因
 //        $data["refund_reason"] = "不想买了";
 //        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
