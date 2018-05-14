@@ -53,7 +53,7 @@ function selftake_edit(){
             if (json.status == 1) {
                 $.toast("修改成功");
                 setTimeout(function(){
-                    var selftake_id = json.data.selftake_id;
+                    var selftake_id = json.data.self_take_id;
                     var status = json.data.return;
                     //window.location="http://develop.01nnt.com/zerone/wechat/online_order?selftake_id="+selftake_id+"&status="+status;
                 },1000);
