@@ -231,7 +231,7 @@ function selftake_list_box(realname,sex,mobile,status,id){
             'class="radio_address">';
         }
         str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
-        '<div class="col-15 radio_css_right" onClick="edit_selftake('+id+',this)"><div class="update_address" ></div></div>'+
+        '<div class="col-15 radio_css_right" onClick="edit_selftake('+id+',this)"></div>'+
     '</div>';
     return str;
 }

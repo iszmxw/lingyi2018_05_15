@@ -427,7 +427,7 @@ body {
     font-weight: 500;
 }
 
-.update_address {
+/* .update_address {
     position: absolute;
     top: 50%;
     right: 0;
@@ -440,7 +440,7 @@ body {
     height: 0.775rem;
     background: url('../images/update_address@2x.png') no-repeat;
     background-size: cover;
-}
+} */
 
 .add_address_btn {
     position: absolute;
@@ -657,6 +657,21 @@ body {
 }
 .radio_css_right{
     height: 0.775rem;
+}
+.radio_css_right::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    display: block;
+    width: 0.775rem;
+    height: 0.775rem;
+    background: url('../images/update_address@2x.png') no-repeat;
+    background-size: cover;
 }
 .radio_address+label:after {
     content: '';
