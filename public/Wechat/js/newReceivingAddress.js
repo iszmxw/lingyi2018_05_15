@@ -20,7 +20,9 @@ $(function(){
       </header>'
     });
     $("#city-picker").change(function() {
-        console.log($("#city-picker").val());
+        var str = $("#city-picker").val();
+        str.substring(" ");
+        console.log(str);
     });
 
 });
