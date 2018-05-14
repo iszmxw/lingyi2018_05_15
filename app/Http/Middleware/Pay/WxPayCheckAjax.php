@@ -166,7 +166,6 @@ class WxPayCheckAjax
             'ip_address' => 'required',
             'openid' => 'required',
             'remark' => 'required',
-
         ];
         // 提示消息
         $message = [
