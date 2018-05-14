@@ -595,18 +595,25 @@ class WechatApiController extends Controller
     {
         // 用户零壹id
         $zerone_user_id = $request->zerone_user_id;
-        // 省份id
-        $province_id = $request->province_id;
-        // 省份名称
-        $province_name = $request->province_name;
-        // 城市ID
-        $city_id = $request->city_id;
-        // 城市名称
-        $city_name = $request->city_name;
-        // 地区ID
-        $district_id = $request->district_id;
-        // 地区名称
-        $district_name = $request->district_name;
+        // 省份 城市 地区
+        $address_info = $request->address_info;
+        //
+        $address_info = explode(" ",$address_info);
+
+        Province::provinceOne([['province_name',]]);
+
+//        // 省份id
+//        $province_id = $request->province_id;
+//        // 省份名称
+//        $province_name = $request->province_name;
+//        // 城市ID
+//        $city_id = $request->city_id;
+//        // 城市名称
+//        $city_name = $request->city_name;
+//        // 地区ID
+//        $area_id = $request->area_id;
+//        // 地区名称
+//        $area_name = $request->area_name;
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
@@ -631,8 +638,8 @@ class WechatApiController extends Controller
                 'province_name' => $province_name,
                 'city_id' => $city_id,
                 'city_name' => $city_name,
-                'district_id' => $district_id,
-                'district_name' => $district_name,
+                'area_id' => $area_id,
+                'area_name' => $area_name,
                 'address' => $address,
                 'realname' => $realname,
                 'mobile' => $mobile,
@@ -1376,7 +1383,7 @@ class WechatApiController extends Controller
                 'type' => $re['type']
             ];
         }
-        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['address_info' => $address_info]]);
+        return response()->json(['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info]]);
     }
 
 
