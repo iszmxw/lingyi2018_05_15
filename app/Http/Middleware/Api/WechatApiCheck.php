@@ -253,9 +253,6 @@ class WechatApiCheck
      */
     public function checkaddressInfo($request)
     {
-        if (empty($request->input('zerone_user_id'))) {
-            return self::res(0, response()->json(['msg' => '用户零壹id不能为空', 'status' => '0', 'data' => '']));
-        }
         if (empty($request->input('store_id'))) {
             return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
         }
@@ -264,6 +261,9 @@ class WechatApiCheck
         }
         if (empty($request->input('address_id'))) {
             return self::res(0, response()->json(['msg' => '地址id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('weight'))) {
+            return self::res(0, response()->json(['msg' => '商品重量不能为空', 'status' => '0', 'data' => '']));
         }
         return self::res(1, $request);
     }

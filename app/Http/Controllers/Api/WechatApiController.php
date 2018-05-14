@@ -561,8 +561,6 @@ class WechatApiController extends Controller
      */
     public function address_info(Request $request)
     {
-        // 用户零壹id
-        $zerone_user_id = $request->zerone_user_id;
         // 联盟主id
         $fansmanage_id = $request->fansmanage_id;
         // 店铺id
@@ -604,6 +602,7 @@ class WechatApiController extends Controller
         }
 
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address, 'freight' => $freight]];
+
         return response()->json($data);
     }
 
