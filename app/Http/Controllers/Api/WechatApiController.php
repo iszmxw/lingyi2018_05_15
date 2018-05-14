@@ -1354,13 +1354,16 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-        $list = Province::provinceList([['id', 1]])->toArray();
+        $id = $request->id;
+
+        $list = Province::provinceList([['id', $id]])->toArray();
         $address_info = [];
         foreach ($list as $key => $value) {
+            $re = $this->city($value['id']);
             $address_info[$key] = [
                 'name' => $value['province_name'],
-                'sub' => $this->city($value['id']),
-                'type' => 0
+                'sub' => $re['data'],
+                'type' => $re['type']
             ];
 //            dd($this->city($value['id']));
             dd($address_info);
@@ -1386,21 +1389,29 @@ class WechatApiController extends Controller
     {
         $city = City::getList([['province_id', $province_id]]);
         $data = [];
+        $type = '0';
         foreach ($city as $key => $value) {
             $re = $this->area($value['id']);
-            $data[$key] = [
-                'name' => $value['city_name'],
-                'sub' => $re
-            ];
+            dd($re);
             if ($re) {
                 $data[$key] = [
                     'name' => $value['city_name'],
                     'sub' => $re,
                     'type' => '0'
                 ];
+                $type = '1';
+            } else {
+                $data[$key] = [
+                    'name' => $value['city_name'],
+                    'sub' => $re
+                ];
             }
         }
-        return $data;
+        $return = [
+            'data' => $data,
+            'type' => $type
+        ];
+        return $return;
     }
 
     private function area($city_id)
