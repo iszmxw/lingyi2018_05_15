@@ -1357,9 +1357,8 @@ class WechatApiController extends Controller
       $list = Province::provinceList()->toArray();
        foreach($list as $key=>$value){
           $re = City::getList([['province_id',$value['id']]]);
-          dd($re);
        }
-
+        dd($re);
 //        DB::beginTransaction();
 //        try {
 //            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
