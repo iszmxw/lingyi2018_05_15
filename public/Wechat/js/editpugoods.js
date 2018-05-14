@@ -47,7 +47,10 @@ function selftake_edit(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-
+                $.toast("修改成功");
+                setTimeout(function(){
+                    window.history.go(-1);
+                },500);
             } else if (json.status == 0) {
                 $.toast("没找到您的信息喔,刷新一下吧");
             }
