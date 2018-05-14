@@ -116,7 +116,7 @@ body{
 	position: absolute;
     right: 0;
     top: 0;
-    display: none;
+    display: block;
 }
 .search .search_item .icon_scavenging:after{
 	content: "";
@@ -147,8 +147,8 @@ body{
     font-size: 0.6rem;
     color: #999;
 }
-.search .search_item input[type='search']::-webkit-search-cancel-button,
-.search .search_item  input[type='search']::-webkit-search-decoration {
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
     -webkit-appearance: initial;
 }
 .goodslist{
