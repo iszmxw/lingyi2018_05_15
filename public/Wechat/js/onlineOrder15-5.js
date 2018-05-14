@@ -57,7 +57,7 @@ $(function(){
                     // $("#address").hide();//隐藏收货地址按钮
                     // $("#select_distribution").text('到店自取');//配送方式
                 } else if (json.status == 0) {
-                    $.toast("123132");
+                    // $.toast("数据找不到了");
                 }
             }
         );
