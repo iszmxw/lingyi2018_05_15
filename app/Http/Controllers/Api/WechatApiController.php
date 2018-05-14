@@ -677,8 +677,8 @@ class WechatApiController extends Controller
                 "province_name" => $value['province_name'],
                 "city_id" => $value['city_id'],
                 "city_name" => $value['city_name'],
-                "district_id" => $value['district_id'],
-                "district_name" => $value['district_name'],
+                "area_id" => $value['area_id'],
+                "area_name" => $value['area_name'],
                 "address" => $value['address'],
                 "realname" => $value['realname'],
                 "mobile" => $value['mobile'],
@@ -702,18 +702,24 @@ class WechatApiController extends Controller
         if (empty(SimpleAddress::checkRowExists([['id', $address_id]]))) {
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
-        // 省份id
-        $province_id = $request->province_id;
-        // 省份名称
-        $province_name = $request->province_name;
-        // 城市ID
-        $city_id = $request->city_id;
-        // 城市名称
-        $city_name = $request->city_name;
-        // 地区ID
-        $district_id = $request->district_id;
-        // 地区名称
-        $district_name = $request->district_name;
+
+
+        // 省份 城市 地区
+        $address_info = $request->address_info;
+        // 转为数组
+        $address_info = explode(" ", $address_info);
+        // 获取省份id 和 名字
+        $province = Province::provinceOne([['province_name', $address_info['0']]]);
+        // 获取城市id 和 名字
+        $city = City::getOne([['city_name', $address_info['1']]]);
+        if (count($address_info) == 3) {
+            $area = Area::getOne([['area_name', $address_info['2']]]);
+        } else {
+            $area = [
+                'id' => '',
+                'area_name' => ''
+            ];
+        }
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
@@ -726,12 +732,12 @@ class WechatApiController extends Controller
 
         // 数据处理
         $editData = [
-            'province_id' => $province_id,
-            'province_name' => $province_name,
-            'city_id' => $city_id,
-            'city_name' => $city_name,
-            'district_id' => $district_id,
-            'district_name' => $district_name,
+            'province_id' => $province['id'],
+            'province_name' => $province['province_name'],
+            'city_id' => $city['id'],
+            'city_name' => $city['city_name'],
+            'area_id' => $area['id'],
+            'area_name' => $area['area_name'],
             'address' => $address,
             'realname' => $realname,
             'mobile' => $mobile,
