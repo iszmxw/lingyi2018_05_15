@@ -21,8 +21,8 @@ $(function(){
     });
     $("#city-picker").change(function() {
         var str = $("#city-picker").val();
-        str.split(" ");
-        console.log(str);
+        var aa = str.split(" ");
+        console.log(aa);
     });
 
 });
