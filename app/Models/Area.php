@@ -16,12 +16,8 @@ class Area extends Model{
 
 
     //查询获取列表
-    public static function getList($where,$limit=0,$orderby,$sort='DESC'){
-        $model = self::where($where);
-        if(!empty($limit)){
-            $model = $model->limit($limit);
-        }
-        return $model->orderBy($orderby,$sort)->get();
+    public static function getList($where){
+        return $model = self::where($where)->get();
     }
 
 
