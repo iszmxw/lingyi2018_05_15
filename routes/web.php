@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redis;
 */
 Route::any('/', function () {
     echo "你好世界";
+
 });
 /***************************框架学习整理资料部分***************************/
 Route::get('zeott', 'Tooling\TestController@test');
