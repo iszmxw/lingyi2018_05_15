@@ -14,9 +14,9 @@
 <div class="page">
 	<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
+	<form role="form" id="selftake_edit"  action="{{ url('api/wechatApi/selftake_edit') }}">
 	<div class="g-flexview">
-		<form role="form" id="selftake_edit"  action="{{ url('api/wechatApi/selftake_edit') }}">
-				<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
+			<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
 			<div class="main_block">
 			    <input type="hidden" name="self_take_id" id="selftake_id" value="">
 				<div class="main_item">
@@ -54,9 +54,10 @@
 					</label>
 				</span>
 			</div>
-		</form>
-		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存</a>
+
+		<a href="javascript:;" class="preservation" onclick="selftake_edit()">保存132132</a>
 	</div>
+	</form>
 	<!-- alert -->
 	<div class="popup_alert">
 		<div class="quhuo alert_width popup_alert_hook">
