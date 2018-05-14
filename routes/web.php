@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Redis;
 Route::any('/', function () {
     echo "你好世界";
 //    exec("cd /www/web/54zm_com/public_html && git pull origin master 2>&1",$res);
-    $shell = shell_exec("ll 2>&1");
+    $shell = shell_exec("ll");
     dump($shell);
 });
 /***************************框架学习整理资料部分***************************/
