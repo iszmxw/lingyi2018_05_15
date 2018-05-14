@@ -58,6 +58,8 @@ $(function(){
                     // $("#select_distribution").text('到店自取');//配送方式
                 } else if (json.status == 0) {
                     // $.toast("数据找不到了");
+                    // $.toast("数据找不到了");
+                    // $.toast("数据找不到了");
                 }
             }
         );
