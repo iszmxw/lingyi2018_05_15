@@ -14,7 +14,6 @@ $(function(){
                   //         "type":0
                   //     }
                   // ];
-    $.smConfig.rawCitiesData = [];
     var select_url = "http://develop.01nnt.com/api/wechatApi/select_address";
     var zerone_user_id =$("#zerone_user_id").val();
     var _token =$("#_token").val();
@@ -22,6 +21,7 @@ $(function(){
         "zerone_user_id":zerone_user_id,
         "_token":_token
     }, function(json) {
+            $.smConfig.rawCitiesData = [];
         if (json.status == 1) {
                 var address_info = json.data.address_info;
                 console.log(address_info);
