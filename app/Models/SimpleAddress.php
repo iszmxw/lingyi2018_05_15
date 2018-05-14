@@ -42,11 +42,11 @@ class SimpleAddress extends Model
         $address->province_name = $param['province_name'];//省份名称
         $address->city_id = $param['city_id'];//城市ID
         $address->city_name = $param['city_name'];//城市名称
-        if($param['district_id']){
-            $address->district_id = $param['district_id'];//地区ID
+        if($param['area_id']){
+            $address->area_id = $param['area_id'];//地区ID
         }
-        if($param['district_name']){
-            $address->district_name = $param['district_name'];//地区名称
+        if($param['area_name']){
+            $address->area_name = $param['area_name'];//地区名称
         }
         $address->address = $param['address'];//详细地址
         $address->realname = $param['realname'];//收货人真实姓名
