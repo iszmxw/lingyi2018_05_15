@@ -12,30 +12,34 @@
 </head>
 <body>
 <div class="page">
+	<input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
+    <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
+
 	<div class="g-flexview">
 		<div class="main_block">
+		    <input type="hidden" name="selftake_id" id="selftake_id" value="">
 			<div class="main_item">
 				<ul>
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f">姓名:</div>
 						<div class="item_input">
-							<input type="text" name="" placeholder="请填写取货人的姓名" value="木子李">
+							<input type="text" name="realname" id="realname" placeholder="请填写取货人的姓名" value="">
 						</div>
-						<div class="weixin_ress"></div>
+						<!-- <div class="weixin_ress"></div> -->
 					</li>
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f"></div>
 						<div class="item_input item_input_pd1">
-							<input type="radio" id="userinfo2" name="dizhi" checked="checked" class="radio_address">
-							<label for="userinfo2">先生</label>
-							<input type="radio" id="userinfo1" name="dizhi" class="radio_address">
-							<label for="userinfo1">女士</label>
+							<input type="radio" id="sex1" name="sex" checked="checked" class="radio_address">
+							<label for="sex1">先生</label>
+							<input type="radio" id="sex2" name="sex" class="radio_address">
+							<label for="sex2">女士</label>
 						</div>
 					</li>
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f item_input_pd">电话:</div>
 						<div class="item_input item_input_pd">
-							<input type="text" name="" placeholder="请填写取货人的手机号码" value="1356561556">
+							<input type="text" name="mobile" id="mobile" placeholder="请填写取货人的手机号码" value="">
 						</div>
 					</li>
 				</ul>
@@ -60,7 +64,6 @@
 </div>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7-city-picker.js' charset='utf-8'></script>
 <script type='text/javascript' src='{{asset('public/Wechat')}}/js/editpugoods.js' charset='utf-8'></script>
 </body>
 </html>

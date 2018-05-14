@@ -486,6 +486,7 @@ body {
     max-height: 20rem;
     overflow: auto;
     padding-bottom: 4rem;
+    padding-right: 0.5rem;
 }
 
 .my_text_align {
@@ -647,8 +648,9 @@ body {
     padding-left: 2.25rem;
     cursor: pointer;
     vertical-align: middle;
-    word-wrap: break-word;
-    word-break: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .radio_css .action +label:after {

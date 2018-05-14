@@ -6,6 +6,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\City;
 use App\Models\DispatchProvince;
 use App\Models\Province;
 use App\Models\SimpleAddress;
@@ -1352,47 +1354,78 @@ class WechatApiController extends Controller
      */
     public function select_address(Request $request)
     {
-      $list = Province::provinceList([]);
-        print_r($list);exit;
+        $id = $request->id;
+        $list = Province::provinceList([['id', $id]])->toArray();
+        $address_info = [];
+        foreach ($list as $key => $value) {
+            $re = $this->city($value['id']);
+            $address_info[$key] = [
+                'name' => $value['province_name'],
+                'sub' => $re['data'],
+                'type' => $re['type']
+            ];
+//            dd($this->city($value['id']));
+        }
+        dd($address_info);
 
-//        DB::beginTransaction();
-//        try {
-//            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-//            if ($order['stock_status'] == '1') {
-//                // 归还库存
-//                $re = $this->reduce_stock($order_id, '-1', 'selftake');
-//                if ($re != 'ok') {
-//                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+//        {
+//            "name": "北京",
+//            "sub": [{
+//            "name": "请选择"
+//                },
+//                {
+//                    "name": "东城区"
 //                }
-//            }
-//            // 修改订单状态为取消
-//            SimpleSelftakeOrder::editSimpleSelftakeOrder([['id', $order_id]], ['status' => '-1']);
-//            // 提交事务
-//            DB::commit();
-//        } catch (\Exception $e) {
-//            // 事件回滚
-//            DB::rollBack();
-//            return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
+//            ],
+//            "type": 0
 //        }
-//        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
+//
+//
+    }
+
+
+    private function city($province_id)
+    {
+        $city = City::getList([['province_id', $province_id]]);
+        $data = [];
+        $type = '0';
+        foreach ($city as $key => $value) {
+            $re = $this->area($value['id']);
+            if ($re) {
+                $data[$key] = [
+                    'name' => $value['city_name'],
+                    'sub' => $re,
+                    'type' => '0'
+                ];
+                $type = '1';
+            } else {
+                $data[$key] = [
+                    'name' => $value['city_name'],
+                    'sub' => $re
+                ];
+            }
+        }
+        $return = [
+            'data' => $data,
+            'type' => $type
+        ];
+        return $return;
+    }
+
+    private function area($city_id)
+    {
+        $area = Area::getList([['city_id', $city_id]]);
+        $data = [];
+        foreach ($area as $key => $value) {
+            $data[$key] = [
+                'name' => $value['area_name']
+            ];
+        }
+        return $data;
     }
 
 
 
-
-
-//
-//        {
-//            "name": "北京",
-//	"sub": [{
-//            "name": "请选择"
-//		},
-//		{
-//            "name": "东城区"
-//		}
-//	],
-//	"type": 0
-//}
 //, {
 //        "name": "广东",
 //	"sub": [{
@@ -1445,8 +1478,6 @@ class WechatApiController extends Controller
 //}
 //
 //
-
-
 
 
     /**

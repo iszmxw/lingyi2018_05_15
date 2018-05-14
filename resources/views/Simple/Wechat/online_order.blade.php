@@ -139,7 +139,7 @@
                 </div>
                 <div class="alert_btn_wz">
                     <!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-                    <a href="http://develop.01nnt.com/zerone/wechat/address_add"
+                    <a href="javascript:;" onclick="hide('selectexpress');"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
 					<a href="javascript:;" onclick="selectSelftake()"
@@ -153,6 +153,6 @@
 
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='{{asset('public/Wechat')}}/js/public/light7.min.js' charset='utf-8'></script>
-    <script type='text/javascript' src='{{asset('public/Wechat')}}/js/onlineOrder15-5.js' charset='utf-8'></script>
+    <script type='text/javascript' src='{{asset('public/Wechat')}}/js/onlineOrder15-5.js?v=<?php echo time(); ?>"' charset='utf-8'></script>
   </body>
 </html>

@@ -122,9 +122,13 @@ function address_user(){
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
+                $("#selftake_info_box").hide();//隐藏自取信息列表
+                $("#address").show().css('display','block');//显示收货地址按钮
+                $("#address_info_box").hide();//隐藏添加收货地址按钮
                 show('selectexpress');//现有默认收货地址弹出选择(快递自取)选项
                 console.log(json.msg);
             }
+            $("#select_distribution").text('快递配送');//配送方式
         }
     );
 }
@@ -227,7 +231,8 @@ function selftake_list_box(realname,sex,mobile,status,id){
             'class="radio_address">';
         }
         str += '<label for="userinfo'+id+'">'+realname+'（'+sex+'） '+mobile+'</label></div>'+
-        '<div class="col-15"><a href="javascript:;" class="update_address"></a></div>'+
+        '<div class="col-15"><a href="http://develop.01nnt.com/zerone/wechat/selftake_edit?selftake_id='+id+'"'+
+        'class="update_address" external></a></div>'+
     '</div>';
     return str;
 }
@@ -258,7 +263,13 @@ function select_selftake(address_id,obj){
     $(obj).find("input").addClass('action');//赋值当前单选框icon
     var ress_info = $(obj).find("input").val();
     $("#selftake_info").text(ress_info);//赋值上面的
+    hide('quhuoinfo_selftake');
 }
+//编辑自取信息
+// function edit_selftake(id,e){
+//     stopPropagation(e);
+//     window.location = 'http://develop.01nnt.com/zerone/wechat/selftake_edit?selftake_id='+id;
+// }
 //配送选择
 function selectexpress(obj,address){
     var $this = $(obj);
