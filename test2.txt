@@ -1,7 +1,8 @@
-<xml><ToUserName><![CDATA[gh_8dad206e9538]]></ToUserName>
-<FromUserName><![CDATA[oV6P70DM0-NBLoiQKb2JISwLhR80]]></FromUserName>
-<CreateTime>1524205813</CreateTime>
-<MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[QUERY_AUTH_CODE:queryauthcode@@@mYq2gF1SZgPecAfy4Nino1ziyyD-yC8d3JkhP0kR255bOAaLqhtIsXATwpiQErPszzesmTUJuxbUDyBbGpl8sA]]></Content>
-<MsgId>6546414119668113150</MsgId>
+<xml><ToUserName><![CDATA[gh_b011df0323c7]]></ToUserName>
+<FromUserName><![CDATA[o-6Zq1TFnyt5csl80H-XHFph5U5U]]></FromUserName>
+<CreateTime>1526286034</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://develop.01nnt.com/zerone/wechat?organization_id=11]]></EventKey>
+<MenuId>418437381</MenuId>
 </xml>
