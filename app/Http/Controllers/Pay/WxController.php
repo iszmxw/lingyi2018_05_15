@@ -577,7 +577,7 @@ class WxController extends Controller
         // 请求参数处理
         $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
-        $data[$param["order_num_type"]] = $param["order_num"];
+        $data[$param["order_num_type"]] = $param["or der_num"];
         // 填充数组
         $data = $this->fillData($data, "order");
         // 接口地址
@@ -744,7 +744,7 @@ class WxController extends Controller
     public function dataDispose($param)
     {
         // 金额处理
-        $total_type = ["total_fee", "cash_fee", "cmms_amt", "amount","payment_amount"];
+        $total_type = ["total_fee", "cash_fee", "cmms_amt", "amount","payment_amount","cash_refund_fee","refund_fee"];
         foreach ($total_type as $val) {
             if (array_key_exists($val, $param)) {
                 $param[$val] = $param[$val] / 100;
