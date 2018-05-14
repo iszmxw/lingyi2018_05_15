@@ -13,15 +13,14 @@ class City extends Model{
     public $timestamps = true;
     public $dateFormat = 'U';//设置保存的created_at updated_at为时间戳格式
 
-
+    public function area()
+    {
+        return $this->hasMany('App\Models\Area','city_id','id');
+    }
 
     //查询获取列表
-    public static function getList($where,$limit=0,$orderby,$sort='DESC'){
-        $model = self::with('organization')->with('account_info')->with('account_roles');
-        if(!empty($limit)){
-            $model = $model->limit($limit);
-        }
-        return $model->where($where)->orderBy($orderby,$sort)->get();
+    public static function getList($where){
+        return $model = self::with('area')->where($where)->get();
     }
 
 

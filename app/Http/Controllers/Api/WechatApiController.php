@@ -6,6 +6,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\City;
 use App\Models\DispatchProvince;
 use App\Models\Province;
 use App\Models\SimpleAddress;
@@ -1354,7 +1356,8 @@ class WechatApiController extends Controller
     {
       $list = Province::provinceList()->toArray();
        foreach($list as $key=>$value){
-           print_r($value);
+          $re = City::getList([['province_id',$value['id']]]);
+          dd($re);
        }
 
 //        DB::beginTransaction();
