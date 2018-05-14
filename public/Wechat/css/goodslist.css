@@ -139,10 +139,10 @@ body{
 	background: rgb(242,242,242);
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
-	-webkit-appearance: initial;
+	-webkit-appearance: searchfield;
 	padding: 0 2.0rem 0 1.4rem;
     border: none;
-    -moz-appearance: initial;
+    -moz-appearance: searchfield;
     appearance: initial;
     font-size: 0.6rem;
     color: #999;
