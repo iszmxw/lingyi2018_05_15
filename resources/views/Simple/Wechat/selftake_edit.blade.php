@@ -31,9 +31,9 @@
 						<li class="a_b_b a_b_t">
 							<div class="item_title title_f"></div>
 							<div class="item_input item_input_pd1">
-								<input type="radio" id="sex1" name="sex" checked="checked" class="radio_address">
+								<input type="radio" id="sex1" name="sex" checked="checked" class="radio_address" value="1">
 								<label for="sex1">先生</label>
-								<input type="radio" id="sex2" name="sex" class="radio_address">
+								<input type="radio" id="sex2" name="sex" class="radio_address" value="2">
 								<label for="sex2">女士</label>
 							</div>
 						</li>
