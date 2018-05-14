@@ -486,6 +486,7 @@ body {
     max-height: 20rem;
     overflow: auto;
     padding-bottom: 4rem;
+    padding-right: 0.5rem;
 }
 
 .my_text_align {
