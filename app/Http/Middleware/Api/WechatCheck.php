@@ -15,16 +15,16 @@ class WechatCheck
         // 获取当前的页面路由
         $route_name = $request->path();
         switch ($route_name) {
-            case "zerone/wechat"://首页
-            case "zerone/wechat/goodslist"://商品列表
-            case "zerone/wechat/online_order"://线上订单确认
-            case "zerone/wechat/selftake_order"://自取订单确认
-            case "zerone/wechat/address_add"://添加收货地址
-            case "zerone/wechat/address_list"://收货地址列表
-            case "zerone/wechat/selftake_add"://添加自取信息
-            case "zerone/wechat/selftake_edit"://编辑自取信息
-            case "zerone/wechat/onlineOrderDetail"://线上订单详情
-            case "zerone/wechat/selftakeOrderDetail"://线上订单详情
+            case "zerone/wechatRetail"://首页
+            case "zerone/wechatRetail/goodslist"://商品列表
+            case "zerone/wechatRetail/online_order"://线上订单确认
+            case "zerone/wechatRetail/selftake_order"://自取订单确认
+            case "zerone/wechatRetail/address_add"://添加收货地址
+            case "zerone/wechatRetail/address_list"://收货地址列表
+            case "zerone/wechatRetail/selftake_add"://添加自取信息
+            case "zerone/wechatRetail/selftake_edit"://编辑自取信息
+            case "zerone/wechatRetail/onlineOrderDetail"://线上订单详情
+            case "zerone/wechatRetail/selftakeOrderDetail"://线上订单详情
                 $this->checkToken();
                 break;
         }

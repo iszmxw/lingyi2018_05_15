@@ -925,7 +925,7 @@ Route::group(['prefix' => 'simple'], function () {
 
 /**********************微信端*********************/
 Route::group(['prefix' => 'zerone'], function () {
-    Route::group(['prefix' => 'wechat'], function () {
+    Route::group(['prefix' => 'wechatRetail'], function () {
         Route::any('/', 'Api\WechatController@display')->middleware('WechatCheck'); //首页
         Route::any('goodslist', 'Api\WechatController@goodslist')->middleware('WechatCheck');//商品列表
         Route::any('online_order', 'Api\WechatController@online_order')->middleware('WechatCheck');//线上确认订单
