@@ -586,7 +586,7 @@ class WechatApiController extends Controller
         }else{
             return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
-        dd($dispatch_info);
+        dd($dispatch_info->toArray());
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
         return response()->json($data);
     }
