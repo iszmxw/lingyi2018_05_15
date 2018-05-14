@@ -404,6 +404,7 @@ class WechatApiController extends Controller
      */
     public function shopping_cart_list(Request $request)
     {
+        echo 1;exit;
         // 用户店铺id
         $user_id = $request->user_id;
         // 用户零壹id
