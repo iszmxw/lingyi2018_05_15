@@ -31,7 +31,7 @@
 	        </div>
 	        <div class="order order_m">
 				<div class="order_box">
-					<h3 class="order_state15-10">待支付13213</h3>
+					<h3 class="order_state15-10">待支付10003213</h3>
                     <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external>
                     <i></i>添加收货地址</a>
                     <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
