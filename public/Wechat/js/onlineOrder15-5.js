@@ -136,8 +136,10 @@ function selectRessId(address_id){
                 var return_val = dispatch(address_id);//运费计算
                 if (return_val) {
                     alert("该地址没有运费模板");
+                    $("#address_info_box").show();//显示收货地址列表
                     return;
                 }
+                console.log("sdfsdfsdfsdf");
                 $("#address_info").text(ress_info);
                 $("#address_info_box").show();//显示收货地址列表
                 $("#selftake_info_box").hide();//隐藏自取信息列表
