@@ -534,26 +534,27 @@ class WechatApiController extends Controller
         $freight = 0;
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
-                $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id','LIKE', "%{$address['province_id']}%"]]);
+                $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id', 'LIKE', "%{$address['province_id']}%"]]);
                 if ($dispatch_info) {
                     if ($weight < $dispatch_info['first_weight']) {
                         $freight = $dispatch_info['freight'];
                     } else {
                         // 续重
-                        $additional_weight =  $weight - $dispatch_info['first_weight'];
+                        $additional_weight = $weight - $dispatch_info['first_weight'];
                         // 续重费用
-                        $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']/1000);
+                        $freight = $dispatch_info['freight'] + ceil($additional_weight * $dispatch_info['renewal'] / 1000);
                     }
                     break;
                 }
             }
         }
-
+        if ($freight == 0) {
+            return response()->json(['status' => '0', 'msg' => '没有设置该地区物流', 'data' => '']);
+        }
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['freight' => $freight]];
 
         return response()->json($data);
     }
-
 
 
     /**
