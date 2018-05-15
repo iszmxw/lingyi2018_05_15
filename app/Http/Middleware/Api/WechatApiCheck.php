@@ -449,6 +449,7 @@ class WechatApiCheck
      */
     public function checkDispatch($request)
     {
+        echo 1;exit;
         if (empty($request->input('address_id'))) {
             return self::res(0, response()->json(['msg' => '地址ID不能为空', 'status' => '0', 'data' => '']));
         }
