@@ -193,9 +193,40 @@ function address_user(){
                 var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
                 var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
                 var address_id = json.data.address_info.id;
-                $("#address_info").text(address_info);
-                $("#address_info_box").show();//现在添加收货地址按钮
-                var return_val = dispatch(address_id);//运费
+                //获取运费
+                var url = $("#dispatch").val();
+                var weight = 1000;
+                $.post(
+                    url,
+                    {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
+                    function (json) {
+                        console.log(json,"运费");
+                        if (json.status == 1) {
+                           var price = json.data.freight;
+                           if (price) {
+                               $("#dispatch_hook").fadeIn("show");               
+                               $("#dispatch_price").html("&yen;"+price);
+                               var order_price = $("#order_num_price").data("price");
+                               var order_num_price = parseInt(price) + parseFloat(order_price);
+                               $("#order_btn_price").html("&yen;"+order_num_price);
+                               $("#order_num_price").html("&yen;"+order_num_price);
+                               $("#address_info").text(ress_info);
+                               $("#address_info_box").show();//显示收货地址列表
+                               $("#selftake_info_box").hide();//隐藏自取信息列表
+                               $("#address").hide();//隐藏收货地址按钮
+                               $("#select_distribution").text('快递配送');//配送方式
+                           }
+                        } else if (json.status == 0) {
+                            $("#address_info_box").show();//显示收货地址列表
+                            $("#dispatch_hook").hide(); 
+                             var order_price = $("#order_num_price").data("price");
+                             $("#order_btn_price").html("&yen;"+order_price);
+                             $("#order_num_price").html("&yen;"+order_price);
+                            alert(json.msg);
+                            return;
+                        }
+                    }
+                );
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -208,33 +239,33 @@ function address_user(){
     );
 }
 //运费
-function dispatch(address_id){
-    var url = $("#dispatch").val();
-    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
-    var _token = $("#_token").val();
-    var store_id = $("#store_id").val();//店铺ID
-    var weight = 1000;
-    $.post(
-        url,
-        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
-        function (json) {
-            console.log(json,"运费");
-            if (json.status == 1) {
-               var price = json.data.freight;
-               if (price) {
-                   $("#dispatch_hook").fadeIn("show");               
-                   $("#dispatch_price").html("&yen;"+price);
-                   var order_price = $("#order_num_price").data("price");
-                   var order_num_price = parseInt(price) + parseFloat(order_price);
-                   $("#order_btn_price").html("&yen;"+order_num_price);
-                   $("#order_num_price").html("&yen;"+order_num_price);
-               }
-            } else if (json.status == 0) {
-                alert(json.msg);
-            }
-        }
-    );
-}
+// function dispatch(address_id){
+//     var url = $("#dispatch").val();
+//     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+//     var _token = $("#_token").val();
+//     var store_id = $("#store_id").val();//店铺ID
+//     var weight = 1000;
+//     $.post(
+//         url,
+//         {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
+//         function (json) {
+//             console.log(json,"运费");
+//             if (json.status == 1) {
+//                var price = json.data.freight;
+//                if (price) {
+//                    $("#dispatch_hook").fadeIn("show");               
+//                    $("#dispatch_price").html("&yen;"+price);
+//                    var order_price = $("#order_num_price").data("price");
+//                    var order_num_price = parseInt(price) + parseFloat(order_price);
+//                    $("#order_btn_price").html("&yen;"+order_num_price);
+//                    $("#order_num_price").html("&yen;"+order_num_price);
+//                }
+//             } else if (json.status == 0) {
+//                 alert(json.msg);
+//             }
+//         }
+//     );
+// }
 //自取信息列表查询
 function selftake_list(){
     var _token = $("#_token").val();
