@@ -133,17 +133,36 @@ function selectRessId(address_id){
                 var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
-                var return_val = dispatch(address_id);//运费计算
-                if (return_val) {
-                    $("#address_info_box").show();//显示收货地址列表
-                    return;
-                }
-                console.log("sdfsdfsdfsdf");
-                $("#address_info").text(ress_info);
-                $("#address_info_box").show();//显示收货地址列表
-                $("#selftake_info_box").hide();//隐藏自取信息列表
-                $("#address").hide();//隐藏收货地址按钮
-                $("#select_distribution").text('快递配送');//配送方式
+                var url = $("#dispatch").val();
+                var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+                var weight = 1000;
+                $.post(
+                    url,
+                    {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
+                    function (json) {
+                        console.log(json,"运费");
+                        if (json.status == 1) {
+                           var price = json.data.freight;
+                           if (price) {
+                               $("#dispatch_hook").fadeIn("show");               
+                               $("#dispatch_price").html("&yen;"+price);
+                               var order_price = $("#order_num_price").data("price");
+                               var order_num_price = parseInt(price) + parseFloat(order_price);
+                               $("#order_btn_price").html("&yen;"+order_num_price);
+                               $("#order_num_price").html("&yen;"+order_num_price);
+                               $("#address_info").text(ress_info);
+                               $("#address_info_box").show();//显示收货地址列表
+                               $("#selftake_info_box").hide();//隐藏自取信息列表
+                               $("#address").hide();//隐藏收货地址按钮
+                               $("#select_distribution").text('快递配送');//配送方式
+                           }
+                        } else if (json.status == 0) {
+                            $("#address_info_box").show();//显示收货地址列表
+                            alert(json.msg);
+                            return;
+                        }
+                    }
+                );
             } else if (json.status == 0) {
                 $.toast("数据找不到了");
             }
@@ -191,7 +210,6 @@ function dispatch(address_id){
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
     var weight = 1000;
-    var sign = false;
     $.post(
         url,
         {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
@@ -208,7 +226,6 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
-               return sign;
                 alert(json.msg);
             }
         }
