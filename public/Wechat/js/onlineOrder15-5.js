@@ -93,7 +93,7 @@ $(function(){
                 //总价
                 $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
                 $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
-                $("#order_btn_price").attr('data-price', order_num_price);
+                $("#order_num_price").attr('data-price', order_num_price);
             } else if (json.status == 0) {
                 window.history.go(-1);
                 console.log(json.msg);
