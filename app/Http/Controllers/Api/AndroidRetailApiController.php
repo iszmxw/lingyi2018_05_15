@@ -510,7 +510,7 @@ class AndroidRetailApiController extends Controller
         // 订单详情
         $data = RetailOrder::getOne([['id', $order_id]]);
         // 查询是否可零库存开单
-        $config = RetailConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
+        $config = RetailConfig::getPluck([['retail_id', $data['retail_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
         DB::beginTransaction();
         try {
             if ($status == '1') {
@@ -530,7 +530,7 @@ class AndroidRetailApiController extends Controller
                     RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);//修改商品库存
                     $stock_data = [
                         'fansmanage_id' => $data['fansmanage_id'],
-                        'simple_id' => $data['simple_id'],
+                        'retail_id' => $data['retail_id'],
                         'goods_id' => $value['goods_id'],
                         'amount' => $value['total'],
                         'ordersn' => $data['ordersn'],
@@ -542,7 +542,7 @@ class AndroidRetailApiController extends Controller
                     ];
                     // 商品操作记录
                     RetailStockLog::addStockLog($stock_data);
-                    $re = RetailStock::getOneRetailStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
                     $simple_stock = $re['stock'] - $value['total'];
                     RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
                     // 修改stock_status为1表示该订单的库存状态已经减去
@@ -559,7 +559,7 @@ class AndroidRetailApiController extends Controller
                     RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);
                     $stock_data = [
                         'fansmanage_id' => $data['fansmanage_id'],
-                        'simple_id' => $data['simple_id'],
+                        'retail_id' => $data['retail_id'],
                         'goods_id' => $value['goods_id'],
                         'amount' => $value['total'],
                         'ordersn' => $data['ordersn'],
@@ -571,7 +571,7 @@ class AndroidRetailApiController extends Controller
                     ];
                     // 商品操作记录
                     RetailStockLog::addStockLog($stock_data);
-                    $re = RetailStock::getOneRetailStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
                     $simple_stock = $re['stock'] + $value['total'];
                     RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
                     // 修改stock_status为-1表示该订单的库存状态已经退回
