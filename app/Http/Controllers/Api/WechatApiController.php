@@ -491,6 +491,8 @@ class WechatApiController extends Controller
         $fansmanage_id = $request->fansmanage_id;
         // 店铺id
         $store_id = $request->store_id;
+        // 重量
+        $weight = $request->weight;
         // 查询默认收货地址
         $address = SimpleAddress::getone([['zerone_user_id', $zerone_user_id], ['status', '1']]);
         if (empty($address)) {
@@ -515,14 +517,29 @@ class WechatApiController extends Controller
         ];
         // 运费模板
         $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
-        $dispatch_info = [];
+        $freight = 0;
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
-                $dispatch_info[$key] = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
-            }
+                $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id', $address['province_id']]]);
+                if ($dispatch_info) {
+                    if ($weight < $dispatch_info['first_weight']) {
+                        $freight = $dispatch_info['freight'];
+                    } else {
+                        // 续重
+                        $additional_weight =  $weight - $dispatch_info['first_weight'];
+                        // 续重费用
+                        $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']);
+                    }
+                } else {
+                    return response()->json(['status' => '0', 'msg' => '店铺没设有该省份配送', 'data' => '']);
+                }
 
+            }
+        } else {
+            return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
-        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
+
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'freight' => $freight]];
         return response()->json($data);
     }
 
