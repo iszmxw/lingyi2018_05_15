@@ -107,6 +107,14 @@
 
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="input-id-1">重量</label>
+                                                <div class="col-sm-8">
+                                                    <textarea id="form-content" name="weight" class="editor" cols="30" rows="10"> </textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
                                                 <div class="col-sm-12 col-sm-offset-6">
                                                     <button type="button" class="btn btn-success" onclick="return postForm();">保存信息</button>
                                                 </div>
