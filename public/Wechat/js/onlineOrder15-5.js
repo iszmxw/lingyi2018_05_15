@@ -135,7 +135,7 @@ function selectRessId(address_id){
                 var address_id =json.data.address_info.id;
                 var return_val = dispatch(address_id);//运费计算
                 console.log(return_val+"*****");
-                if (return_val == 1) {
+                if (return_val) {
                     return;
                 }
                 $("#address_info").text(ress_info);
@@ -206,7 +206,7 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
-               return "1";
+               return true;
                 alert(json.msg);
             }
         }
