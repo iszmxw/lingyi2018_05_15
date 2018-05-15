@@ -469,6 +469,7 @@ function remarks(){
     hide("alert");
 }
 function sbOrder(){
+    $.showIndicator();
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
@@ -495,6 +496,7 @@ function sbOrder(){
     var shipping_type = $("#shipping_type").val();
     var stock_type = 1;
     var remark = $("#remarks").val();
+    var url = $("#order_submit").val();
     var data = {
         fansmanage_id:fansmanage_id,
         _token:_token,
@@ -543,8 +545,18 @@ function sbOrder(){
         });
          data.self_take_info = self_take_info;
     }
-    
-    console.log(data);
+    $.post(
+        url,
+        data,
+        function (json) {
+            console.log(json,"提交");
+            if (json.status == 1) {
+            } else if (json.status == 0) {
+               alert(json.msg);
+            }
+            $.hideIndicator();
+        }
+    );
 }
 //获取url中的参数
 function getUrlParam(name) {
