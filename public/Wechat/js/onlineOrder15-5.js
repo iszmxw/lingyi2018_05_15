@@ -469,6 +469,7 @@ function remarks(){
     hide("alert");
 }
 function sbOrder(){
+    $.showIndicator();
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
@@ -492,7 +493,70 @@ function sbOrder(){
             stock:stock
         })
     });
-    console.log(goods_list);
+    var shipping_type = $("#shipping_type").val();
+    var stock_type = 1;
+    var remark = $("#remarks").val();
+    var url = $("#order_submit").val();
+    var data = {
+        fansmanage_id:fansmanage_id,
+        _token:_token,
+        store_id:store_id,
+        zerone_user_id:zerone_user_id,
+        user_id:user_id,
+        goods_list:goods_list,
+        shipping_type:shipping_type,
+        stock_type:stock_type,
+        remark:remark,
+    }
+    var address_info =[];
+    var self_take_info =[];
+    if (shipping_type && shipping_type == 1) {
+        //快递配送
+        var $address_info_ch = $("#address_info_ch");
+        var province_id = $address_info_ch.attr("data-province_id");
+        var province_name = $address_info_ch.attr("data-province_name");
+        var city_name = $address_info_ch.attr("data-city_name");
+        var district_name = $address_info_ch.attr("data-district_name");
+        var address = $address_info_ch.attr("data-address");
+        var realname = $address_info_ch.attr("data-realname");
+        var mobile = $address_info_ch.attr("data-mobile");
+        address_info.push({
+            province_id:province_id,
+            province_name:province_name,
+            city_name:city_name,
+            district_name:district_name,
+            address:address,
+            realname:realname,
+            mobile:mobile
+        });
+        data.address_info = address_info;
+    }else if (shipping_type && shipping_type == 2) {
+        //到店自提
+        var $selftake_info_ch = $("#selftake_info_ch");
+        var self_take_id = $selftake_info_ch.attr("data-self_take_id");
+        var realname = $selftake_info_ch.attr("data-realname");
+        var sex = $selftake_info_ch.attr("data-sex");
+        var mobile = $selftake_info_ch.attr("data-mobile");
+        self_take_info.push({
+            self_take_id:self_take_id,
+            realname:realname,
+            sex:sex,
+            mobile:mobile
+        });
+         data.self_take_info = self_take_info;
+    }
+    $.post(
+        url,
+        data,
+        function (json) {
+            console.log(json,"提交");
+            if (json.status == 1) {
+            } else if (json.status == 0) {
+               alert(json.msg);
+            }
+            $.hideIndicator();
+        }
+    );
 }
 //获取url中的参数
 function getUrlParam(name) {
