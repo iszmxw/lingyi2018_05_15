@@ -520,7 +520,6 @@ class WechatApiController extends Controller
         $freight = 0;
         if ($dispatch->toArray()) {
             foreach ($dispatch->toArray() as $key => $value) {
-                dd($value);
                 $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id','LIKE', "%{$address['province_id']}%"]]);
                 if ($dispatch_info) {
                     if ($weight < $dispatch_info['first_weight']) {
@@ -532,6 +531,7 @@ class WechatApiController extends Controller
                         $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']);
                     }
                 } else {
+                    echo 1;exit;
                     return response()->json(['status' => '0', 'msg' => '店铺没设有该省份配送', 'data' => '']);
                 }
 
