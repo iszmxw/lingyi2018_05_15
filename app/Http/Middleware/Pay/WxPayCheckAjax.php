@@ -394,28 +394,28 @@ class WxPayCheckAjax
     {
         // 获取数据
         $post_data = request()->post();
-//        // 规则
-//        $rule = [
-//            'order_num_type' => 'required',
-//            'order_num' => 'required',
-//            'refund_num' => 'required',
-//            'order_money' => 'required',
-//            'refund_money' => 'required',
-//            'refund_reason' => 'required',
-//            'notify_url' => 'required',
-//        ];
-//        // 提示消息
-//        $message = [
-//            "order_num_type.required" => "order_num_type 必须填写",
-//            "order_num.required" => "order_num 必须填写",
-//            "refund_num.required" => "refund_num 必须填写",
-//            "order_money.required" => "order_money 必须填写",
-//            "refund_money.required" => "refund_money 必须填写",
-//            "refund_reason.required" => "refund_reason 必须填写",
-//            "notify_url.required" => "notify_url 必须填写",
-//        ];
-//        // 返回验证结果
-//        return $this->validate($post_data, $rule, $message);
+        // 规则
+        $rule = [
+            'order_num_type' => 'required',
+            'order_num' => 'required',
+            'refund_num' => 'required',
+            'order_money' => 'required',
+            'refund_money' => 'required',
+            'refund_reason' => 'required',
+            'notify_url' => 'required',
+        ];
+        // 提示消息
+        $message = [
+            "order_num_type.required" => "order_num_type 必须填写",
+            "order_num.required" => "order_num 必须填写",
+            "refund_num.required" => "refund_num 必须填写",
+            "order_money.required" => "order_money 必须填写",
+            "refund_money.required" => "refund_money 必须填写",
+            "refund_reason.required" => "refund_reason 必须填写",
+            "notify_url.required" => "notify_url 必须填写",
+        ];
+        // 返回验证结果
+        return $this->validate($post_data, $rule, $message);
     }
 
     /**
