@@ -210,7 +210,7 @@ class AndroidRetailApiController extends Controller
                 }
             }
             // 查询是下单减库存/付款减库存
-            $power = RetailConfig::getPluck([['simple_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
+            $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
             // 说明下单减库存
             if ($power != '1') {
                 // 减库存
