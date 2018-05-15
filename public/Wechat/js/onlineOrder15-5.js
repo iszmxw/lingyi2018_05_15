@@ -508,8 +508,8 @@ function sbOrder(){
         stock_type:stock_type,
         remark:remark,
     }
-    var address_info =[];
-    var self_take_info =[];
+    var address_info ={};
+    var self_take_info ={};
     if (shipping_type && shipping_type == 1) {
         //快递配送
         var $address_info_ch = $("#address_info_ch");
@@ -520,7 +520,7 @@ function sbOrder(){
         var address = $address_info_ch.attr("data-address");
         var realname = $address_info_ch.attr("data-realname");
         var mobile = $address_info_ch.attr("data-mobile");
-        address_info.push({
+        address_info = {
             province_id:province_id,
             province_name:province_name,
             city_name:city_name,
@@ -528,7 +528,7 @@ function sbOrder(){
             address:address,
             realname:realname,
             mobile:mobile
-        });
+        };
         data.address_info = address_info;
     }else if (shipping_type && shipping_type == 2) {
         //到店自提
@@ -537,12 +537,12 @@ function sbOrder(){
         var realname = $selftake_info_ch.attr("data-realname");
         var sex = $selftake_info_ch.attr("data-sex");
         var mobile = $selftake_info_ch.attr("data-mobile");
-        self_take_info.push({
+        self_take_info = {
             self_take_id:self_take_id,
             realname:realname,
             sex:sex,
             mobile:mobile
-        });
+        };
          data.self_take_info = self_take_info;
     }
     console.log(data);
