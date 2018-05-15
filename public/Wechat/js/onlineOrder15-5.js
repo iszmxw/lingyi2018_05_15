@@ -543,6 +543,7 @@ function sbOrder(){
         });
          data.self_take_info = self_take_info;
     }
+    
     console.log(data);
 }
 //获取url中的参数
