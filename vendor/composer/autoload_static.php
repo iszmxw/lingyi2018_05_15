@@ -446,7 +446,7 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Agent\\AgentCheck' => __DIR__ . '/../..' . '/app/Http/Middleware/Agent/AgentCheck.php',
         'App\\Http\\Middleware\\Agent\\AgentCheckAjax' => __DIR__ . '/../..' . '/app/Http/Middleware/Agent/AgentCheckAjax.php',
-        'App\\Http\\Middleware\\Api\\AndroidApiCheck' => __DIR__ . '/../..' . '/app/Http/Middleware/Api/AndroidApiCheck.php',
+        'App\\Http\\Middleware\\Api\\AndroidApiCheck' => __DIR__ . '/../..',
         'App\\Http\\Middleware\\Api\\AndroidSimpleApiCheck' => __DIR__ . '/../..' . '/app/Http/Middleware/Api/AndroidSimpleApiCheck.php',
         'App\\Http\\Middleware\\Api\\WechatApiCheck' => __DIR__ . '/../..' . '/app/Http/Middleware/Api/WechatApiCheck.php',
         'App\\Http\\Middleware\\Api\\WechatCheck' => __DIR__ . '/../..' . '/app/Http/Middleware/Api/WechatCheck.php',
