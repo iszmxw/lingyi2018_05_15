@@ -206,11 +206,11 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
-               return true;
                 alert(json.msg);
             }
         }
     );
+   return true;
 }
 //自取信息列表查询
 function selftake_list(){
