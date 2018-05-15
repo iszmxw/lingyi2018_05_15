@@ -378,28 +378,26 @@ class AndroidRetailApiController extends Controller
      */
     public function cash_payment(Request $request)
     {
-        $order_id = $request->order_id;//订单id
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
         $order = RetailOrder::getOne([['id', $order_id]]);
         if ($order['status'] != '0') {
             return response()->json(['msg' => '订单不是待付款，不能操作', 'status' => '0', 'data' => '']);
         }
-        $organization_id = $request->organization_id;//店铺
-        $paytype = $request->paytype;//支付方式
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');//查询是下单减库存/付款减库存
-        $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();//查询库存是否已经减去
+        // 支付方式
+        $paytype = $request->paytype;
         DB::beginTransaction();
         try {
-            if ($power == '1') {//说明付款减库存
-                if ($stock_status != '1') {//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-                    $re = $this->reduce_stock($order_id, '1');//减库存
-                    RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
-                    if ($re != 'ok') {
-                        return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
-                    }
+            // 说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
-
-            // 折扣价
+            // 实收
             $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
 
             RetailOrder::editRetailOrder([['id', $order_id]], ['paytype' => $paytype, 'payment_price' => $payment_price, 'status' => '1']);//修改订单状态
@@ -422,25 +420,18 @@ class AndroidRetailApiController extends Controller
         if ($order['order_status'] != '0') {
             return response()->json(['msg' => '订单不是待付款，不能操作', 'status' => '0', 'data' => '']);
         }
-        // 店铺
-        $organization_id = $request->organization_id;
         // 支付方式
         $paytype = $request->paytype;
         // 支付公司名字
         $payment_company = $request->payment_company;
-        // 查询是下单减库存/付款减库存
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
-        // 查询库存是否已经减去
-        $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();
         DB::beginTransaction();
         try {
-            if ($power == '1') {//说明付款减库存
-                if ($stock_status != '1') {//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-                    $re = $this->reduce_stock($order_id, '1');//减库存
-                    RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
-                    if ($re != 'ok') {
-                        return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
-                    }
+            // 说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
             $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
