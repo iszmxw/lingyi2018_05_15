@@ -294,6 +294,10 @@ function selftake_list(){
                 show('quhuoinfo_selftake');
                 console.log(json.msg);
             }
+            $("#dispatch_hook").hide(); //隐藏运费
+             var order_price = $("#order_num_price").data("price");
+             $("#order_btn_price").html("&yen;"+order_price);
+             $("#order_num_price").html("&yen;"+order_price);
         }
     );
 }
@@ -329,6 +333,10 @@ function selectSelftake(){
                 hide("selectexpress");//隐藏选择取货框
                 console.log(json.msg);
             }
+            $("#dispatch_hook").hide(); //隐藏运费
+             var order_price = $("#order_num_price").data("price");
+             $("#order_btn_price").html("&yen;"+order_price);
+             $("#order_num_price").html("&yen;"+order_price);
              $.hideIndicator();
         }
     );
