@@ -68,6 +68,7 @@ class AndroidSimpleApiController extends Controller
     {
         // 店铺id
         $organization_id = $request->organization_id;
+
         $categorylist = SimpleCategory::getList([['simple_id', $organization_id]], '0', 'displayorder', 'asc', ['id', 'name', 'displayorder']);
         if (empty($categorylist->toArray())) {
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
@@ -78,6 +79,7 @@ class AndroidSimpleApiController extends Controller
             };
         }
         $categorylist = array_values($categorylist->toArray());
+
         return response()->json(['status' => '1', 'msg' => '获取分类成功', 'data' => ['categorylist' => $categorylist]]);
     }
 
@@ -86,9 +88,12 @@ class AndroidSimpleApiController extends Controller
      */
     public function goodslist(Request $request)
     {
-        $organization_id = $request->organization_id;//店铺id
-        $keyword = $request->keyword;//关键字
-        $scan_code = $request->scan_code;//条码
+        // 店铺id
+        $organization_id = $request->organization_id;
+        // 关键字
+        $keyword = $request->keyword;
+        // 条码
+        $scan_code = $request->scan_code;
         $where = [['simple_id', $organization_id], ['status', '1']];
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
