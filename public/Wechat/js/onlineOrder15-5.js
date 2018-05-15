@@ -135,6 +135,7 @@ function selectRessId(address_id){
                 var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                 var realname =json.data.address_info.realname;
                 var mobile =json.data.address_info.mobile;
+                var id =json.data.address_info.id;
                 var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
@@ -162,15 +163,15 @@ function selectRessId(address_id){
                                $("#address").hide();//隐藏收货地址按钮
                                $("#select_distribution").text('快递配送');//配送方式
                                //存选择的收获地址数据
-                               // $("#address_info_ch").attr({
-                               //     "data-address_id": address_id,
-                               //     "data-province_name": province_name,
-                               //     "data-city_name": city_name,
-                               //     "data-district_name": district_name,
-                               //     "data-address": address,
-                               //     "data-realname": realname,
-                               //     "data-mobile": mobile
-                               // });
+                               $("#address_info_ch").attr({
+                                   "data-address_id": id,
+                                   "data-province_name": province_name,
+                                   "data-city_name": city_name,
+                                   "data-district_name": area_name,
+                                   "data-address": address,
+                                   "data-realname": realname,
+                                   "data-mobile": mobile
+                               });
                            }
                         } else if (json.status == 0) {
                             alert(json.msg);
