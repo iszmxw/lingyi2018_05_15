@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>登录页面 | 零壹新科技服务商管理平台</title>
+    <title>登录页面 | 零壹新科技分公司管理平台</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('public/Agent')}}/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
 
     <form class="form-signin" id="currentForm" action="{{ url('agent/ajax/login_check') }}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <h2 class="form-signin-heading">零壹新科技服务商管理平台</h2>
+        <h2 class="form-signin-heading">零壹新科技分公司管理平台</h2>
         <div class="login-wrap">
             <input type="text" class="form-control" placeholder="用户" a名utofocus name="username">
             <input type="password" class="form-control" placeholder="登录密码" name="password">

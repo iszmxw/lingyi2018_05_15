@@ -48,7 +48,7 @@ class WechatReply extends Model
         return self::where($where)->pluck($pluck);
     }
 
-    //获取分页数据-服务商
+    //获取分页数据-分公司
     public static function getPaginage($where, $paginate, $orderby, $sort = 'DESC')
     {
         return self::where($where)->orderBy($orderby, $sort)->paginate($paginate);

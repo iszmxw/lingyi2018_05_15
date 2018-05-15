@@ -20,13 +20,13 @@
         @include('Zerone/Public/Header')
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>代理注册审核</h2>
+                <h2>分公司注册审核</h2>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <a href="JavaScript:;">代理管理</a>
+                        <a href="JavaScript:;">分公司管理</a>
                     </li>
                     <li>
-                        <strong>代理注册审核</strong>
+                        <strong>分公司注册审核</strong>
                     </li>
                 </ol>
             </div>
@@ -38,9 +38,9 @@
                         <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label" for="amount">代理名称</label>
+                                <label class="control-label" for="amount">分公司名称</label>
                                 <input type="text" id="agent_name" name="agent_name"
-                                       value="{{ $search_data['agent_name'] }}" placeholder="请输入代理名称"
+                                       value="{{ $search_data['agent_name'] }}" placeholder="请输入分公司名称"
                                        class="form-control">
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>代理名称</th>
+                                    <th>分公司名称</th>
                                     <th>所在战区</th>
                                     <th>负责人姓名</th>
                                     <th>身份证号</th>

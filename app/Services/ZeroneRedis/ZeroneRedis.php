@@ -23,7 +23,7 @@ class ZeroneRedis
     }
 
     /*
-     * 服务商平台
+     * 分公司平台
      */
     public static function create_agent_account_cache($key_id, $admin_data)
     {

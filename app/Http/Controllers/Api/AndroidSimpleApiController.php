@@ -54,7 +54,7 @@ class AndroidSimpleApiController extends Controller
         // 店铺名称
         $organization_name = Organization::getPluck([['id', $data['organization_id']]], 'organization_name');
         //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname')->first();
+        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname');
         // 数据返回
         $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'organization_name' => $organization_name]];
 
@@ -68,6 +68,7 @@ class AndroidSimpleApiController extends Controller
     {
         // 店铺id
         $organization_id = $request->organization_id;
+
         $categorylist = SimpleCategory::getList([['simple_id', $organization_id]], '0', 'displayorder', 'asc', ['id', 'name', 'displayorder']);
         if (empty($categorylist->toArray())) {
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
@@ -78,6 +79,7 @@ class AndroidSimpleApiController extends Controller
             };
         }
         $categorylist = array_values($categorylist->toArray());
+
         return response()->json(['status' => '1', 'msg' => '获取分类成功', 'data' => ['categorylist' => $categorylist]]);
     }
 
@@ -86,9 +88,12 @@ class AndroidSimpleApiController extends Controller
      */
     public function goodslist(Request $request)
     {
-        $organization_id = $request->organization_id;//店铺id
-        $keyword = $request->keyword;//关键字
-        $scan_code = $request->scan_code;//条码
+        // 店铺id
+        $organization_id = $request->organization_id;
+        // 关键字
+        $keyword = $request->keyword;
+        // 条码
+        $scan_code = $request->scan_code;
         $where = [['simple_id', $organization_id], ['status', '1']];
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
@@ -297,19 +302,29 @@ class AndroidSimpleApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        $user_account = User::getPluck([['id', $order['user_id']]], 'account');//粉丝账号
-        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');//操作人员账号
-        //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname')->first();
-        $goodsdata = $order['simple_order_goods'];//订单商品列表
+        // 粉丝账号
+        $user_account = User::getPluck([['id', $order['user_id']]], 'account');
+        // 操作人员账号
+        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');
+        // 用户昵称
+        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname');
+        // 订单商品列表
+        $goodsdata = $order['simple_order_goods'];
+        // 定义为数组
         $ordergoods = [];
         foreach ($goodsdata as $key => $value) {
-            $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
-            $ordergoods[$key]['title'] = $value['title']; //商品名字
-            $ordergoods[$key]['thumb'] = $value['thumb']; //商品图片
-            $ordergoods[$key]['details'] = $value['details'];//商品描述
-            $ordergoods[$key]['total'] = $value['total']; //商品数量
-            $ordergoods[$key]['price'] = $value['price']; //商品价格
+            // 商品id
+            $ordergoods[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $ordergoods[$key]['title'] = $value['title'];
+            // 商品图片
+            $ordergoods[$key]['thumb'] = $value['thumb'];
+            // 商品描述
+            $ordergoods[$key]['details'] = $value['details'];
+            // 商品数量
+            $ordergoods[$key]['total'] = $value['total'];
+            // 商品价格
+            $ordergoods[$key]['price'] = $value['price'];
         }
         //防止值为null
         if (empty($order['remarks'])) {
@@ -328,23 +343,40 @@ class AndroidSimpleApiController extends Controller
             $order['payment_price'] = '';
         }
         $orderdata = [
-            'id' => $order['id'], //订单id
-            'ordersn' => $order['ordersn'],//订单编号
-            'order_price' => $order['order_price'],//订单价格
-            'remarks' => $order['remarks'],//订单备注
-            'user_id' => $order['user_id'],//粉丝id
-            'user_account' => $user_account,//粉丝账号
-            'payment_company' => $order['payment_company'],//支付公司
-            'status' => $order['status'],//订单状态
-            'paytype' => $order['paytype'],//支付方式
-            'operator_id' => $order['operator_id'],//操作人id
-            'simple_id' => $order['simple_id'],//店铺ID
-            'operator_account' => $operator_account,//操作人账号
-            'realname' => $account_realname,//操作人员昵称
-            'discount_price' => $order['discount_price'],//折扣价
-            'payment_price' => $order['payment_price'],//实收价格
-            'discount' => $order['discount'],//折扣比率
-            'created_at' => $order['created_at'],//添加时间
+            // 订单id
+            'id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 粉丝id
+            'user_id' => $order['user_id'],
+            // 粉丝账号
+            'user_account' => $user_account,
+            // 支付公司
+            'payment_company' => $order['payment_company'],
+            // 订单状态
+            'status' => $order['status'],
+            // 支付方式
+            'paytype' => $order['paytype'],
+            // 操作人id
+            'operator_id' => $order['operator_id'],
+            // 店铺ID
+            'simple_id' => $order['simple_id'],
+            // 操作人账号
+            'operator_account' => $operator_account,
+            // 操作人员昵称
+            'realname' => $account_realname,
+            // 折扣价
+            'discount_price' => $order['discount_price'],
+            // 实收价格
+            'payment_price' => $order['payment_price'],
+            // 折扣比率
+            'discount' => $order['discount'],
+            // 添加时间
+            'created_at' => $order['created_at'],
         ];
         $data = [
             'orderdata' => $orderdata,

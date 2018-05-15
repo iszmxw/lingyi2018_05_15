@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>选择服务商 | 零壹服务商管理平台</title>
+    <title>选择分公司 | 零壹分公司管理平台</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('public/Agent')}}/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
         <div class="col-lg-12 col-sm-6">
             <!--breadcrumbs start -->
             <ul class="breadcrumb">
-                <li><h3 style="margin-top: 10px;"><i class="icon-desktop"></i> 选择要进入的服务商组织</h3></li>
+                <li><h3 style="margin-top: 10px;"><i class="icon-desktop"></i> 选择要进入的分公司组织</h3></li>
             </ul>
             <!--breadcrumbs end -->
         </div>
@@ -43,7 +43,7 @@
             <div class="col-lg-12">
                 <div class="input-group m-bot15 col-lg-3 ">
                     <span class="input-group-addon"><i class="icon-search"></i></span>
-                    <input type="text" class="form-control " placeholder="服务商名称">
+                    <input type="text" class="form-control " placeholder="分公司名称">
 
                 </div>
                 <div class="input-group m-bot15 col-lg-2 ">

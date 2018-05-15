@@ -39,7 +39,7 @@ function ress_add(){
     $.post(url,data, function(json) {
         console.log(json);
         if (json.status == 1) {
-            $.toast("修改成功");
+            $.toast("添加成功");
             setTimeout(function(){
                 var address_id = json.data.address_id;
                 var status = json.data.return;

@@ -67,10 +67,10 @@ class Kernel extends HttpKernel
         'ZeroneCheckAjax'=>\App\Http\Middleware\Zerone\ZeroneCheckAjax::class,//检测Ajax数据提交的中间件
         /**************************零壹平台管理系统*******************************/
 
-        /**************************代理平台管理系统*******************************/
+        /**************************分公司平台管理系统*******************************/
         'AgentCheck'=>\App\Http\Middleware\Agent\AgentCheck::class,//检测普通页面跳转的中间件
         'AgentCheckAjax'=>\App\Http\Middleware\Agent\AgentCheckAjax::class,//检测Ajax数据提交的中间件
-        /**************************代理平台管理系统*******************************/
+        /**************************分公司平台管理系统*******************************/
 
         /**************************零壹粉丝管理系统*******************************/
         'FansmanageCheck'=>\App\Http\Middleware\Fansmanage\FansmanageCheck::class,//检测普通页面跳转的中间件
@@ -89,7 +89,7 @@ class Kernel extends HttpKernel
         /**************************简版的店铺管理系统*******************************/
 
         /**************************零售接口*******************************/
-        'AndroidApiCheck'=>\App\Http\Middleware\Api\AndroidApiCheck::class,//检测普通页面跳转的中间件
+        'AndroidRetailApiCheck'=>\App\Http\Middleware\Api\AndroidRetailApiCheck::class,//检测普通页面跳转的中间件
         /**************************零售接口*******************************/
 
         /**************************零售简版接口*******************************/

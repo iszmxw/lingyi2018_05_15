@@ -674,6 +674,9 @@ class RetailCheckAjax
         if (!empty($request->input('stock')) && !is_numeric($request->input('stock'))) {
             return self::res(0, response()->json(['data' => '请正确输入库存!', 'status' => '0']));
         }
+        if ((!empty($request->input('weight')) && !is_numeric($request->input('weight'))) && (!empty($request->input('freight_price')) && !is_numeric($request->input('freight_price')))) {
+            return self::res(0, response()->json(['data' => '运费和重量必须填写一个', 'status' => '0']));
+        }
         return self::res(1, $request);
     }
 

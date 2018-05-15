@@ -58,6 +58,18 @@ class RetailOrder extends Model
     }
 
 
+    //获取列表
+    public static function getRetailList($where, $paginate, $orderby, $sort = 'DESC', $select = [])
+    {
+        $model = new RetailOrder();
+        if (!empty($select)) {
+            $model = $model->select($select);
+        }
+        return $model->where($where)->orderBy($orderby, $sort)->paginate($paginate);
+    }
+
+
+
     //修改订单信息
     public static function editRetailOrder($where, $param)
     {
@@ -80,6 +92,11 @@ class RetailOrder extends Model
         $retailorder->operator_id = $param['operator_id'];//操作人员id
         $retailorder->fansmanage_id = $param['fansmanage_id'];//管理平台id
         $retailorder->retail_id = $param['retail_id'];//店铺所属组织ID
+        $retailorder->discount_price = $param['discount_price'];//折扣价
+        if (!empty($param['payment_price'])) {
+            $retailorder->payment_price = $param['payment_price'];//实收价
+        }
+        $retailorder->discount = $param['discount'];//折扣比率
         if (!empty($param['paytype'])) {
             $retailorder->paytype = $param['paytype'];//付款方式
         }

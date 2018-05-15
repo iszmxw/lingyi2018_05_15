@@ -27,7 +27,7 @@ class AgentCheck
                 }
                 break;
 
-            case "agent/switch_status"://超级管理员切换服务商
+            case "agent/switch_status"://超级管理员切换分公司
                 $this->checkLoginAndRuleAndSwitchStatus($request);//判断是否登录
                 break;
 
@@ -35,8 +35,8 @@ class AgentCheck
 
             /****系统管理****/
             case "agent/system/agent_info":             //公司信息设置
-            case "agent":                               //服务商后台首页
-            case "agent/system/select_agent":           //服务商超级管员进入操作
+            case "agent":                               //分公司后台首页
+            case "agent/system/select_agent":           //分公司超级管员进入操作
             case "agent/system/agent_structure":        //人员结构
             case "agent/system/operationlog":           //操作日记
             case "agent/system/loginlog":               //登入日记

@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">归属服务商</label>
+                    <label class="col-sm-2 control-label">归属分公司</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">{{$data->agent_name}}</div>
                     </div>

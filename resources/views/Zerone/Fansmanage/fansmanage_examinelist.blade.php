@@ -46,7 +46,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label" for="amount">商户名称</label>
-                            <input type="text" id="proxy_name" name="fansmanage_name" value="{{ $search_data['fansmanage_name'] }}" placeholder="请输入服务商名称" class="form-control">
+                            <input type="text" id="proxy_name" name="fansmanage_name" value="{{ $search_data['fansmanage_name'] }}" placeholder="请输入分公司名称" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -76,7 +76,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>商户名称</th>
-                                    <th>归属服务商</th>
+                                    <th>归属分公司</th>
                                     <th>负责人姓名</th>
                                     <th>身份证号</th>
                                     <th>手机号码</th>

@@ -19,11 +19,9 @@
     <input type="hidden" id="dispatch" value="{{url('api/wechatApi/dispatch_mould')}}">
     <div class="page">
 	    <div class="g-flexview">
-            <input type="hidden" name="shipping_type" id="shipping_type" value="1">
-            <input type="hidden" name="selftake_id" id="selftake_id">
-            <input type="hidden" name="selftake_mobile" id="selftake_mobile">
-            <input type="hidden" name="selftake_realname" id="selftake_realname">
-            <input type="hidden" name="selftake_sex" id="selftake_sex">
+            <input type="hidden" name="shipping_type" id="shipping_type">
+            <input type="hidden" name="address_info" id="address_info_ch">
+            <input type="hidden" name="selftake_info_ch" id="selftake_info_ch">
 	        <div class="top">
 	            <div class="top_box">
 					<a href="javascript:;" class="return_btn"></a>
@@ -91,7 +89,7 @@
 				</div>
 	        </div>
 	        <div class="tijiao">
-				<a href="javascript:;" class="tijao_btn">提交订单<em id="order_btn_price"></em></a>
+				<a href="javascript:;" class="tijao_btn" onclick="sbOrder()">提交订单<em id="order_btn_price"></em></a>
 	        </div>
 	    </div>
 		<!-- 收货地址alert -->

@@ -127,7 +127,7 @@ class Organization extends Model
         return self::with('fansmanageinfo')->with('OrganizationRetailinfo')->with('OrganizationSimpleinfo')->where($where)->first();
     }
 
-    //获取单条信息-服务商
+    //获取单条信息-分公司
     public static function getOneAgent($where)
     {
         return self::with('warzoneAgent')->with('organizationAgentinfo')->where($where)->first();
@@ -147,7 +147,7 @@ class Organization extends Model
         return self::with('OrganizationRetailinfo')->where($where)->first();
     }
 
-    //获取-服务商列表
+    //获取-分公司列表
     public static function getListAgent($where)
     {
         return self::with('organizationAgentinfo')->with('account')->where($where)->get();
@@ -197,7 +197,7 @@ class Organization extends Model
         $organization->parent_tree = $param['parent_tree'];//上级程序
         $organization->program_id = $param['program_id'];//组织关系树
         $organization->asset_id = $param['asset_id'];//下级组织使用程序id（商户使用）
-        $organization->type = $param['type'];//类型 2为服务商
+        $organization->type = $param['type'];//类型 2为分公司
         $organization->status = $param['status'];//状态 1-正常 0-冻结
         $organization->save();
         return $organization->id;
@@ -230,7 +230,7 @@ class Organization extends Model
         return self::where($where)->value($pluck);
     }
 
-    //获取分页数据-服务商
+    //获取分页数据-分公司
     public static function getPaginage($where, $paginate, $orderby, $sort = 'DESC')
     {
         return self::with('warzoneAgent')->with('organizationAgentinfo')->where($where)->orderBy($orderby, $sort)->paginate($paginate);

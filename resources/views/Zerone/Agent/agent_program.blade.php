@@ -30,7 +30,7 @@
                 <h2>“{{$listOrg['organization_name']}}”程序管理</h2>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <a href="JavaScript:;">服务商管理</a>
+                        <a href="JavaScript:;">分公司管理</a>
                     </li>
                     <li >
                         <strong>“{{$listOrg['organization_name']}}”程序管理</strong>

@@ -71,7 +71,7 @@ class FansmanageController extends Controller
         $organization_id = $request->input('organization_id');//当前组织ID，零壹管理平台组织只能为1
         $list = Organization::getList([['parent_id', $organization_id]]);
         foreach ($list as $key => $value) {
-            $oneAcc = Account::getOne([['organization_id', $value['id']], ['deepth', 1]]);//查找服务商对应的负责人信息
+            $oneAcc = Account::getOne([['organization_id', $value['id']], ['deepth', 1]]);//查找分公司对应的负责人信息
             $list[$key]['oneAcc'] = $oneAcc;
             $parent_tree = $oneAcc['parent_tree'];//组织树
             //获取重Admin开始的的所有人员
@@ -113,7 +113,7 @@ class FansmanageController extends Controller
         $menu_data = $request->get('menu_data');//中间件产生的管理员数据参数
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $request->input('organization_id');//服务商id
+        $organization_id = $request->input('organization_id');//分公司id
         $oneFansmanage = Organization::getOneFansmanage([['id', $organization_id]]);
         $data = Program::getOne([['id', $oneFansmanage['asset_id']]]);
         $re = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id', $oneFansmanage['asset_id']]]);
@@ -126,7 +126,7 @@ class FansmanageController extends Controller
     //程序划拨
     public function fansmanage_assets(Request $request)
     {
-        $organization_id = $request->input('organization_id');//服务商id
+        $organization_id = $request->input('organization_id');//分公司id
         $program_id = $request->input('program_id');//套餐id
         $status = $request->input('status');//状态
         $oneFansmanage = Organization::getOneFansmanage([['id', $organization_id]]);
@@ -148,7 +148,7 @@ class FansmanageController extends Controller
         DB::beginTransaction();
         try {
             $re = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id', $program_id]]);//查询商户程序系统数量
-            $oneAgent = OrganizationAssets::getOne([['organization_id', $admin_data['organization_id']], ['program_id', $program_id]]);//查询服务商套餐系统数量
+            $oneAgent = OrganizationAssets::getOne([['organization_id', $admin_data['organization_id']], ['program_id', $program_id]]);//查询分公司套餐系统数量
             $id = $re['id'];
             if ($status == '1') {//划入
                 if ($oneAgent['program_balance'] < $number) {//数量不足
@@ -162,7 +162,7 @@ class FansmanageController extends Controller
                 }
                 $agentNum = $oneAgent['program_balance'] - $number;//剩余数量
                 $agentUseNum = $oneAgent['program_used_num'] + $number;//使用数量
-                OrganizationAssets::editAssets([['id', $oneAgent['id']]], ['program_balance' => $agentNum, 'program_used_num' => $agentUseNum]);//修改服务商系统数量
+                OrganizationAssets::editAssets([['id', $oneAgent['id']]], ['program_balance' => $agentNum, 'program_used_num' => $agentUseNum]);//修改分公司系统数量
             } else {//划出
                 if (empty($re)) {
                     return response()->json(['data' => '商户系统数量不足划出', 'status' => '0']);
@@ -176,7 +176,7 @@ class FansmanageController extends Controller
                 }
                 $agentNum = $oneAgent['program_balance'] + $number;//剩余数量
                 $agentUseNum = $oneAgent['program_used_num'] - $number;//使用数量
-                OrganizationAssets::editAssets([['id', $oneAgent['id']]], ['program_balance' => $agentNum, 'program_used_num' => $agentUseNum]);//修改服务商系统数量
+                OrganizationAssets::editAssets([['id', $oneAgent['id']]], ['program_balance' => $agentNum, 'program_used_num' => $agentUseNum]);//修改分公司系统数量
             }
             $data = ['operator_id' => $operator_id, 'fr_organization_id ' => $organization_id, 'to_organization_id' => $to_organization_id, 'program_id' => $program_id, 'status' => $status, 'number' => $number];
             //添加操作日志

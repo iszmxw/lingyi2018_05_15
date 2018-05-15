@@ -24,10 +24,10 @@
         @include('Zerone/Public/Header')
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>“{{$organization_name}}”服务商管理</h2>
+                <h2>“{{$organization_name}}”分公司管理</h2>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <a href="JavaScript:;">服务商管理</a>
+                        <a href="JavaScript:;">分公司管理</a>
                     </li>
                     <li >
                         <strong>“{{$organization_name}}”商户管理</strong>

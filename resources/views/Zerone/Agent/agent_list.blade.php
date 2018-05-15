@@ -25,13 +25,13 @@
         @include('Zerone/Public/Header')
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>服务商列表</h2>
+                <h2>分公司列表</h2>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <a href="JavaScript:;">服务商管理</a>
+                        <a href="JavaScript:;">分公司管理</a>
                     </li>
                     <li >
-                        <strong>服务商列表</strong>
+                        <strong>分公司列表</strong>
                     </li>
                 </ol>
             </div>
@@ -47,8 +47,8 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label" for="amount">服务商名称</label>
-                                <input type="text" id="amount" name="organization_name" value="{{ $search_data['organization_name'] }}" placeholder="请输入服务商名称" class="form-control">
+                                <label class="control-label" for="amount">分公司名称</label>
+                                <input type="text" id="amount" name="organization_name" value="{{ $search_data['organization_name'] }}" placeholder="请输入分公司名称" class="form-control">
                             </div>
                         </div>
                         {{--<div class="col-sm-3">--}}
@@ -88,12 +88,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>服务商名称</th>
+                                    <th>分公司名称</th>
                                     <th>所在战区</th>
                                     <th>负责人姓名</th>
 
                                     <th>手机号码</th>
-                                    <th>服务商状态</th>
+                                    <th>分公司状态</th>
                                     <th class="col-sm-1">注册时间</th>
                                     <th class="col-sm-4 text-right" >操作</th>
                                 </tr>

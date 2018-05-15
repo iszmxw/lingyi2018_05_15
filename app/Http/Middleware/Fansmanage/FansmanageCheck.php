@@ -22,7 +22,7 @@ class FansmanageCheck{
                     return redirect('fansmanage');
                 }
                 break;
-            case "fansmanage/switch_status"://超级管理员切换服务商
+            case "fansmanage/switch_status"://超级管理员切换分公司
                 $this->checkLoginAndRuleAndSwitchStatus($request);//判断是否登录
                 break;
 

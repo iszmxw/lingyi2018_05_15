@@ -24,7 +24,7 @@ use Session;
 class AgentController extends Controller
 {
     /**
-     * 代理审核列表
+     * 分公司审核列表
      */
     public function agent_examinelist(Request $request)
     {
@@ -36,7 +36,7 @@ class AgentController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理名字，页面搜索用
+        // 分公司名字，页面搜索用
         $agent_name = $request->input('agent_name');
         // 手机号码，页面搜索用
         $agent_owner_mobile = $request->input('agent_owner_mobile');
@@ -45,34 +45,34 @@ class AgentController extends Controller
         // 数据库值查询条件
         $where = [['status', '<>', '1']];
         if (!empty($agent_name)) {
-            //代理名字搜索条件
+            //分公司名字搜索条件
             $where[] = ['agent_name', 'like', '%' . $agent_name . '%'];
         }
         if (!empty($agent_owner_mobile)) {
             //手机搜索条件
             $where[] = ['agent_owner_mobile', $agent_owner_mobile];
         }
-        //查询代理注册审核列表
+        //查询分公司注册审核列表
         $list = OrganizationAgentapply::getPaginage($where, '15', 'id');
         return view('Zerone/Agent/agent_examinelist', ['list' => $list, 'search_data' => $search_data, 'admin_data' => $admin_data, 'route_name' => $route_name, 'menu_data' => $menu_data, 'son_menu_data' => $son_menu_data]);
     }
 
     /**
-     * 代理审核ajaxshow显示页面
+     * 分公司审核ajaxshow显示页面
      */
     public function agent_examine(Request $request)
     {
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
         // 是否通过值 1为通过 -1为不通过
         $status = $request->input('status');
-        // 获取该代理的信息
+        // 获取该分公司的信息
         $info = OrganizationAgentapply::getOne([['id', $id]]);
         return view('Zerone/Agent/agent_examine', ['info' => $info, 'status' => $status]);
     }
 
     /**
-     * 代理审核数据提交
+     * 分公司审核数据提交
      */
     public function agent_examine_check(Request $request)
     {
@@ -80,11 +80,11 @@ class AgentController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
         // 是否通过值 1为通过 -1为不通过
         $status = $request->input('status');
-        // 查询申请代理信息
+        // 查询申请分公司信息
         $data = OrganizationAgentapply::getOne([['id', $id]]);
         // 程序id
         if ($status == -1) {
@@ -93,7 +93,7 @@ class AgentController extends Controller
                 // 拒绝通过
                 OrganizationAgentapply::editOrganizationAgentapply([['id', $id]], ['status' => $status]);
                 // 添加操作日志
-                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '拒绝了代理：' . $data['agent_name']); //保存操作记录
+                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '拒绝了分公司：' . $data['agent_name']); //保存操作记录
                 // 提交事务
                 DB::commit();
             } catch (Exception $e) {
@@ -113,7 +113,7 @@ class AgentController extends Controller
                     return $re;
                 }
                 // 添加操作日志
-                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '代理审核通过：' . $data['agent_name']);
+                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '分公司审核通过：' . $data['agent_name']);
                 // 提交事务
                 DB::commit();
 
@@ -127,7 +127,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 添加代理
+     * 添加分公司
      */
     public function agent_add(Request $request)
     {
@@ -146,19 +146,20 @@ class AgentController extends Controller
 
 
     /**
-     * 提交代理数据
+     * 提交分公司数据
      */
     public function agent_add_check(Request $request)
     {
         // 中间件产生的管理员数据参数
+        dd($request);
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理名称
+        // 分公司名称
         $organization_name = $request->input('organization_name');
         // 根据名字查询，看是否重复
         if (Organization::checkRowExists([['organization_name', $organization_name]])) {
-            return response()->json(['data' => '代理名称已存在', 'status' => '0']);
+            return response()->json(['data' => '分公司名称已存在', 'status' => '0']);
         }
         // 用户密码
         $password = $request->input('agent_password');
@@ -170,7 +171,7 @@ class AgentController extends Controller
         $encryptPwd = md5("lingyikeji" . $encrypted . $key);
 
         $data = [
-            // 代理名字
+            // 分公司名字
             'agent_name' => $organization_name,
             // 手机号码
             'agent_owner_mobile' => $request->mobile,
@@ -192,7 +193,7 @@ class AgentController extends Controller
                 return $re;
             }
             // 添加操作日志
-            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '添加了代理：' . $organization_name);
+            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '添加了分公司：' . $organization_name);
             // 提交事务
             DB::commit();
         } catch (Exception $e) {
@@ -204,7 +205,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理列表
+     * 分公司列表
      */
     public function agent_list(Request $request)
     {
@@ -216,17 +217,17 @@ class AgentController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理名称
+        // 分公司名称
         $organization_name = $request->input('organization_name');
         // 前端分页和搜索使用
         $search_data = ['organization_name' => $organization_name];
-        // 查询条件，type等于2 为代理
+        // 查询条件，type等于2 为分公司
         $where = [['type', '2']];
         // 根据名字搜索
         if (!empty($organization_name)) {
             $where[] = ['organization_name', 'like', '%' . $organization_name . '%'];
         }
-        // 查询代理列表
+        // 查询分公司列表
         $listorg = Organization::getPaginage($where, '10', 'id');
         foreach ($listorg as $k => $v) {
             // 战区id
@@ -238,13 +239,13 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理编辑ajaxshow显示页面
+     * 分公司编辑ajaxshow显示页面
      */
     public function agent_list_edit(Request $request)
     {
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
-        // 代理详细信息
+        // 分公司详细信息
         $listorg = Organization::getOneagent([['id', $id]]);
         // 查询所有战区
         $warzone = Warzone::all();
@@ -252,7 +253,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理编辑功能提交
+     * 分公司编辑功能提交
      */
     public function agent_list_edit_check(Request $request)
     {
@@ -260,11 +261,11 @@ class AgentController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
         // 战区id
         $zone_id = $request->input('zone_id');
-        // 代理名称
+        // 分公司名称
         $organization_name = $request->input('organization_name');
         // 用户名字
         $realname = $request->input('realname');
@@ -272,24 +273,24 @@ class AgentController extends Controller
         $idcard = $request->input('idcard');
         // 用户手机号
         $mobile = $request->input('mobile');
-        // 查询修改的代理名字是否存在
+        // 查询修改的分公司名字是否存在
         if (Organization::checkRowExists([['organization_name', $organization_name], ['id', '<>', $id]])) {
-            return response()->json(['data' => '代理名称已存在', 'status' => '0']);
+            return response()->json(['data' => '分公司名称已存在', 'status' => '0']);
         }
         // 查询用户id
         $account_id = Account::getPluck([['organization_id', $id], ['deepth', '1']], 'id');
         DB::beginTransaction();
         try {
-            // 修改代理表代理名称
+            // 修改分公司表分公司名称
             Organization::editOrganization([['id', $id]], ['organization_name' => $organization_name]);
 
-            // 修改代理表代理手机号码
+            // 修改分公司表分公司手机号码
             OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id', $id]], ['agent_owner_mobile' => $mobile]);
 
             // 修改用户管理员信息表 手机号
             Account::editAccount([['organization_id', $id]], ['mobile' => $mobile]);
 
-            // 修改代理用户信息表 用户姓名
+            // 修改分公司用户信息表 用户姓名
             OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id', $id]], ['agent_owner' => $realname]);
 
             // 修改用户管理员信息表 用户名
@@ -298,14 +299,14 @@ class AgentController extends Controller
             // 修改用户管理员信息表 身份证号
             AccountInfo::editAccountInfo([['account_id', $account_id]], ['idcard' => $idcard]);
 
-            // 修改代理信息表 身份证号
+            // 修改分公司信息表 身份证号
             OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id', $id]], ['agent_owner_idcard' => $idcard]);
 
             // 修改战区关联表 战区id
             WarzoneAgent::editWarzoneAgent([['agent_id', $id]], ['zone_id' => $zone_id]);
 
             // 添加操作日志
-            OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '修改了代理：' . $organization_name);
+            OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '修改了分公司：' . $organization_name);
             // 提交事务
             DB::commit();
 
@@ -318,21 +319,21 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理冻结ajaxshow显示页面
+     * 分公司冻结ajaxshow显示页面
      */
     public function agent_list_lock(Request $request)
     {
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
         // 冻结状态
         $status = $request->input('status');
-        // 代理信息
+        // 分公司信息
         $list = Organization::getOneagent([['id', $id]]);
         return view('Zerone/Agent/agent_list_lock', ['id' => $id, 'list' => $list, 'status' => $status]);
     }
 
     /**
-     * 代理冻结功能提交
+     * 分公司冻结功能提交
      */
     public function agent_list_lock_check(Request $request)
     {
@@ -340,30 +341,30 @@ class AgentController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $id = $request->input('id');
         // 状态 1为冻结，0为解冻
         $status = $request->input('status');
-        // 查询代理名称
+        // 查询分公司名称
         $organization_name = Organization::getPluck([['id', $id]], 'organization_name');
         DB::beginTransaction();
         try {
             // 冻结
             if ($status == '1') {
-                // 修改代理状态
+                // 修改分公司状态
                 Organization::editOrganization([['id', $id]], ['status' => '0']);
-                // 冻结属于该代理的所有账号
+                // 冻结属于该分公司的所有账号
                 Account::editOrganizationBatch([['organization_id', $id]], ['status' => '0']);
                 // 添加操作日志
-                OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '冻结了代理：' . $organization_name);
+                OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '冻结了分公司：' . $organization_name);
                 // 解冻
             } else {
-                // 修改代理状态
+                // 修改分公司状态
                 Organization::editOrganization([['id', $id]], ['status' => '1']);
-                // 冻结属于该代理的所有账号
+                // 冻结属于该分公司的所有账号
                 Account::editOrganizationBatch([['organization_id', $id]], ['status' => '1']);
                 //添加操作日志
-                OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '解冻了代理：' . $organization_name);
+                OperationLog::addOperationLog('1', $admin_data['organization_id'], $admin_data['id'], $route_name, '解冻了分公司：' . $organization_name);
             }
             // 提交事务
             DB::commit();
@@ -376,7 +377,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理下级人员架构
+     * 分公司下级人员架构
      */
     public function agent_structure(Request $request)
     {
@@ -388,13 +389,13 @@ class AgentController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $organization_id = $request->input('organization_id');
-        // 代理信息
+        // 分公司信息
         $listOrg = Organization::getOneagent([['id', $organization_id]]);
-        // 代理负责人信息
+        // 分公司负责人信息
         $oneOrg = Account::getOne([['organization_id', $organization_id], ['parent_id', '1']]);
-        // 代理下级所有信息
+        // 分公司下级所有信息
         $list = Account::getList([['organization_id', $organization_id], ['parent_tree', 'like', '%' . $oneOrg['parent_tree'] . $oneOrg['id'] . ',%']], 0, 'id', 'asc')->toArray();
         // 递归排序调用
         $structure = $this->account_structure($list, $oneOrg['id']);
@@ -434,7 +435,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理程序管理
+     * 分公司程序管理
      */
     public function agent_program(Request $request)
     {
@@ -446,9 +447,9 @@ class AgentController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $organization_id = $request->input('organization_id');
-        // 代理信息
+        // 分公司信息
         $listOrg = Organization::getOneagent([['id', $organization_id]]);
         // 程序列表
         $list = Program::getPaginage([['is_asset', '1']], 15, 'id');
@@ -463,15 +464,15 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理程序管理页面划入js显示
+     * 分公司程序管理页面划入js显示
      */
     public function agent_assets(Request $request)
     {
-        // 代理id
+        // 分公司id
         $organization_id = $request->input('organization_id');
         // 程序id
         $program_id = $request->input('program_id');
-        // 代理信息
+        // 分公司信息
         $listOrg = Organization::getOneagent([['id', $organization_id]]);
         // 程序信息
         $oneProgram = Program::getOne([['id', $program_id]]);
@@ -481,7 +482,7 @@ class AgentController extends Controller
     }
 
     /**
-     * 代理程序管理页面划入划出检测
+     * 分公司程序管理页面划入划出检测
      */
     public function agent_assets_check(Request $request)
     {
@@ -495,9 +496,9 @@ class AgentController extends Controller
         } else {
             $to_organization_id = $admin_data['organization_id'];
         }
-        // 代理id
+        // 分公司id
         $organization_id = $request->input('organization_id');
-        // 代理名字
+        // 分公司名字
         $agent_name = Organization::getPluck([['id', $organization_id]], 'organization_name');
         // 程序id
         $program_id = $request->input('program_id');
@@ -509,12 +510,12 @@ class AgentController extends Controller
         $status = $request->input('status');
         DB::beginTransaction();
         try {
-            // 查询当前代理是否有这套程序
+            // 查询当前分公司是否有这套程序
             $re = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id', $program_id]]);
             // 划入
             if ($status == '1') {
                 $remarks = '划入';
-                // 如果为空，说明该代理还没有这套程序
+                // 如果为空，说明该分公司还没有这套程序
                 if (empty($re)) {
                     // 新添加一条数据
                     OrganizationAssets::addAssets(['organization_id' => $organization_id, 'program_id' => $program_id, 'program_balance' => $number, 'program_used_num' => '0']);
@@ -527,7 +528,7 @@ class AgentController extends Controller
                 // 划出
             } else {
                 $remarks = '划出';
-                // 如果为空，说明该代理还没有这套程序
+                // 如果为空，说明该分公司还没有这套程序
                 if (empty($re)) {
                     return response()->json(['data' => '数量不足', 'status' => '0']);
                 } else {
@@ -561,7 +562,7 @@ class AgentController extends Controller
             OrganizationAssetsallocation::addOrganizationAssetsallocation($data);
 
             // 添加操作日志
-            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, $remarks . '程序--' . $program_name . '*' . $number . ' --代理：' . $agent_name);
+            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, $remarks . '程序--' . $program_name . '*' . $number . ' --分公司：' . $agent_name);
             // 提交事务
             DB::commit();
 
@@ -586,11 +587,11 @@ class AgentController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $organization_id = $request->organization_id;
-        // 代理名称
+        // 分公司名称
         $organization_name = Organization::getPluck([['id', $organization_id]], 'organization_name');
-        // 隶属于该代理的所有商户
+        // 隶属于该分公司的所有商户
         $list = Organization::getPaginageFansmanage([['parent_id', $organization_id]], '10', 'id');
         foreach ($list as $key => $value) {
             // 商户信息下级店铺信息
@@ -610,11 +611,11 @@ class AgentController extends Controller
      */
     public function agent_fansmanage_add(Request $request)
     {
-        // 代理id
+        // 分公司id
         $organization_id = $request->organization_id;
-        // 显示组织表里商户类型的，并且上级组织为零壹的，并且属于该代理的
+        // 显示组织表里商户类型的，并且上级组织为零壹的，并且属于该分公司的
         $list = Organization::getList([['type', 3], ['parent_id', '<>', $organization_id], ['parent_id', '1']]);
-        // 该代理信息
+        // 该分公司信息
         $data = Organization::getOne([['id', $organization_id]]);
         return view('Zerone/Agent/agent_fansmanage_add', ['list' => $list, 'data' => $data]);
     }
@@ -628,9 +629,9 @@ class AgentController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $organization_id = $request->organization_id;
-        // 代理信息
+        // 分公司信息
         $oneAgent = Organization::getOne([['id', $organization_id]]);
         // 是否消耗程序数量
         $status = $request->status;
@@ -660,9 +661,9 @@ class AgentController extends Controller
                 if ($status == 1) {
                     // 计算店铺数量
                     $number = count($datastore);
-                    // 查询代理程序数量信息
+                    // 查询分公司程序数量信息
                     $Assets = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id', $asset_id]]);
-                    // 如果代理剩余程序数量足够
+                    // 如果分公司剩余程序数量足够
                     if ($Assets['program_balance'] >= $number) {
                         // 剩余数量
                         $program_balance = $Assets->program_balance - $number;
@@ -688,12 +689,12 @@ class AgentController extends Controller
                         //添加操作日志
                         OrganizationAssetsallocation::addOrganizationAssetsallocation($data);
                     } else {
-                        return response()->json(['data' => '该代理的程序数量不够', 'status' => '0']);
+                        return response()->json(['data' => '该分公司的程序数量不够', 'status' => '0']);
                     }
                 }
             }
             // 添加操作日志
-            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '划拨了商户:' . $fansmanage_name . '-归属于代理：' . $oneAgent['organization_name']);
+            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '划拨了商户:' . $fansmanage_name . '-归属于分公司：' . $oneAgent['organization_name']);
             // 提交事务
             DB::commit();
         } catch (Exception $e) {
@@ -709,9 +710,9 @@ class AgentController extends Controller
      */
     public function agent_fansmanage_draw(Request $request)
     {
-        // 代理id
+        // 分公司id
         $organization_id = $request->organization_id;
-        // 代理信息
+        // 分公司信息
         $oneAgent = Organization::getOne([['id', $organization_id]]);
         // 划出商户id
         $fansmanage_id = $request->fansmanage_id;
@@ -730,9 +731,9 @@ class AgentController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 代理id
+        // 分公司id
         $organization_id = $request->organization_id;
-        // 代理名称
+        // 分公司名称
         $organization_name = Organization::getPluck([['id', $organization_id]], 'organization_name');
         // 划出商户id
         $fansmanage_id = $request->fansmanage_id;
@@ -762,7 +763,7 @@ class AgentController extends Controller
                 if ($status == 1) {
                     // 计算店铺数量
                     $number = count($datastore);
-                    // 查询代理程序数量信息
+                    // 查询分公司程序数量信息
                     $Assets = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id', $asset_id]]);
                     // 如果存在
                     if (!empty($Assets)) {
@@ -777,7 +778,7 @@ class AgentController extends Controller
                         $dataAssets = [
                             // 程序id
                             'program_id' => $asset_id,
-                            // 代理id
+                            // 分公司id
                             'organization_id' => $organization_id,
                             // 程序剩余数量
                             'program_balance' => $number,
@@ -793,7 +794,7 @@ class AgentController extends Controller
                         'operator_id' => $admin_data['id'],
                         // 划入组织为零壹
                         'fr_organization_id ' => '1',
-                        // 划给代理id
+                        // 划给分公司id
                         'to_organization_id' => $organization_id,
                         // 程序id
                         'program_id' => $asset_id,
@@ -807,7 +808,7 @@ class AgentController extends Controller
                 }
             }
             // 添加操作日志
-            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '从代理:' . $organization_name . '-划出了商户：' . $fansmanage_name);
+            OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '从分公司:' . $organization_name . '-划出了商户：' . $fansmanage_name);
             // 提交事务
             DB::commit();
         } catch (Exception $e) {
@@ -819,17 +820,17 @@ class AgentController extends Controller
     }
 
     /**
-     * 添加代理数据提交
+     * 添加分公司数据提交
      */
     private function add_agent($data)
     {
         DB::beginTransaction();
         try {
-            // 代理组织树
+            // 分公司组织树
             $orgparent_tree = '0' . ',' . '1' . ',';
             //数据处理
             $orgData = [
-                // 代理名称
+                // 分公司名称
                 'organization_name' => $data['agent_name'],
                 // 上级id
                 'parent_id' => '1',
@@ -837,24 +838,24 @@ class AgentController extends Controller
                 'parent_tree' => $orgparent_tree,
                 // 程序id
                 'program_id' => '2',
-                // 类型2为代理
+                // 类型2为分公司
                 'type' => '2',
                 // 状态1正常 0冻结
                 'status' => '1',
 
                 'asset_id' => '0',
             ];
-            // 添加代理并返回组织id
+            // 添加分公司并返回组织id
             $organization_id = Organization::addOrganization($orgData);
 
             //数据处理
             $agentdata = [
-                // 代理id
+                // 分公司id
                 'agent_id' => $organization_id,
                 // 战区id
                 'zone_id' => $data['zone_id']
             ];
-            // 战区关联代理
+            // 战区关联分公司
             WarzoneAgent::addWarzoneAgent($agentdata);
 
             // 查询零壹账号人数
@@ -897,16 +898,16 @@ class AgentController extends Controller
 
             // 数据处理
             $orgagentinfo = [
-                // 代理id
+                // 分公司id
                 'agent_id' => $organization_id,
-                // 代理负责人名字
+                // 分公司负责人名字
                 'agent_owner' => $data['agent_owner'],
-                // 代理负责人身份证
+                // 分公司负责人身份证
                 'agent_owner_idcard' => $data['agent_owner_idcard'],
-                // 代理负责人手机号
+                // 分公司负责人手机号
                 'agent_owner_mobile' => $data['agent_owner_mobile']
             ];
-            // 添加到代理组织信息表
+            // 添加到分公司组织信息表
             OrganizationAgentinfo::addOrganizationAgentinfo($orgagentinfo);
 
             // 获取当前系统的所有节点

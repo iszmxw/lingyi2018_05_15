@@ -20,11 +20,12 @@ use App\Models\RetailShengpayTerminal;
 use App\Models\RetailStock;
 use App\Models\RetailStockLog;
 use App\Models\User;
+use Endroid\QrCode\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 
-class AndroidApiController extends Controller
+class AndroidRetailApiController extends Controller
 {
     /**
      * 登入检测
@@ -57,28 +58,28 @@ class AndroidApiController extends Controller
         if ($encryptPwd != $data['password']) {
             return response()->json(['msg' => '密码不正确', 'status' => '0', 'data' => '']);
         }
-        // 查询pos商户号
-        $shengpay = RetailShengpay::getOne([['retail_id', $data['organization_id']], ['sft_pos_num', $sft_pos_num]]);
-        if (empty($shengpay)) {
-            return response()->json(['msg' => 'pos商户号不存在', 'status' => '0', 'data' => '']);
-        }
-        if ($shengpay->status != '1') {
-            return response()->json(['msg' => 'pos商户号没通过审核', 'status' => '0', 'data' => '']);
-        }
-        // 查询pos机终端号
-        $terminal = RetailShengpayTerminal::getOne([['retail_id', $data['organization_id']], ['terminal_num', $terminal_num]]);
-        if (empty($terminal)) {
-            return response()->json(['msg' => 'pos机终端号不存在', 'status' => '0', 'data' => '']);
-        }
-        if ($terminal->status != '1') {
-            return response()->json(['msg' => 'pos机终端号没通过审核', 'status' => '0', 'data' => '']);
-        }
+//        // 查询pos商户号
+//        $shengpay = RetailShengpay::getOne([['retail_id', $data['organization_id']], ['sft_pos_num', $sft_pos_num]]);
+//        if (empty($shengpay)) {
+//            return response()->json(['msg' => 'pos商户号不存在', 'status' => '0', 'data' => '']);
+//        }
+//        if ($shengpay->status != '1') {
+//            return response()->json(['msg' => 'pos商户号没通过审核', 'status' => '0', 'data' => '']);
+//        }
+//        // 查询pos机终端号
+//        $terminal = RetailShengpayTerminal::getOne([['retail_id', $data['organization_id']], ['terminal_num', $terminal_num]]);
+//        if (empty($terminal)) {
+//            return response()->json(['msg' => 'pos机终端号不存在', 'status' => '0', 'data' => '']);
+//        }
+//        if ($terminal->status != '1') {
+//            return response()->json(['msg' => 'pos机终端号没通过审核', 'status' => '0', 'data' => '']);
+//        }
         // 店铺名称
         $organization_name = Organization::getPluck([['id', $data['organization_id']]], 'organization_name');
         //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname')->first();
+        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname');
         // 数据返回
-        $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'sft_num' => $shengpay['sft_num'], 'organization_name' => $organization_name]];
+        $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'organization_name' => $organization_name]];
 
         return response()->json($data);
     }
@@ -95,7 +96,7 @@ class AndroidApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
         }
         foreach ($categorylist as $key => $value) {
-            if (!RetailGoods::checkRowExists([['category_id', $value['id']]],'id')) {
+            if (!RetailGoods::checkRowExists([['category_id', $value['id']]], 'id')) {
                 unset($categorylist[$key]);
             };
         }
@@ -108,9 +109,12 @@ class AndroidApiController extends Controller
      */
     public function goodslist(Request $request)
     {
-        $organization_id = $request->organization_id;//店铺id
-        $keyword = $request->keyword;//关键字
-        $scan_code = $request->scan_code;//条码
+        // 店铺id
+        $organization_id = $request->organization_id;
+        // 关键字
+        $keyword = $request->keyword;
+        // 条码
+        $scan_code = $request->scan_code;
         $where[] = ['retail_id', $organization_id];
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
@@ -151,24 +155,34 @@ class AndroidApiController extends Controller
         }
         // 备注
         $remarks = $request->remarks;
-
-
-        $goodsdata = json_decode($request->goodsdata, TRUE);//商品数组
+        // 折扣比率
+        $discount = $request->discount;
+        if (empty($discount)) {
+            // 原价
+            $discount = 10;
+        }
+        // 商品数组
+        $goodsdata = json_decode($request->goodsdata, TRUE);
         $order_price = 0;
         foreach ($goodsdata as $key => $value) {
             foreach ($value as $k => $v) {
-                $goods_status = RetailGoods::getPluck(['id'=>$v['id']],'status')->first();//查询商品是否下架
-                if ($goods_status == '0'){
+                // 查询商品是否下架
+                $goods_status = RetailGoods::getPluck(['id' => $v['id']], 'status')->first();
+                if ($goods_status == '0') {
                     return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
                 }
                 $order_price += $v['price'] * $v['num'];
             }
         }
         $fansmanage_id = Organization::getPluck([['id', $organization_id]], 'parent_id');
-        $num = RetailOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();//查询订单今天的数量
+        // 查询订单今天的数量
+        $num = RetailOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
         $num += 1;
         $sort = 100000 + $num;
-        $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;//订单号
+        // 订单号
+        $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;
+        // 折扣价
+        $discount_price = round($order_price * $discount / 10, 2);
         $orderData = [
             'ordersn' => $ordersn,
             'order_price' => $order_price,
@@ -177,15 +191,20 @@ class AndroidApiController extends Controller
             'retail_id' => $organization_id,
             'user_id' => $user_id,
             'operator_id' => $account_id,
+            'discount_price' => $discount_price,
+            'discount' => $discount,
             'status' => '0',
         ];
         DB::beginTransaction();
         try {
-            $order_id = RetailOrder::addRetailOrder($orderData);//添加入订单表
+            // 添加入订单表
+            $order_id = RetailOrder::addRetailOrder($orderData);
             foreach ($goodsdata as $key => $value) {
                 foreach ($value as $k => $v) {
-                    $onedata = RetailGoods::getOne([['id', $v['id']]]);//查询商品库存数量
-                    $thumb = RetailGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();//商品图片一张
+                    // 查询商品库存数量
+                    $onedata = RetailGoods::getOne([['id', $v['id']]]);
+                    // 商品图片一张
+                    $thumb = RetailGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();
                     $data = [
                         'order_id' => $order_id,
                         'goods_id' => $v['id'],
@@ -195,23 +214,25 @@ class AndroidApiController extends Controller
                         'total' => $v['num'],
                         'price' => $v['price'],
                     ];
-                    RetailOrderGoods::addOrderGoods($data);//添加商品快照
+                    // 添加商品快照
+                    RetailOrderGoods::addOrderGoods($data);
                 }
             }
-            $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');//查询是下单减库存/付款减库存
-            $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();//查询库存是否已经减去
-            if ($power != '1') {//说明下单减库存
-                if ($stock_status != '1'){//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-                    $re = $this->reduce_stock($order_id, '1');//减库存
-                    RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
-                    if ($re != 'ok') {
-                        return $re;
-                    }
+            // 查询是下单减库存/付款减库存
+            $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');
+            // 说明下单减库存
+            if ($power != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return $re;
                 }
             }
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
         }
         return response()->json(['status' => '1', 'msg' => '提交订单成功', 'data' => ['order_id' => $order_id]]);
@@ -225,21 +246,29 @@ class AndroidApiController extends Controller
      */
     public function cancel_order(Request $request)
     {
-        $order_id = $request->order_id;//订单id
-        $organization_id = $request->organization_id;//店铺
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value')->first();//查询是下单减库存/付款减库存
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = RetailOrder::getOne([['id', $order_id]]);
+        if ($order['status'] != '0') {
+            return response()->json(['msg' => '订单状态不是待付款，不能取消', 'status' => '0', 'data' => '']);
+        }
         DB::beginTransaction();
         try {
-            if ($power != '1') {//说明下单减库存 所以要把库存归还
-                $re = $this->reduce_stock($order_id, '-1');//加库存
+            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] == '1') {
+                // 归还库存
+                $re = $this->reduce_stock($order_id, '-1');
                 if ($re != 'ok') {
-                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
+                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
                 }
             }
             RetailOrder::editRetailOrder([['id', $order_id]], ['status' => '-1']);
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
         }
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
@@ -263,7 +292,7 @@ class AndroidApiController extends Controller
             }
             $where[] = ['status', $status];
         }
-        $orderlist = RetailOrder::getList($where, '0', 'id', '', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        $orderlist = RetailOrder::getRetailList($where, '20', 'id', 'DESC', ['id', 'ordersn', 'order_price', 'status', 'discount_price', 'payment_price', 'discount', 'created_at']);
         if ($orderlist->toArray()) {
             // 订单数量
             $total_num = count($orderlist);
@@ -278,9 +307,10 @@ class AndroidApiController extends Controller
         $data = [
             'orderlist' => $orderlist,
             'total_num' => $total_num,
-            'total_amount' => $total_amount,
+            'total_amount' => round($total_amount, 2),
         ];
         return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => $data]);
+
     }
 
     /**
@@ -298,44 +328,65 @@ class AndroidApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '不存在订单', 'data' => '']);
         }
         $order = $order->toArray();
-        $user_account = User::getPluck([['id', $order['user_id']]], 'account');//粉丝账号
-        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');//操作人员账号
-        $goodsdata = $order['retail_order_goods'];//订单商品列表
+        // 粉丝账号
+        $user_account = User::getPluck([['id', $order['user_id']]], 'account');
+        // 操作人员账号
+        $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');
+        // 用户昵称
+        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname');
+        // 订单商品列表
+        $goodsdata = $order['retail_order_goods'];
+        // 定义为数组
+        $ordergoods = [];
         foreach ($goodsdata as $key => $value) {
-            $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
-            $ordergoods[$key]['title'] = $value['title']; //商品名字
-            $ordergoods[$key]['thumb'] = $value['thumb']; //商品图片
-            $ordergoods[$key]['details'] = $value['details'];//商品描述
-            $ordergoods[$key]['total'] = $value['total']; //商品数量
-            $ordergoods[$key]['price'] = $value['price']; //商品价格
-        }
-        //防止值为null
-        if (empty($order['remarks'])) {
-            $order['remarks'] = '';
-        }
-        if (empty($order['user_account'])) {
-            $order['user_account'] = '';
-        }
-        if (empty($order['payment_company'])) {
-            $order['payment_company'] = '';
-        }
-        if (empty($order['paytype'])) {
-            $order['paytype'] = '';
+            // 商品id
+            $ordergoods[$key]['goods_id'] = $value['goods_id'];
+            // 商品名字
+            $ordergoods[$key]['title'] = $value['title'];
+            // 商品图片
+            $ordergoods[$key]['thumb'] = $value['thumb'];
+            // 商品描述
+            $ordergoods[$key]['details'] = $value['details'];
+            // 商品数量
+            $ordergoods[$key]['total'] = $value['total'];
+            // 商品价格
+            $ordergoods[$key]['price'] = $value['price'];
         }
         $orderdata = [
-            'id' => $order['id'], //订单id
-            'ordersn' => $order['ordersn'],//订单编号
-            'order_price' => $order['order_price'],//订单价格
-            'remarks' => $order['remarks'],//订单备注
-            'user_id' => $order['user_id'],//粉丝id
-            'user_account' => $user_account,//粉丝账号
-            'payment_company' => $order['payment_company'],//支付公司
-            'status' => $order['status'],//订单状态
-            'paytype' => $order['paytype'],//支付方式
-            'operator_id' => $order['operator_id'],//操作人id
-            'retail_id' => $order['retail_id'],//店铺ID
-            'operator_account' => $operator_account,//操作人账号
-            'created_at' => $order['created_at'],//添加时间
+            // 订单id
+            'id' => $order['id'],
+            // 订单编号
+            'ordersn' => $order['ordersn'],
+            // 订单价格
+            'order_price' => $order['order_price'],
+            // 订单备注
+            'remarks' => $order['remarks'],
+            // 粉丝id
+            'user_id' => $order['user_id'],
+            // 粉丝账号
+            'user_account' => $user_account,
+            // 支付公司
+            'payment_company' => $order['payment_company'],
+            // 订单状态
+            'status' => $order['status'],
+            // 支付方式
+            'paytype' => $order['paytype'],
+            // 操作人id
+            'operator_id' => $order['operator_id'],
+            // 店铺ID
+            'retail_id' => $order['retail_id'],
+            // 操作人账号
+            'operator_account' => $operator_account,
+            // 操作人员昵称
+            'realname' => $account_realname,
+            // 折扣价
+            'discount_price' => $order['discount_price'],
+            // 实收价格
+            'payment_price' => $order['payment_price'],
+            // 折扣比率
+            'discount' => $order['discount'],
+            // 添加时间
+            'created_at' => $order['created_at'],
         ];
         $data = [
             'orderdata' => $orderdata,
@@ -350,33 +401,35 @@ class AndroidApiController extends Controller
      */
     public function cash_payment(Request $request)
     {
-        $order_id = $request->order_id;//订单id
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
         $order = RetailOrder::getOne([['id', $order_id]]);
         if ($order['status'] != '0') {
             return response()->json(['msg' => '订单不是待付款，不能操作', 'status' => '0', 'data' => '']);
         }
-        $organization_id = $request->organization_id;//店铺
-        $paytype = $request->paytype;//支付方式
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');//查询是下单减库存/付款减库存
-        $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();//查询库存是否已经减去
+        // 支付方式
+        $paytype = $request->paytype;
         DB::beginTransaction();
         try {
-            if ($power == '1') {//说明付款减库存
-                if ($stock_status != '1') {//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-                    $re = $this->reduce_stock($order_id, '1');//减库存
-                    RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
-                    if ($re != 'ok') {
-                        return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
-                    }
+            // 说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
-            RetailOrder::editRetailOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1']);//修改订单状态
+            // 实收
+            $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
+
+            RetailOrder::editRetailOrder([['id', $order_id]], ['paytype' => $paytype, 'payment_price' => $payment_price, 'status' => '1']);//修改订单状态
             DB::commit();//提交事务
         } catch (\Exception $e) {
             DB::rollBack();//事件回滚
             return response()->json(['msg' => '现金付款失败', 'status' => '0', 'data' => '']);
         }
-        return response()->json(['status' => '1', 'msg' => '现金付款成功', 'data' => ['order_id' => $order_id, 'price' => $order['order_price']]]);
+        return response()->json(['status' => '1', 'msg' => '现金付款成功', 'data' => ['order_id' => $order_id, 'payment_price' => $payment_price, 'price' => $order['order_price']]]);
     }
 
     /**
@@ -384,34 +437,37 @@ class AndroidApiController extends Controller
      */
     public function other_payment(Request $request)
     {
-        $order_id = $request->order_id;//订单id
-        $order_status = RetailOrder::getPluck([['id', $order_id]], 'status')->first();
-        if ($order_status != '0') {
+        // 订单id
+        $order_id = $request->order_id;
+        $order = RetailOrder::getOne([['id', $order_id]]);
+        if ($order['order_status'] != '0') {
             return response()->json(['msg' => '订单不是待付款，不能操作', 'status' => '0', 'data' => '']);
         }
-        $organization_id = $request->organization_id;   //店铺
-        $paytype = $request->paytype;                   //支付方式
-        $payment_company = $request->payment_company;   //支付公司名字
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');//查询是下单减库存/付款减库存
-        $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();//查询库存是否已经减去
+        // 支付方式
+        $paytype = $request->paytype;
+        // 支付公司名字
+        $payment_company = $request->payment_company;
         DB::beginTransaction();
         try {
-            if ($power == '1') {//说明付款减库存
-                if ($stock_status != '1') {//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
-                    $re = $this->reduce_stock($order_id, '1');//减库存
-                    RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
-                    if ($re != 'ok') {
-                        return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
-                    }
+            // 说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] != '1') {
+                // 减库存
+                $re = $this->reduce_stock($order_id, '1');
+                if ($re != 'ok') {
+                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
                 }
             }
-            RetailOrder::editRetailOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1', 'payment_company' => $payment_company]);//修改订单状态
-            DB::commit();//提交事务
+            $payment_price = round($order['order_price'] * $order['discount'] / 10, 2);
+            // 修改订单状态
+            RetailOrder::editRetailOrder([['id', $order_id]], ['paytype' => $paytype, 'status' => '1', 'payment_price' => $payment_price, 'payment_company' => $payment_company]);
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '付款失败', 'status' => '0', 'data' => '']);
         }
-        return response()->json(['status' => '1', 'msg' => '现金付款成功', 'data' => ['order_id' => $order_id]]);
+        return response()->json(['status' => '1', 'msg' => '现金付款成功', 'data' => ['order_id' => $order_id, 'payment_price' => $payment_price]]);
     }
 
     /**
@@ -454,6 +510,7 @@ class AndroidApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '设置成功', 'data' => ['vfg_value' => $cfg_value, 'cfg_name' => 'change_stock_role']]);
     }
 
+
     /**
      * 查询店铺设置
      */
@@ -476,22 +533,55 @@ class AndroidApiController extends Controller
     }
 
     /**
+     * 签入二维码
+     */
+    public function code(Request $request)
+    {
+
+        $value = 'www.baidu.com';                  //二维码内容
+
+        $errorCorrectionLevel = 'L';    //容错级别
+        $matrixPointSize = 5;           //生成图片大小
+
+        //生成二维码图片
+        $filename = 'qrcode/'.microtime().'.png';
+        QRcode::png($value,$filename , $errorCorrectionLevel, $matrixPointSize, 2);
+
+        $QR = $filename;                //已经生成的原始二维码图片文件
+
+
+        $QR = imagecreatefromstring(file_get_contents($QR));
+
+        //输出图片
+        imagepng($QR, 'qrcode.png');
+        imagedestroy($QR);
+        return '<img src="qrcode.png" alt="使用微信扫描支付">';
+    }
+
+
+    /**
      * 减库存
      * @order_id 订单id
-     * @status 1表示加库存，-1表示加库存
+     * @status 1表示减库存，-1表示加库存
      */
     private function reduce_stock($order_id, $status)
     {
-        $data = RetailOrder::getOne([['id', $order_id]]);//订单详情
-        $config = RetailConfig::getPluck([['retail_id', $data['retail_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value')->first();//查询是否可零库存开单
+        // 订单详情
+        $data = RetailOrder::getOne([['id', $order_id]]);
+        // 查询是否可零库存开单
+        $config = RetailConfig::getPluck([['retail_id', $data['retail_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
         DB::beginTransaction();
         try {
             if ($status == '1') {
-                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();//订单快照中的商品
+                // 订单快照中的商品
+                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
-                    $goods = RetailGoods::getOne([['id', $value['goods_id']]]);//商品详情
-                    if ($config != '1') {//如果不允许零库存开单
-                        if ($goods['stock'] - $value['total'] < 0) {//库存小于0 打回
+                    // 商品详情
+                    $goods = RetailGoods::getOne([['id', $value['goods_id']]]);
+                    // 如果不允许零库存开单
+                    if ($config != '1') {
+                        // 库存小于0 打回
+                        if ($goods['stock'] - $value['total'] < 0) {
                             return response()->json(['msg' => '商品' . $goods['name'] . '库存不足', 'status' => '0', 'data' => '']);
                         }
                     }
@@ -505,21 +595,27 @@ class AndroidApiController extends Controller
                         'ordersn' => $data['ordersn'],
                         'operator_id' => $data['operator_id'],
                         'remark' => $data['remarks'],
+                        // 销售出库类型
                         'type' => '6',
                         'status' => '1',
                     ];
-                    RetailStockLog::addStockLog($stock_data);//商品操作记录
+                    // 商品操作记录
+                    RetailStockLog::addStockLog($stock_data);
                     $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
-                    $retail_stock = $re['stock'] - $value['total'];
-                    RetailStock::editStock([['id', $re['id']]], ['stock' => $retail_stock]);
-
+                    $simple_stock = $re['stock'] - $value['total'];
+                    RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为1表示该订单的库存状态已经减去
+                    RetailOrder::editRetailOrder(['id' => $order_id], ['stock_status' => '1']);
                 }
             } else {
-                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();//订单快照中的商品
+                // 订单快照中的商品
+                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
-                    $stock = RetailGoods::getPluck([['id', $value['goods_id']]], 'stock')->first();//商品剩下的库存
+                    // 商品剩下的库存
+                    $stock = RetailGoods::getPluck([['id', $value['goods_id']]], 'stock');
                     $stock = $stock + $value['total'];
-                    RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);//修改商品库存
+                    // 修改商品库存
+                    RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);
                     $stock_data = [
                         'fansmanage_id' => $data['fansmanage_id'],
                         'retail_id' => $data['retail_id'],
@@ -528,18 +624,24 @@ class AndroidApiController extends Controller
                         'ordersn' => $data['ordersn'],
                         'operator_id' => $data['operator_id'],
                         'remark' => $data['remarks'],
+                        // 退货入库类型
                         'type' => '7',
                         'status' => '1',
                     ];
-                    RetailStockLog::addStockLog($stock_data);//商品操作记录
+                    // 商品操作记录
+                    RetailStockLog::addStockLog($stock_data);
                     $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
-                    $retail_stock = $re['stock'] + $value['total'];
-                    RetailStock::editStock([['id', $re['id']]], ['stock' => $retail_stock]);
+                    $simple_stock = $re['stock'] + $value['total'];
+                    RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为-1表示该订单的库存状态已经退回
+                    RetailOrder::editRetailOrder(['id' => $order_id], ['stock_status' => '-1']);
                 }
             }
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
         }
         return 'ok';

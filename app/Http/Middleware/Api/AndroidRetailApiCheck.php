@@ -10,60 +10,64 @@ use Closure;
 use Session;
 use Illuminate\Support\Facades\Redis;
 
-class AndroidApiCheck
+class AndroidRetailApiCheck
 {
     public function handle($request, Closure $next)
     {
         $route_name = $request->path();//获取当前的页面路由
         switch ($route_name) {
             /*****登录*****/
-            case "api/androidapi/login"://检测登入提交数据
+            case "api/androidRetailApi/login"://检测登入提交数据
                 $re = $this->checkLogin($request);
                 return self::format_response($re, $next);
                 break;
             /****登录****/
-            case "api/androidapi/goodscategory"://检测Token和商品分类数据
+            case "api/androidRetailApi/goodscategory"://检测Token和商品分类数据
                 $re = $this->checkTokenAndGoodsCategoryData($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/goodslist"://检测Token和商品列表数据
+            case "api/androidRetailApi/goodslist"://检测Token和商品列表数据
                 $re = $this->checkTokenAndGoodsListData($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/order_check"://检测Token和订单提交数据
+            case "api/androidRetailApi/order_check"://检测Token和订单提交数据
                 $re = $this->checkTokenAndOrderCheck($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/cancel_order"://检测Token和关闭订单
+            case "api/androidRetailApi/cancel_order"://检测Token和关闭订单
                 $re = $this->checkTokenAndCancelOrder($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/order_list"://检测Token和订单列表
+            case "api/androidRetailApi/order_list"://检测Token和订单列表
                 $re = $this->checkTokenAndOrderList($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/order_detail"://检测Token和订单详情
+            case "api/androidRetailApi/order_detail"://检测Token和订单详情
                 $re = $this->checkTokenAndOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/cash_payment"://检测Token和现金支付数据
+            case "api/androidRetailApi/cash_payment"://检测Token和现金支付数据
                 $re = $this->checkTokenAndCashPayment($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/other_payment"://检测Token和其他支付数据
+            case "api/androidRetailApi/other_payment"://检测Token和其他支付数据
                 $re = $this->checkTokenAndOtherPayment($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/allow_zero_stock"://检测Token和开启/关闭零库存开单
+            case "api/androidRetailApi/allow_zero_stock"://检测Token和开启/关闭零库存开单
                 $re = $this->checkTokenAndAllowZeroStock($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/change_stock_role"://检测Token和下单减库存/付款减库存
+            case "api/androidRetailApi/change_stock_role"://检测Token和下单减库存/付款减库存
                 $re = $this->checkTokenAndChangeStockRole($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/androidapi/stock_cfg"://检测Token和下单减库存/付款减库存
+            case "api/androidRetailApi/stock_cfg"://检测Token和下单减库存/付款减库存
                 $re = $this->checkTokenAndStockCfg($request);
+                return self::format_response($re, $next);
+                break;
+            case "api/androidRetailApi/code"://检测Token和签入二维码
+                $re = $this->checkTokenAndCode($request);
                 return self::format_response($re, $next);
                 break;
         }
@@ -273,6 +277,25 @@ class AndroidApiCheck
         }
     }
 
+    /**
+     * 检测token值 And 签入二维码
+     */
+    public function checkTokenAndCode($request)
+    {
+        $re = $this->checkToken($request);//判断Token值是否正确
+        if ($re['status'] == '0') {
+            return $re;
+        } else {
+            $re2 = $this->checkCode($re['response']);//检测数据提交
+            if ($re2['status'] == '0') {
+                return $re2;
+            } else {
+                return self::res(1, $re2['response']);
+            }
+        }
+    }
+
+
     /******************************单项检测*********************************/
 
     /**
@@ -297,6 +320,14 @@ class AndroidApiCheck
         if (empty($request->input('organization_id'))) {
             return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
         }
+        return self::res(1, $request);
+    }
+
+    /**
+     * 签入二维码
+     */
+    public function checkCode($request)
+    {
         return self::res(1, $request);
     }
 
@@ -426,9 +457,9 @@ class AndroidApiCheck
         if (empty($request->input('token'))) {
             return self::res(0, response()->json(['msg' => 'token值不能为空', 'status' => '0', 'data' => '']));
         }
-        if(time() - ($request->input('timestamp')/1000)>120){//如果超过两分钟
-            return self::res(0, response()->json(['msg' => '访问超时', 'status' => '0', 'data' => '']));
-        }
+//        if(time() - ($request->input('timestamp')/1000)>120){//如果超过两分钟
+//            return self::res(0, response()->json(['msg' => '访问超时', 'status' => '0', 'data' => '']));
+//        }
 
         $account_id = $request->account_id;//用户账号id
         $token = $request->token;//店铺令牌
@@ -443,7 +474,6 @@ class AndroidApiCheck
         foreach ($sort as $key => $value) {//拼接token
             $store_token .= $value;
         }
-
         $store_token = base64_encode($store_token . $data['uuid']) . 'lingyi2018';//第一次加密
         $store_token = md5($store_token);//第二次加密
         if ($store_token != $token) {
