@@ -43,15 +43,15 @@ $(function(){
             function (json) {
                 console.log(json);
                 if (json.status == 1) {
-                    var province_name =(json.data.address_list.province_name) ? json.data.address_list.province_name : "";
-                    var city_name = (json.data.address_list.city_name) ? json.data.address_list.city_name : "";
-                    var area_name = (json.data.address_list.area_name) ? json.data.address_list.area_name : "";
-                    var address = (json.data.address_list.address) ? json.data.address_list.address : "";
-                    var realname =json.data.address_list.realname;
-                    var mobile =json.data.address_list.mobile;
+                    var province_name =(json.data.address_info.province_name) ? json.data.address_info.province_name : "";
+                    var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                    var area_name = (json.data.address_info.area_name) ? json.data.address_info.area_name : "";
+                    var address = (json.data.address_info.address) ? json.data.address_info.address : "";
+                    var realname =json.data.address_info.realname;
+                    var mobile =json.data.address_info.mobile;
                     var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address+"-"+
                                     realname+"-"+mobile;
-                    var address_id =json.data.address_list.id;
+                    var address_id =json.data.address_info.id;
                     $("#address_info").text(ress_info);
                     dispatch(address_id);//运费计算
                     $("#address_info_box").show();//显示收货地址列表
