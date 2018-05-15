@@ -156,6 +156,7 @@ function selectRessId(address_id){
                                $("#order_btn_price").html("&yen;"+order_num_price);//获取总计的价格
                                $("#order_num_price").html("&yen;"+order_num_price);//获取总计的价格
                                $("#address_info").text(ress_info);//赋值选择的地址信息
+                               $("#shipping_type").val("1");//修改快递配送id(存)
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
@@ -211,6 +212,7 @@ function address_user(){
                                $("#order_btn_price").html("&yen;"+order_num_price);
                                $("#order_num_price").html("&yen;"+order_num_price);
                                $("#address_info").text(address_info);
+                              $("#shipping_type").val("1");//修改快递配送id(存)
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
