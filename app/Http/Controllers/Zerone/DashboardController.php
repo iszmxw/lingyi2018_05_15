@@ -43,13 +43,13 @@ class DashboardController extends Controller
         $route_name = $request->path();//获取当前的页面路由
         //零壹管理系统--管理人员
         $zerone_account = Account::getList(['organization_id'=>'1'],0,'id','DESC')->count();
-        //服务商管理系统--管理人员
+        //分公司管理系统--管理人员
         $agent_account = $this->account('2','0');
         //商户管理系统--管理人员
         $company_account = $this->account('3','0');
         //所有业务系统--管理人员
         $store_account = $this->account('4','0');
-        //服务商数量
+        //分公司数量
         $agent_num = Organization::getList(['type'=>'2'])->count();
         //商户数量
         $company_num = Organization::getList(['type'=>'3'])->count();
@@ -67,10 +67,10 @@ class DashboardController extends Controller
         $list = Statistics::pluck('item_value')->toArray();//所有数据
         $zerone = [
             'system_personnel' => $list['0'],       //零壹管理系统人员数量
-            'service_providers' => $list['1'],      //服务商系统人员数量
+            'service_providers' => $list['1'],      //分公司系统人员数量
             'merchant_system' => $list['2'],        //商户系统人员数量
             'all_system_personnel' => $list['3'],   //所有业务系统人员数量
-            'service_provider' => $list['4'],       //服务商数量
+            'service_provider' => $list['4'],       //分公司数量
             'merchant' => $list['5'],               //商户数量
             'shop' => $list['6']                    //店铺数量
         ];

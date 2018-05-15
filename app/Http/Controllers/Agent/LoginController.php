@@ -80,7 +80,7 @@ class LoginController extends Controller
         if ($account_info->id == 1) {//如果是超级管理员获取零壹加密盐
             $key = config("app.zerone_encrypt_key");//获取加密盐--零壹加密盐
         } else {
-            $key = config("app.agent_encrypt_key");//获取加密盐--服务商加密盐
+            $key = config("app.agent_encrypt_key");//获取加密盐--分公司加密盐
         }
 
         $encrypted = md5($password);//加密密码第一重
@@ -115,7 +115,7 @@ class LoginController extends Controller
                         'login_time' => time(),//登录时间
                     ];
                     if ($account_info->id <> 1) {//如果不是admin这个超级管理员
-                        if ($account_info->organization->program_id <> '2') {//如果账号不属于服务商管理系统，则报错，不能登录
+                        if ($account_info->organization->program_id <> '2') {//如果账号不属于分公司管理系统，则报错，不能登录
                             ErrorLog::addErrorTimes($ip, 2);
                             return response()->json(['data' => '登录账号、手机号或密码输入错误', 'status' => '0']);
                         } else {
