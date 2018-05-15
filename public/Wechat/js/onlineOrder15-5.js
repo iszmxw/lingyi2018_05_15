@@ -495,9 +495,19 @@ function sbOrder(){
     var shipping_type = $("#shipping_type").val();
     var stock_type = 1;
     var remark = $("#remarks").val();
+    var data = {
+        fansmanage_id:fansmanage_id,
+        _token:_token,
+        store_id:store_id,
+        zerone_user_id:zerone_user_id,
+        user_id:user_id,
+        goods_list:goods_list,
+        shipping_type:shipping_type,
+        stock_type:stock_type,
+        remark:remark,
+    }
     var address_info =[];
     var self_take_info =[];
-    var data = "";
     if (shipping_type && shipping_type == 1) {
         //快递配送
         var $address_info_ch = $("#address_info_ch");
@@ -516,8 +526,8 @@ function sbOrder(){
             address:address,
             realname:realname,
             mobile:mobile
-        })
-        data = fansmanage_id + _token + address_info;
+        });
+        data.address_info = address_info;
     }else if (shipping_type && shipping_type == 2) {
         //快递配送
         var $selftake_info_ch = $("#selftake_info_ch");
@@ -531,9 +541,10 @@ function sbOrder(){
             sex:sex,
             mobile:mobile
         });
-        data = fansmanage_id + self_take_info;
+         data.self_take_info = self_take_info;
     }
-    console.log(JSON.parse(data));
+    
+    console.log(data);
 }
 //获取url中的参数
 function getUrlParam(name) {
