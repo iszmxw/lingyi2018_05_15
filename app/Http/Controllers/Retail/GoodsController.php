@@ -43,6 +43,8 @@ class GoodsController extends Controller
         $barcode = $request->get('barcode');                //商品条码
         $stock = $request->get('stock');                    //商品库存
         $displayorder = $request->get('displayorder');      //商品排序
+        $weight = $request->get('weight');                  //重量
+        $freight_price = $request->get('freight_price');    //指定运费
         $details = $request->get('details');                //商品详情
         $fansmanage_id = Organization::getPluck(['id' => $admin_data['organization_id']], 'parent_id');
         $goods_name = RetailGoods::checkRowExists(['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'name' => $name],'id');
@@ -59,7 +61,20 @@ class GoodsController extends Controller
             return response()->json(['data' => '请选择分类！', 'status' => '0']);
         }
         //商品数据
-        $goods_data = ['fansmanage_id' => $fansmanage_id, 'retail_id' => $admin_data['organization_id'], 'created_by' => $admin_data['id'], 'category_id' => $category_id, 'name' => $name, 'price' => $price, 'stock' => $stock, 'barcode' => $barcode, 'displayorder' => $displayorder, 'details' => $details];
+        $goods_data = [
+            'fansmanage_id' => $fansmanage_id,
+            'retail_id' => $admin_data['organization_id'],
+            'created_by' => $admin_data['id'],
+            'category_id' => $category_id,
+            'name' => $name,
+            'price' => $price,
+            'stock' => $stock,
+            'barcode' => $barcode,
+            'displayorder' => $displayorder,
+            'weight' => $weight,
+            'freight_price' => $freight_price,
+            'details' => $details
+        ];
         DB::beginTransaction();
         try {
             $goods_id = RetailGoods::addRetailGoods($goods_data);   //添加商品基本信息
