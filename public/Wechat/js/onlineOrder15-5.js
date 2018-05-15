@@ -223,7 +223,6 @@ function address_user(){
                              $("#order_btn_price").html("&yen;"+order_price);
                              $("#order_num_price").html("&yen;"+order_price);
                             alert(json.msg);
-                            return;
                         }
                     }
                 );
@@ -235,6 +234,7 @@ function address_user(){
                 console.log(json.msg);
             }
             $("#select_distribution").text('快递配送');//配送方式
+            hide("selectexpress");
         }
     );
 }
