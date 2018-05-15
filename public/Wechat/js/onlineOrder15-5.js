@@ -134,8 +134,8 @@ function selectRessId(address_id){
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
                 var return_val = dispatch(address_id);//运费计算
-                console.log(return_val+"*****");
                 if (return_val) {
+                    alert("该地址没有运费模板");
                     return;
                 }
                 $("#address_info").text(ress_info);
