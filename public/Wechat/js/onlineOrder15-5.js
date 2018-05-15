@@ -39,7 +39,7 @@ $(function(){
         var address_info = "http://develop.01nnt.com/api/wechatApi/address_info";
         $.post(
             address_info,
-            {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id},
+            {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id,'store_id':store_id},
             function (json) {
                 console.log(json+"地址");
                 if (json.status == 1) {
