@@ -29,6 +29,7 @@ class VerifyCsrfToken extends Middleware
         'api/androidRetailApi/allow_zero_stock',//开启/关闭零库存开单接口
         'api/androidRetailApi/change_stock_role',//下单减库存/付款减库存接口
         'api/androidRetailApi/stock_cfg',//查询店铺设置
+        'api/androidRetailApi/code',//查询店铺设置
         /****Android接口****/
 
         /****Android接口****/

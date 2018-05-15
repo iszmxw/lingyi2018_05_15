@@ -108,9 +108,12 @@ class AndroidRetailApiController extends Controller
      */
     public function goodslist(Request $request)
     {
-        $organization_id = $request->organization_id;//店铺id
-        $keyword = $request->keyword;//关键字
-        $scan_code = $request->scan_code;//条码
+        // 店铺id
+        $organization_id = $request->organization_id;
+        // 关键字
+        $keyword = $request->keyword;
+        // 条码
+        $scan_code = $request->scan_code;
         $where[] = ['retail_id', $organization_id];
         if ($keyword) {
             $where[] = ['name', 'LIKE', '%' . $keyword . '%'];
@@ -157,7 +160,8 @@ class AndroidRetailApiController extends Controller
             // 原价
             $discount = 10;
         }
-        $goodsdata = json_decode($request->goodsdata, TRUE);//商品数组
+        // 商品数组
+        $goodsdata = json_decode($request->goodsdata, TRUE);
         $order_price = 0;
         foreach ($goodsdata as $key => $value) {
             foreach ($value as $k => $v) {
@@ -192,11 +196,14 @@ class AndroidRetailApiController extends Controller
         ];
         DB::beginTransaction();
         try {
-            $order_id = RetailOrder::addRetailOrder($orderData);//添加入订单表
+            // 添加入订单表
+            $order_id = RetailOrder::addRetailOrder($orderData);
             foreach ($goodsdata as $key => $value) {
                 foreach ($value as $k => $v) {
-                    $onedata = RetailGoods::getOne([['id', $v['id']]]);//查询商品库存数量
-                    $thumb = RetailGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();//商品图片一张
+                    // 查询商品库存数量
+                    $onedata = RetailGoods::getOne([['id', $v['id']]]);
+                    // 商品图片一张
+                    $thumb = RetailGoodsThumb::getPluck([['goods_id', $v['id']]], 'thumb')->first();
                     $data = [
                         'order_id' => $order_id,
                         'goods_id' => $v['id'],
@@ -206,7 +213,8 @@ class AndroidRetailApiController extends Controller
                         'total' => $v['num'],
                         'price' => $v['price'],
                     ];
-                    RetailOrderGoods::addOrderGoods($data);//添加商品快照
+                    // 添加商品快照
+                    RetailOrderGoods::addOrderGoods($data);
                 }
             }
             // 查询是下单减库存/付款减库存
@@ -219,10 +227,11 @@ class AndroidRetailApiController extends Controller
                     return $re;
                 }
             }
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            dd($e);
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
         }
         return response()->json(['status' => '1', 'msg' => '提交订单成功', 'data' => ['order_id' => $order_id]]);
@@ -236,21 +245,29 @@ class AndroidRetailApiController extends Controller
      */
     public function cancel_order(Request $request)
     {
-        $order_id = $request->order_id;//订单id
-        $organization_id = $request->organization_id;//店铺
-        $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value')->first();//查询是下单减库存/付款减库存
+        // 订单id
+        $order_id = $request->order_id;
+        // 订单详情
+        $order = RetailOrder::getOne([['id', $order_id]]);
+        if ($order['status'] != '0') {
+            return response()->json(['msg' => '订单状态不是待付款，不能取消', 'status' => '0', 'data' => '']);
+        }
         DB::beginTransaction();
         try {
-            if ($power != '1') {//说明下单减库存 所以要把库存归还
-                $re = $this->reduce_stock($order_id, '-1');//加库存
+            // 说明该订单的库存还未退回，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+            if ($order['stock_status'] == '1') {
+                // 归还库存
+                $re = $this->reduce_stock($order_id, '-1');
                 if ($re != 'ok') {
-                    return response()->json(['msg' => '提交订单失败', 'status' => '0', 'data' => '']);
+                    return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
                 }
             }
             RetailOrder::editRetailOrder([['id', $order_id]], ['status' => '-1']);
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '取消订单失败', 'status' => '0', 'data' => '']);
         }
         return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['order_id' => $order_id]]);
@@ -492,6 +509,7 @@ class AndroidRetailApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '设置成功', 'data' => ['vfg_value' => $cfg_value, 'cfg_name' => 'change_stock_role']]);
     }
 
+
     /**
      * 查询店铺设置
      */
@@ -512,6 +530,15 @@ class AndroidRetailApiController extends Controller
         }
         return response()->json(['status' => '1', 'msg' => '查询成功', 'data' => ['cfglist' => $cfglist]]);
     }
+
+    /**
+     * 签入二维码
+     */
+    public function code(Request $request)
+    {
+      echo 1;
+    }
+
 
     /**
      * 减库存
