@@ -78,7 +78,7 @@ class AndroidApiController extends Controller
         //用户昵称
         $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname')->first();
         // 数据返回
-        $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'sft_num' => $shengpay['sft_num'], 'organization_name' => $organization_name]];
+        $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'organization_name' => $organization_name]];
 
         return response()->json($data);
     }
@@ -95,7 +95,7 @@ class AndroidApiController extends Controller
             return response()->json(['status' => '0', 'msg' => '没有分类', 'data' => '']);
         }
         foreach ($categorylist as $key => $value) {
-            if (!RetailGoods::checkRowExists([['category_id', $value['id']]],'id')) {
+            if (!RetailGoods::checkRowExists([['category_id', $value['id']]], 'id')) {
                 unset($categorylist[$key]);
             };
         }
@@ -157,8 +157,8 @@ class AndroidApiController extends Controller
         $order_price = 0;
         foreach ($goodsdata as $key => $value) {
             foreach ($value as $k => $v) {
-                $goods_status = RetailGoods::getPluck(['id'=>$v['id']],'status')->first();//查询商品是否下架
-                if ($goods_status == '0'){
+                $goods_status = RetailGoods::getPluck(['id' => $v['id']], 'status')->first();//查询商品是否下架
+                if ($goods_status == '0') {
                     return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
                 }
                 $order_price += $v['price'] * $v['num'];
@@ -201,7 +201,7 @@ class AndroidApiController extends Controller
             $power = RetailConfig::getPluck([['retail_id', $organization_id], ['cfg_name', 'change_stock_role']], 'cfg_value');//查询是下单减库存/付款减库存
             $stock_status = RetailOrder::getPluck([['retail_id', $organization_id], ['id', $order_id]], 'stock_status')->first();//查询库存是否已经减去
             if ($power != '1') {//说明下单减库存
-                if ($stock_status != '1'){//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
+                if ($stock_status != '1') {//说明该订单的库存还未减去，这里的判断是为了防止用户频繁切换下单减库存，付款减库存设置的检测
                     $re = $this->reduce_stock($order_id, '1');//减库存
                     RetailOrder::editRetailOrder([['id', $order_id]], ['stock_status' => '1']);  //设置订单（库存修改状态），1表示已经减去订单库存
                     if ($re != 'ok') {
