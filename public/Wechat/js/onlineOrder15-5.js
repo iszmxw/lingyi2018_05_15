@@ -127,7 +127,7 @@ function selectRessId(address_id){
         address_info,
         {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id,'store_id':store_id},
         function (json) {
-            console.log(json);
+            console.log(json,"id地址");
             if (json.status == 1) {
                 var province_name =(json.data.address_info.province_name) ? json.data.address_info.province_name : "";
                 var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
@@ -135,6 +135,7 @@ function selectRessId(address_id){
                 var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                 var realname =json.data.address_info.realname;
                 var mobile =json.data.address_info.mobile;
+                var id =json.data.address_info.id;
                 var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
@@ -161,6 +162,16 @@ function selectRessId(address_id){
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
                                $("#select_distribution").text('快递配送');//配送方式
+                               //存选择的收获地址数据
+                               $("#address_info_ch").attr({
+                                   "data-address_id": id,
+                                   "data-province_name": province_name,
+                                   "data-city_name": city_name,
+                                   "data-district_name": area_name,
+                                   "data-address": address,
+                                   "data-realname": realname,
+                                   "data-mobile": mobile
+                               });
                            }
                         } else if (json.status == 0) {
                             alert(json.msg);
@@ -186,13 +197,15 @@ function address_user(){
         address_url,
         {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
         function (json) {
-            console.log(json);
+            console.log(json,"++++默认");
             if (json.status == 1) {
                 var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                var province_name = (json.data.address_info.province_name) ? json.data.address_info.province_name : "";
                 var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
                 var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                 var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
-                var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
+                var realname = (json.data.address_info.realname) ? json.data.address_info.realname : "";
+                var address_info = province_name+"-"+city_name+"-"+district_name+"-"+address+"-"+mobile;
                 var address_id = json.data.address_info.id;
                 //获取运费
                 var url = $("#dispatch").val();
@@ -216,6 +229,16 @@ function address_user(){
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
+                               //存选择的收获地址数据
+                               $("#address_info_ch").attr({
+                                   "data-address_id": address_id,
+                                   "data-province_name": province_name,
+                                   "data-city_name": city_name,
+                                   "data-district_name": district_name,
+                                   "data-address": address,
+                                   "data-realname": realname,
+                                   "data-mobile": mobile
+                               });
                            }
                         } else if (json.status == 0) {
                             $("#address_info_box").show();//显示收货地址列表
