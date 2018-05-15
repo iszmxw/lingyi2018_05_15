@@ -394,8 +394,6 @@ class WxPayCheckAjax
     {
         // 获取数据
         $post_data = request()->all();
-        var_dump($post_data);
-        exit;
         // 规则
         $rule = [
             'order_num_type' => 'required',
@@ -478,8 +476,6 @@ class WxPayCheckAjax
         if (!$validate->passes()) {
             $error_msg = $validate->errors();
             $error_arr = json_decode(json_encode($error_msg, JSON_UNESCAPED_UNICODE), true);
-            var_dump($error_msg);
-            exit;
             foreach ($error_arr as $val) {
                 $error_msg = $val[0];
             }
