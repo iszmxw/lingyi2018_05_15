@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>选择服务商 | 零壹服务商管理平台</title>
+    <title>选择分公司 | 零壹分公司管理平台</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('public/Agent')}}/css/bootstrap.min.css" rel="stylesheet">

@@ -232,14 +232,14 @@ Route::group(['prefix' => 'zerone'], function () {
         Route::get('subordinate_structure', 'Zerone\SubordinateController@subordinate_structure')->middleware('ZeroneCheck');//下级人员结构
     });
 
-    //代理管理
+    //分公司管理
     Route::group(['prefix' => 'agent'], function () {
-        Route::get('agent_examinelist', 'Zerone\AgentController@agent_examinelist')->middleware('ZeroneCheck');//代理审核列表
-        Route::get('agent_add', 'Zerone\AgentController@agent_add')->middleware('ZeroneCheck');                //添加代理
-        Route::get('agent_list', 'Zerone\AgentController@agent_list')->middleware('ZeroneCheck');              //代理列表
-        Route::get('agent_structure', 'Zerone\AgentController@agent_structure')->middleware('ZeroneCheck');    //代理人员架构
-        Route::get('agent_program', 'Zerone\AgentController@agent_program')->middleware('ZeroneCheck');        //代理程序管理
-        Route::get('agent_fansmanage', 'Zerone\AgentController@agent_fansmanage')->middleware('ZeroneCheck');  //代理商户划拨
+        Route::get('agent_examinelist', 'Zerone\AgentController@agent_examinelist')->middleware('ZeroneCheck');//分公司审核列表
+        Route::get('agent_add', 'Zerone\AgentController@agent_add')->middleware('ZeroneCheck');                //添加分公司
+        Route::get('agent_list', 'Zerone\AgentController@agent_list')->middleware('ZeroneCheck');              //分公司列表
+        Route::get('agent_structure', 'Zerone\AgentController@agent_structure')->middleware('ZeroneCheck');    //分公司人员架构
+        Route::get('agent_program', 'Zerone\AgentController@agent_program')->middleware('ZeroneCheck');        //分公司程序管理
+        Route::get('agent_fansmanage', 'Zerone\AgentController@agent_fansmanage')->middleware('ZeroneCheck');  //分公司商户划拨
     });
     //商户管理
     Route::group(['prefix' => 'fansmanage'], function () {
@@ -296,16 +296,16 @@ Route::group(['prefix' => 'zerone'], function () {
         Route::post('selected_rule', 'Zerone\SubordinateController@selected_rule')->middleware('ZeroneCheckAjax');//下级人员已经选中的权限
 
 
-        //代理管理
-        Route::post('agent_examine', 'Zerone\AgentController@agent_examine')->middleware('ZeroneCheckAjax');//代理审核页面显示
-        Route::post('agent_examine_check', 'Zerone\AgentController@agent_examine_check')->middleware('ZeroneCheckAjax');//代理审核数据提交
+        //分公司管理
+        Route::post('agent_examine', 'Zerone\AgentController@agent_examine')->middleware('ZeroneCheckAjax');//分公司审核页面显示
+        Route::post('agent_examine_check', 'Zerone\AgentController@agent_examine_check')->middleware('ZeroneCheckAjax');//分公司审核数据提交
         Route::post('agent_add_check', 'Zerone\AgentController@agent_add_check')->middleware('ZeroneCheckAjax');//提交编辑参数设置
-        Route::post('agent_list_edit', 'Zerone\AgentController@agent_list_edit')->middleware('ZeroneCheckAjax');//代理编辑显示页面
-        Route::post('agent_list_edit_check', 'Zerone\AgentController@agent_list_edit_check')->middleware('ZeroneCheckAjax');//代理编辑数据提交
-        Route::post('agent_list_lock', 'Zerone\AgentController@agent_list_lock')->middleware('ZeroneCheckAjax');//代理冻结显示页面
-        Route::post('agent_list_lock_check', 'Zerone\AgentController@agent_list_lock_check')->middleware('ZeroneCheckAjax');//代理冻结提交功能
-        Route::post('agent_assets', 'Zerone\AgentController@agent_assets')->middleware('ZeroneCheckAjax');//代理程序管理划入划出显示页面
-        Route::post('agent_assets_check', 'Zerone\AgentController@agent_assets_check')->middleware('ZeroneCheckAjax');//代理程序管理划入数据提交
+        Route::post('agent_list_edit', 'Zerone\AgentController@agent_list_edit')->middleware('ZeroneCheckAjax');//分公司编辑显示页面
+        Route::post('agent_list_edit_check', 'Zerone\AgentController@agent_list_edit_check')->middleware('ZeroneCheckAjax');//分公司编辑数据提交
+        Route::post('agent_list_lock', 'Zerone\AgentController@agent_list_lock')->middleware('ZeroneCheckAjax');//分公司冻结显示页面
+        Route::post('agent_list_lock_check', 'Zerone\AgentController@agent_list_lock_check')->middleware('ZeroneCheckAjax');//分公司冻结提交功能
+        Route::post('agent_assets', 'Zerone\AgentController@agent_assets')->middleware('ZeroneCheckAjax');//分公司程序管理划入划出显示页面
+        Route::post('agent_assets_check', 'Zerone\AgentController@agent_assets_check')->middleware('ZeroneCheckAjax');//分公司程序管理划入数据提交
         Route::post('agent_fansmanage_add', 'Zerone\AgentController@agent_fansmanage_add')->middleware('ZeroneCheckAjax');//商户划拨管理-商户划入归属
         Route::post('agent_fansmanage_add_check', 'Zerone\AgentController@agent_fansmanage_add_check')->middleware('ZeroneCheckAjax');//商户划拨管理-商户划入归属功能提交
         Route::post('agent_fansmanage_draw', 'Zerone\AgentController@agent_fansmanage_draw')->middleware('ZeroneCheckAjax');//商户划拨管理-商户划出归属
@@ -340,7 +340,7 @@ Route::group(['prefix' => 'zerone'], function () {
 /********************零壹管理系统*************************/
 
 
-/**********************代理管理系统*********************/
+/**********************分公司管理系统*********************/
 Route::group(['prefix' => 'agent'], function () {
 
     //登录页面组
@@ -351,14 +351,14 @@ Route::group(['prefix' => 'agent'], function () {
 
 
     Route::get('/', 'Agent\SystemController@display')->middleware('AgentCheck');//系统首页
-    Route::get('switch_status', 'Agent\SystemController@switch_status')->middleware('AgentCheck');//超级管理员切换代理
+    Route::get('switch_status', 'Agent\SystemController@switch_status')->middleware('AgentCheck');//超级管理员切换分公司
     Route::get('quit', 'Agent\SystemController@quit');//退出系统
 
     //系统管理分组
     Route::group(['prefix' => 'system'], function () {
-        Route::post('select_agent', 'Agent\SystemController@select_agent')->middleware('AgentCheck');//超级管理员选择登入的代理
-        Route::get('agent_info', 'Agent\SystemController@agent_info')->middleware('AgentCheck');//代理信息设置
-        Route::get('agent_structure', 'Agent\SystemController@agent_structure')->middleware('AgentCheck');//代理人员结构
+        Route::post('select_agent', 'Agent\SystemController@select_agent')->middleware('AgentCheck');//超级管理员选择登入的分公司
+        Route::get('agent_info', 'Agent\SystemController@agent_info')->middleware('AgentCheck');//分公司信息设置
+        Route::get('agent_structure', 'Agent\SystemController@agent_structure')->middleware('AgentCheck');//分公司人员结构
         Route::get('operationlog', 'Agent\SystemController@operationlog')->middleware('AgentCheck');//操作日志
         Route::get('loginlog', 'Agent\SystemController@loginlog')->middleware('AgentCheck');//登录日志
     });
@@ -396,7 +396,7 @@ Route::group(['prefix' => 'agent'], function () {
         Route::post('fansmanage_assets_check', 'Agent\FansmanageController@fansmanage_assets_check')->middleware('AgentCheckAjax');//程序划入划出功能提交
     });
 });
-/********************代理管理系统*************************/
+/********************分公司管理系统*************************/
 
 /**********************粉丝管理系统*********************/
 Route::group(['prefix' => 'fansmanage'], function () {
@@ -415,11 +415,11 @@ Route::group(['prefix' => 'fansmanage'], function () {
 
     //系统首页
     Route::get('/', 'Fansmanage\ShopController@display')->middleware('FansmanageCheck');
-    //超级管理员切换代理
+    //超级管理员切换分公司
     Route::get('switch_status', 'Fansmanage\ShopController@switch_status')->middleware('FansmanageCheck');
     //退出系统
     Route::get('quit', 'Fansmanage\ShopController@quit');
-    //超级管理员选择登入的代理
+    //超级管理员选择登入的分公司
     Route::post('select_shop', 'Fansmanage\ShopController@select_shop')->middleware('FansmanageCheck');
     //操作日记
     Route::get('operation_log', 'Fansmanage\ShopController@operation_log')->middleware('FansmanageCheck');
