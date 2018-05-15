@@ -106,10 +106,10 @@ class WechatApiCheck
                 $re = $this->checkOnlineOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
-//            case "api/wechatApi/dispatch"://运费模板
-//                $re = $this->checkDispatch($request);
-//                return self::format_response($re, $next);
-//                break;
+            case "api/wechatApi/dispatch_mould"://运费模板
+                $re = $this->checkDispatchMould($request);
+                return self::format_response($re, $next);
+                break;
         }
         return $next($request);
     }
@@ -447,7 +447,7 @@ class WechatApiCheck
     /**
      * 检测线上订单列表
      */
-    public function checkDispatch($request)
+    public function checkDispatchMould($request)
     {
         if (empty($request->input('address_id'))) {
             return self::res(0, response()->json(['msg' => '地址ID不能为空', 'status' => '0', 'data' => '']));
