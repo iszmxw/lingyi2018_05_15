@@ -400,7 +400,9 @@ class WxController extends Controller
         if ($res["return_code"] == 0) {
             return $res_json;
         }
-        return $this->qrCode($res["data"]["code_url"]);
+        // 返回数据
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
+//        return $this->qrCode($res["data"]["code_url"]);
     }
 
     /**
