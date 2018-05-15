@@ -151,13 +151,18 @@ class AndroidApiController extends Controller
         }
         // 备注
         $remarks = $request->remarks;
-
-
+        // 折扣比率
+        $discount = $request->discount;
+        if (empty($discount)) {
+            // 原价
+            $discount = 10;
+        }
         $goodsdata = json_decode($request->goodsdata, TRUE);//商品数组
         $order_price = 0;
         foreach ($goodsdata as $key => $value) {
             foreach ($value as $k => $v) {
-                $goods_status = RetailGoods::getPluck(['id' => $v['id']], 'status')->first();//查询商品是否下架
+                // 查询商品是否下架
+                $goods_status = RetailGoods::getPluck(['id' => $v['id']], 'status')->first();
                 if ($goods_status == '0') {
                     return response()->json(['msg' => '对不起就在刚刚部分商品被下架了，请返回首页重新选购！', 'status' => '0', 'data' => '']);
                 }
@@ -165,10 +170,14 @@ class AndroidApiController extends Controller
             }
         }
         $fansmanage_id = Organization::getPluck([['id', $organization_id]], 'parent_id');
-        $num = RetailOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();//查询订单今天的数量
+        // 查询订单今天的数量
+        $num = RetailOrder::where([['retail_id', $organization_id], ['ordersn', 'LIKE', '%' . date("Ymd", time()) . '%']])->count();
         $num += 1;
         $sort = 100000 + $num;
-        $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;//订单号
+        // 订单号
+        $ordersn = 'LS' . date("Ymd", time()) . '_' . $organization_id . '_' . $sort;
+        // 折扣价
+        $discount_price = round($order_price * $discount / 10, 2);
         $orderData = [
             'ordersn' => $ordersn,
             'order_price' => $order_price,
@@ -177,6 +186,8 @@ class AndroidApiController extends Controller
             'retail_id' => $organization_id,
             'user_id' => $user_id,
             'operator_id' => $account_id,
+            'discount_price' => $discount_price,
+            'discount' => $discount,
             'status' => '0',
         ];
         DB::beginTransaction();

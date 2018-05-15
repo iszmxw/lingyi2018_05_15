@@ -18,7 +18,6 @@ class VerifyCsrfToken extends Middleware
 
         /****Android接口****/
         'api/androidRetailApi/login',//登入
-        'api/androidRetailApi/simple_login',//登入
         'api/androidRetailApi/goodscategory',//商品分类
         'api/androidRetailApi/goodslist',//商品列表
         'api/androidRetailApi/order_check',//订单提交接口
@@ -34,7 +33,6 @@ class VerifyCsrfToken extends Middleware
 
         /****Android接口****/
         'api/androidSimpleApi/login',//登入
-        'api/androidSimpleApi/simple_login',//登入
         'api/androidSimpleApi/goodscategory',//商品分类
         'api/androidSimpleApi/goodslist',//商品列表
         'api/androidSimpleApi/order_check',//订单提交接口
