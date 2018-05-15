@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
-                <h3>编辑服务商</h3>
+                <h3>编辑分公司</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -21,7 +21,7 @@
                 <div style="clear:both"></div>
                 <div class="hr-line-dashed"></div>
 
-                <div class="form-group"><label class="col-sm-2 control-label">服务商名称</label>
+                <div class="form-group"><label class="col-sm-2 control-label">分公司名称</label>
                     <div class="col-sm-10"><input type="text" class="form-control" name="organization_name" value="{{$listorg->organization_name}}"></div>
                 </div>
                 <div style="clear:both"></div>

@@ -51,7 +51,7 @@
                             <form method="post" class="form-horizontal"  role="form" id="currentForm" action="{{ url('zerone/ajax/setup_edit_check') }}">
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" >服务商通道链接</label>
+                                    <label class="col-sm-2 control-label" >分公司通道链接</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="serviceurl" value="{{$setup_list[0]['cfg_value']}}"/>
                                     </div>
@@ -59,7 +59,7 @@
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" >是否开启服务商注册通道</label>
+                                    <label class="col-sm-2 control-label" >是否开启分公司注册通道</label>
                                     <div class="col-sm-10">
                                         <input type="checkbox" name="serviceurl_deleted" class="js-switch" @if($setup_list[3]['cfg_value']==1) checked @endif value="1"/>
                                     </div>

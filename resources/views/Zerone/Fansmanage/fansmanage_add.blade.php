@@ -39,7 +39,7 @@
                             <form method="post" class="form-horizontal" role="form" id="currentForm"
                                   action="{{ url('zerone/ajax/fansmanage_add_check') }}">
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                <div class="form-group"><label class="col-sm-2 control-label">归属服务商</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">归属分公司</label>
                                     <div class="col-sm-10">
                                         <select class="form-control m-b" name="organization_id">
                                             @foreach($list as $key=>$value)

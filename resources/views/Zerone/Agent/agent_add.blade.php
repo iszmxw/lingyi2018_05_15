@@ -17,13 +17,13 @@
         @include('Zerone/Public/Header')
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>添加代理</h2>
+                <h2>添加分公司</h2>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <a href="JavaScript:;">代理管理</a>
+                        <a href="JavaScript:;">分公司管理</a>
                     </li>
                     <li>
-                        <strong>添加代理</strong>
+                        <strong>添加分公司</strong>
                     </li>
                 </ol>
             </div>
@@ -33,7 +33,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>添加代理</h5>
+                            <h5>添加分公司</h5>
 
                         </div>
                         <div class="ibox-content">
@@ -49,7 +49,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">代理名称</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">分公司名称</label>
                                     <div class="col-sm-10"><input type="text" name="organization_name"
                                                                   class="form-control"></div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="col-sm-10"><input type="text" name="mobile" class="form-control"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">代理登录密码</label>
+                                    <label class="col-sm-2 control-label">分公司登录密码</label>
                                     <div class="col-sm-10"><input type="password" name="agent_password"
                                                                   class="form-control"></div>
                                 </div>
