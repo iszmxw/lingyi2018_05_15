@@ -52,7 +52,7 @@ class ShopController extends Controller
             $where = [['organization_id', $organization_id]];
             // 获取负责人id
             $account_id = Account::getPluck([['organization_id', $organization_id], ['parent_id', 1]], 'id');
-            // 如果不是服务商负责人 只允许看自己的登入记录
+            // 如果不是分公司负责人 只允许看自己的登入记录
             if ($account_id != $admin_data['id']) {
                 $where[] = ['account_id', $admin_data['id']];
             }
@@ -60,9 +60,9 @@ class ShopController extends Controller
             $login_log_list = LoginLog::getList($where, 5, 'id');
             // 操作记录列表
             $operation_log_list = OperationLog::getList($where, 5, 'id');
-            // 查询服务商人数
+            // 查询分公司人数
             $acc_num = Account::where([['organization_id', $organization_id]])->count();
-            // 查询服务商附属商务个数
+            // 查询分公司附属商务个数
             $org_num = Organization::where([['parent_id', $organization_id]])->count();
             //查询当前商户用的哪套程序
             $program_id = OrganizationAssets::getPluck(["organization_id" => $admin_data["organization_id"]], 'program_id')->first();

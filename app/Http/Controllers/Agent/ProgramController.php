@@ -13,7 +13,7 @@ class ProgramController extends Controller{
         $menu_data = $request->get('menu_data');//中间件产生的管理员数据参数
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $admin_data['organization_id'];//服务商id
+        $organization_id = $admin_data['organization_id'];//分公司id
         $list = Program::getPaginage([['is_asset','1']],15,'id');
         foreach ($list as $key=>$value) {
             $re = OrganizationAssets::getOne([['organization_id', $organization_id], ['program_id',$value['id']]]);
@@ -28,7 +28,7 @@ class ProgramController extends Controller{
         $menu_data = $request->get('menu_data');//中间件产生的管理员数据参数
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $admin_data['organization_id'];//服务商id
+        $organization_id = $admin_data['organization_id'];//分公司id
         $list = OrganizationAssetsallocation::getPaginage([['fr_organization_id',$organization_id]],[['to_organization_id',$organization_id]],'10','id');//查询操作记录
         return view('Agent/Program/program_log',['list'=>$list,'admin_data'=>$admin_data,'route_name'=>$route_name,'menu_data'=>$menu_data,'son_menu_data'=>$son_menu_data]);
     }

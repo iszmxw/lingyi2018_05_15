@@ -80,7 +80,7 @@ class AgentCheckAjax
 
 
     /********系统管理**********/
-    //检测登录和权限和安全密码和服务商修改信息
+    //检测登录和权限和安全密码和分公司修改信息
     public function checkLoginAndRuleAndSafeAndAgentInfo($request)
     {
         $re = $this->checkLoginAndRuleAndSafe($request);//判断是否登录
@@ -290,7 +290,7 @@ class AgentCheckAjax
     public function checkAgentInfo($request)
     {
         if (empty($request->input('organization_name'))) {
-            return self::res(0, response()->json(['data' => '请输入服务商名称', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司名称', 'status' => '0']));
         }
         if (empty($request->input('realname'))) {
             return self::res(0, response()->json(['data' => '请输入负责人姓名', 'status' => '0']));

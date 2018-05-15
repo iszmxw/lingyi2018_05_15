@@ -200,7 +200,7 @@ class FansmanageController extends Controller
     }
 
     /**
-     * 添加服务商
+     * 添加分公司
      */
     public function fansmanage_add(Request $request)
     {
@@ -229,7 +229,7 @@ class FansmanageController extends Controller
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 零壹或者服务商organization_id
+        // 零壹或者分公司organization_id
         $agent_id = $request->input('organization_id');
         // 商户名称
         $fansmanage_name = $request->input('organization_name');
@@ -245,7 +245,7 @@ class FansmanageController extends Controller
         }
         // 代理信息
         $oneAgent = Organization::getOne([['id', $agent_id]]);
-        // 上级组织 零壹或者服务商organization_id
+        // 上级组织 零壹或者分公司organization_id
         $parent_id = $agent_id;
         // 树是上级的树拼接上级的ID
         $parent_tree = $oneAgent['parent_tree'] . $parent_id . ',';
@@ -445,7 +445,7 @@ class FansmanageController extends Controller
             if (Organization::checkRowExists([['organization_name', $organization_name], ['id', '<>', $id]])) {
                 return response()->json(['data' => '商户名称已存在', 'status' => '0']);
             }
-            // 修改服务商表服务商名称
+            // 修改分公司表分公司名称
             Organization::editOrganization(['id' => $id], ['organization_name' => $organization_name]);
 
             if (Account::checkRowExists([['mobile', $mobile], ['organization_id', '<>', $id]])) {
