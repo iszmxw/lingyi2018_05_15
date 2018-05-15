@@ -157,8 +157,6 @@ function selectRessId(address_id){
                                $("#select_distribution").text('快递配送');//配送方式
                            }
                         } else if (json.status == 0) {
-                            $("#address_info_box").show();//显示收货地址列表
-                            $("#dispatch_hook").hide(); 
                             alert(json.msg);
                             return;
                         }
@@ -327,6 +325,9 @@ function selectSelftake(){
                 console.log(json.msg);
             }
             $("#dispatch_hook").hide(); //隐藏运费
+            var order_price = $("#order_num_price").data("price");//获取购物车总价（减去运费价）
+            $("#order_btn_price").html("&yen;"+order_price);
+            $("#order_num_price").html("&yen;"+order_price);
              $.hideIndicator();
         }
     );

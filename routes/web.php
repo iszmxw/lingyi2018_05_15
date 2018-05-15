@@ -957,7 +957,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //android-app接口
-    Route::group(['prefix' => 'androidapi'], function () {
+    Route::group(['prefix' => 'androidRetailApi'], function () {
         Route::post('login', 'Api\AndroidApiController@login')->middleware('AndroidApiCheck');//登入接口
         Route::post('goodscategory', 'Api\AndroidApiController@goodscategory')->middleware('AndroidApiCheck');//商品分类接口
         Route::post('goodslist', 'Api\AndroidApiController@goodslist')->middleware('AndroidApiCheck');//商品列表接口
