@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <form class="form-horizontal tasi-form" method="get">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">服务商名称</label>
+                        <label class="col-sm-3 control-label">分公司名称</label>
                         <div class="col-sm-9">
                             <input type="text" value="{{$listOrg->organization_name}}" class="form-control" disabled="">
                         </div>
