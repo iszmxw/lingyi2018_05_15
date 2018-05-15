@@ -426,9 +426,9 @@ class AndroidRetailApiCheck
         if (empty($request->input('token'))) {
             return self::res(0, response()->json(['msg' => 'token值不能为空', 'status' => '0', 'data' => '']));
         }
-        if(time() - ($request->input('timestamp')/1000)>120){//如果超过两分钟
-            return self::res(0, response()->json(['msg' => '访问超时', 'status' => '0', 'data' => '']));
-        }
+//        if(time() - ($request->input('timestamp')/1000)>120){//如果超过两分钟
+//            return self::res(0, response()->json(['msg' => '访问超时', 'status' => '0', 'data' => '']));
+//        }
 
         $account_id = $request->account_id;//用户账号id
         $token = $request->token;//店铺令牌
