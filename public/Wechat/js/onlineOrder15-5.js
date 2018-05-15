@@ -133,7 +133,10 @@ function selectRessId(address_id){
                 var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
-                  dispatch(address_id);//运费计算
+                var return_val = dispatch(address_id);//运费计算
+                if (return_val == 1) {
+                    return;
+                }
                 $("#address_info").text(ress_info);
                 $("#address_info_box").show();//显示收货地址列表
                 $("#selftake_info_box").hide();//隐藏自取信息列表
@@ -167,7 +170,7 @@ function address_user(){
                 var address_id = json.data.address_info.id;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
-                dispatch(address_id);//运费
+                var return_val = dispatch(address_id);//运费
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -203,7 +206,7 @@ function dispatch(address_id){
                }
             } else if (json.status == 0) {
                 alert(json.msg);
-                return;
+                return "1";
             }
         }
     );
