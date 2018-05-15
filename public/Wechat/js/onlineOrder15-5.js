@@ -531,7 +531,7 @@ function sbOrder(){
         });
         data.address_info = address_info;
     }else if (shipping_type && shipping_type == 2) {
-        //快递配送
+        //到店自提
         var $selftake_info_ch = $("#selftake_info_ch");
         var self_take_id = $selftake_info_ch.attr("data-self_take_id");
         var realname = $selftake_info_ch.attr("data-realname");
