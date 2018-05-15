@@ -89,7 +89,7 @@
 				</div>
 	        </div>
 	        <div class="tijiao">
-				<a href="javascript:;" class="tijao_btn">提交订单<em id="order_btn_price"></em></a>
+				<a href="javascript:;" class="tijao_btn" onclick="sbOrder()">提交订单<em id="order_btn_price"></em></a>
 	        </div>
 	    </div>
 		<!-- 收货地址alert -->
