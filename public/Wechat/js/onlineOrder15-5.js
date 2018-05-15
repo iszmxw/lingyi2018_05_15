@@ -210,7 +210,7 @@ function address_user(){
                                var order_num_price = parseInt(price) + parseFloat(order_price);
                                $("#order_btn_price").html("&yen;"+order_num_price);
                                $("#order_num_price").html("&yen;"+order_num_price);
-                               $("#address_info").text(ress_info);
+                               $("#address_info").text(address_info);
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
@@ -218,7 +218,7 @@ function address_user(){
                            }
                         } else if (json.status == 0) {
                             $("#address_info_box").show();//显示收货地址列表
-                            $("#dispatch_hook").hide(); 
+                            $("#dispatch_hook").hide(); //隐藏运费
                              var order_price = $("#order_num_price").data("price");
                              $("#order_btn_price").html("&yen;"+order_price);
                              $("#order_num_price").html("&yen;"+order_price);
