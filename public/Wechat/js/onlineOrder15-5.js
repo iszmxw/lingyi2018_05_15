@@ -186,7 +186,7 @@ function dispatch(address_id){
                var price = json.data.freight;
                if (price) {
                    $("#dispatch_hook").fadeIn("show");               
-                   $("#dispatch_price").htnl("&yen;"+price);
+                   $("#dispatch_price").html("&yen;"+price);
                }
             } else if (json.status == 0) {
                 alert(json.msg);
