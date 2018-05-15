@@ -103,7 +103,7 @@
                                                     <input type="number" class="form-control" name="weight">
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="input-id-1">指定运费</label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-3">
                                                     <input type="number" class="form-control" name="freight_price">
                                                 </div>
                                             </div>
