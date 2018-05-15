@@ -19,7 +19,7 @@
     <input type="hidden" id="dispatch" value="{{url('api/wechatApi/dispatch_mould')}}">
     <div class="page">
 	    <div class="g-flexview">
-            <input type="hidden" name="shipping_type" id="shipping_type" value="1">
+            <input type="hidden" name="shipping_type" id="shipping_type">
             <input type="hidden" name="address_info" id="address_info_ch">
             <input type="hidden" name="selftake_info_ch" id="selftake_info_ch">
 	        <div class="top">
