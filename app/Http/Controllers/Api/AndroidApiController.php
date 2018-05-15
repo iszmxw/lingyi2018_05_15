@@ -54,7 +54,6 @@ class AndroidApiController extends Controller
         $encrypted = md5($password);
         // 加密密码第二重
         $encryptPwd = md5("lingyikeji" . $encrypted . $key);
-        echo $encryptPwd;exit;
         if ($encryptPwd != $data['password']) {
             return response()->json(['msg' => '密码不正确', 'status' => '0', 'data' => '']);
         }
