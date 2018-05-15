@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">服务商名称</label>
+                    <label class="col-sm-2 control-label">分公司名称</label>
                     <div class="col-sm-10">{{$info->fansmanage_name}}</div>
                 </div>
                 <div style="clear:both"></div>

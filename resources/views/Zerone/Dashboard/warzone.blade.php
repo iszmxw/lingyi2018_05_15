@@ -74,7 +74,7 @@
                                     <th>ID</th>
                                     <th>战区名称</th>
                                     <th>战区覆盖范围</th>
-                                    <th>服务商数量</th>
+                                    <th>分公司数量</th>
                                     <th class="text-right">操作</th>
                                 </tr>
                                 </thead>
@@ -94,9 +94,9 @@
                                     </td>
                                     <td >
                                         @if($val->WarzoneAgent->count())
-                                                {{$val->WarzoneAgent->count()}}位服务商
+                                                {{$val->WarzoneAgent->count()}}位分公司
                                         @else
-                                        0位服务商
+                                        0位分公司
                                         @endif
                                     </td>
                                     <td class="text-right">

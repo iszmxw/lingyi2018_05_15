@@ -57,7 +57,7 @@
                 <div class="col-lg-3">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-primary pull-right">服务商系统</span>
+                            <span class="label label-primary pull-right">分公司系统</span>
                             <h5>管理人员</h5>
                         </div>
                         <div class="ibox-content">
@@ -100,7 +100,7 @@
 
                         <div class="forum-title">
 
-                            <h3>服务商统计</h3>
+                            <h3>分公司统计</h3>
                         </div>
 
                         <div class="forum-item active">
@@ -109,8 +109,8 @@
                                     <div class="forum-icon">
                                         <i class="fa fa-line-chart"></i>
                                     </div>
-                                    <a href="javascript:;" class="forum-item-title">服务商数量</a>
-                                    <div class="forum-sub-title">进驻零壹平台的服务商的数量</div>
+                                    <a href="javascript:;" class="forum-item-title">分公司数量</a>
+                                    <div class="forum-sub-title">进驻零壹平台的分公司的数量</div>
                                 </div>
 
 
