@@ -105,7 +105,7 @@ class FansmanageController extends Controller
         } elseif ($status == 1) {
             // 查询商户推荐上级组织信息
             $oneagent = Organization::getOne([['id', $oneFansmanage['agent_id']]]);
-            // 零壹或者代理的组织id
+            // 零壹或者分公司的组织id
             $parent_id = $oneFansmanage['agent_id'];
             // 树是上级的树拼接上级的ID；
             $parent_tree = $oneagent['parent_tree'] . $parent_id . ',';
@@ -183,11 +183,11 @@ class FansmanageController extends Controller
                     // 手机号
                     'fansmanage_owner_mobile' => $oneFansmanage['fansmanage_owner_mobile']
                 ];
-                // 添加到代理组织信息表
+                // 添加到分公司组织信息表
                 OrganizationFansmanageinfo::addOrganizationFansmanageinfo($fansmanageinfo);
 
                 // 添加操作日志
-                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '代理审核通过：' . $oneFansmanage['fansmanage_name']);
+                OperationLog::addOperationLog('1', '1', $admin_data['id'], $route_name, '分公司审核通过：' . $oneFansmanage['fansmanage_name']);
                 // 提交事务
                 DB::commit();
             } catch (\Exception $e) {
@@ -212,7 +212,7 @@ class FansmanageController extends Controller
         $son_menu_data = $request->get('son_menu_data');
         // 获取当前的页面路由
         $route_name = $request->path();
-        // 归属代理
+        // 归属分公司
         $list = Organization::whereIn('type', [1, 2])->where([['status', '1']])->get();
         // 使用程序
         $listProgram = Program::getListProgram([['is_asset', '1']]);
@@ -243,7 +243,7 @@ class FansmanageController extends Controller
         if (Account::checkRowExists([['mobile', $mobile]])) {
             return response()->json(['data' => '手机号已存在', 'status' => '0']);
         }
-        // 代理信息
+        // 分公司信息
         $oneAgent = Organization::getOne([['id', $agent_id]]);
         // 上级组织 零壹或者分公司organization_id
         $parent_id = $agent_id;
