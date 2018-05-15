@@ -155,9 +155,10 @@ function address_user(){
                 var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                 var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
                 var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
+                var address_id = json.data.address_info.id;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
-                dispatch();//运费
+                dispatch(address_id);//运费
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -170,7 +171,7 @@ function address_user(){
     );
 }
 //运费
-function dispatch(){
+function dispatch(address_id){
     var url = $("#dispatch").val();
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -178,7 +179,7 @@ function dispatch(){
     var weight = 1000;
     $.post(
         url,
-        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight},
+        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
         function (json) {
             console.log(json,"运费");
             if (json.status == 1) {
