@@ -133,8 +133,12 @@ function selectRessId(address_id){
                 var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
+                var return_val = dispatch(address_id);//运费计算
+                console.log(return_val+"*****");
+                if (return_val == 1) {
+                    return;
+                }
                 $("#address_info").text(ress_info);
-                dispatch(address_id);//运费计算
                 $("#address_info_box").show();//显示收货地址列表
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").hide();//隐藏收货地址按钮
@@ -167,7 +171,7 @@ function address_user(){
                 var address_id = json.data.address_info.id;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
-                dispatch(address_id);//运费
+                var return_val = dispatch(address_id);//运费
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -202,6 +206,7 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
+               return "1";
                 alert(json.msg);
             }
         }
@@ -327,8 +332,10 @@ function select_ress(address_id,obj){
     $(obj).find("input").attr("checked","checked");//赋值当前单选框状态
     $(":radio[name='dizhi']").removeClass('action');//到所有单选框inco删除action状态
     $(obj).find("input").addClass('action');//赋值当前单选框icon
-    var ress_info = $(obj).find("input").val();
-    $("#address_info").text(ress_info);//赋值上面的
+    //var ress_info = $(obj).find("input").val();
+    //$("#address_info").text(ress_info);//赋值上面的
+    selectRessId(address_id);
+    hide("quhuoinfo");
 }
 //自取信息选择
 function select_selftake(address_id,obj){
