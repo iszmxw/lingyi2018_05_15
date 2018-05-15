@@ -12,5 +12,27 @@ namespace App\Http\Controllers\Pay;
 class WettingController
 {
 
-    public function sna
+    public function zeroneSnapshot()
+    {
+        $param = $this->requestData();
+
+    }
+
+    public function zpSnapshot()
+    {
+        $param = $this->requestData();
+
+
+
+    }
+
+    public function requestData()
+    {
+
+    }
+
+    public function responseData()
+    {
+
+    }
 }
