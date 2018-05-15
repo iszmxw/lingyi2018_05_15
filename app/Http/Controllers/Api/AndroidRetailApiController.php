@@ -312,6 +312,7 @@ class AndroidRetailApiController extends Controller
         $user_account = User::getPluck([['id', $order['user_id']]], 'account');//粉丝账号
         $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');//操作人员账号
         $goodsdata = $order['retail_order_goods'];//订单商品列表
+        $ordergoods = [];
         foreach ($goodsdata as $key => $value) {
             $ordergoods[$key]['goods_id'] = $value['goods_id']; //商品id
             $ordergoods[$key]['title'] = $value['title']; //商品名字
