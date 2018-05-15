@@ -475,7 +475,8 @@ function sbOrder(){
     var store_id = $("#store_id").val();//店铺ID
     var zerone_user_id = $("#zerone_user_id").val();//userID
     var user_id = $("#shop_user_id").val();//用户店铺ID
-    var goods_list = [];
+    var goods_list_data = [];
+    var goods_list = "";
     $(".order_list_each").each(function(){
         var $this = $(this);
         var goods_id = $this.attr("data-id");
@@ -484,14 +485,15 @@ function sbOrder(){
         var goods_price = $this.attr("data-goods_price");
         var goods_thumb = $this.attr("data-goods_thumb");
         var stock = $this.attr("data-stock");
-        goods_list.push({
+        goods_list_data.push({
             goods_id:goods_id,
             goods_name:goods_name,
             num:num,
             goods_price:goods_price,
             goods_thumb:goods_thumb,
             stock:stock
-        })
+        });
+        goods_list = JSON.stringify(goods_list_data);
     });
     var shipping_type = $("#shipping_type").val();
     var stock_type = 1;
@@ -508,8 +510,10 @@ function sbOrder(){
         stock_type:stock_type,
         remark:remark,
     }
-    var address_info ={};
-    var self_take_info ={};
+    var address_info_data ={};
+    var address_info ="";
+    var self_take_info_data ={};
+    var self_take_info ="";
     if (shipping_type && shipping_type == 1) {
         //快递配送
         var $address_info_ch = $("#address_info_ch");
@@ -520,7 +524,7 @@ function sbOrder(){
         var address = $address_info_ch.attr("data-address");
         var realname = $address_info_ch.attr("data-realname");
         var mobile = $address_info_ch.attr("data-mobile");
-        address_info = {
+        address_info_data = {
             province_id:province_id,
             province_name:province_name,
             city_name:city_name,
@@ -529,6 +533,7 @@ function sbOrder(){
             realname:realname,
             mobile:mobile
         };
+        address_info = JSON.stringify(address_info_data);
         data.address_info = address_info;
     }else if (shipping_type && shipping_type == 2) {
         //到店自提
@@ -537,15 +542,16 @@ function sbOrder(){
         var realname = $selftake_info_ch.attr("data-realname");
         var sex = $selftake_info_ch.attr("data-sex");
         var mobile = $selftake_info_ch.attr("data-mobile");
-        self_take_info = {
+        self_take_info_data = {
             self_take_id:self_take_id,
             realname:realname,
             sex:sex,
             mobile:mobile
         };
+            self_take_info = JSON.stringify(self_take_info_data);
          data.self_take_info = self_take_info;
     }
-    console.log(JSON.stringify(data));
+    console.log();
     var data_str = JSON.stringify(data);
     $.post(
         url,
