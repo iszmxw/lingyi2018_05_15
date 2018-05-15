@@ -188,8 +188,10 @@ function dispatch(address_id){
                if (price) {
                    $("#dispatch_hook").fadeIn("show");               
                    $("#dispatch_price").html("&yen;"+price);
-
-                   //$("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
+                   var order_price = $("#order_btn_price").data("price");
+                   var order_num_price = parseFloat(price) + parseFloat(order_price);
+                   $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
+                   $("#order_num_price").html("&yen;"+order_num_price.toFixed(2));
                }
             } else if (json.status == 0) {
                 alert(json.msg);
