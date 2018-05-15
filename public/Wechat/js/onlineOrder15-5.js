@@ -213,6 +213,7 @@ function dispatch(address_id){
             }
         }
     );
+    console.log(sign);
    return sign;
 }
 //自取信息列表查询
