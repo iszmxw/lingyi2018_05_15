@@ -106,8 +106,10 @@ class WechatApiCheck
                 $re = $this->checkOnlineOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
-
-
+            case "api/wechatApi/dispatch"://运费模板
+                $re = $this->checkDispatch($request);
+                return self::format_response($re, $next);
+                break;
         }
         return $next($request);
     }
@@ -441,6 +443,30 @@ class WechatApiCheck
         }
         return self::res(1, $request);
     }
+
+    /**
+     * 检测线上订单列表
+     */
+    public function checkDispatch($request)
+    {
+        if (empty($request->input('address_id'))) {
+            return self::res(0, response()->json(['msg' => '地址ID不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('fansmanage_id'))) {
+            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('store_id'))) {
+            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('weight'))) {
+            return self::res(0, response()->json(['msg' => '商品重量不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
+
+
+
+
 
     /**
      * 检测线上订单详情

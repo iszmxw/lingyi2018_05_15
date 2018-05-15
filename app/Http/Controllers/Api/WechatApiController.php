@@ -556,11 +556,6 @@ class WechatApiController extends Controller
 
 
 
-
-
-
-
-
     /**
      * 查询用户默认取货信息
      */
