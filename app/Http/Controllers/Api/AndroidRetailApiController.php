@@ -503,20 +503,26 @@ class AndroidRetailApiController extends Controller
     /**
      * 减库存
      * @order_id 订单id
-     * @status 1表示加库存，-1表示加库存
+     * @status 1表示减库存，-1表示加库存
      */
     private function reduce_stock($order_id, $status)
     {
-        $data = RetailOrder::getOne([['id', $order_id]]);//订单详情
-        $config = RetailConfig::getPluck([['retail_id', $data['retail_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value')->first();//查询是否可零库存开单
+        // 订单详情
+        $data = RetailOrder::getOne([['id', $order_id]]);
+        // 查询是否可零库存开单
+        $config = RetailConfig::getPluck([['simple_id', $data['simple_id']], ['cfg_name', 'allow_zero_stock']], 'cfg_value');
         DB::beginTransaction();
         try {
             if ($status == '1') {
-                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();//订单快照中的商品
+                // 订单快照中的商品
+                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
-                    $goods = RetailGoods::getOne([['id', $value['goods_id']]]);//商品详情
-                    if ($config != '1') {//如果不允许零库存开单
-                        if ($goods['stock'] - $value['total'] < 0) {//库存小于0 打回
+                    // 商品详情
+                    $goods = RetailGoods::getOne([['id', $value['goods_id']]]);
+                    // 如果不允许零库存开单
+                    if ($config != '1') {
+                        // 库存小于0 打回
+                        if ($goods['stock'] - $value['total'] < 0) {
                             return response()->json(['msg' => '商品' . $goods['name'] . '库存不足', 'status' => '0', 'data' => '']);
                         }
                     }
@@ -524,47 +530,59 @@ class AndroidRetailApiController extends Controller
                     RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);//修改商品库存
                     $stock_data = [
                         'fansmanage_id' => $data['fansmanage_id'],
-                        'retail_id' => $data['retail_id'],
+                        'simple_id' => $data['simple_id'],
                         'goods_id' => $value['goods_id'],
                         'amount' => $value['total'],
                         'ordersn' => $data['ordersn'],
                         'operator_id' => $data['operator_id'],
                         'remark' => $data['remarks'],
+                        // 销售出库类型
                         'type' => '6',
                         'status' => '1',
                     ];
-                    RetailStockLog::addStockLog($stock_data);//商品操作记录
-                    $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
-                    $retail_stock = $re['stock'] - $value['total'];
-                    RetailStock::editStock([['id', $re['id']]], ['stock' => $retail_stock]);
-
+                    // 商品操作记录
+                    RetailStockLog::addStockLog($stock_data);
+                    $re = RetailStock::getOneRetailStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $simple_stock = $re['stock'] - $value['total'];
+                    RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为1表示该订单的库存状态已经减去
+                    RetailOrder::editRetailOrder(['id' => $order_id], ['stock_status' => '1']);
                 }
             } else {
-                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();//订单快照中的商品
+                // 订单快照中的商品
+                $goodsdata = RetailOrderGoods::where([['order_id', $order_id]])->get();
                 foreach ($goodsdata as $key => $value) {
-                    $stock = RetailGoods::getPluck([['id', $value['goods_id']]], 'stock')->first();//商品剩下的库存
+                    // 商品剩下的库存
+                    $stock = RetailGoods::getPluck([['id', $value['goods_id']]], 'stock');
                     $stock = $stock + $value['total'];
-                    RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);//修改商品库存
+                    // 修改商品库存
+                    RetailGoods::editRetailGoods([['id', $value['goods_id']]], ['stock' => $stock]);
                     $stock_data = [
                         'fansmanage_id' => $data['fansmanage_id'],
-                        'retail_id' => $data['retail_id'],
+                        'simple_id' => $data['simple_id'],
                         'goods_id' => $value['goods_id'],
                         'amount' => $value['total'],
                         'ordersn' => $data['ordersn'],
                         'operator_id' => $data['operator_id'],
                         'remark' => $data['remarks'],
+                        // 退货入库类型
                         'type' => '7',
                         'status' => '1',
                     ];
-                    RetailStockLog::addStockLog($stock_data);//商品操作记录
-                    $re = RetailStock::getOneRetailStock([['retail_id', $data['retail_id']], ['goods_id', $value['goods_id']]]);
-                    $retail_stock = $re['stock'] + $value['total'];
-                    RetailStock::editStock([['id', $re['id']]], ['stock' => $retail_stock]);
+                    // 商品操作记录
+                    RetailStockLog::addStockLog($stock_data);
+                    $re = RetailStock::getOneRetailStock([['simple_id', $data['simple_id']], ['goods_id', $value['goods_id']]]);
+                    $simple_stock = $re['stock'] + $value['total'];
+                    RetailStock::editStock([['id', $re['id']]], ['stock' => $simple_stock]);
+                    // 修改stock_status为-1表示该订单的库存状态已经退回
+                    RetailOrder::editRetailOrder(['id' => $order_id], ['stock_status' => '-1']);
                 }
             }
-            DB::commit();//提交事务
+            // 提交事务
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollBack();//事件回滚
+            // 事件回滚
+            DB::rollBack();
             return response()->json(['msg' => '提交失败', 'status' => '0', 'data' => '']);
         }
         return 'ok';
