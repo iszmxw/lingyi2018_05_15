@@ -19,15 +19,18 @@ $(function(){
                     var realname = json.data.selftake_info.realname;
                     var sex = json.data.selftake_info.sex;
                     $("#shipping_type").val("2");//修改到点自提id(存)
-                    $("#selftake_id").val(selftake_id);
-                    $("#shipping_mobile").val(mobile);
-                    $("#shipping_realname").val(realname);
-                    $("#shipping_sex").val(sex);
                     $("#selftake_info").text(realname+"-"+mobile);
                     $("#address_info_box").hide();//隐藏收货地址列表
                     $("#selftake_info_box").show();//显示自取信息列表
                     $("#address").hide();//隐藏收货地址按钮
                     $("#select_distribution").text('到店自取');//配送方式
+                    //存到店自提信息
+                    $("#selftake_info_ch").attr({
+                        "data-selftake_id": selftake_id,
+                        "data-realname": realname,
+                        "data-sex": sex,
+                        "data-mobile": mobile
+                    });
                 } else if (json.status == 0) {
                     $.toast("数据找不到了");
                 }
@@ -334,18 +337,25 @@ function selectSelftake(){
         function (json) {
             console.log(json,"asd");
             if (json.status == 1) {
-                var address_info = json.data.selftake_info.realname +"-"+ json.data.selftake_info.mobile;
-                    $("#shipping_type").val("2");//修改到点自提id(存)
-                    $("#selftake_id").val(json.data.selftake_info.id);
-                    $("#shipping_mobile").val(json.data.selftake_info.mobile);
-                    $("#shipping_realname").val(json.data.selftake_info.realname);
-                    $("#shipping_sex").val(json.data.selftake_info.sex);
+                var id = (json.data.selftake_info.id) ? json.data.selftake_info.id : "";
+                var mobile = (json.data.selftake_info.mobile) ? json.data.selftake_info.mobile : "";
+                var realname = (json.data.selftake_info.realname) ? json.data.selftake_info.realname : "";
+                var sex = (json.data.selftake_info.sex) ? json.data.selftake_info.sex : "";
+                var address_info = realname +"-"+mobile;
+                $("#shipping_type").val("2");//修改到点自提id(存)
                 $("#selftake_info").text(address_info);
                 $("#address_info_box").hide();//隐藏收货地址列表
                 $("#selftake_info_box").show();//显示自取信息列表
                 $("#address").hide();//隐藏收货地址按钮
                 $("#select_distribution").text('到店自取');//配送方式
                 hide("selectexpress");//隐藏选择取货框
+                //存到店自提信息
+                $("#selftake_info_ch").attr({
+                    "data-selftake_id": id,
+                    "data-realname": realname,
+                    "data-sex": sex,
+                    "data-mobile": mobile
+                });
             } else if (json.status == 0) {
                 $("#address").hide();
                 $("#addselftake").show().css('display','block');
