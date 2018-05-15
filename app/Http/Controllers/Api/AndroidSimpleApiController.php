@@ -113,6 +113,7 @@ class AndroidSimpleApiController extends Controller
      */
     public function order_check(Request $request)
     {
+        echo 1;exit;
         // 店铺id
         $organization_id = $request->organization_id;
         // 用户id 散客为0
