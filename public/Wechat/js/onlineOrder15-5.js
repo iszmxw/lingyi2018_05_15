@@ -206,8 +206,8 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
+               return "1";
                 alert(json.msg);
-                return "1";
             }
         }
     );
