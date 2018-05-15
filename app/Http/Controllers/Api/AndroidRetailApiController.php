@@ -76,7 +76,7 @@ class AndroidRetailApiController extends Controller
         // 店铺名称
         $organization_name = Organization::getPluck([['id', $data['organization_id']]], 'organization_name');
         //用户昵称
-        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname')->first();
+        $account_realname = AccountInfo::getPluck([['account_id', $data['id']]], 'realname');
         // 数据返回
         $data = ['status' => '1', 'msg' => '登陆成功', 'data' => ['account_id' => $data['id'], 'account' => $data['account'], 'realname' => $account_realname, 'organization_id' => $data['organization_id'], 'uuid' => $data['uuid'], 'organization_name' => $organization_name]];
 
@@ -314,6 +314,8 @@ class AndroidRetailApiController extends Controller
         $user_account = User::getPluck([['id', $order['user_id']]], 'account');
         // 操作人员账号
         $operator_account = Account::getPluck([['id', $order['operator_id']]], 'account');
+        // 用户昵称
+        $account_realname = AccountInfo::getPluck([['account_id', $order['operator_id']]], 'realname');
         // 订单商品列表
         $goodsdata = $order['retail_order_goods'];
         // 定义为数组
@@ -357,6 +359,8 @@ class AndroidRetailApiController extends Controller
             'retail_id' => $order['retail_id'],
             // 操作人账号
             'operator_account' => $operator_account,
+            // 操作人员昵称
+            'realname' => $account_realname,
             // 折扣价
             'discount_price' => $order['discount_price'],
             // 实收价格
