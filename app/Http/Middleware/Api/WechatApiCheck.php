@@ -403,6 +403,7 @@ class WechatApiCheck
      */
     public function checkOrderSubmit($request)
     {
+        print_r($request);exit;
         if (empty($request->input('user_id'))) {
             return self::res(0, response()->json(['msg' => '用户ID不能为空', 'status' => '0', 'data' => '']));
         }
