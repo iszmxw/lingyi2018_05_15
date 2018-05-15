@@ -183,7 +183,7 @@ function dispatch(address_id){
         function (json) {
             console.log(json,"运费");
             if (json.status == 1) {
-               
+               $("#dispatch_hook").fadeIn("show");
             } else if (json.status == 0) {
                 alert(json.msg);
             }

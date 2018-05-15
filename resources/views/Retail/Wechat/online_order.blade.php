@@ -81,7 +81,7 @@
 		    	    <div class="order_list">
 					    <div id="order_list">
                         </div>
-				        <div class="order_btn order_zongji">
+				        <div class="order_btn order_zongji dispatch_hook" id="dispatch_hook">
 			            	<p><span class="yunfei">运费</span><em>&yen;789</em></p>
 			            </div>
 			            <div class="order_btn order_zongji">
