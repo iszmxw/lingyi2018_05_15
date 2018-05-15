@@ -274,7 +274,7 @@ class AndroidRetailApiController extends Controller
             }
             $where[] = ['status', $status];
         }
-        $orderlist = RetailOrder::getList($where, '0', 'id', '', ['id', 'ordersn', 'order_price', 'status', 'created_at']);
+        $orderlist = RetailOrder::getList($where, '0', 'id', '', ['id', 'ordersn', 'order_price', 'status', 'discount_price', 'payment_price', 'discount', 'created_at']);
         if ($orderlist->toArray()) {
             // 订单数量
             $total_num = count($orderlist);
@@ -289,7 +289,7 @@ class AndroidRetailApiController extends Controller
         $data = [
             'orderlist' => $orderlist,
             'total_num' => $total_num,
-            'total_amount' => $total_amount,
+            'total_amount' => round($total_amount, 2),
         ];
         return response()->json(['status' => '1', 'msg' => '订单列表查询成功', 'data' => $data]);
     }
