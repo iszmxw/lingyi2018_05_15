@@ -135,7 +135,6 @@ function selectRessId(address_id){
                 var address_id =json.data.address_info.id;
                 var return_val = dispatch(address_id);//运费计算
                 if (return_val) {
-                    alert("该地址没有运费模板");
                     $("#address_info_box").show();//显示收货地址列表
                     return;
                 }
@@ -192,6 +191,7 @@ function dispatch(address_id){
     var _token = $("#_token").val();
     var store_id = $("#store_id").val();//店铺ID
     var weight = 1000;
+    var sign = false;
     $.post(
         url,
         {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
@@ -208,11 +208,12 @@ function dispatch(address_id){
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
+                sign = true;
                 alert(json.msg);
             }
         }
     );
-   return true;
+   return sign;
 }
 //自取信息列表查询
 function selftake_list(){
