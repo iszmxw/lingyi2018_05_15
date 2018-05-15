@@ -530,16 +530,10 @@ class WechatApiController extends Controller
                         // 续重费用
                         $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']);
                     }
-                } else {
-                    echo 1;exit;
-                    return response()->json(['status' => '0', 'msg' => '店铺没设有该省份配送', 'data' => '']);
+                    break;
                 }
-
             }
-        } else {
-            return response()->json(['status' => '0', 'msg' => '没有设置运费模板', 'data' => '']);
         }
-
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'freight' => $freight]];
         return response()->json($data);
     }
