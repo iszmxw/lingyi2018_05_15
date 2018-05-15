@@ -53,8 +53,13 @@ $(function(){
                 var str = "";//拼接字符串
                 var order_num_price = 0;
                 for (var i = 0; i < json.data.goods_list.length; i++) {
-                    str += order_list_box(json.data.goods_list[i].goods_name,json.data.goods_list[i].num,
-                                json.data.goods_list[i].goods_price);
+                    var goods_name = (json.data.goods_list[i].goods_name) ? json.data.goods_list[i].goods_name : "";
+                    var num = (json.data.goods_list[i].num) ? json.data.goods_list[i].num : "";
+                    var goods_price = (json.data.goods_list[i].goods_price) ? json.data.goods_list[i].goods_price : "";
+                    var id = (json.data.goods_list[i].goods_id) ? json.data.goods_list[i].goods_id : "";
+                    var goods_thumb = (json.data.goods_list[i].goods_thumb) ? json.data.goods_list[i].goods_thumb : "";
+                    var stock = (json.data.goods_list[i].stock) ? json.data.goods_list[i].stock : "";
+                    str += order_list_box(goods_name,num,goods_price,id,goods_thumb,stock);
                     order_num_price +=parseFloat(json.data.goods_list[i].goods_price) *
                                       parseInt(json.data.goods_list[i].num);
                 }
@@ -371,12 +376,15 @@ function selftake_list_box(realname,sex,mobile,status,id){
     return str;
 }
 //订单列表拼接
-function order_list_box(goods_name,num,goods_price){
+function order_list_box(goods_name,num,goods_price,id,goods_thumb,stock){
     var str = "";
     str += '<div class="row order_list_box">'+
         '<div class="col-60">'+goods_name+'</div>'+
         '<div class="col-15">&#215;'+num+'</div>'+
         '<div class="col-25">&yen;'+goods_price+'</div>'+
+        '<input type="hidden" data-id="'+id+'" data-goods_name="'+goods_name+'"'+
+        'data-num="'+num+'" data-goods_price="'+goods_price+'" data-goods_price="'+goods_price+'"'+
+        'data-goods_thumb="'+goods_thumb+'" data-stock="'+stock+'" class="order_list_each" value="">'+
     '</div>'
     return str;
 }
