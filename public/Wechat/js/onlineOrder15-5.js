@@ -186,7 +186,7 @@ function address_user(){
         address_url,
         {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
         function (json) {
-            console.log(json+"++++默认");
+            console.log(json,"++++默认");
             if (json.status == 1) {
                 var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
                 var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
