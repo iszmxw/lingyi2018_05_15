@@ -157,6 +157,7 @@ function address_user(){
                 var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
+                dispatch();//运费
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -165,6 +166,26 @@ function address_user(){
                 console.log(json.msg);
             }
             $("#select_distribution").text('快递配送');//配送方式
+        }
+    );
+}
+//运费
+function dispatch(){
+    var url = $("#dispatch").val();
+    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var weight = 1000;
+    $.post(
+        url,
+        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight},
+        function (json) {
+            console.log(json,"运费");
+            if (json.status == 1) {
+               
+            } else if (json.status == 0) {
+                alert(json.msg);
+            }
         }
     );
 }

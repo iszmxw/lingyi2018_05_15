@@ -16,6 +16,7 @@
 	<input type="hidden" name="store_id" id="store_id" value="{{session("store_id")}}">
     <input type="hidden" name="zerone_user_id" id="zerone_user_id" value="{{session("zerone_auth_info.zerone_user_id")}}">
     <input type="hidden" name="shop_user_id" id="shop_user_id" value="{{session("zerone_auth_info.shop_user_id")}}">
+    <input type="hidden" id="dispatch" value="{{url('api/wechatApi/dispatch_mould')}}">
     <div class="page">
 	    <div class="g-flexview">
             <input type="hidden" name="shipping_type" id="shipping_type" value="1">
