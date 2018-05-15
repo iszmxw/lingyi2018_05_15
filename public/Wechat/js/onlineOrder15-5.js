@@ -551,11 +551,10 @@ function sbOrder(){
             self_take_info = JSON.stringify(self_take_info_data);
          data.self_take_info = self_take_info;
     }
-    console.log();
-    var data_str = JSON.stringify(data);
+    console.log(data);
     $.post(
         url,
-        data_str,
+        data,
         function (json) {
             console.log(json,"提交");
             if (json.status == 1) {
