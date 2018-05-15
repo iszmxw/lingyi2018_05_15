@@ -545,18 +545,19 @@ function sbOrder(){
         });
          data.self_take_info = self_take_info;
     }
-    $.post(
-        url,
-        data,
-        function (json) {
-            console.log(json,"提交");
-            if (json.status == 1) {
-            } else if (json.status == 0) {
-               alert(json.msg);
-            }
-            $.hideIndicator();
-        }
-    );
+    console.log(data);
+    // $.post(
+    //     url,
+    //     data,
+    //     function (json) {
+    //         console.log(json,"提交");
+    //         if (json.status == 1) {
+    //         } else if (json.status == 0) {
+    //            alert(json.msg);
+    //         }
+    //         $.hideIndicator();
+    //     }
+    // );
 }
 //获取url中的参数
 function getUrlParam(name) {
