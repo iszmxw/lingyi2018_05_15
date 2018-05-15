@@ -497,7 +497,7 @@ function sbOrder(){
     });
     var shipping_type = $("#shipping_type").val();
     var stock_type = 1;
-    var remark = $("#remarks").val();
+    var remarks = $("#remarks").val();
     var url = $("#order_submit").val();
     var data = {
         fansmanage_id:fansmanage_id,
@@ -508,7 +508,7 @@ function sbOrder(){
         goods_list:goods_list,
         shipping_type:shipping_type,
         stock_type:stock_type,
-        remark:remark,
+        remarks:remarks
     }
     var address_info_data ={};
     var address_info ="";
