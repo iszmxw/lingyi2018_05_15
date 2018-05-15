@@ -534,6 +534,8 @@ class WechatApiController extends Controller
                 }
             }
         }
+        $freight = 0;
+
         $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'freight' => $freight]];
         return response()->json($data);
     }
