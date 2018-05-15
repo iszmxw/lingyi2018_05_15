@@ -56,7 +56,7 @@ $(function(){
                     var goods_name = (json.data.goods_list[i].goods_name) ? json.data.goods_list[i].goods_name : "";
                     var num = (json.data.goods_list[i].num) ? json.data.goods_list[i].num : "";
                     var goods_price = (json.data.goods_list[i].goods_price) ? json.data.goods_list[i].goods_price : "";
-                    var id = (json.data.goods_list[i].id) ? json.data.goods_list[i].id : "";
+                    var id = (json.data.goods_list[i].goods_id) ? json.data.goods_list[i].goods_id : "";
                     var goods_thumb = (json.data.goods_list[i].goods_thumb) ? json.data.goods_list[i].goods_thumb : "";
                     var stock = (json.data.goods_list[i].stock) ? json.data.goods_list[i].stock : "";
                     str += order_list_box(goods_name,num,goods_price,id,goods_thumb,stock);
