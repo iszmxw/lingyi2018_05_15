@@ -141,7 +141,7 @@
                 </div>
                 <div class="alert_btn_wz">
                     <!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-                    <a href="javascript:;" onclick="hide('selectexpress');"
+                    <a href="javascript:;" onclick="address_user()"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
 					<a href="javascript:;" onclick="selectSelftake()"
