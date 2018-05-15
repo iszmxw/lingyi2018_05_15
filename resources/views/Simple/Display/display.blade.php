@@ -83,7 +83,7 @@
                                                     @if($organization->type == 1)
                                                         零壹组织
                                                     @elseif($organization->type == 2)
-                                                        服务商组织
+                                                        分公司组织
                                                     @elseif($organization->type == 3)
                                                         商户组织
                                                     @elseif($organization->type == 4)

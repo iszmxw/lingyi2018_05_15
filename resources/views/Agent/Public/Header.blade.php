@@ -11,7 +11,7 @@
         <li class="dropdown">
             <a class="dropdown-toggle" href="{{url('agent/switch_status')}}">
                 <i class="icon-user"></i>
-                <span class="username"> 切换服务商</span>
+                <span class="username"> 切换分公司</span>
             </a>
 
         </li>

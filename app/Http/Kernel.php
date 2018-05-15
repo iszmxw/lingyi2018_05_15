@@ -89,7 +89,7 @@ class Kernel extends HttpKernel
         /**************************简版的店铺管理系统*******************************/
 
         /**************************零售接口*******************************/
-        'AndroidApiCheck'=>\App\Http\Middleware\Api\AndroidApiCheck::class,//检测普通页面跳转的中间件
+        'AndroidRetailApiCheck'=>\App\Http\Middleware\Api\AndroidRetailApiCheck::class,//检测普通页面跳转的中间件
         /**************************零售接口*******************************/
 
         /**************************零售简版接口*******************************/
