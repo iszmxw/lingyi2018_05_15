@@ -579,7 +579,7 @@ class WxController extends Controller
         // 请求参数处理
         $param = $this->requestDispose();
         // 查询订单类型，和相对应的订单号
-        $data[$param["order_num_type"]] = $param["or der_num"];
+        $data[$param["order_num_type"]] = $param["order_num"];
         // 填充数组
         $data = $this->fillData($data, "order");
         // 接口地址
