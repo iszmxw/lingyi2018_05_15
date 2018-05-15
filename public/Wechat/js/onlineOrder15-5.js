@@ -545,11 +545,10 @@ function sbOrder(){
         };
          data.self_take_info = self_take_info;
     }
-    console.log(JSON.parse(data));
-    var data_a = JSON.parse(data);
+    console.log(JSON.stringify(data));
     $.post(
         url,
-        data_a,
+        data,
         function (json) {
             console.log(json,"提交");
             if (json.status == 1) {
