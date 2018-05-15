@@ -98,9 +98,17 @@
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input-id-1">重量</label>
+                                                <label class="col-sm-2 control-label" for="input-id-1">重量(毛重/g)</label>
                                                 <div class="col-sm-8">
-                                                    <input type="number" class="form-control" name="重量">
+                                                    <input type="number" class="form-control" name="weight">
+                                                </div>
+                                            </div>
+
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="input-id-1">指定运费</label>
+                                                <div class="col-sm-8">
+                                                    <input type="number" class="form-control" name="freight_price">
                                                 </div>
                                             </div>
 
