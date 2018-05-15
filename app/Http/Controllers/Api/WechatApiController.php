@@ -1061,6 +1061,7 @@ class WechatApiController extends Controller
         if($request->address_info){
             $address_info = json_decode($request->address_info, TRUE);
         }
+        echo 1;exit;
         // 取货信息
         if($request->self_take_info){
             $self_take_info = json_decode($request->self_take_info, TRUE);
