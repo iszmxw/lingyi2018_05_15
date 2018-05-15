@@ -531,7 +531,7 @@ function sbOrder(){
             sex:sex,
             mobile:mobile
         });
-        data = fansmanage_id + _token + self_take_info;
+        data = fansmanage_id + self_take_info;
     }
     console.log(JSON.parse(data));
 }
