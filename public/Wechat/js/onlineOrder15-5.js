@@ -189,7 +189,7 @@ function dispatch(address_id){
                    $("#dispatch_hook").fadeIn("show");               
                    $("#dispatch_price").html("&yen;"+price);
                    var order_price = $("#order_num_price").data("price");
-                   var order_num_price = parseInt(price) + parseFloat(order_price);
+                   var order_num_price = paseInt(price) + parseFloat(order_price);
                    $("#order_btn_price").html("&yen;"+order_num_price);
                    $("#order_num_price").html("&yen;"+order_num_price);
                }
