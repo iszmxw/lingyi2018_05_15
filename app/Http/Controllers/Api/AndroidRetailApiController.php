@@ -20,6 +20,7 @@ use App\Models\RetailShengpayTerminal;
 use App\Models\RetailStock;
 use App\Models\RetailStockLog;
 use App\Models\User;
+use Endroid\QrCode\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -536,7 +537,25 @@ class AndroidRetailApiController extends Controller
      */
     public function code(Request $request)
     {
-      echo 1;
+
+        $value = 'www.baidu.com';                  //二维码内容
+
+        $errorCorrectionLevel = 'L';    //容错级别
+        $matrixPointSize = 5;           //生成图片大小
+
+        //生成二维码图片
+        $filename = 'qrcode/'.microtime().'.png';
+        QRcode::png($value,$filename , $errorCorrectionLevel, $matrixPointSize, 2);
+
+        $QR = $filename;                //已经生成的原始二维码图片文件
+
+
+        $QR = imagecreatefromstring(file_get_contents($QR));
+
+        //输出图片
+        imagepng($QR, 'qrcode.png');
+        imagedestroy($QR);
+        return '<img src="qrcode.png" alt="使用微信扫描支付">';
     }
 
 
