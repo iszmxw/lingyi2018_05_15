@@ -49,7 +49,7 @@ $(function(){
                     var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                     var realname =json.data.address_info.realname;
                     var mobile =json.data.address_info.mobile;
-                    var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address+"-"+
+                    var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
                                     realname+"-"+mobile;
                     var address_id =json.data.address_info.id;
                     $("#address_info").text(ress_info);
