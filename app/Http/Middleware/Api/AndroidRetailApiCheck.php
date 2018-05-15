@@ -443,7 +443,6 @@ class AndroidRetailApiCheck
         foreach ($sort as $key => $value) {//拼接token
             $store_token .= $value;
         }
-
         $store_token = base64_encode($store_token . $data['uuid']) . 'lingyi2018';//第一次加密
         $store_token = md5($store_token);//第二次加密
         if ($store_token != $token) {
