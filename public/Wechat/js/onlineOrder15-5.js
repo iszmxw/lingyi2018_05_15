@@ -183,7 +183,11 @@ function dispatch(address_id){
         function (json) {
             console.log(json,"运费");
             if (json.status == 1) {
-               $("#dispatch_hook").fadeIn("show");
+               var price = json.data.freight;
+               if (price) {
+                   $("#dispatch_hook").fadeIn("show");               
+                   $("#dispatch_price").htnl("&yen;"+price);
+               }
             } else if (json.status == 0) {
                 alert(json.msg);
             }
