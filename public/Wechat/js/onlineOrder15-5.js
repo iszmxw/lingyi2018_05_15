@@ -468,6 +468,32 @@ function remarks(){
     $("#remarks_box").text($this.val());
     hide("alert");
 }
+function sbOrder(){
+    var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    var user_id = $("#shop_user_id").val();//用户店铺ID
+    var goods_list = [];
+    $(".order_list_each").each(function(){
+        var $this = $(this);
+        var goods_id = $this.attr("data-id");
+        var goods_name = $this.attr("data-goods_name");
+        var num = $this.attr("data-num");
+        var goods_price = $this.attr("data-goods_price");
+        var goods_thumb = $this.attr("data-goods_thumb");
+        var stock = $this.attr("data-stock");
+        goods_list.push({
+            goods_id:goods_id,
+            goods_name:goods_name,
+            num:num,
+            goods_price:goods_price,
+            goods_thumb:goods_thumb,
+            stock:stock
+        })
+    });
+    console.log(goods_list);
+}
 //获取url中的参数
 function getUrlParam(name) {
  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
