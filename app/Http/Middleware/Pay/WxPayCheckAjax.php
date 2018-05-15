@@ -393,7 +393,7 @@ class WxPayCheckAjax
     public function check_refund()
     {
         // 获取数据
-        $post_data = request()->post();
+        $post_data = request()->all();
         var_dump($post_data);
         exit;
         // 规则
