@@ -35,12 +35,13 @@ $(function(){
         );
     }else if(status && status =="address"){
         var address_id = getUrlParam("address_id");
-        //查询返回来(新添加)的自取信息
+        //查询返回来(新添加)的地址
         var address_info = "http://develop.01nnt.com/api/wechatApi/selftake_info";
         $.post(
             selftake_info,
             {'zerone_user_id': zerone_user_id, '_token': _token,'self_take_id':selftake_id},
             function (json) {
+                console.log(json+"地址");
                 if (json.status == 1) {
                     // var selftake_id = json.data.selftake_info.id;
                     // var mobile = json.data.selftake_info.mobile;
