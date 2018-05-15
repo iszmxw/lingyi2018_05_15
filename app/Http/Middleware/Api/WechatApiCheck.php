@@ -106,10 +106,10 @@ class WechatApiCheck
                 $re = $this->checkOnlineOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/wechatApi/dispatch"://运费模板
-                $re = $this->checkDispatch($request);
-                return self::format_response($re, $next);
-                break;
+//            case "api/wechatApi/dispatch"://运费模板
+//                $re = $this->checkDispatch($request);
+//                return self::format_response($re, $next);
+//                break;
         }
         return $next($request);
     }
