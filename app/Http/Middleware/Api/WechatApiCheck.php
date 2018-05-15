@@ -38,8 +38,8 @@ class WechatApiCheck
                 $re = $this->checkFourId($request);
                 return self::format_response($re, $next);
                 break;
-            case "api/wechatApi/address"://检测店铺购物车列表提交数据
-                $re = $this->checkThreeId($request);
+            case "api/wechatApi/address"://默认地址信息
+                $re = $this->checkZeroneId($request);
                 return self::format_response($re, $next);
                 break;
             case "api/wechatApi/address_add"://检测添加收货地址提交数据
@@ -106,8 +106,10 @@ class WechatApiCheck
                 $re = $this->checkOnlineOrderDetail($request);
                 return self::format_response($re, $next);
                 break;
-
-
+            case "api/wechatApi/dispatch_mould"://运费模板
+                $re = $this->checkDispatchMould($request);
+                return self::format_response($re, $next);
+                break;
         }
         return $next($request);
     }
@@ -149,16 +151,10 @@ class WechatApiCheck
     }
 
     /**
-     * 店铺分类列表数据提交检测
+     * 默认地址查询
      */
-    public function checkThreeId($request)
+    public function checkZeroneId($request)
     {
-        if (empty($request->input('fansmanage_id'))) {
-            return self::res(0, response()->json(['msg' => '联盟主id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('store_id'))) {
-            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
-        }
         if (empty($request->input('zerone_user_id'))) {
             return self::res(0, response()->json(['msg' => '零壹id不能为空', 'status' => '0', 'data' => '']));
         }
@@ -249,21 +245,12 @@ class WechatApiCheck
     }
 
     /**
-     * 检测用户收货地址添加提交数据
+     * 检测收货地址信息
      */
     public function checkaddressInfo($request)
     {
-        if (empty($request->input('store_id'))) {
-            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('fansmanage_id'))) {
-            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
-        }
         if (empty($request->input('address_id'))) {
             return self::res(0, response()->json(['msg' => '地址id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('weight'))) {
-            return self::res(0, response()->json(['msg' => '商品重量不能为空', 'status' => '0', 'data' => '']));
         }
         return self::res(1, $request);
     }
@@ -456,6 +443,30 @@ class WechatApiCheck
         }
         return self::res(1, $request);
     }
+
+    /**
+     * 检测线上订单列表
+     */
+    public function checkDispatchMould($request)
+    {
+        if (empty($request->input('address_id'))) {
+            return self::res(0, response()->json(['msg' => '地址ID不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('fansmanage_id'))) {
+            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('store_id'))) {
+            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('weight'))) {
+            return self::res(0, response()->json(['msg' => '商品重量不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
+
+
+
+
 
     /**
      * 检测线上订单详情
