@@ -78,16 +78,16 @@ class ZeroneCheckAjax
 
 
 
-            //代理管理
-            case "zerone/ajax/agent_examine_check"://代理审核检测 登录 和 权限 和 安全密码 --审核通过
+            //分公司管理
+            case "zerone/ajax/agent_examine_check"://分公司审核检测 登录 和 权限 和 安全密码 --审核通过
                 $re = $this->checkLoginAndRuleAndSafe($request);
                 return self::format_response($re,$next);
                 break;
-            case "zerone/ajax/agent_add_check"://检测代理名称 负责人姓名 负责人身份证号 手机号码 代理登录密码 安全密码是否为空
+            case "zerone/ajax/agent_add_check"://检测分公司名称 负责人姓名 负责人身份证号 手机号码 分公司登录密码 安全密码是否为空
                 $re = $this->checkLoginAndRuleAndSafeAndAgentAdd($request);
                 return self::format_response($re,$next);
                 break;
-            case "zerone/ajax/agent_list_edit_check"://代理 检测 登录 和 权限 和 安全密码 和数据是否为空
+            case "zerone/ajax/agent_list_edit_check"://分公司 检测 登录 和 权限 和 安全密码 和数据是否为空
                 $re = $this->checkLoginAndRuleAndSafeAndAgentEdit($request);
                 return self::format_response($re,$next);
                 break;
@@ -115,7 +115,7 @@ class ZeroneCheckAjax
                 $re = $this->checkLoginAndRuleAndSafe($request);
                 return self::format_response($re,$next);
                 break;
-            case "zerone/ajax/fansmanage_add_check"://检测商户名称 负责人姓名 负责人身份证号 手机号码 代理登录密码 安全密码是否为空
+            case "zerone/ajax/fansmanage_add_check"://检测商户名称 负责人姓名 负责人身份证号 手机号码 分公司登录密码 安全密码是否为空
                 $re = $this->checkLoginAndRuleAndSafeAndFansmanageAdd($request);
                 return self::format_response($re,$next);
                 break;
@@ -171,13 +171,13 @@ class ZeroneCheckAjax
             case "zerone/ajax/selected_rule":               //添加下架人员快速授权检测登录和权限
 
 
-            //代理管理
-            case "zerone/ajax/agent_examine":               //代理审核检测弹出登入和权限
-            case "zerone/ajax/agent_list_edit":             //代理列表修改弹出检测登入和权限
-            case "zerone/ajax/agent_list_lock":             //代理列表冻结弹出检测登入和权限
-            case "zerone/ajax/agent_assets":                //代理列表划入检测弹出登入和权限
-            case "zerone/ajax/agent_fansmanage_add":        //代理列表商户划拨管理-商户划入归属
-            case "zerone/ajax/agent_fansmanage_draw":       //代理列表商户划拨管理-商户划出归属
+            //分公司管理
+            case "zerone/ajax/agent_examine":               //分公司审核检测弹出登入和权限
+            case "zerone/ajax/agent_list_edit":             //分公司列表修改弹出检测登入和权限
+            case "zerone/ajax/agent_list_lock":             //分公司列表冻结弹出检测登入和权限
+            case "zerone/ajax/agent_assets":                //分公司列表划入检测弹出登入和权限
+            case "zerone/ajax/agent_fansmanage_add":        //分公司列表商户划拨管理-商户划入归属
+            case "zerone/ajax/agent_fansmanage_draw":       //分公司列表商户划拨管理-商户划出归属
 
             //商户管理
             case "zerone/ajax/fansmanage_examine":          //商户审核检测弹出登录和权限
@@ -388,8 +388,8 @@ class ZeroneCheckAjax
 
 
 
-    /*****代理管理******/
-    //检测 登录 和 权限 和 安全密码 和 添加代理的数据提交
+    /*****分公司管理******/
+    //检测 登录 和 权限 和 安全密码 和 添加分公司的数据提交
     public function checkLoginAndRuleAndSafeAndAgentAdd($request){
         $re = $this->checkLoginAndRuleAndSafe($request);//判断是否登录
         if($re['status']=='0'){//检测是否登录
@@ -403,7 +403,7 @@ class ZeroneCheckAjax
             }
         }
     }
-    //编辑代理 检测登录和权限和安全密码
+    //编辑分公司 检测登录和权限和安全密码
     public function checkLoginAndRuleAndSafeAndAgentEdit($request){
         $re = $this->checkLoginAndRuleAndSafe($request);//判断是否登录
         if($re['status']=='0'){//检测是否登录
@@ -711,11 +711,11 @@ class ZeroneCheckAjax
 
 
 
-    /*****代理管理******/
-    //检测代理申请表信息
+    /*****分公司管理******/
+    //检测分公司申请表信息
     public function checkAgentAdd($request){
         if (empty($request->input('organization_name'))) {
-            return self::res(0, response()->json(['data' => '请输入代理名称', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司名称', 'status' => '0']));
         }
         if (empty($request->input('realname'))) {
             return self::res(0, response()->json(['data' => '请输入负责人姓名', 'status' => '0']));
@@ -728,16 +728,16 @@ class ZeroneCheckAjax
             return self::res(0, response()->json(['data' => '请输入正确手机号码', 'status' => '0']));
         }
         if (empty($request->input('agent_password'))) {
-            return self::res(0, response()->json(['data' => '请输入代理登录密码', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司登录密码', 'status' => '0']));
         }elseif ($request->input('agent_password')!=$request->input('re_agent_password')){
             return self::res(0, response()->json(['data' => '两次密码不一致', 'status' => '0']));
         }
         return self::res(1, $request);
     }
-    //检测代理编辑表信息
+    //检测分公司编辑表信息
     public function checkAgentEditData($request){
         if (empty($request->input('organization_name'))) {
-            return self::res(0, response()->json(['data' => '请输入代理名称', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司名称', 'status' => '0']));
         }
         if (empty($request->input('realname'))) {
             return self::res(0, response()->json(['data' => '请输入负责人姓名', 'status' => '0']));
@@ -770,7 +770,7 @@ class ZeroneCheckAjax
     //检测商户申请表信息
     public function checkFansmanageAdd($request){
         if (empty($request->input('organization_name'))) {
-            return self::res(0, response()->json(['data' => '请输入代理名称', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司名称', 'status' => '0']));
         }
         if (empty($request->input('realname'))) {
             return self::res(0, response()->json(['data' => '请输入负责人姓名', 'status' => '0']));
@@ -783,7 +783,7 @@ class ZeroneCheckAjax
             return self::res(0, response()->json(['data' => '请输入正确手机号码', 'status' => '0']));
         }
         if (empty($request->input('password'))) {
-            return self::res(0, response()->json(['data' => '请输入代理登录密码', 'status' => '0']));
+            return self::res(0, response()->json(['data' => '请输入分公司登录密码', 'status' => '0']));
         }elseif ($request->input('password')!=$request->input('re_password')){
             return self::res(0, response()->json(['data' => '两次密码不一致', 'status' => '0']));
         }

@@ -14,34 +14,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 class SystemController extends Controller{
-    //添加服务商
+    //添加分公司
     public function display(Request $request){
         $admin_data = $request->get('admin_data');//中间件产生的管理员数据参数
         $menu_data = $request->get('menu_data');//中间件产生的管理员数据参数
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $admin_data['organization_id'];//服务商id
+        $organization_id = $admin_data['organization_id'];//分公司id
         if($admin_data['is_super'] == 1 && $admin_data['organization_id'] == 0 ){
             $list = Organization::getPaginage([['program_id','2']],20,'id');
             foreach($list as $key=>$value){
                 $list[$key]['warzone'] = Warzone::getPluck([['id', $value['warzoneAgent']['zone_id']]],'zone_name')->first();
             }
-            //选择代理服务商页面数据渲染
+            //选择分公司分公司页面数据渲染
             return view('Agent/System/select_agent',['list'=>$list]);
         }else{
             $where = [['organization_id',$organization_id]];
             $account_id = Account::getPluck([['organization_id',$organization_id],['parent_id',1]],'id');//获取负责人id
-            if($account_id != $admin_data['id']) {//如果不是服务商负责人 只允许看自己的登入记录
+            if($account_id != $admin_data['id']) {//如果不是分公司负责人 只允许看自己的登入记录
                 $where[] = ['account_id',$admin_data['id']];
             }
             $login_log_list = LoginLog::getList($where,10,'id');//登录记录
             $operation_log_list = OperationLog::getList($where,10,'id');//操作记录
-            $acc_num = Account::where([['organization_id',$organization_id]])->count();//查询服务商人数
-            $org_num = Organization::where([['parent_id',$organization_id]])->count();//查询服务商附属商务个数
+            $acc_num = Account::where([['organization_id',$organization_id]])->count();//查询分公司人数
+            $org_num = Organization::where([['parent_id',$organization_id]])->count();//查询分公司附属商务个数
             return view('Agent/System/index',['login_log_list'=>$login_log_list,'operation_log_list'=>$operation_log_list,'acc_num'=>$acc_num,'org_num'=>$org_num,'admin_data'=>$admin_data,'route_name'=>$route_name,'menu_data'=>$menu_data,'son_menu_data'=>$son_menu_data]);
         }
     }
-    //超级管理员选择服务商操作
+    //超级管理员选择分公司操作
     public function select_agent(Request $request){
         $admin_this = $request->get('admin_data');//中间件产生的管理员数据参数
         $organization_id = $request->input('organization_id');//中间件产生的管理员数据参数
@@ -83,7 +83,7 @@ class SystemController extends Controller{
         }
     }
 
-    //超级管理员选择服务商
+    //超级管理员选择分公司
     public function switch_status(Request $request){
         $admin_data = $request->get('admin_data');                //中间件产生的管理员数据参数
         $admin_data['organization_id'] = 0;
@@ -97,7 +97,7 @@ class SystemController extends Controller{
         $menu_data = $request->get('menu_data');//中间件产生的管理员数据参数
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $admin_data['organization_id'];//服务商id
+        $organization_id = $admin_data['organization_id'];//分公司id
         $data = Organization::getOneAgent([['id',$organization_id]]);
         $warzone = Warzone::getOne([['id', $data['warzoneAgent']['zone_id']]]);
         return view('Agent/System/agent_info',['warzone'=>$warzone,'data'=>$data,'admin_data'=>$admin_data,'route_name'=>$route_name,'menu_data'=>$menu_data,'son_menu_data'=>$son_menu_data]);
@@ -107,9 +107,9 @@ class SystemController extends Controller{
 
         $admin_data = $request->get('admin_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
-        $organization_id = $request->input('organization_id');//服务商id
+        $organization_id = $request->input('organization_id');//分公司id
         $realname = $request->input('realname');//负责人
-        $organization_name = $request->input('organization_name');//服务商名称
+        $organization_name = $request->input('organization_name');//分公司名称
         $idcard = $request->input('idcard');//负责人身份证
         $mobile = $request->input('mobile');//负责人手机号
 
@@ -119,27 +119,27 @@ class SystemController extends Controller{
             $acc = Account::getOne([['id',$admin_data['id']]]);
             $account_id = $acc['id'];
             if($agent['organization_name']!=$organization_name){
-                Organization::editOrganization([['id',$organization_id]], ['organization_name'=>$organization_name]);//修改服务商表服务商名称
+                Organization::editOrganization([['id',$organization_id]], ['organization_name'=>$organization_name]);//修改分公司表分公司名称
             }
             if($agent['mobile']!=$mobile){
-                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]], ['agent_owner_mobile'=>$mobile]);//修改服务商表服务商手机号码
+                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]], ['agent_owner_mobile'=>$mobile]);//修改分公司表分公司手机号码
                 Account::editAccount(['organization_id'=>$organization_id],['mobile'=>$mobile]);//修改用户管理员信息表 手机号
                 $admin_data['mobile'] = $mobile;
             }
 
             if($agent['organizationAgentinfo']['agent_owner'] != $realname){
-                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]],['agent_owner'=>$realname]);//修改服务商用户信息表 用户姓名
+                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]],['agent_owner'=>$realname]);//修改分公司用户信息表 用户姓名
                 AccountInfo::editAccountInfo([['account_id',$account_id]],['realname'=>$realname]);//修改用户管理员信息表 用户名
                 $admin_data['realname'] = $realname;
             }
 
             if($agent['organizationAgentinfo']['agent_owner_idcard'] != $idcard){
                 AccountInfo::editAccountInfo([['account_id',$account_id]],['idcard'=>$idcard]);//修改用户管理员信息表 身份证号
-                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]],['agent_owner_idcard'=>$idcard]);//修改服务商信息表 身份证号
+                OrganizationAgentinfo::editOrganizationAgentinfo([['agent_id',$organization_id]],['agent_owner_idcard'=>$idcard]);//修改分公司信息表 身份证号
             }
 
             if($admin_data['is_super'] != 2) {
-                OperationLog::addOperationLog('2', $organization_id, $account_id, $route_name, '修改了服务商信息：' . $agent['organization_name']);//保存操作记录
+                OperationLog::addOperationLog('2', $organization_id, $account_id, $route_name, '修改了分公司信息：' . $agent['organization_name']);//保存操作记录
             }
             DB::commit();//提交事务
         }catch (\Exception $e) {
@@ -163,7 +163,7 @@ class SystemController extends Controller{
         $son_menu_data = $request->get('son_menu_data');//中间件产生的管理员数据参数
         $route_name = $request->path();//获取当前的页面路由
         $organization_id = $admin_data['organization_id'];//当前组织ID，零壹管理平台组织只能为1
-        $oneAcc = Account::getOne([['organization_id',$organization_id],['deepth',1]]);//查找服务商对应的负责人信息
+        $oneAcc = Account::getOne([['organization_id',$organization_id],['deepth',1]]);//查找分公司对应的负责人信息
         $parent_tree = $oneAcc['parent_tree'];//组织树
         //获取重Admin开始的的所有人员
         $list = Account::getList([['organization_id',$organization_id],['parent_tree','like','%'.$parent_tree.$oneAcc['id'].',%']],0,'id','asc')->toArray();

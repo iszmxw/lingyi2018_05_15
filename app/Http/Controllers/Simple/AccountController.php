@@ -65,7 +65,7 @@ class AccountController extends Controller
         DB::beginTransaction();
         try {
             if ($oneAcc['mobile'] != $mobile) {
-                if (Account::checkRowExists([['mobile', $mobile], ['organization_id', $organization_id]])) {//判断手机号在服务商存不存在
+                if (Account::checkRowExists([['mobile', $mobile], ['organization_id', $organization_id]])) {//判断手机号在分公司存不存在
                     return response()->json(['data' => '手机号已存在', 'status' => '0']);
                 }
                 if ($admin_data['is_super'] != 1) {
