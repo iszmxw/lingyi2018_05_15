@@ -144,13 +144,13 @@ function selectRessId(address_id){
                         if (json.status == 1) {
                            var price = json.data.freight;
                            if (price) {
-                               $("#dispatch_hook").fadeIn("show");               
-                               $("#dispatch_price").html("&yen;"+price);
-                               var order_price = $("#order_num_price").data("price");
+                               $("#dispatch_price").html("&yen;"+price);//赋值运费
+                               $("#dispatch_hook").fadeIn("show");//存在运费显示运费标签             
+                               var order_price = $("#order_num_price").data("price");//获取购物车总价格
                                var order_num_price = parseInt(price) + parseFloat(order_price);
-                               $("#order_btn_price").html("&yen;"+order_num_price);
-                               $("#order_num_price").html("&yen;"+order_num_price);
-                               $("#address_info").text(ress_info);
+                               $("#order_btn_price").html("&yen;"+order_num_price);//获取总计的价格
+                               $("#order_num_price").html("&yen;"+order_num_price);//获取总计的价格
+                               $("#address_info").text(ress_info);//赋值选择的地址信息
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
@@ -199,8 +199,8 @@ function address_user(){
                         if (json.status == 1) {
                            var price = json.data.freight;
                            if (price) {
-                               $("#dispatch_hook").fadeIn("show");               
-                               $("#dispatch_price").html("&yen;"+price);
+                               $("#dispatch_price").html("&yen;"+price);//赋值运费  
+                               $("#dispatch_hook").fadeIn("show");//存在运费显示运费标签      
                                var order_price = $("#order_num_price").data("price");
                                var order_num_price = parseInt(price) + parseFloat(order_price);
                                $("#order_btn_price").html("&yen;"+order_num_price);
@@ -209,7 +209,6 @@ function address_user(){
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
-                               $("#select_distribution").text('快递配送');//配送方式
                            }
                         } else if (json.status == 0) {
                             $("#address_info_box").show();//显示收货地址列表
@@ -326,8 +325,10 @@ function selectSelftake(){
             }
             $("#dispatch_hook").hide(); //隐藏运费
             var order_price = $("#order_num_price").data("price");//获取购物车总价（减去运费价）
-            $("#order_btn_price").html("&yen;"+order_price);
-            $("#order_num_price").html("&yen;"+order_price);
+            if (order_price) {
+                $("#order_btn_price").html("&yen;"+order_price);
+                $("#order_num_price").html("&yen;"+order_price);
+            }
              $.hideIndicator();
         }
     );
