@@ -46,6 +46,11 @@ class WechatApiCheck
                 $re = $this->checkAddressAdd($request);
                 return self::format_response($re, $next);
                 break;
+            case "api/wechatApi/address_info"://单条地址数据
+                $re = $this->checkaddressInfo($request);
+                return self::format_response($re, $next);
+                break;
+
             case "api/wechatApi/address_edit"://检测编辑收货地址提交数据
                 $re = $this->checkAddressEdit($request);
                 return self::format_response($re, $next);
@@ -58,7 +63,6 @@ class WechatApiCheck
                 $re = $this->checkAddressStatus($request);
                 return self::format_response($re, $next);
                 break;
-
 
             case "api/wechatApi/selftake"://用户默认取货信息
             case "api/wechatApi/address_list"://检测添加收货地址提交数据
@@ -222,23 +226,8 @@ class WechatApiCheck
         if (empty($request->input('zerone_user_id'))) {
             return self::res(0, response()->json(['msg' => '用户零壹id不能为空', 'status' => '0', 'data' => '']));
         }
-        if (empty($request->input('province_id'))) {
-            return self::res(0, response()->json(['msg' => '省份id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('province_name'))) {
-            return self::res(0, response()->json(['msg' => '省份名称不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('city_id'))) {
-            return self::res(0, response()->json(['msg' => '城市id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('city_name'))) {
-            return self::res(0, response()->json(['msg' => '城市名称不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('district_id'))) {
-            return self::res(0, response()->json(['msg' => '地区id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('district_name'))) {
-            return self::res(0, response()->json(['msg' => '地区名称不能为空', 'status' => '0', 'data' => '']));
+        if (empty($request->input('address_info'))) {
+            return self::res(0, response()->json(['msg' => '选择地区不能为空', 'status' => '0', 'data' => '']));
         }
         if (empty($request->input('address'))) {
             return self::res(0, response()->json(['msg' => '详细地址不能为空', 'status' => '0', 'data' => '']));
@@ -249,8 +238,36 @@ class WechatApiCheck
         if (empty($request->input('mobile'))) {
             return self::res(0, response()->json(['msg' => '手机号码不能为空', 'status' => '0', 'data' => '']));
         }
+        $mobile = $request->input('mobile');
+        if (!preg_match("/^1[34578]\d{9}$/", $mobile)) {
+            return self::res(0, response()->json(['data' => '请输入正确手机号码', 'status' => '0']));
+        }
+        if (empty($request->input('sex'))) {
+            return self::res(0, response()->json(['msg' => '性别不能为空', 'status' => '0', 'data' => '']));
+        }
         return self::res(1, $request);
     }
+
+    /**
+     * 检测用户收货地址添加提交数据
+     */
+    public function checkaddressInfo($request)
+    {
+        if (empty($request->input('store_id'))) {
+            return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('fansmanage_id'))) {
+            return self::res(0, response()->json(['msg' => '联盟id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('address_id'))) {
+            return self::res(0, response()->json(['msg' => '地址id不能为空', 'status' => '0', 'data' => '']));
+        }
+        if (empty($request->input('weight'))) {
+            return self::res(0, response()->json(['msg' => '商品重量不能为空', 'status' => '0', 'data' => '']));
+        }
+        return self::res(1, $request);
+    }
+
 
     /**
      * 检测用户收货地址编辑提交数据
@@ -260,23 +277,8 @@ class WechatApiCheck
         if (empty($request->input('address_id'))) {
             return self::res(0, response()->json(['msg' => '地址id不能为空', 'status' => '0', 'data' => '']));
         }
-        if (empty($request->input('province_id'))) {
-            return self::res(0, response()->json(['msg' => '省份id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('province_name'))) {
-            return self::res(0, response()->json(['msg' => '省份名称不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('city_id'))) {
-            return self::res(0, response()->json(['msg' => '城市id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('city_name'))) {
-            return self::res(0, response()->json(['msg' => '城市名称不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('district_id'))) {
-            return self::res(0, response()->json(['msg' => '地区id不能为空', 'status' => '0', 'data' => '']));
-        }
-        if (empty($request->input('district_name'))) {
-            return self::res(0, response()->json(['msg' => '地区名称不能为空', 'status' => '0', 'data' => '']));
+        if (empty($request->input('address_info'))) {
+            return self::res(0, response()->json(['msg' => '选择地区不能为空', 'status' => '0', 'data' => '']));
         }
         if (empty($request->input('address'))) {
             return self::res(0, response()->json(['msg' => '详细地址不能为空', 'status' => '0', 'data' => '']));
@@ -286,6 +288,13 @@ class WechatApiCheck
         }
         if (empty($request->input('mobile'))) {
             return self::res(0, response()->json(['msg' => '手机号码不能为空', 'status' => '0', 'data' => '']));
+        }
+        $mobile = $request->input('mobile');
+        if (!preg_match("/^1[34578]\d{9}$/", $mobile)) {
+            return self::res(0, response()->json(['data' => '请输入正确手机号码', 'status' => '0']));
+        }
+        if (empty($request->input('sex'))) {
+            return self::res(0, response()->json(['msg' => '性别不能为空', 'status' => '0', 'data' => '']));
         }
         return self::res(1, $request);
     }

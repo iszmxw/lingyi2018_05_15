@@ -487,10 +487,6 @@ class WechatApiController extends Controller
     {
         // 用户零壹id
         $zerone_user_id = $request->zerone_user_id;
-        // 联盟主id
-        $fansmanage_id = $request->fansmanage_id;
-        // 店铺id
-        $store_id = $request->store_id;
         // 查询默认收货地址
         $address = SimpleAddress::getone([['zerone_user_id', $zerone_user_id], ['status', '1']]);
         if (empty($address)) {
@@ -500,12 +496,12 @@ class WechatApiController extends Controller
         $address_info = [
             // ID
             'id' => $address['id'],
-            // 城市
+            // 省份
             'province_name' => $address['province_name'],
             // 区县
             'city_name' => $address['city_name'],
-            // 省份
-            'district_name' => $address['district_name'],
+            // 城市
+            'area_name' => $address['area_name'],
             // 详细地址
             'address' => $address['address'],
             // 收货人姓名
@@ -513,18 +509,57 @@ class WechatApiController extends Controller
             // 手机号码
             'mobile' => $address['mobile'],
         ];
-        // 运费模板
-        $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
-        $dispatch_info = [];
-        if ($dispatch->toArray()) {
-            foreach ($dispatch->toArray() as $key => $value) {
-                $dispatch_info[$key] = DispatchProvince::getList([['dispatch_id', $value['id']]], '', 'id', 'DESC', ['dispatch_id', 'province_id', 'first_weight', 'additional_weight', 'freight', 'renewal']);
-            }
-
-        }
-        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info, 'dispatch_info' => $dispatch_info]];
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info]];
         return response()->json($data);
     }
+
+
+    /**
+     * 查询店铺运费
+     */
+    public function dispatch(Request $request)
+    {
+        // 联盟主id
+        $fansmanage_id = $request->fansmanage_id;
+        // 店铺id
+        $store_id = $request->store_id;
+        // 重量
+        $weight = $request->weight;
+        // 地址id
+        $address_id = $request->address_id;
+        // 查询默认收货地址
+        $address = SimpleAddress::getone([['id', $address_id]]);
+        // 运费模板
+        $dispatch = Dispatch::getList([['fansmanage_id', $fansmanage_id], ['store_id', $store_id], ['status', '1']], '', 'id');
+        $freight = 0;
+        if ($dispatch->toArray()) {
+            foreach ($dispatch->toArray() as $key => $value) {
+                $dispatch_info = DispatchProvince::getOne([['dispatch_id', $value['id']], ['province_id','LIKE', "%{$address['province_id']}%"]]);
+                if ($dispatch_info) {
+                    if ($weight < $dispatch_info['first_weight']) {
+                        $freight = $dispatch_info['freight'];
+                    } else {
+                        // 续重
+                        $additional_weight =  $weight - $dispatch_info['first_weight'];
+                        // 续重费用
+                        $freight = $dispatch_info['freight'] + ceil($additional_weight* $dispatch_info['renewal']/1000);
+                    }
+                    break;
+                }
+            }
+        }
+
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['freight' => $freight]];
+
+        return response()->json($data);
+    }
+
+
+
+
+
+
+
 
     /**
      * 查询用户默认取货信息
@@ -554,6 +589,42 @@ class WechatApiController extends Controller
 
         return response()->json($data);
     }
+
+
+    /**
+     * 查询收货地址详情
+     */
+    public function address_info(Request $request)
+    {
+        // 地址id
+        $address_id = $request->address_id;
+        // 查询默认收货地址
+        $address = SimpleAddress::getone([['id', $address_id]]);
+        if (empty($address)) {
+            return response()->json(['status' => '0', 'msg' => '没有收货地址', 'data' => '']);
+        }
+        // 数据处理
+        $address_info = [
+            // ID
+            'id' => $address['id'],
+            // 省份
+            'province_name' => $address['province_name'],
+            // 区县
+            'city_name' => $address['city_name'],
+            // 地区
+            'area_name' => $address['area_name'],
+            // 详细地址
+            'address' => $address['address'],
+            // 收货人姓名
+            'realname' => $address['realname'],
+            // 手机号码
+            'mobile' => $address['mobile'],
+        ];
+        $data = ['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info]];
+
+        return response()->json($data);
+    }
+
 
     /**
      * 查询用户取货信息
@@ -595,18 +666,22 @@ class WechatApiController extends Controller
     {
         // 用户零壹id
         $zerone_user_id = $request->zerone_user_id;
-        // 省份id
-        $province_id = $request->province_id;
-        // 省份名称
-        $province_name = $request->province_name;
-        // 城市ID
-        $city_id = $request->city_id;
-        // 城市名称
-        $city_name = $request->city_name;
-        // 地区ID
-        $district_id = $request->district_id;
-        // 地区名称
-        $district_name = $request->district_name;
+        // 省份 城市 地区
+        $address_info = $request->address_info;
+        // 转为数组
+        $address_info = explode(" ", $address_info);
+        // 获取省份id 和 名字
+        $province = Province::provinceOne([['province_name', $address_info['0']]]);
+        // 获取城市id 和 名字
+        $city = City::getOne([['city_name', $address_info['1']]]);
+        if (count($address_info) == 3) {
+            $area = Area::getOne([['area_name', $address_info['2']]]);
+        } else {
+            $area = [
+                'id' => '',
+                'area_name' => ''
+            ];
+        }
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
@@ -615,6 +690,8 @@ class WechatApiController extends Controller
         $mobile = $request->mobile;
         // 默认收货地址 1为默认
         $status = $request->status;
+        // 1为男，2为女
+        $sex = $request->sex;
         // 如果没传值，查询是否设置有地址，没有的话为默认地址
         if (empty($status)) {
             $status = SimpleAddress::checkRowExists([['zerone_user_id', $zerone_user_id]]) ? '0' : '1';
@@ -627,16 +704,17 @@ class WechatApiController extends Controller
             // 数据处理
             $addressData = [
                 'zerone_user_id' => $zerone_user_id,
-                'province_id' => $province_id,
-                'province_name' => $province_name,
-                'city_id' => $city_id,
-                'city_name' => $city_name,
-                'district_id' => $district_id,
-                'district_name' => $district_name,
+                'province_id' => $province['id'],
+                'province_name' => $province['province_name'],
+                'city_id' => $city['id'],
+                'city_name' => $city['city_name'],
+                'area_id' => $area['id'],
+                'area_name' => $area['area_name'],
                 'address' => $address,
                 'realname' => $realname,
                 'mobile' => $mobile,
-                'status' => $status
+                'status' => $status,
+                'sex' => $sex
             ];
             $address_id = SimpleAddress::addAddress($addressData);
             // 提交事务
@@ -646,7 +724,7 @@ class WechatApiController extends Controller
             DB::rollBack();
             return response()->json(['status' => '0', 'msg' => '添加失败', 'data' => '']);
         }
-        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['address_id' => $address_id]];
+        $data = ['status' => '1', 'msg' => '添加成功', 'data' => ['address_id' => $address_id, 'return' => 'address']];
         return response()->json($data);
     }
 
@@ -670,8 +748,8 @@ class WechatApiController extends Controller
                 "province_name" => $value['province_name'],
                 "city_id" => $value['city_id'],
                 "city_name" => $value['city_name'],
-                "district_id" => $value['district_id'],
-                "district_name" => $value['district_name'],
+                "area_id" => $value['area_id'],
+                "area_name" => $value['area_name'],
                 "address" => $value['address'],
                 "realname" => $value['realname'],
                 "mobile" => $value['mobile'],
@@ -695,18 +773,24 @@ class WechatApiController extends Controller
         if (empty(SimpleAddress::checkRowExists([['id', $address_id]]))) {
             return response()->json(['status' => '0', 'msg' => '查无数据', 'data' => '']);
         };
-        // 省份id
-        $province_id = $request->province_id;
-        // 省份名称
-        $province_name = $request->province_name;
-        // 城市ID
-        $city_id = $request->city_id;
-        // 城市名称
-        $city_name = $request->city_name;
-        // 地区ID
-        $district_id = $request->district_id;
-        // 地区名称
-        $district_name = $request->district_name;
+
+
+        // 省份 城市 地区
+        $address_info = $request->address_info;
+        // 转为数组
+        $address_info = explode(" ", $address_info);
+        // 获取省份id 和 名字
+        $province = Province::provinceOne([['province_name', $address_info['0']]]);
+        // 获取城市id 和 名字
+        $city = City::getOne([['city_name', $address_info['1']]]);
+        if (count($address_info) == 3) {
+            $area = Area::getOne([['area_name', $address_info['2']]]);
+        } else {
+            $area = [
+                'id' => '',
+                'area_name' => ''
+            ];
+        }
         // 详细地址
         $address = $request->address;
         // 收货人真实姓名
@@ -716,25 +800,26 @@ class WechatApiController extends Controller
         // 默认收货地址 1为默认
         $status = $request->status ? '1' : '0';
         // 如果没传值，查询是否设置有地址，没有的话为默认地址
-
+        // 1为男，2为女
+        $sex = $request->sex;
         // 数据处理
         $editData = [
-            'province_id' => $province_id,
-            'province_name' => $province_name,
-            'city_id' => $city_id,
-            'city_name' => $city_name,
-            'district_id' => $district_id,
-            'district_name' => $district_name,
+            'province_id' => $province['id'],
+            'province_name' => $province['province_name'],
+            'city_id' => $city['id'],
+            'city_name' => $city['city_name'],
+            'area_id' => $area['id'],
+            'area_name' => $area['area_name'],
             'address' => $address,
             'realname' => $realname,
             'mobile' => $mobile,
-            'status' => $status
+            'status' => $status,
+            'sex' => $sex
         ];
 
         SimpleAddress::editAddress([['id', $address_id]], $editData);
 
-
-        $data = ['status' => '1', 'msg' => '编辑成功', 'data' => ['address_id' => $address_id]];
+        $data = ['status' => '1', 'msg' => '编辑成功', 'data' => ['address_id' => $address_id, 'return' => 'address']];
 
         return response()->json($data);
     }
@@ -1376,7 +1461,7 @@ class WechatApiController extends Controller
                 'type' => $re['type']
             ];
         }
-        return response()->json(['status' => '1', 'msg' => '取消订单成功', 'data' => ['address_info' => $address_info]]);
+        return response()->json(['status' => '1', 'msg' => '查询成功', 'data' => ['address_info' => $address_info]]);
     }
 
 

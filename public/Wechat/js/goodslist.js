@@ -443,7 +443,7 @@ function cart_list_box(name, price, num, goods_id, stock, thumb) {
 }
 //跳转提交订单
 function online_order(){
-    var url = "http://develop.01nnt.com/zerone/wechat/online_order";
+    var url = "http://develop.01nnt.com/zerone/wechatRetail/online_order";
     var totalnum = $("#goods_totalnum").text();
     if(totalnum > 0){
         window.location.href = url;

@@ -29,11 +29,41 @@ $(function(){
                     $("#address").hide();//隐藏收货地址按钮
                     $("#select_distribution").text('到店自取');//配送方式
                 } else if (json.status == 0) {
-                    $.toast("网络错误");
+                    $.toast("数据找不到了");
                 }
             }
         );
-    }else{
+    }else if(status && status =="address"){
+        var address_id = getUrlParam("address_id");
+        //查询返回来(新添加)的地址
+        var address_info = "http://develop.01nnt.com/api/wechatApi/address_info";
+        $.post(
+            address_info,
+            {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id,'store_id':store_id},
+            function (json) {
+                console.log(json+"地址");
+                if (json.status == 1) {
+                    // var selftake_id = json.data.selftake_info.id;
+                    // var mobile = json.data.selftake_info.mobile;
+                    // var realname = json.data.selftake_info.realname;
+                    // var sex = json.data.selftake_info.sex;
+                    // $("#shipping_type").val("2");//修改到点自提id(存)
+                    // $("#selftake_id").val(selftake_id);
+                    // $("#shipping_mobile").val(mobile);
+                    // $("#shipping_realname").val(realname);
+                    // $("#shipping_sex").val(sex);
+                    // $("#selftake_info").text(realname+"-"+mobile);
+                    // $("#address_info_box").hide();//隐藏收货地址列表
+                    // $("#selftake_info_box").show();//显示自取信息列表
+                    // $("#address").hide();//隐藏收货地址按钮
+                    // $("#select_distribution").text('到店自取');//配送方式
+                } else if (json.status == 0) {
+                    $.toast("数据找不到了");
+                }
+            }
+        );
+    }
+    else{
         //默认查找用户默认的收获地址
         address_user();
     }
@@ -83,8 +113,12 @@ function ress_list(){
             if (json.status == 1) {
                 var str ="";
                 for (var i = 0; i < json.data.address_list.length; i++) {
-                    var ress_info =json.data.address_list[i].province_name + json.data.address_list[i].city_name+
-                                    json.data.address_list[i].district_name + json.data.address_list[i].address;
+                    var province_name =(json.data.address_list[i].province_name) ? json.data.address_list[i].province_name : "";
+                    var city_name = (json.data.address_list[i].city_name) ? json.data.address_list[i].city_name : "";
+                    var district_name = (json.data.address_list[i].district_name) ? json.data.address_list[i].district_name : "";
+                    var address = (json.data.address_list[i].address) ? json.data.address_list[i].address : "";
+
+                    var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address;
                     var realname =json.data.address_list[i].realname;
                     var mobile =json.data.address_list[i].mobile;
                     var status =json.data.address_list[i].status;
@@ -116,9 +150,11 @@ function address_user(){
         function (json) {
             console.log(json);
             if (json.status == 1) {
-                var address_info = json.data.address_info.city_name + json.data.address_info.city_name +
-                                    json.data.address_info.district_name +json.data.address_info.address
-                                    +json.data.address_info.mobile;
+                var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
+                var address = (json.data.address_info.address) ? json.data.address_info.address : "";
+                var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
+                var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
             } else if (json.status == 0) {
@@ -145,9 +181,9 @@ function selftake_list(){
             if (json.status == 1) {
                 var str ="";
                 for (var i = 0; i < json.data.self_take_info.length; i++) {
-                    var realname = json.data.self_take_info[i].realname;
+                    var realname = (json.data.self_take_info[i].realname) ? json.data.self_take_info[i].realname : "";
                     var sex = (json.data.self_take_info[i].sex ==1 ) ? "先生" : "女士";
-                    var mobile = json.data.self_take_info[i].mobile;
+                    var mobile = (json.data.self_take_info[i].mobile) ? json.data.self_take_info[i].mobile : "";
                     var status = json.data.self_take_info[i].status;
                     var id =json.data.self_take_info[i].id;
                     str += selftake_list_box(realname,sex,mobile,status,id);

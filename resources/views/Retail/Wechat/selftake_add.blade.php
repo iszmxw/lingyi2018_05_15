@@ -29,10 +29,10 @@
 					<li class="a_b_b a_b_t">
 						<div class="item_title title_f"></div>
 						<div class="item_input item_input_pd1">
-							<input type="radio" id="userinfo2" name="sex" checked="checked" class="radio_address" value="1">
-							<label for="userinfo2">先生</label>
-							<input type="radio" id="userinfo1" name="sex" class="radio_address" value="2">
-							<label for="userinfo1">女士</label>
+							<input type="radio" id="userinfo1" name="sex" checked="checked" class="radio_address" value="1">
+							<label for="userinfo1">先生</label>
+							<input type="radio" id="userinfo2" name="sex" class="radio_address" value="2">
+							<label for="userinfo2">女士</label>
 						</div>
 					</li>
 					<li class="a_b_b a_b_t">
@@ -52,7 +52,7 @@
 					</label>
 				</span>
 		</div>
-		<a href="javascript:;" class="preservation" onclick="selftake_add_cm()">保存1237777</a>
+		<a href="javascript:;" class="preservation" onclick="selftake_add_cm()">保存</a>
 	</div>
 	</form>
 	<!-- alert -->

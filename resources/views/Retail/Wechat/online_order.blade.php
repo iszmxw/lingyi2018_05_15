@@ -32,9 +32,9 @@
 	        <div class="order order_m">
 				<div class="order_box">
 					<h3 class="order_state15-10">待支付</h3>
-                    <a href="http://develop.01nnt.com/zerone/wechat/address_add" id="address" class="address_btn" external>
+                    <a href="http://develop.01nnt.com/zerone/wechatRetail/address_add" id="address" class="address_btn" external>
                     <i></i>添加收货地址</a>
-                    <a href="http://develop.01nnt.com/zerone/wechat/selftake_add" id="addselftake" class="address_btn" external>
+                    <a href="http://develop.01nnt.com/zerone/wechatRetail/selftake_add" id="addselftake" class="address_btn" external>
                     <i></i>添加取货信息</a>
 			    	<div class="item address_info_box" id="address_info_box" onclick="ress_list()">
 				    	<div class="row">
@@ -99,7 +99,8 @@
 				<p class="quhuoinfo">我的收货地址</p>
 				<div class="max_height_box" id="ress_list_box">
 				</div>
-				<a href="javascript:;" class="add_address_btn my_text_align">添加收货地址</a>
+				<a href="http://develop.01nnt.com/zerone/wechatRetail/address_add"
+                class="add_address_btn my_text_align" external>添加收货地址</a>
 			</div>
 		</div>
 		<!-- 收货地址alert -->
@@ -109,7 +110,8 @@
 				<p class="quhuoinfo">我的取货信息</p>
 				<div class="max_height_box" id="selftake_list_box">
 				</div>
-				<a href="http://develop.01nnt.com/zerone/wechat/selftake_add" class="add_address_btn my_text_align" external>添加取货信息</a>
+				<a href="http://develop.01nnt.com/zerone/wechatRetail/selftake_add"
+                class="add_address_btn my_text_align" external>添加取货信息</a>
 			</div>
 		</div>
 		<!-- 自取信息alert -->
@@ -139,7 +141,7 @@
                 </div>
                 <div class="alert_btn_wz">
                     <!-- <a href="javascript:;" class="btn_alert my_text_align btn_alert_bg1">取消</a> -->
-                    <a href="javascript:;" onclick="hide('selectexpress');"
+                    <a href="javascript:;" onclick="address_user()"
                     class="btn_alert my_text_align btn_alert_bg ress_confirm"
                     id="ress_confirm" external>确认</a>
 					<a href="javascript:;" onclick="selectSelftake()"
