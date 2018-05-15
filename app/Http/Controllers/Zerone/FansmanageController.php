@@ -389,7 +389,7 @@ class FansmanageController extends Controller
                 $join->where('mobile', $mobile);
             }
         })->orderBy('organization.id', 'DESC')->paginate('10');
-
+        dump($list);
         // 循环数据
         foreach ($list as $key => $value) {
             // 上级组织名字
