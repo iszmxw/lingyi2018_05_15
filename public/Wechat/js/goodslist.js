@@ -116,8 +116,8 @@ function selectgoods(category, keyword_val, limit) {
                 }
                 //购物车总价格
                 var _this = $("#cart_price");
-                _this.attr('data-totalprice', total_price.toFixed(2));//记录总价格的值
-                _this.html("金额总计<em>&yen;" + total_price.toFixed(2) + "</em>");
+                _this.attr('data-totalprice', total_price);//记录总价格的值
+                _this.html("金额总计<em>&yen;" + total_price + "</em>");
                 //购物车总数
                 var total = json.data.total;
                 var _this1 = $("#goods_totalnum");
@@ -398,8 +398,8 @@ function totalprice(price, status) {
     var old_price = $this.data("totalprice");
     var total = (status == true) ? parseFloat(price) + parseFloat(old_price) : parseFloat(old_price) - parseFloat(price);
     //记录总价格的值
-    $this.attr('data-totalprice', total.toFixed(2));
-    $this.html("金额总计<em>&yen;" + total.toFixed(2) + "</em>");
+    $this.attr('data-totalprice', total);
+    $this.html("金额总计<em>&yen;" + total + "</em>");
 }
 
 //购物车总数
@@ -583,8 +583,8 @@ function showcart(obj, em) {
                 //购物车总价格
                 //记录总价格的值
                 var _this = $("#cart_price");
-                _this.attr('data-totalprice', total_price.toFixed(2));
-                _this.html("金额总计<em>&yen;" + total_price.toFixed(2) + "</em>");
+                _this.attr('data-totalprice', total_price);
+                _this.html("金额总计<em>&yen;" + total_price + "</em>");
                 //购物车总数
                 var total = json.data.total;
                 var _this1 = $("#goods_totalnum");

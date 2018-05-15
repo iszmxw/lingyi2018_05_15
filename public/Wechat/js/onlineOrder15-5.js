@@ -91,8 +91,9 @@ $(function(){
                 var order_num = json.data.total;
                 $("#order_num").html("&nbsp;&nbsp;("+order_num+"份商品)");
                 //总价
-                $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
-                $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
+                $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price);
+                $("#order_btn_price").html("&yen;"+order_num_price);
+                $("#order_num_price").attr('data-price', order_num_price);
             } else if (json.status == 0) {
                 window.history.go(-1);
                 console.log(json.msg);
@@ -155,9 +156,10 @@ function address_user(){
                 var address = (json.data.address_info.address) ? json.data.address_info.address : "";
                 var mobile = (json.data.address_info.mobile) ? json.data.address_info.mobile : "";
                 var address_info = city_name+"-"+district_name+"-"+address+"-"+mobile;
+                var address_id = json.data.address_info.id;
                 $("#address_info").text(address_info);
                 $("#address_info_box").show();//现在添加收货地址按钮
-                dispatch();//运费
+                dispatch(address_id);//运费
             } else if (json.status == 0) {
                 $("#selftake_info_box").hide();//隐藏自取信息列表
                 $("#address").show().css('display','block');//显示收货地址按钮
@@ -170,7 +172,7 @@ function address_user(){
     );
 }
 //运费
-function dispatch(){
+function dispatch(address_id){
     var url = $("#dispatch").val();
     var fansmanage_id = $("#fansmanage_id").val();//联盟主组织ID
     var _token = $("#_token").val();
@@ -178,11 +180,19 @@ function dispatch(){
     var weight = 1000;
     $.post(
         url,
-        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight},
+        {'_token': _token,'fansmanage_id':fansmanage_id,'store_id':store_id,'weight':weight,'address_id':address_id},
         function (json) {
             console.log(json,"运费");
             if (json.status == 1) {
-               
+               var price = json.data.freight;
+               if (price) {
+                   $("#dispatch_hook").fadeIn("show");               
+                   $("#dispatch_price").html("&yen;"+price);
+                   var order_price = $("#order_num_price").data("price");
+                   var order_num_price = parseInt(price) + parseFloat(order_price);
+                   $("#order_btn_price").html("&yen;"+order_num_price);
+                   $("#order_num_price").html("&yen;"+order_num_price);
+               }
             } else if (json.status == 0) {
                 alert(json.msg);
             }
