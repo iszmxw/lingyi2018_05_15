@@ -134,6 +134,7 @@ function selectRessId(address_id){
                                 realname+"-"+mobile;
                 var address_id =json.data.address_info.id;
                 var return_val = dispatch(address_id);//运费计算
+                console.log(return_val+"*****");
                 if (return_val == 1) {
                     return;
                 }
