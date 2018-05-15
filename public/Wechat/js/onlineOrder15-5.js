@@ -158,7 +158,7 @@ function selectRessId(address_id){
                            }
                         } else if (json.status == 0) {
                             $("#address_info_box").show();//显示收货地址列表
-                            $("#dispatch_hook").fadeIn("none"); 
+                            $("#dispatch_hook").hide(); 
                              var order_price = $("#order_num_price").data("price");
                              $("#order_btn_price").html("&yen;"+order_price);
                              $("#order_num_price").html("&yen;"+order_price);
