@@ -35,34 +35,7 @@ $(function(){
         );
     }else if(status && status =="address"){
         var address_id = getUrlParam("address_id");
-        //查询返回来(新添加)的地址
-        var address_info = "http://develop.01nnt.com/api/wechatApi/address_info";
-        $.post(
-            address_info,
-            {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id,'store_id':store_id},
-            function (json) {
-                console.log(json);
-                if (json.status == 1) {
-                    var province_name =(json.data.address_info.province_name) ? json.data.address_info.province_name : "";
-                    var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
-                    var area_name = (json.data.address_info.area_name) ? json.data.address_info.area_name : "";
-                    var address = (json.data.address_info.address) ? json.data.address_info.address : "";
-                    var realname =json.data.address_info.realname;
-                    var mobile =json.data.address_info.mobile;
-                    var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
-                                    realname+"-"+mobile;
-                    var address_id =json.data.address_info.id;
-                    $("#address_info").text(ress_info);
-                    dispatch(address_id);//运费计算
-                    $("#address_info_box").show();//显示收货地址列表
-                    $("#selftake_info_box").hide();//隐藏自取信息列表
-                    $("#address").hide();//隐藏收货地址按钮
-                    $("#select_distribution").text('快递配送');//配送方式
-                } else if (json.status == 0) {
-                    $.toast("数据找不到了");
-                }
-            }
-        );
+        selectRessId(address_id);
     }
     else{
         //默认查找用户默认的收获地址
@@ -134,6 +107,40 @@ function ress_list(){
             } else if (json.status == 0) {
                 show('quhuoinfo');
                 console.log(json.msg);
+            }
+        }
+    );
+}
+//根据ID查找运费和选择地址
+function selectRessId(address_id){
+    //查询返回来(新添加)的地址
+    var zerone_user_id = $("#zerone_user_id").val();//userID
+    var _token = $("#_token").val();
+    var store_id = $("#store_id").val();//店铺ID
+    var address_info = "http://develop.01nnt.com/api/wechatApi/address_info";
+    $.post(
+        address_info,
+        {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id,'store_id':store_id},
+        function (json) {
+            console.log(json);
+            if (json.status == 1) {
+                var province_name =(json.data.address_info.province_name) ? json.data.address_info.province_name : "";
+                var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
+                var area_name = (json.data.address_info.area_name) ? json.data.address_info.area_name : "";
+                var address = (json.data.address_info.address) ? json.data.address_info.address : "";
+                var realname =json.data.address_info.realname;
+                var mobile =json.data.address_info.mobile;
+                var ress_info = province_name +"-"+city_name+"-"+area_name+"-"+address+"-"+
+                                realname+"-"+mobile;
+                var address_id =json.data.address_info.id;
+                $("#address_info").text(ress_info);
+                dispatch(address_id);//运费计算
+                $("#address_info_box").show();//显示收货地址列表
+                $("#selftake_info_box").hide();//隐藏自取信息列表
+                $("#address").hide();//隐藏收货地址按钮
+                $("#select_distribution").text('快递配送');//配送方式
+            } else if (json.status == 0) {
+                $.toast("数据找不到了");
             }
         }
     );
