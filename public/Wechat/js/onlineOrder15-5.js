@@ -38,7 +38,7 @@ $(function(){
         //查询返回来(新添加)的地址
         var address_info = "http://develop.01nnt.com/api/wechatApi/address_info";
         $.post(
-            selftake_info,
+            address_info,
             {'zerone_user_id': zerone_user_id, '_token': _token,'address_id':address_id},
             function (json) {
                 console.log(json+"地址");
