@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 
-class AndroidApiController extends Controller
+class AndroidRetailApiController extends Controller
 {
     /**
      * 登入检测

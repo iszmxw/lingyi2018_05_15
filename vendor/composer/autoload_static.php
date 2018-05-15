@@ -383,7 +383,7 @@ class ComposerStaticInitb9735fcbdebacda65f8b28f1dfce9c00
         'App\\Http\\Controllers\\Agent\\PersonalController' => __DIR__ . '/../..' . '/app/Http/Controllers/Agent/PersonalController.php',
         'App\\Http\\Controllers\\Agent\\ProgramController' => __DIR__ . '/../..' . '/app/Http/Controllers/Agent/ProgramController.php',
         'App\\Http\\Controllers\\Agent\\SystemController' => __DIR__ . '/../..' . '/app/Http/Controllers/Agent/SystemController.php',
-        'App\\Http\\Controllers\\Api\\AndroidApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AndroidApiController.php',
+        'App\\Http\\Controllers\\Api\\AndroidApiController' => __DIR__ . '/../..',
         'App\\Http\\Controllers\\Api\\AndroidSimpleApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AndroidSimpleApiController.php',
         'App\\Http\\Controllers\\Api\\AuthApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AuthApiController.php',
         'App\\Http\\Controllers\\Api\\WechatApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/WechatApiController.php',
