@@ -151,7 +151,6 @@ class AgentController extends Controller
     public function agent_add_check(Request $request)
     {
         // 中间件产生的管理员数据参数
-        dd($request);
         $admin_data = $request->get('admin_data');
         // 获取当前的页面路由
         $route_name = $request->path();
