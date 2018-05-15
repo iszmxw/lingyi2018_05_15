@@ -186,7 +186,7 @@ function address_user(){
         address_url,
         {'fansmanage_id': fansmanage_id, '_token': _token, 'store_id': store_id,'zerone_user_id':zerone_user_id},
         function (json) {
-            console.log(json);
+            console.log(json+"++++默认");
             if (json.status == 1) {
                 var city_name = (json.data.address_info.city_name) ? json.data.address_info.city_name : "";
                 var district_name = (json.data.address_info.district_name) ? json.data.address_info.district_name : "";
@@ -216,6 +216,11 @@ function address_user(){
                                $("#address_info_box").show();//显示收货地址列表
                                $("#selftake_info_box").hide();//隐藏自取信息列表
                                $("#address").hide();//隐藏收货地址按钮
+                               //存选择的收获地址数据
+                               $("#address_info_ch").attr({
+                                   "data-address_id": address_id,
+                                   property2: 'value2'
+                               });
                            }
                         } else if (json.status == 0) {
                             $("#address_info_box").show();//显示收货地址列表

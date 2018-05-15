@@ -20,6 +20,7 @@
     <div class="page">
 	    <div class="g-flexview">
             <input type="hidden" name="shipping_type" id="shipping_type" value="1">
+            <input type="hidden" name="address_info" id="address_info_ch">
             <input type="hidden" name="selftake_id" id="selftake_id">
             <input type="hidden" name="selftake_mobile" id="selftake_mobile">
             <input type="hidden" name="selftake_realname" id="selftake_realname">
