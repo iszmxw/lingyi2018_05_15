@@ -356,7 +356,7 @@ class AndroidRetailApiController extends Controller
             // 操作人id
             'operator_id' => $order['operator_id'],
             // 店铺ID
-            'simple_id' => $order['simple_id'],
+            'retail_id' => $order['retail_id'],
             // 操作人账号
             'operator_account' => $operator_account,
             // 操作人员昵称
