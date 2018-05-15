@@ -509,6 +509,7 @@ class AndroidRetailApiController extends Controller
         return response()->json(['status' => '1', 'msg' => '设置成功', 'data' => ['vfg_value' => $cfg_value, 'cfg_name' => 'change_stock_role']]);
     }
 
+
     /**
      * 查询店铺设置
      */
@@ -529,6 +530,15 @@ class AndroidRetailApiController extends Controller
         }
         return response()->json(['status' => '1', 'msg' => '查询成功', 'data' => ['cfglist' => $cfglist]]);
     }
+
+    /**
+     * 签入二维码
+     */
+    public function code(Request $request)
+    {
+      echo 1;
+    }
+
 
     /**
      * 减库存

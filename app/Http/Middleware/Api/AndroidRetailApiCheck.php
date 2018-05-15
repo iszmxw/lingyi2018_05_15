@@ -66,6 +66,10 @@ class AndroidRetailApiCheck
                 $re = $this->checkTokenAndStockCfg($request);
                 return self::format_response($re, $next);
                 break;
+            case "api/androidRetailApi/code"://检测Token和签入二维码
+                $re = $this->checkTokenAndCode($request);
+                return self::format_response($re, $next);
+                break;
         }
         return $next($request);
     }
@@ -273,6 +277,25 @@ class AndroidRetailApiCheck
         }
     }
 
+    /**
+     * 检测token值 And 签入二维码
+     */
+    public function checkTokenAndCode($request)
+    {
+        $re = $this->checkToken($request);//判断Token值是否正确
+        if ($re['status'] == '0') {
+            return $re;
+        } else {
+            $re2 = $this->checkCode($re['response']);//检测数据提交
+            if ($re2['status'] == '0') {
+                return $re2;
+            } else {
+                return self::res(1, $re2['response']);
+            }
+        }
+    }
+
+
     /******************************单项检测*********************************/
 
     /**
@@ -297,6 +320,14 @@ class AndroidRetailApiCheck
         if (empty($request->input('organization_id'))) {
             return self::res(0, response()->json(['msg' => '店铺id不能为空', 'status' => '0', 'data' => '']));
         }
+        return self::res(1, $request);
+    }
+
+    /**
+     * 签入二维码
+     */
+    public function checkCode($request)
+    {
         return self::res(1, $request);
     }
 

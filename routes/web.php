@@ -970,6 +970,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('allow_zero_stock', 'Api\AndroidRetailApiController@allow_zero_stock')->middleware('AndroidRetailApiCheck');//开启/关闭零库存开单接口
         Route::post('change_stock_role', 'Api\AndroidRetailApiController@change_stock_role')->middleware('AndroidRetailApiCheck');//下单减库存/付款减库存接口
         Route::post('stock_cfg', 'Api\AndroidRetailApiController@stock_cfg')->middleware('AndroidRetailApiCheck');//查询店铺设置
+        Route::post('code', 'Api\AndroidRetailApiController@code')->middleware('AndroidRetailApiCheck');//签入二维码
     });
 
     //androidSimple-app简版接口
