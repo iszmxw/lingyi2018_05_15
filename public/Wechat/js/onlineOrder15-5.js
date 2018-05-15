@@ -53,7 +53,7 @@ $(function(){
                     // $("#shipping_realname").val(realname);
                     // $("#shipping_sex").val(sex);
                     // $("#selftake_info").text(realname+"-"+mobile);
-                    // $("#address_info_box").hide();//隐藏收货地址列表
+                    $("#address_info_box").show();//隐藏收货地址列表
                     // $("#selftake_info_box").show();//显示自取信息列表
                     // $("#address").hide();//隐藏收货地址按钮
                     // $("#select_distribution").text('到店自取');//配送方式
