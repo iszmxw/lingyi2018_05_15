@@ -384,7 +384,7 @@ class FansmanageController extends Controller
 //        $list = Organization::getPaginageFansmanage($where, '10', 'id');
 
         $list = Account::where($where)->join('organization', function ($join) use ($mobile) {
-            $join->on('account.organization_id', '=', 'organization.id')->where('organization.type', '2');
+            $join->on('account.organization_id', '=', 'organization.id')->where('organization.type', '3');
             if ($mobile) {
                 $join->where('mobile', $mobile);
             }
