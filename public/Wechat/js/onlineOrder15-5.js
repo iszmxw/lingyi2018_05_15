@@ -91,8 +91,8 @@ $(function(){
                 var order_num = json.data.total;
                 $("#order_num").html("&nbsp;&nbsp;("+order_num+"份商品)");
                 //总价
-                $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price.toFixed(2));
-                $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
+                $("#order_num_price").html("<em>总计</em>&nbsp;&nbsp;&yen;"+order_num_price);
+                $("#order_btn_price").html("&yen;"+order_num_price);
                 $("#order_num_price").attr('data-price', order_num_price);
             } else if (json.status == 0) {
                 window.history.go(-1);
@@ -189,10 +189,9 @@ function dispatch(address_id){
                    $("#dispatch_hook").fadeIn("show");               
                    $("#dispatch_price").html("&yen;"+price);
                    var order_price = $("#order_num_price").data("price");
-                   console.log(order_price);
-                   var order_num_price = parseFloat(price) + parseFloat(order_price);
-                   $("#order_btn_price").html("&yen;"+order_num_price.toFixed(2));
-                   $("#order_num_price").html("&yen;"+order_num_price.toFixed(2));
+                   var order_num_price = parseInt(price) + parseFloat(order_price);
+                   $("#order_btn_price").html("&yen;"+order_num_price);
+                   $("#order_num_price").html("&yen;"+order_num_price);
                }
             } else if (json.status == 0) {
                 alert(json.msg);
