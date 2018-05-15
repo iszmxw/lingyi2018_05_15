@@ -402,6 +402,7 @@ class WxPayCheckAjax
             'order_money' => 'required',
             'refund_money' => 'required',
             'refund_reason' => 'required',
+            'notify_url' => 'required',
         ];
         // 提示消息
         $message = [
@@ -411,6 +412,7 @@ class WxPayCheckAjax
             "order_money.required" => "order_money 必须填写",
             "refund_money.required" => "refund_money 必须填写",
             "refund_reason.required" => "refund_reason 必须填写",
+            "notify_url.required" => "notify_url 必须填写",
         ];
         // 返回验证结果
         return $this->validate($post_data, $rule, $message);
