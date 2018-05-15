@@ -157,11 +157,6 @@ function selectRessId(address_id){
                                $("#select_distribution").text('快递配送');//配送方式
                            }
                         } else if (json.status == 0) {
-                            // $("#address_info_box").show();//显示收货地址列表
-                            // $("#dispatch_hook").hide(); 
-                            //  var order_price = $("#order_num_price").data("price");
-                            //  $("#order_btn_price").html("&yen;"+order_price);
-                            //  $("#order_num_price").html("&yen;"+order_price);
                             alert(json.msg);
                             return;
                         }
