@@ -57,22 +57,22 @@ class AndroidApiController extends Controller
         if ($encryptPwd != $data['password']) {
             return response()->json(['msg' => '密码不正确', 'status' => '0', 'data' => '']);
         }
-        // 查询pos商户号
-        $shengpay = RetailShengpay::getOne([['retail_id', $data['organization_id']], ['sft_pos_num', $sft_pos_num]]);
-        if (empty($shengpay)) {
-            return response()->json(['msg' => 'pos商户号不存在', 'status' => '0', 'data' => '']);
-        }
-        if ($shengpay->status != '1') {
-            return response()->json(['msg' => 'pos商户号没通过审核', 'status' => '0', 'data' => '']);
-        }
-        // 查询pos机终端号
-        $terminal = RetailShengpayTerminal::getOne([['retail_id', $data['organization_id']], ['terminal_num', $terminal_num]]);
-        if (empty($terminal)) {
-            return response()->json(['msg' => 'pos机终端号不存在', 'status' => '0', 'data' => '']);
-        }
-        if ($terminal->status != '1') {
-            return response()->json(['msg' => 'pos机终端号没通过审核', 'status' => '0', 'data' => '']);
-        }
+//        // 查询pos商户号
+//        $shengpay = RetailShengpay::getOne([['retail_id', $data['organization_id']], ['sft_pos_num', $sft_pos_num]]);
+//        if (empty($shengpay)) {
+//            return response()->json(['msg' => 'pos商户号不存在', 'status' => '0', 'data' => '']);
+//        }
+//        if ($shengpay->status != '1') {
+//            return response()->json(['msg' => 'pos商户号没通过审核', 'status' => '0', 'data' => '']);
+//        }
+//        // 查询pos机终端号
+//        $terminal = RetailShengpayTerminal::getOne([['retail_id', $data['organization_id']], ['terminal_num', $terminal_num]]);
+//        if (empty($terminal)) {
+//            return response()->json(['msg' => 'pos机终端号不存在', 'status' => '0', 'data' => '']);
+//        }
+//        if ($terminal->status != '1') {
+//            return response()->json(['msg' => 'pos机终端号没通过审核', 'status' => '0', 'data' => '']);
+//        }
         // 店铺名称
         $organization_name = Organization::getPluck([['id', $data['organization_id']]], 'organization_name');
         //用户昵称
