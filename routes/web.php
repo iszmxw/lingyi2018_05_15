@@ -1019,6 +1019,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::any('selftake_info', 'Api\WechatApiController@selftake_info')->middleware('WechatApiCheck');//取消自取订单
         Route::any('select_address', 'Api\WechatApiController@select_address')->middleware('WechatApiCheck');//选择收货地址
         Route::any('address_info', 'Api\WechatApiController@address_info')->middleware('WechatApiCheck');//单条收货地址
+        Route::any('dispatch_mould', 'Api\WechatApiController@dispatch_mould')->middleware('WechatApiCheck');//查询运费价格
     });
 
 
