@@ -43,20 +43,21 @@ $(function(){
             function (json) {
                 console.log(json);
                 if (json.status == 1) {
-                    // var selftake_id = json.data.selftake_info.id;
-                    // var mobile = json.data.selftake_info.mobile;
-                    // var realname = json.data.selftake_info.realname;
-                    // var sex = json.data.selftake_info.sex;
-                    // $("#shipping_type").val("2");//修改到点自提id(存)
-                    // $("#selftake_id").val(selftake_id);
-                    // $("#shipping_mobile").val(mobile);
-                    // $("#shipping_realname").val(realname);
-                    // $("#shipping_sex").val(sex);
-                    // $("#selftake_info").text(realname+"-"+mobile);
-                    $("#address_info_box").show();//隐藏收货地址列表
-                    // $("#selftake_info_box").show();//显示自取信息列表
-                    // $("#address").hide();//隐藏收货地址按钮
-                    // $("#select_distribution").text('到店自取');//配送方式
+                    var province_name =(json.data.address_list.province_name) ? json.data.address_list.province_name : "";
+                    var city_name = (json.data.address_list.city_name) ? json.data.address_list.city_name : "";
+                    var area_name = (json.data.address_list.area_name) ? json.data.address_list.area_name : "";
+                    var address = (json.data.address_list.address) ? json.data.address_list.address : "";
+                    var realname =json.data.address_list.realname;
+                    var mobile =json.data.address_list.mobile;
+                    var ress_info = province_name +"-"+city_name+"-"+district_name+"-"+address+"-"+
+                                    realname+"-"+mobile;
+                    var address_id =json.data.address_list.id;
+                    $("#address_info").text(ress_info);
+                    dispatch(address_id);//运费计算
+                    $("#address_info_box").show();//显示收货地址列表
+                    $("#selftake_info_box").hide();//隐藏自取信息列表
+                    $("#address").hide();//隐藏收货地址按钮
+                    $("#select_distribution").text('快递配送');//配送方式
                 } else if (json.status == 0) {
                     $.toast("数据找不到了");
                 }
